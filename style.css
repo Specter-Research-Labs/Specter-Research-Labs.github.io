@@ -1,0 +1,153 @@
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Thin.woff2") format("woff2");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    background: #fff;
+}
+
+body {
+    font-family:
+        "Berkeley Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+        Consolas, monospace;
+    background: #fff;
+    color: #000;
+    line-height: 1.5;
+    padding: 40px;
+    max-width: 640px;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+a {
+    color: inherit;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.intro {
+    font-weight: 100;
+}
+
+.acronym {
+    display: block;
+    margin-top: 0.5em;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5em;
+}
+
+.logo {
+    height: 20px;
+    width: auto;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 11.5px;
+    font-weight: 100;
+    margin-bottom: 2.5em;
+    margin-left: 0.5em;
+}
+
+.divider {
+    margin: 1.5em 0;
+}
+
+.project {
+    margin-bottom: 1em;
+}
+
+.project p {
+    font-weight: 100;
+}
+
+.project-title {
+    font-weight: 500;
+}
+
+.project-status {
+    display: block;
+    width: fit-content;
+    margin: 0.35em 0 0.6em;
+    padding: 2px 6px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.project-status.active-research {
+    border: 1px solid #ff6600;
+    color: #ff6600;
+}
+
+.project-status.active-writing {
+    border: 1px solid #00a645;
+    color: #00a645;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 24px;
+    }
+}
