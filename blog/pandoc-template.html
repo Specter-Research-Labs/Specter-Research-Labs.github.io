@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="$lang$">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>$pagetitle$</title>
+        <link rel="icon" href="../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../style.css" />
+        <link rel="stylesheet" href="../blog.css" />
+    </head>
+    <body class="blog-page">
+        <div class="blog-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../">
+                            <img
+                                src="../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Research Blog</span>
+                            $if(status)$
+                            <span class="doc-marking draft">$status$</span>
+                            $endif$
+                        </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <div class="doc-stamp">
+                            <div class="doc-stamp-title">Field Note</div>
+                            $if(slug)$
+                            <div class="doc-stamp-sub">$slug$</div>
+                            $endif$
+                        </div>
+
+                        $if(toc)$
+                        <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            $table-of-contents$
+                        </nav>
+                        $endif$
+                    </aside>
+
+                    <article class="doc-content">$body$</article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        $if(slug)$
+                        <div>$slug$</div>
+                        $endif$
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script>
+            (() => {
+                const content = document.querySelector(".doc-content");
+                if (!content) {
+                    return;
+                }
+
+                const images = Array.from(content.querySelectorAll("img"));
+                if (!images.length) {
+                    return;
+                }
+
+                const lightbox = document.createElement("div");
+                lightbox.className = "image-lightbox";
+                lightbox.innerHTML = `
+                    <div class="image-lightbox__scrim" aria-hidden="true"></div>
+                    <figure class="image-lightbox__frame" role="dialog" aria-modal="true" aria-label="Expanded image">
+                        <img class="image-lightbox__img" alt="" />
+                        <figcaption class="image-lightbox__caption"></figcaption>
+                    </figure>
+                `;
+
+                document.body.appendChild(lightbox);
+
+                const lightboxImg = lightbox.querySelector(".image-lightbox__img");
+                const lightboxCaption = lightbox.querySelector(".image-lightbox__caption");
+                const lightboxFrame = lightbox.querySelector(".image-lightbox__frame");
+                lightboxFrame.setAttribute("tabindex", "-1");
+
+                let lastFocus = null;
+
+                const setCaption = (text) => {
+                    const trimmed = text ? text.trim() : "";
+                    if (trimmed) {
+                        lightboxCaption.textContent = trimmed;
+                        lightboxCaption.style.display = "";
+                    } else {
+                        lightboxCaption.textContent = "";
+                        lightboxCaption.style.display = "none";
+                    }
+                };
+
+                const openLightbox = (img) => {
+                    lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+                    lightboxImg.src = img.currentSrc || img.src;
+                    lightboxImg.alt = img.alt || "";
+
+                    const figure = img.closest("figure");
+                    const figcaption = figure ? figure.querySelector("figcaption") : null;
+                    setCaption(figcaption ? figcaption.textContent : img.alt);
+
+                    lightbox.classList.add("is-open");
+                    document.body.classList.add("lightbox-open");
+                    lightboxFrame.focus();
+                };
+
+                const closeLightbox = () => {
+                    lightbox.classList.remove("is-open");
+                    document.body.classList.remove("lightbox-open");
+                    lightboxImg.src = "";
+                    lightboxImg.alt = "";
+                    setCaption("");
+                    if (lastFocus) {
+                        lastFocus.focus();
+                    }
+                };
+
+                lightbox.addEventListener("click", (event) => {
+                    if (
+                        event.target === lightbox ||
+                        event.target.classList.contains("image-lightbox__scrim")
+                    ) {
+                        closeLightbox();
+                    }
+                });
+
+                lightboxImg.addEventListener("click", closeLightbox);
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+                        closeLightbox();
+                    }
+                });
+
+                images.forEach((img) => {
+                    if (img.dataset.lightbox === "off") {
+                        return;
+                    }
+                    img.setAttribute("role", "button");
+                    img.setAttribute("tabindex", "0");
+                    img.addEventListener("click", () => openLightbox(img));
+                    img.addEventListener("keydown", (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            openLightbox(img);
+                        }
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>DeepSeek Provider Settings | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">providers</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-013</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">providers/deepseek-provider-settings</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                providers
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/providers/deepseek-provider-settings.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#deepseek-provider-settings" id="toc-deepseek-provider-settings">DeepSeek Provider Settings</a>
+                            <ul>
+                            <li><a href="#model" id="toc-model">Model</a></li>
+                            <li><a href="#current-implementation" id="toc-current-implementation">Current Implementation</a></li>
+                            <li><a href="#why-this-matters" id="toc-why-this-matters">Why This Matters</a></li>
+                            <li><a href="#relation-to-minictx-defaults" id="toc-relation-to-minictx-defaults">Relation to miniCTX Defaults</a></li>
+                            <li><a href="#sources" id="toc-sources">Sources</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="deepseek-provider-settings">DeepSeek Provider Settings</h1>
+<h2 id="model">Model</h2>
+<p><code>l3lab/ntp-mathlib-context-deepseek-coder-1.3b</code> (1.3B), loaded from a local MLX-converted checkpoint.</p>
+<h2 id="current-implementation">Current Implementation</h2>
+<p><code>DeepSeekTacticProvider</code> currently uses stochastic sampling, not beam search.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 47%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Current (code)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>generation mode</td>
+<td>sampling</td>
+<td><code>mlx_lm.sample_utils.make_sampler(...)</code></td>
+</tr>
+<tr class="even">
+<td>temperature</td>
+<td><code>0.6</code></td>
+<td>set in provider sampler</td>
+</tr>
+<tr class="odd">
+<td>top_p</td>
+<td><code>0.9</code></td>
+<td>set in provider sampler</td>
+</tr>
+<tr class="even">
+<td>max_new_tokens</td>
+<td><code>64</code></td>
+<td>per generation call</td>
+</tr>
+<tr class="odd">
+<td>per-request sample count</td>
+<td><code>min(n, self._num_samples)</code></td>
+<td>default <code>self._num_samples = 10</code></td>
+</tr>
+</tbody>
+</table>
+<p>Relevant implementation: <code>prover/providers/deepseek.py</code>.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<ul>
+<li>This provider is optimized for candidate diversity in tactic suggestions.</li>
+<li>Sampling behavior affects reproducibility and exploration variance.</li>
+<li>Any analysis comparing providers should treat DeepSeek outputs as stochastic unless seeds and execution context are controlled externally.</li>
+</ul>
+<h2 id="relation-to-minictx-defaults">Relation to miniCTX Defaults</h2>
+<p>miniCTX commonly uses deterministic decoding/beam settings; we currently use sampling here.</p>
+<p>When changing decoding behavior, update both:</p>
+<ul>
+<li>provider code (<code>prover/providers/deepseek.py</code>)</li>
+<li>this document and <code>docs/providers/tactic-provider-options.md</code></li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://huggingface.co/l3lab/ntp-mathlib-context-deepseek-coder-1.3b">HuggingFace Model Card</a></li>
+<li><a href="https://arxiv.org/abs/2408.03350">miniCTX Paper (arXiv:2408.03350)</a></li>
+<li><a href="https://github.com/cmu-l3/minictx-eval">CMU L3 minictx-eval</a></li>
+<li><a href="https://cmu-l3.github.io/minictx/">miniCTX Project Page</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

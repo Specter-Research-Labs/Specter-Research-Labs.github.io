@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log File Schemas | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-008</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/log-file-schemas</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/log-file-schemas.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-file-schemas" id="toc-log-file-schemas">Log File Schemas</a>
+                            <ul>
+                            <li><a href="#agent-mode-cli-output" id="toc-agent-mode-cli-output">Agent-Mode CLI Output</a></li>
+                            <li><a href="#run-level-files" id="toc-run-level-files">Run-Level Files</a>
+                            <ul>
+                            <li><a href="#run_status.json" id="toc-run_status.json">run_status.json</a></li>
+                            <li><a href="#run_config.json" id="toc-run_config.json">run_config.json</a></li>
+                            <li><a href="#summary.json.gz" id="toc-summary.json.gz">summary.json.gz</a></li>
+                            <li><a href="#goal_cache.json.gz" id="toc-goal_cache.json.gz">goal_cache.json.gz</a></li>
+                            <li><a href="#root_goal_similarity.json" id="toc-root_goal_similarity.json">root_goal_similarity.json</a></li>
+                            <li><a href="#postprocess_metrics.json" id="toc-postprocess_metrics.json">postprocess_metrics.json</a></li>
+                            <li><a href="#external_statement_similarity.json" id="toc-external_statement_similarity.json">external_statement_similarity.json</a></li>
+                            <li><a href="#sheaf_analysis.json" id="toc-sheaf_analysis.json">sheaf_analysis.json</a></li>
+                            <li><a href="#failure_analysis.json" id="toc-failure_analysis.json">failure_analysis.json</a></li>
+                            </ul></li>
+                            <li><a href="#per-theorem-files" id="toc-per-theorem-files">Per-Theorem Files</a>
+                            <ul>
+                            <li><a href="#graph.json" id="toc-graph.json">*_graph.json</a></li>
+                            <li><a href="#search_trace_graph.json" id="toc-search_trace_graph.json">*_search_trace_graph.json</a></li>
+                            <li><a href="#history.json" id="toc-history.json">*_history.json</a></li>
+                            <li><a href="#assembly.json.gz" id="toc-assembly.json.gz">*_assembly.json.gz</a></li>
+                            <li><a href="#proof_term.json.gz" id="toc-proof_term.json.gz">*_proof_term.json.gz</a></li>
+                            <li><a href="#metrics.json" id="toc-metrics.json">*_metrics.json</a></li>
+                            <li><a href="#comparison.json" id="toc-comparison.json">*_comparison.json</a></li>
+                            <li><a href="#minimal-comparison-schema-backend-agnostic" id="toc-minimal-comparison-schema-backend-agnostic">Minimal Comparison Schema (Backend-Agnostic)</a></li>
+                            <li><a href="#ged_matrix.json" id="toc-ged_matrix.json">ged_matrix.json</a></li>
+                            </ul></li>
+                            <li><a href="#backend-artifact-mapping-planning" id="toc-backend-artifact-mapping-planning">Backend Artifact Mapping (Planning)</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="log-file-schemas">Log File Schemas</h1>
+<p>For operational <code>jq</code>/inspection workflows, see <code>docs/ops/log-query-cookbook.md</code>.</p>
+<p>Each corpus run creates a timestamped directory under <code>logs/</code> with the following structure:</p>
+<pre><code>logs/corpus-YYYY-MM-DD-HHMMSS/
+├── summary.json.gz           # Run-level aggregates
+├── goal_cache.json.gz        # Goal signature mappings
+├── corpus.log                # Runtime log
+├── run_config.json           # Run config snapshot
+├── run_status.json           # Run status (completed/failed/partial)
+├── sheaf_analysis.json       # Sheaf metrics (generated by experiments/cellular_sheaf)
+├── failure_analysis.json     # Failure patterns (if --analysis)
+├── analysis_report.json      # Intervention classification (if --analysis)
+├── all_ged_matrices.json     # Cross-theorem GED data
+├── root_goal_similarity.json # Cross-theorem root-goal similarity (postprocess)
+├── postprocess_metrics.json  # Postprocess report + params/provenance (postprocess)
+├── external_statement_similarity.json # External backends: problem statement similarity (postprocess)
+├── report.md                 # Human-readable summary
+└── &lt;theorem_name&gt;/           # Per-theorem directory
+    ├── wild_type_*.json(.gz)
+    ├── &lt;intervention&gt;_*.json(.gz)
+    ├── wild_type_metrics.json
+    ├── &lt;intervention&gt;_metrics.json
+    ├── &lt;intervention&gt;_comparison.json
+    ├── wild_type_mcts_tree.json
+    ├── &lt;intervention&gt;_mcts_tree.json
+    ├── wild_type_mcts_trace.jsonl (if --trace-mcts)
+    ├── &lt;intervention&gt;_mcts_trace.jsonl (if --trace-mcts)
+    ├── ged_matrix.json
+    ├── attractor_clusters.json (if &gt;=2 variants)
+    ├── basin_analysis.json (basin mode only)
+    └── *_search_trace_graph.json (optional)</code></pre>
+<p><strong>Note on postprocess-only metrics:</strong> Some metrics are computed in <code>postprocess</code> and written back into <code>summary.json.gz</code> and <code>*_comparison.json</code> without rerunning the solver. <code>k_search_efficiency</code> is one of these and requires <code>*_mcts_trace.jsonl</code> for its primary null model.</p>
+<p>Multi-provider runs use a top-level directory with per-provider subdirs:</p>
+<pre><code>logs/corpus-YYYY-MM-DD-HHMMSS/
+├── providers_summary.json          # Provider-level aggregates
+├── providers_theorem_summary.json  # Per-theorem cross-provider view
+├── providers_report.md             # Human-readable multi-provider summary
+└── provider=&lt;name&gt;/                # Full single-provider run layout</code></pre>
+<p><strong>Backend note:</strong> External backends (Coq/ATP/SMT) use the same run-level <code>run_config.json</code> / <code>run_status.json</code> / <code>summary.json.gz</code> schemas, but may omit Lean-only artifacts (e.g., <code>goal_cache.json.gz</code>, <code>*_history.json</code>, <code>*_assembly.json.gz</code>). Use <code>run_status.json</code> capability flags and file presence checks to gate backend-specific analysis (e.g., sheaf metrics).</p>
+<hr />
+<h2 id="agent-mode-cli-output">Agent-Mode CLI Output</h2>
+<p><code>wonton.py</code> supports <code>--agent</code>, which emits one JSON object per line for structured consumption by orchestration systems. Lean runs also force <code>--plain</code> to suppress interactive UI output.</p>
+<p>Lean <code>--agent</code> events:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;event&quot;</span><span class="fu">:</span> <span class="st">&quot;start&quot;</span><span class="fu">,</span> <span class="dt">&quot;backend&quot;</span><span class="fu">:</span> <span class="st">&quot;lean&quot;</span><span class="fu">,</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">,</span> <span class="dt">&quot;providers&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span> <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-YYYY-MM-DD-HHMMSS&quot;</span><span class="fu">,</span> <span class="dt">&quot;log_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;event&quot;</span><span class="fu">:</span> <span class="st">&quot;end&quot;</span><span class="fu">,</span> <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;completed&quot;</span><span class="fu">,</span> <span class="dt">&quot;backend&quot;</span><span class="fu">:</span> <span class="st">&quot;lean&quot;</span><span class="fu">,</span> <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-YYYY-MM-DD-HHMMSS&quot;</span><span class="fu">,</span> <span class="dt">&quot;log_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;summary_path&quot;</span><span class="fu">:</span> <span class="st">&quot;.../summary.json.gz&quot;</span><span class="fu">,</span> <span class="dt">&quot;postprocess_command&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;errors&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">}</span></span></code></pre></div>
+<p>External backends (<code>e</code>, <code>vampire</code>, <code>z3</code>, <code>coq</code>) emit the same <code>start</code>/<code>end</code> shape without <code>run_id</code> and provider fields.</p>
+<hr />
+<h2 id="run-level-files">Run-Level Files</h2>
+<h3 id="run_status.json">run_status.json</h3>
+<p><strong>Purpose:</strong> Marks whether a run completed successfully and records minimal metadata to filter partial runs in analysis/viz.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;completed&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;started_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-01-26T12:30:36&quot;</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;completed_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-01-26T13:18:02&quot;</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_id_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;checkpoint&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;partial_results&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;capabilities&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term_pretty&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_assembly_trace&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term_metrics&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><code>status</code> is <code>running</code>, <code>completed</code>, or <code>failed</code>.</li>
+<li><code>partial_results</code> is true if the run crashed but wrote partial outputs.</li>
+<li><code>capabilities</code> declares which optional artifacts are expected to exist for the run.</li>
+<li>External runs set <code>goal_id_scheme</code> to <code>external</code> (Lean uses <code>checkpoint</code>).</li>
+<li>Failed runs may include <code>error</code> and <code>traceback</code> fields.</li>
+</ul>
+<h3 id="run_config.json">run_config.json</h3>
+<p><strong>Purpose:</strong> Snapshot of run inputs (backend/provider choice, corpus selection, budgets, flags) for reproducibility.</p>
+<p><strong>Structure (minimal):</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;format_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-2026-02-04-143736&quot;</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;log_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;/.../dossiers/wonton-soup/logs/corpus-2026-02-04-143736&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-02-04T14:37:36&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;heuristic&quot;</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mode&quot;</span><span class="fu">:</span> <span class="st">&quot;dev&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;corpus&quot;</span><span class="fu">:</span> <span class="st">&quot;easy&quot;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><code>format_version</code> tracks log schema versions (current: <code>2</code>).</li>
+<li>Single-provider runs include <code>provider</code>, <code>provider_label</code>, and <code>provider_desc</code>.</li>
+<li>Multi-provider runs include <code>providers</code>, <code>providers_meta</code>, and <code>multi_provider=true</code>; each <code>provider=&lt;name&gt;/</code> subdir has its own single-provider <code>run_config.json</code>.</li>
+</ul>
+<h3 id="summary.json.gz">summary.json.gz</h3>
+<p><strong>Purpose:</strong> Complete results for all theorems in a single file.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-2026-01-07-120200&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;crashed&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_sig_stats&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;ast_missing&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">},</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorems&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;or_left&quot;</span><span class="fu">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;wild_type&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;iterations&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;proof_term_hash&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123...&quot;</span><span class="fu">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;k_search_efficiency&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;metrics&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;interventions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;block_left&quot;</span><span class="fu">,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;is_control&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;baseline_solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;blocked&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;left&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;solved&quot;</span><span class="fu">,</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ged_search_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">2.0</span><span class="fu">,</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;normalized&quot;</span><span class="fu">:</span> <span class="fl">0.12</span><span class="fu">,</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>          <span class="fu">},</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ged_proof_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ged_trace_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;k_search_efficiency&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;metrics&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;aggregates&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;theorem_count&quot;</span><span class="fu">:</span> <span class="dv">40</span><span class="fu">,</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;wild_type_solve_rate&quot;</span><span class="fu">:</span> <span class="fl">0.7</span><span class="fu">,</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;intervention_count&quot;</span><span class="fu">:</span> <span class="dv">214</span><span class="fu">,</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;intervention_solve_rate&quot;</span><span class="fu">:</span> <span class="fl">0.345</span><span class="fu">,</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;crashed_count&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ged_validity&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ged_search_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="dv">210</span><span class="fu">,</span> <span class="dt">&quot;invalid&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">},</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ged_proof_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;invalid&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">},</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ged_trace_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;invalid&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">}</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;goal_type_tactic_matrix&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Reading:</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> logs/.../summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.theorems | length&#39;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> logs/.../summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.aggregates&#39;</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><code>ged_*</code> fields are optional and may be <code>null</code> when the backend cannot produce that family.</li>
+<li><code>trace_source</code>/<code>trace_completeness</code> are required when <code>ged_trace_graph</code> is present.</li>
+</ul>
+<hr />
+<h3 id="goal_cache.json.gz">goal_cache.json.gz</h3>
+<p><strong>Purpose:</strong> Maps goal states to signatures and tracks tactic outcomes per signature.</p>
+<p><strong>Note:</strong> <code>mvar_id</code> values in logs are checkpoint-scoped goal IDs of the form <code>cp&lt;id&gt;:&lt;lean_mvar_id&gt;</code> (raw Lean mvar_ids can repeat across REPL rollbacks).</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;sig_stats&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ast_missing&quot;</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mvar_to_sig&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;cp1:_uniq.560&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_abc123&quot;</span><span class="fu">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;cp1:_uniq.561&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_def456&quot;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;entries&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;sig_abc123&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;sig&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_abc123&quot;</span><span class="fu">,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;type_expr&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;hyp_exprs&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="er">...</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;occurrences&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;cp1:_uniq.560&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;mvar_id&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;0&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="kw">true</span><span class="ot">,</span> <span class="kw">false</span><span class="ot">,</span> <span class="kw">true</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;3&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="kw">false</span><span class="ot">,</span> <span class="kw">false</span><span class="ot">]</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Key fields:</strong></p>
+<ul>
+<li><code>mvar_to_sig</code>: Maps metavariable IDs to signature hashes</li>
+<li><code>entries[sig].occurrences[mvar_id].outcomes</code>: Tactic success/failure by family index</li>
+<li>Family indices: 0=simplify, 1=rewrite, 2=intro, 3=split, 4=cases, 5=closer, 6=contradiction, 7=arith, 8=automation, 9=other</li>
+</ul>
+<p><strong>Use case:</strong> Analyze which goal signatures respond consistently to which tactic families.</p>
+<hr />
+<h3 id="root_goal_similarity.json">root_goal_similarity.json</h3>
+<p><strong>Purpose:</strong> Cross-theorem similarity over each theorem’s root goal(s), using normalized goal-AST ordered tree edit distance (TED).</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_metric&quot;</span><span class="fu">:</span> <span class="st">&quot;normalized_goal_ast_ted&quot;</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_threshold&quot;</span><span class="fu">:</span> <span class="fl">0.2</span><span class="fu">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorems&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;thm_a&quot;</span><span class="ot">,</span> <span class="st">&quot;thm_b&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_matrix&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;thm_a&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;thm_a&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;thm_b&quot;</span><span class="fu">:</span> <span class="fl">0.31</span><span class="fu">},</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;thm_b&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;thm_a&quot;</span><span class="fu">:</span> <span class="fl">0.31</span><span class="fu">,</span> <span class="dt">&quot;thm_b&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">}</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;clusters&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;...&quot;</span><span class="fu">:</span> <span class="st">&quot;see analysis/attractors.py AttractorAnalysis.serialize()&quot;</span> <span class="fu">}</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Requires <code>goal_sig_scheme=ast</code> (it uses <code>goal_cache.json.gz</code> AST payloads).</li>
+<li>Produced by <code>wonton.py postprocess</code>.</li>
+<li>May be skipped (<code>valid=false</code>) when the run contains too many theorems for a full NxN matrix (see <code>postprocess_metrics.json</code> params).</li>
+</ul>
+<hr />
+<h3 id="postprocess_metrics.json">postprocess_metrics.json</h3>
+<p><strong>Purpose:</strong> Provenance + parameter snapshot for post-run heavy metrics.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;computed_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-02-07T02:31:56+00:00&quot;</span><span class="fu">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_soft_ged_nodes&quot;</span><span class="fu">:</span> <span class="dv">60</span><span class="fu">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_soft_ged_edges&quot;</span><span class="fu">:</span> <span class="dv">120</span><span class="fu">,</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_novelty_pairs&quot;</span><span class="fu">:</span> <span class="dv">200000</span><span class="fu">,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_path_dp_cells&quot;</span><span class="fu">:</span> <span class="dv">2000000</span><span class="fu">,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_root_goal_theorems&quot;</span><span class="fu">:</span> <span class="dv">400</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;inputs&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;summary_sha256&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span><span class="fu">,</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;goal_cache_sha256&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;runs&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;run_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span> <span class="dt">&quot;goal_sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span> <span class="dt">&quot;updated_interventions&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">}</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Written by <code>wonton.py postprocess</code>.</li>
+<li>The postprocess step updates <code>*_comparison.json</code> and <code>summary.json.gz</code> in-place.</li>
+</ul>
+<hr />
+<h3 id="external_statement_similarity.json">external_statement_similarity.json</h3>
+<p><strong>Purpose:</strong> Cross-problem similarity over external backend inputs (TPTP/SMT-LIB), using normalized ordered tree edit distance (TED) over parsed statements.</p>
+<p><strong>Structure (dense or sparse):</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;corpus&quot;</span><span class="fu">:</span> <span class="st">&quot;tptp&quot;</span><span class="fu">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;root&quot;</span><span class="fu">:</span> <span class="st">&quot;/path/to/tptp&quot;</span><span class="fu">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_metric&quot;</span><span class="fu">:</span> <span class="st">&quot;normalized_ordered_ted&quot;</span><span class="fu">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_threshold&quot;</span><span class="fu">:</span> <span class="fl">0.25</span><span class="fu">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;matrix_mode&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span><span class="fu">,</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;matrix_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;dense&quot;</span><span class="fu">,</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;problem_count_total&quot;</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;problems&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;PUZ001&quot;</span><span class="ot">,</span> <span class="st">&quot;PUZ002&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;distance_matrix&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;PUZ001&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;PUZ001&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;PUZ002&quot;</span><span class="fu">:</span> <span class="fl">0.31</span><span class="fu">},</span> <span class="dt">&quot;PUZ002&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;PUZ001&quot;</span><span class="fu">:</span> <span class="fl">0.31</span><span class="fu">,</span> <span class="dt">&quot;PUZ002&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">}},</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;clusters&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;...&quot;</span><span class="fu">:</span> <span class="st">&quot;see analysis/attractors.py AttractorAnalysis.serialize()&quot;</span> <span class="fu">}</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Written by <code>wonton.py postprocess</code> for runs with <code>run_config.json: {\"mode\": \"external\"}</code>.</li>
+<li>Uses <code>matrix_mode=auto|full|knn|sample</code> with deterministic sampling/limits to avoid O(N^2) on large corpora.</li>
+</ul>
+<hr />
+<h3 id="sheaf_analysis.json">sheaf_analysis.json</h3>
+<p><strong>Purpose:</strong> Sheaf-theoretic consistency metrics. <strong>Generated by:</strong> <code>python -m experiments.cellular_sheaf.run &lt;corpus_dir&gt;</code></p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unique_sigs&quot;</span><span class="fu">:</span> <span class="dv">188</span><span class="fu">,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;total_mvar_ids&quot;</span><span class="fu">:</span> <span class="dv">1341</span><span class="fu">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;collapse_ratio&quot;</span><span class="fu">:</span> <span class="fl">7.13</span><span class="fu">,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;equiv_consistency&quot;</span><span class="fu">:</span> <span class="fl">0.992</span><span class="fu">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tactic_residual&quot;</span><span class="fu">:</span> <span class="fl">6.92</span><span class="fu">,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;per_family_residual&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;0&quot;</span><span class="fu">:</span> <span class="fl">0.002</span><span class="fu">,</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;1&quot;</span><span class="fu">:</span> <span class="fl">1.24</span><span class="fu">,</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;4&quot;</span><span class="fu">:</span> <span class="fl">27.7</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;intervention_deltas&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;block_rw&quot;</span><span class="fu">:</span> <span class="fl">20.8</span><span class="fu">,</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;block_simp&quot;</span><span class="fu">:</span> <span class="fl">-3.0</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>equiv_consistency</code>: 0-1, how consistently same-signature goals respond to same tactics (1.0 = perfect)</li>
+<li><code>tactic_residual</code>: Average squared error when predicting child features from parent features via linear transform</li>
+<li><code>intervention_deltas</code>: How much blocking a tactic changes the residual (positive = more unpredictable)</li>
+</ul>
+<hr />
+<h3 id="failure_analysis.json">failure_analysis.json</h3>
+<p><strong>Purpose:</strong> Categorize why proofs failed.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;total_failures&quot;</span><span class="fu">:</span> <span class="dv">12</span><span class="fu">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;by_pattern&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;TACTIC_DESERT&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;PARTIAL_PROGRESS&quot;</span><span class="fu">:</span> <span class="dv">6</span><span class="fu">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;MODEL_HALLUCINATION&quot;</span><span class="fu">:</span> <span class="dv">2</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;failures&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;theorem_name&quot;</span><span class="fu">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goal_type&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;failure_pattern&quot;</span><span class="fu">:</span> <span class="st">&quot;TACTIC_DESERT&quot;</span><span class="fu">,</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;total_iterations&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;failure_ratio&quot;</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">,</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;unique_tactics_tried&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;sample_tactics&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;intro&quot;</span><span class="ot">,</span> <span class="st">&quot;apply h&quot;</span><span class="ot">,</span> <span class="st">&quot;exact&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;technique_hint&quot;</span><span class="fu">:</span> <span class="st">&quot;intro_elim&quot;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Failure patterns:</strong></p>
+<ul>
+<li><code>TACTIC_DESERT</code>: All tactics fail, no progress possible</li>
+<li><code>PARTIAL_PROGRESS</code>: Some tactics work but proof doesn’t complete</li>
+<li><code>MODEL_HALLUCINATION</code>: Model generates invalid/malformed tactics</li>
+</ul>
+<hr />
+<h2 id="per-theorem-files">Per-Theorem Files</h2>
+<p>Each theorem gets its own subdirectory with wild-type and intervention results.</p>
+<h3 id="graph.json">*_graph.json</h3>
+<p><strong>Purpose:</strong> Graph artifact. In Lean runs this is a search graph (MCTS ProofGraph). External Coq/ATP/SMT runs emit proof graphs. The <code>graph_kind</code> field disambiguates (<code>search_graph</code> vs <code>proof_graph</code>).</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;search_graph&quot;</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span> <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span> <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;edges&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span> <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.561&quot;</span><span class="fu">,</span> <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">}</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;root&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Use case:</strong> Visualize proof search tree, compute graph metrics.</p>
+<hr />
+<h3 id="search_trace_graph.json">*_search_trace_graph.json</h3>
+<p><strong>Purpose:</strong> Trace-derived graph when a true search graph is unavailable. Used for <code>ged_trace_graph</code>.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;trace_graph&quot;</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;tstp&quot;</span><span class="fu">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;proxy&quot;</span><span class="fu">,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;c1&quot;</span><span class="fu">,</span> <span class="dt">&quot;goal_sig&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_abc123&quot;</span><span class="fu">,</span> <span class="dt">&quot;node_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;clause&quot;</span><span class="fu">,</span> <span class="dt">&quot;in_proof&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;edges&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;src&quot;</span><span class="fu">:</span> <span class="st">&quot;c1&quot;</span><span class="fu">,</span> <span class="dt">&quot;dst&quot;</span><span class="fu">:</span> <span class="st">&quot;c2&quot;</span><span class="fu">,</span> <span class="dt">&quot;action_family&quot;</span><span class="fu">:</span> <span class="st">&quot;Resolution&quot;</span><span class="fu">,</span> <span class="dt">&quot;action_norm&quot;</span><span class="fu">:</span> <span class="st">&quot;res&quot;</span><span class="fu">,</span> <span class="dt">&quot;in_proof&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Use case:</strong> Compare trace-derived structure across variants without claiming true search equivalence.</p>
+<hr />
+<h3 id="history.json">*_history.json</h3>
+<p><strong>Purpose:</strong> Detailed trace of every iteration.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorem&quot;</span><span class="fu">:</span> <span class="st">&quot;theorem foo : P -&gt; Q := by</span><span class="ch">\n</span><span class="st">  sorry&quot;</span><span class="fu">,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;blocked_tactics&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;iteration_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;detour_metrics&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solution_path&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;goal&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span> <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span> <span class="dt">&quot;mvar_id&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">}</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;iterations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;iteration&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;selected_path&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.560&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;attempts&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;outcome&quot;</span><span class="fu">:</span> <span class="st">&quot;success&quot;</span><span class="fu">,</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;child_mvar_ids&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.561&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;timestamp_ms&quot;</span><span class="fu">:</span> <span class="dv">45</span><span class="fu">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;tactic_norm&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;goal_sig&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123...&quot;</span><span class="fu">,</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;goal_sig_strict&quot;</span><span class="fu">:</span> <span class="st">&quot;def456...&quot;</span><span class="fu">,</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;goal_type&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;provider_id&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;backprop_success&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;terminal_reached&quot;</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Use case:</strong> Replay proof search, analyze tactic selection patterns.</p>
+<hr />
+<h3 id="assembly.json.gz">*_assembly.json.gz</h3>
+<p><strong>Purpose:</strong> Step-by-step proof term construction.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorem&quot;</span><span class="fu">:</span> <span class="st">&quot;theorem foo : P -&gt; Q := by</span><span class="ch">\n</span><span class="st">  sorry&quot;</span><span class="fu">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rootMvarId&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;steps&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;mvarId&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;partialTermBefore&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;partialTermAfter&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;proofTerm&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span> <span class="fu">},</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsClosed&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsOpened&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.561&quot;</span><span class="ot">]</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;finalTerm&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;rootId&quot;</span><span class="fu">:</span> <span class="st">&quot;n0&quot;</span><span class="fu">,</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>      <span class="ot">[</span><span class="st">&quot;n0&quot;</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;lam&quot;</span><span class="fu">,</span> <span class="dt">&quot;binderName&quot;</span><span class="fu">:</span> <span class="st">&quot;h&quot;</span><span class="fu">,</span> <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="st">&quot;n1&quot;</span><span class="fu">,</span> <span class="er">...</span><span class="fu">}</span><span class="ot">],</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>      <span class="ot">[</span><span class="st">&quot;n1&quot;</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;app&quot;</span><span class="fu">,</span> <span class="dt">&quot;fn&quot;</span><span class="fu">:</span> <span class="st">&quot;n2&quot;</span><span class="fu">,</span> <span class="dt">&quot;arg&quot;</span><span class="fu">:</span> <span class="st">&quot;n3&quot;</span><span class="fu">,</span> <span class="er">...</span><span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Key fields:</strong></p>
+<ul>
+<li><code>steps</code>: Each tactic application with before/after proof term state</li>
+<li><code>finalTerm</code>: Complete proof as expression DAG</li>
+<li><code>nodes</code>: List of <code>[id, data]</code> pairs representing Lean Expr nodes</li>
+</ul>
+<p><strong>Node kinds:</strong> <code>lam</code> (lambda), <code>app</code> (application), <code>const</code> (constant), <code>bvar</code> (bound variable), <code>fvar</code> (free variable), <code>mvar</code> (metavariable/hole), <code>sort</code> (type/Prop), <code>lit</code> (literal), <code>proj</code> (projection)</p>
+<p><strong>Use case:</strong> Animate proof construction, compare proof structures, debug tactic effects.</p>
+<hr />
+<h3 id="proof_term.json.gz">*_proof_term.json.gz</h3>
+<p><strong>Purpose:</strong> Just the final proof term (subset of assembly).</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rootId&quot;</span><span class="fu">:</span> <span class="st">&quot;n0&quot;</span><span class="fu">,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;n0&quot;</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;lam&quot;</span><span class="fu">,</span> <span class="er">...</span><span class="fu">}</span><span class="ot">],</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Use case:</strong> Compare proof term structure without replay data.</p>
+<hr />
+<h3 id="metrics.json">*_metrics.json</h3>
+<p><strong>Purpose:</strong> Computed statistics for a theorem <em>variant</em> (wild-type or intervention).</p>
+<p>This file lives under the per-theorem directory (e.g. <code>theorem_name/wild_type_metrics.json</code> and <code>theorem_name/block_simp_metrics.json</code>).</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;root_goal_sigs&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;sig_abc123&quot;</span><span class="ot">,</span> <span class="st">&quot;sig_def456&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trajectory&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;total_iterations&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;backtrack_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;max_depth_reached&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;unique_goals_visited&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;tactic_diversity&quot;</span><span class="fu">:</span> <span class="dv">3</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;detour&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;total_attempts&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;success_count&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;failure_count&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;failure_ratio&quot;</span><span class="fu">:</span> <span class="fl">0.375</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;proof_term&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;node_count&quot;</span><span class="fu">:</span> <span class="dv">45</span><span class="fu">,</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;depth&quot;</span><span class="fu">:</span> <span class="dv">12</span><span class="fu">,</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;width&quot;</span><span class="fu">:</span> <span class="dv">3</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solution_path&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;intro h&quot;</span><span class="ot">,</span> <span class="st">&quot;apply h&quot;</span><span class="ot">,</span> <span class="st">&quot;exact hp&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tactic_fingerprint&quot;</span><span class="fu">:</span> <span class="st">&quot;intro|apply|exact&quot;</span><span class="fu">,</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;proof_term_pretty&quot;</span><span class="fu">:</span> <span class="st">&quot;(fun h =&gt; ...)&quot;</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><code>root_goal_sigs</code> are the goal signatures of root nodes in the serialized search graph (if present). They provide a cheap “root-goal fingerprint” for theorem-level comparisons.</li>
+<li><code>tactic_fingerprint</code> is currently written for solved wild-type variants; intervention variants may omit it.</li>
+<li><code>proof_term_pretty</code> is a best-effort Lean pretty-print of the proof term (when available). Treat it as <strong>display-only</strong>: it may contain internal Lean identifiers and unicode, and it is not guaranteed to round-trip as Lean syntax.</li>
+</ul>
+<hr />
+<h3 id="comparison.json">*_comparison.json</h3>
+<p><strong>Purpose:</strong> Compare intervention to wild-type.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;block_simp&quot;</span><span class="fu">,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;blocked&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;simp&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;solved&quot;</span><span class="fu">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;wild_type_hash&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123...&quot;</span><span class="fu">,</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;intervention_hash&quot;</span><span class="fu">:</span> <span class="st">&quot;def456...&quot;</span><span class="fu">,</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;hash_mismatch&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;wild_type_axioms&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;all&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;Nat.add_comm&quot;</span><span class="ot">,</span> <span class="st">&quot;...&quot;</span><span class="ot">]</span><span class="fu">,</span> <span class="dt">&quot;counts&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;Nat.add_comm&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">}},</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;intervention_axioms&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;all&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;Nat.add_comm&quot;</span><span class="ot">,</span> <span class="st">&quot;...&quot;</span><span class="ot">]</span><span class="fu">,</span> <span class="dt">&quot;counts&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;Nat.add_comm&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">}},</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_search_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">4.0</span><span class="fu">,</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;normalized&quot;</span><span class="fu">:</span> <span class="fl">0.1</span><span class="fu">,</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_search_graph_soft&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">3.2</span><span class="fu">,</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;normalized&quot;</span><span class="fu">:</span> <span class="fl">0.08</span><span class="fu">,</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_proof_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_trace_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;proof_term_diff&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;added_kinds&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;app&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;removed_kinds&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_novelty&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;novel_goal_count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dropped_goal_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;novel_min_distance&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;mean&quot;</span><span class="fu">:</span> <span class="fl">0.12</span><span class="fu">,</span> <span class="dt">&quot;p50&quot;</span><span class="fu">:</span> <span class="fl">0.1</span><span class="fu">,</span> <span class="dt">&quot;p90&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span> <span class="dt">&quot;min&quot;</span><span class="fu">:</span> <span class="fl">0.1</span><span class="fu">,</span> <span class="dt">&quot;max&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">},</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dropped_min_distance&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;mean&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;p50&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;p90&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;min&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;max&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">}</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solution_path_soft_distance&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">0.2</span><span class="fu">,</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;wild_len&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;intervention_len&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dp_cells&quot;</span><span class="fu">:</span> <span class="dv">56</span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;axiom_delta&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;Nat.add_comm&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;axiom_removed&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trajectory_diff&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;iteration_diff&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;backtrack_diff&quot;</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trajectory_comparison&quot;</span><span class="fu">:</span> <span class="kw">null</span></span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><strong>Key fields:</strong></p>
+<ul>
+<li><code>ged_search_graph</code> / <code>ged_proof_graph</code> / <code>ged_trace_graph</code>: Family-specific GED objects</li>
+<li><code>ged_search_graph_soft</code>: Search-graph GED with a soft goal-AST substitution cost (requires <code>goal_sig_scheme=ast</code>)</li>
+<li><code>goal_novelty</code>: Novel/dropped goals under the intervention, summarized by min goal-AST TED to the other variant</li>
+<li><code>solution_path_soft_distance</code>: Soft edit distance between wild/intervention solution goal sequences (solved-only)</li>
+<li><code>wild_type_axioms</code> / <code>intervention_axioms</code>: Per-variant axiom fingerprints (when proof terms are available)</li>
+<li><code>axiom_delta</code>: Lemmas used in intervention but not wild-type</li>
+<li><code>axiom_removed</code>: Lemmas used in wild-type but not intervention</li>
+</ul>
+<p><strong>Postprocess note:</strong> <code>ged_search_graph_soft</code>, <code>goal_novelty</code>, and <code>solution_path_soft_distance</code> are filled by <code>wonton.py postprocess</code>. In-run payloads may contain placeholders (<code>valid=false</code> with a <code>not computed in-run</code> note) until postprocess runs.</p>
+<hr />
+<h3 id="minimal-comparison-schema-backend-agnostic">Minimal Comparison Schema (Backend-Agnostic)</h3>
+<p><strong>Purpose:</strong> Standardize per-intervention comparisons across backends and file locations (<code>summary.json.gz</code> and <code>*_comparison.json</code>).</p>
+<p><strong>Fields (required unless marked optional):</strong></p>
+<ul>
+<li><code>name</code> (intervention name)</li>
+<li><code>blocked</code> (list of blocked tactics; optional)</li>
+<li><code>solved</code> (bool)</li>
+<li><code>status</code> (<code>solved | failed</code>)</li>
+<li><code>ged_search_graph</code> (object or null)</li>
+<li><code>ged_search_graph_soft</code> (object or null; optional)</li>
+<li><code>ged_proof_graph</code> (object or null)</li>
+<li><code>ged_trace_graph</code> (object or null)</li>
+<li><code>wild_type_hash</code> (string; optional)</li>
+<li><code>intervention_hash</code> (string; optional)</li>
+<li><code>hash_mismatch</code> (bool; optional)</li>
+<li><code>wild_type_axioms</code> / <code>intervention_axioms</code> (object; optional)</li>
+<li><code>proof_term_diff</code> (object; optional)</li>
+<li><code>axiom_delta</code> (list; optional)</li>
+<li><code>axiom_removed</code> (list; optional)</li>
+<li><code>goal_novelty</code> (object; optional)</li>
+<li><code>solution_path_soft_distance</code> (object; optional)</li>
+<li><code>trajectory_diff</code> (object; optional)</li>
+<li><code>trajectory_comparison</code> (object; optional)</li>
+<li><code>metrics</code> (object; optional)</li>
+</ul>
+<p><strong>Lean mapping notes:</strong></p>
+<ul>
+<li>Legacy <code>ged</code> maps to <code>ged_search_graph.value</code>.</li>
+</ul>
+<h3 id="ged_matrix.json">ged_matrix.json</h3>
+<p><strong>Purpose:</strong> Pairwise GED between all variants of this theorem. Lean uses search graphs; external runs use proof graphs.</p>
+<p><strong>Structure:</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorem&quot;</span><span class="fu">:</span> <span class="st">&quot;or_left&quot;</span><span class="fu">,</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;variants&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;wild_type&quot;</span><span class="ot">,</span> <span class="st">&quot;block_intro&quot;</span><span class="ot">,</span> <span class="st">&quot;block_simp&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_matrix&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;wild_type&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;block_intro&quot;</span><span class="fu">:</span> <span class="fl">4.0</span><span class="fu">,</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;block_simp&quot;</span><span class="fu">:</span> <span class="fl">0.0</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;block_intro&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;wild_type&quot;</span><span class="fu">:</span> <span class="fl">4.0</span><span class="fu">,</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;block_simp&quot;</span><span class="fu">:</span> <span class="fl">4.0</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;block_simp&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;wild_type&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;block_intro&quot;</span><span class="fu">:</span> <span class="fl">4.0</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<hr />
+<h2 id="backend-artifact-mapping-planning">Backend Artifact Mapping (Planning)</h2>
+<p>This table defines the intended mapping between backends and artifacts. Flags are indicative; confirm with the backend version.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Backend</th>
+<th>Search Graph</th>
+<th>Proof Graph</th>
+<th>Trace Graph</th>
+<th>Required Flags / Defaults</th>
+<th>trace_source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lean</td>
+<td><code>*_graph.json</code></td>
+<td>optional proof subgraph</td>
+<td>n/a</td>
+<td>n/a</td>
+<td><code>mcts</code></td>
+</tr>
+<tr class="even">
+<td>Coq</td>
+<td>n/a (external)</td>
+<td>Coq proof DAG → proof graph</td>
+<td>n/a</td>
+<td>SerAPI</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td>E prover</td>
+<td>n/a</td>
+<td>TSTP proof object</td>
+<td>TSTP protocol (trace_graph)</td>
+<td><code>--auto --output-level=2 --tstp-out</code></td>
+<td><code>tstp</code></td>
+</tr>
+<tr class="even">
+<td>Vampire</td>
+<td>n/a</td>
+<td>TSTP proof object</td>
+<td>n/a</td>
+<td><code>--proof tptp</code></td>
+<td><code>tstp</code></td>
+</tr>
+<tr class="odd">
+<td>Z3</td>
+<td>n/a</td>
+<td>proof object</td>
+<td>n/a</td>
+<td><code>(set-option :produce-proofs true)</code> + <code>(get-proof)</code></td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>When only proof objects or traces exist, populate <code>ged_proof_graph</code> or <code>ged_trace_graph</code> and leave <code>ged_search_graph</code> null.</li>
+<li>Set <code>trace_completeness</code> to <code>proxy</code> when traces are not true search graphs.</li>
+</ul>
+<hr /></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

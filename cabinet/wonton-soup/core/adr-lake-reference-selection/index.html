@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Explicit Reference Selection for Lake Jobs | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-003</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/adr-lake-reference-selection</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/adr-lake-reference-selection.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-explicit-reference-selection-for-lake-jobs" id="toc-adr-explicit-reference-selection-for-lake-jobs">ADR: Explicit Reference Selection for Lake Jobs</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#problem" id="toc-problem">Problem</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="adr-explicit-reference-selection-for-lake-jobs">ADR: Explicit Reference Selection for Lake Jobs</h1>
+<h2 id="context">Context</h2>
+<p>Some metrics (notably goal-outcome probabilities used for K-style scoring) are estimated from empirical data. If we build the reference model from the same runs we later score, we silently introduce <strong>in-sample leakage</strong>.</p>
+<p>We explicitly avoid overclaiming in that regime (e.g. “the theorem intrinsically has basin size X”). Basin-like quantities are algorithm/config-dependent, and reference-based scores need clear provenance.</p>
+<h2 id="problem">Problem</h2>
+<p>We want lake jobs to support:</p>
+<ul>
+<li>selecting runs to evaluate (<code>job.selection</code>),</li>
+<li>building a reference model from <em>some</em> runs,</li>
+<li>scoring evaluation runs against that reference.</li>
+</ul>
+<p>If reference membership defaults to “whatever the job selected”, it is too easy to accidentally conflate:</p>
+<ul>
+<li>the evaluation population, and</li>
+<li>the reference population used to define the baseline.</li>
+</ul>
+<p>That makes dashboards look cleaner than they should and weakens interpretability.</p>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li><strong>Implicit reference selection</strong> (reference built from <code>job.selection</code>)
+<ul>
+<li>Minimal config.</li>
+<li>High risk of accidental leakage.</li>
+</ul></li>
+<li><strong>Explicit reference selection</strong> (reference built from <code>reference.selection</code>)
+<ul>
+<li>Slightly more config.</li>
+<li>Forces the user to state what is in-sample vs out-of-sample.</li>
+</ul></li>
+<li><strong>No reference building in jobs</strong>
+<ul>
+<li>Avoids leakage by construction.</li>
+<li>Makes the workflow clumsy; harder to reproduce end-to-end job runs.</li>
+</ul></li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>We require explicit reference selection:</p>
+<ul>
+<li>If a job config includes <code>reference.build_outcomes</code>, then <code>reference.selection</code> must be a <strong>non-empty</strong> selection object.</li>
+</ul>
+<p>Enforced by <code>analysis.lake.job.load_job_config()</code> (job config schema v2).</p>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>Dashboards and reports must include a deliberate statement of what runs define the reference.</li>
+<li>In-sample references are still possible, but they are now intentional: you can set <code>reference.selection == job.selection</code> explicitly.</li>
+<li>It becomes much easier to explain what a given K score does (and does not) justify.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

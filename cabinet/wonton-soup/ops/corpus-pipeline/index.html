@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Corpus Pipeline | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-015</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/corpus-pipeline</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/corpus-pipeline.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#corpus-pipeline" id="toc-corpus-pipeline">Corpus Pipeline</a>
+                            <ul>
+                            <li><a href="#artifact-root" id="toc-artifact-root">Artifact Root</a></li>
+                            <li><a href="#directory-layout" id="toc-directory-layout">Directory Layout</a></li>
+                            <li><a href="#corpus-ref-syntax" id="toc-corpus-ref-syntax">Corpus Ref Syntax</a></li>
+                            <li><a href="#manifest.json-format_version-1" id="toc-manifest.json-format_version-1"><code>manifest.json</code> (format_version = 1)</a></li>
+                            <li><a href="#items.jsonl" id="toc-items.jsonl"><code>items.jsonl</code></a></li>
+                            <li><a href="#deterministic-selection" id="toc-deterministic-selection">Deterministic Selection</a></li>
+                            <li><a href="#build-leanmathlib" id="toc-build-leanmathlib">Build (Lean/mathlib)</a></li>
+                            <li><a href="#gate-a-validation" id="toc-gate-a-validation">Gate A: Validation</a></li>
+                            <li><a href="#gate-b-capability-sweep-lean" id="toc-gate-b-capability-sweep-lean">Gate B: Capability Sweep (Lean)</a>
+                            <ul>
+                            <li><a href="#basin-seeds" id="toc-basin-seeds"><code>--basin-seeds</code></a></li>
+                            <li><a href="#distributed-mcts-optional" id="toc-distributed-mcts-optional">Distributed MCTS (optional)</a></li>
+                            <li><a href="#resume" id="toc-resume">Resume</a></li>
+                            </ul></li>
+                            <li><a href="#gate-b-capability-sweep-external" id="toc-gate-b-capability-sweep-external">Gate B: Capability Sweep (External)</a></li>
+                            <li><a href="#source-links" id="toc-source-links">Source Links</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="corpus-pipeline">Corpus Pipeline</h1>
+<p>This dossier uses artifact-backed corpora so runs remain reproducible months later while keeping large datasets out of git.</p>
+<p>Core guarantees:</p>
+<ul>
+<li>deterministic corpus builds (pinned provenance + stable <code>build_id</code>)</li>
+<li>deterministic selection (<code>--offset</code> / <code>--limit</code> / <code>--sample --seed</code>)</li>
+<li>Gate A validation (build correctness)</li>
+<li>Gate B capability sweeps (feasible-by-design slices)</li>
+</ul>
+<h2 id="artifact-root">Artifact Root</h2>
+<p>Corpus artifacts resolve via <code>runtime_paths.resolve_corpora_root()</code>.</p>
+<ul>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is unset:
+<ul>
+<li>active path: <code>dossiers/wonton-soup/artifacts/corpora/</code> (gitignored)</li>
+</ul></li>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is set:
+<ul>
+<li>active local staging path: <code>tmp/runtime-artifacts/wonton-soup/corpora/</code></li>
+<li>remote target root: <code>$SPECTER_ARTIFACT_ROOT/wonton-soup/corpora/</code></li>
+</ul></li>
+</ul>
+<p>Most corpus commands auto-sync staged outputs to the remote target unless <code>--no-sync</code> is set.</p>
+<h2 id="directory-layout">Directory Layout</h2>
+<p>Base build:</p>
+<ul>
+<li><code>&lt;root&gt;/&lt;backend&gt;/&lt;corpus_id&gt;/&lt;build_id&gt;/manifest.json</code></li>
+<li><code>&lt;root&gt;/&lt;backend&gt;/&lt;corpus_id&gt;/&lt;build_id&gt;/items.jsonl</code></li>
+<li><code>&lt;root&gt;/&lt;backend&gt;/&lt;corpus_id&gt;/&lt;build_id&gt;/validation.jsonl</code> (optional; Gate A output)</li>
+<li><code>&lt;root&gt;/&lt;backend&gt;/&lt;corpus_id&gt;/&lt;build_id&gt;/capability.jsonl</code> (optional; Gate B output)</li>
+<li><code>&lt;root&gt;/&lt;backend&gt;/&lt;corpus_id&gt;/CURRENT</code> (active build id)</li>
+</ul>
+<p>Derived build (for example <code>valid</code>, <code>feasible</code>):</p>
+<ul>
+<li><code>&lt;build_dir&gt;/derived/&lt;kind&gt;/&lt;derived_build_id&gt;/manifest.json</code></li>
+<li><code>&lt;build_dir&gt;/derived/&lt;kind&gt;/&lt;derived_build_id&gt;/items.jsonl</code></li>
+<li><code>&lt;build_dir&gt;/derived/&lt;kind&gt;/CURRENT</code></li>
+</ul>
+<h2 id="corpus-ref-syntax">Corpus Ref Syntax</h2>
+<p>Corpus refs use:</p>
+<ul>
+<li><code>&lt;backend&gt;:&lt;corpus_id&gt;[@&lt;build_id&gt;][#&lt;derived_path&gt;]</code></li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><code>lean:mathlib4</code> (uses <code>CURRENT</code>)</li>
+<li><code>lean:mathlib4@&lt;build_id&gt;#valid</code></li>
+<li><code>lean:mathlib4@&lt;build_id&gt;#feasible</code></li>
+</ul>
+<p>Lean runs accept refs via <code>wonton.py lean run --corpus ...</code> (or <code>-c ...</code>).</p>
+<h2 id="manifest.json-format_version-1"><code>manifest.json</code> (format_version = 1)</h2>
+<p><code>manifest.json</code> is the source of truth for rebuild provenance and deterministic identity.</p>
+<p>Required fields:</p>
+<ul>
+<li><code>format_version</code> (<code>1</code>)</li>
+<li><code>backend</code> (<code>lean|tptp|smtlib|coq</code>)</li>
+<li><code>corpus_id</code>, <code>build_id</code></li>
+<li><code>created_at</code> (informational; excluded from build-id hashing)</li>
+<li><code>provenance</code> (pinned source descriptors)</li>
+<li><code>build_config</code> (builder params that affect contents)</li>
+<li><code>counts.items_total</code></li>
+<li><code>items_file</code> (typically <code>items.jsonl</code>)</li>
+<li><code>items_sha256</code></li>
+<li><code>item_id_scheme</code></li>
+<li><code>split_scheme</code></li>
+</ul>
+<h2 id="items.jsonl"><code>items.jsonl</code></h2>
+<p><code>items.jsonl</code> is sorted lexicographically by <code>item_id</code>, one JSON object per line.</p>
+<p>Lean payload v1 fields:</p>
+<ul>
+<li><code>item_id</code>: stable Lean identifier (used as theorem name at run time)</li>
+<li><code>payload.statement</code>: Lean declaration string containing <code>{name}</code> (bound at run time)</li>
+</ul>
+<p>Other backends store backend-specific payloads (TPTP relpaths, SMT-LIB relpaths + logic, Coq qualnames).</p>
+<h2 id="deterministic-selection">Deterministic Selection</h2>
+<p>All backends use the same selection behavior:</p>
+<ul>
+<li>head mode: sort by <code>item_id</code>, then apply <code>--offset</code>, then <code>--limit</code></li>
+<li>hash-sample mode: sort by <code>sha256(f"{seed}:{item_id}")</code>, then apply <code>--offset</code>, then <code>--sample</code></li>
+</ul>
+<p>When <code>--sample</code> is used, <code>--seed</code> is required.</p>
+<h2 id="build-leanmathlib">Build (Lean/mathlib)</h2>
+<p>Build from the pinned checkout under <code>lean_project/.lake/packages/mathlib</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus build-lean-mathlib <span class="at">--corpus-id</span> mathlib4 <span class="at">--limit</span> 500</span></code></pre></div>
+<h2 id="gate-a-validation">Gate A: Validation</h2>
+<p>Validation emits <code>validation.jsonl</code> and a derived-valid slice:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus validate <span class="at">--ref</span> lean:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span></span></code></pre></div>
+<h2 id="gate-b-capability-sweep-lean">Gate B: Capability Sweep (Lean)</h2>
+<p>Capability sweeps run basin analysis across provider x MCTS mode and emit <code>capability.jsonl</code> plus a derived-feasible slice:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus sweep-lean-capability <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ref</span> lean:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span>#valid <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--provider</span> reprover <span class="at">--provider</span> deepseek <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--budget</span> deep <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--basin-seeds</span> 5</span></code></pre></div>
+<p><code>capability.jsonl</code> is keyed by <code>item_id</code>; an item is <code>reachable</code> if any matrix point meets the configured reachability threshold.</p>
+<h3 id="basin-seeds"><code>--basin-seeds</code></h3>
+<p><code>--basin-seeds N</code> controls independent seeded runs per theorem per matrix point. Runtime scales roughly linearly in <code>N</code>.</p>
+<h3 id="distributed-mcts-optional">Distributed MCTS (optional)</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus sweep-lean-capability <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ref</span> lean:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span>#valid <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--provider</span> reprover <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--mcts-mode</span> distributed <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--distributed-agents</span> 8 <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--distributed-inflight</span> 64</span></code></pre></div>
+<h3 id="resume">Resume</h3>
+<p>If a sweep root already exists and is incomplete, re-run with <code>--resume</code>.</p>
+<h2 id="gate-b-capability-sweep-external">Gate B: Capability Sweep (External)</h2>
+<p>TPTP:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus sweep-tptp-capability <span class="at">--ref</span> tptp:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span> --timeout 10</span></code></pre></div>
+<p>SMT-LIB:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus sweep-smtlib-capability <span class="at">--ref</span> smtlib:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span> --timeout 10</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus sweep-smtlib-capability <span class="at">--ref</span> smtlib:<span class="op">&lt;</span>corpus_id<span class="op">&gt;</span>@<span class="op">&lt;</span>build_id<span class="op">&gt;</span> --timeout 10 <span class="at">--require-proof</span></span></code></pre></div>
+<h2 id="source-links">Source Links</h2>
+<ul>
+<li>mathlib4: https://github.com/leanprover-community/mathlib4</li>
+<li>miniF2F-lean4: https://github.com/yangky11/miniF2F-lean4</li>
+<li>DeepSeek-Prover-V1: https://huggingface.co/datasets/deepseek-ai/DeepSeek-Prover-V1</li>
+<li>DeepSeek-ProverBench: https://huggingface.co/datasets/deepseek-ai/DeepSeek-ProverBench</li>
+<li>SMT-LIB Zenodo record: https://zenodo.org/records/15493090</li>
+<li>TPTP: https://www.tptp.org/</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

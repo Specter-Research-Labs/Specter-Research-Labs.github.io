@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Partial Proof Terms and Assembly Tracking | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">backends</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-011</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">backends/partial-proof-terms</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                backends
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/backends/partial-proof-terms.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#partial-proof-terms-and-assembly-tracking" id="toc-partial-proof-terms-and-assembly-tracking">Partial Proof Terms and Assembly Tracking</a>
+                            <ul>
+                            <li><a href="#the-problem" id="toc-the-problem">The Problem</a></li>
+                            <li><a href="#why-track-this" id="toc-why-track-this">Why Track This?</a></li>
+                            <li><a href="#how-it-works" id="toc-how-it-works">How It Works</a>
+                            <ul>
+                            <li><a href="#lean-side" id="toc-lean-side">Lean Side</a></li>
+                            <li><a href="#python-side" id="toc-python-side">Python Side</a></li>
+                            <li><a href="#integration" id="toc-integration">Integration</a></li>
+                            </ul></li>
+                            <li><a href="#example-output" id="toc-example-output">Example Output</a></li>
+                            <li><a href="#relation-to-mvar_id" id="toc-relation-to-mvar_id">Relation to mvar_id</a></li>
+                            <li><a href="#files" id="toc-files">Files</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="partial-proof-terms-and-assembly-tracking">Partial Proof Terms and Assembly Tracking</h1>
+<p>In multi-step proofs, the kernel assembles the proof term incrementally. This note describes how we extract and track that assembly process.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>Consider proving <code>True /\ True</code>:</p>
+<pre class="lean"><code>theorem example : True ∧ True := by
+  constructor     -- creates two subgoals
+  · trivial       -- solves first
+  · trivial       -- solves second</code></pre>
+<p>Each tactic fills in part of the proof term. After <code>constructor</code>, Lean internally has:</p>
+<pre><code>And.intro ?mvar_1 ?mvar_2
+          ↑         ↑
+       (hole)    (hole)</code></pre>
+<p>The <code>?mvar_1</code> and <code>?mvar_2</code> are metavariables - placeholders for proofs we haven’t provided yet. After <code>trivial</code> on the first goal:</p>
+<pre><code>And.intro True.intro ?mvar_2
+                      ↑
+                   (hole)</code></pre>
+<p>Finally, after the second <code>trivial</code>:</p>
+<pre><code>And.intro True.intro True.intro   -- complete!</code></pre>
+<h2 id="why-track-this">Why Track This?</h2>
+<p>Two proofs can have identical tactic sequences but different kernel terms. Or different tactics producing the same term. By tracking assembly step-by-step, we can:</p>
+<ol type="1">
+<li>See exactly when proofs diverge</li>
+<li>Compare partial structures mid-proof</li>
+<li>Understand which tactics contribute what to the final term</li>
+</ol>
+<h2 id="how-it-works">How It Works</h2>
+<h3 id="lean-side">Lean Side</h3>
+<p>The key function is <code>getFullAssignmentLambda</code> in <code>REPL/Main.lean</code>. It walks the metavariable context, inlining assigned metavars while preserving unassigned ones:</p>
+<pre class="lean"><code>partial def getFullAssignmentLambda (mctx : MetavarContext) (mvarId : MVarId)
+    : MetaM (Option Expr) :=
+  goMVar mvarId
+  where
+    goMVar (mid : MVarId) : MetaM (Option Expr) := do
+      match mctx.getExprAssignmentCore? mid with
+      | some e =&gt; pure $ some (← goExpr e)  -- inline if assigned
+      | none =&gt; ...  -- check delayed assignment or return as-is</code></pre>
+<p>We wrap this in <code>getPartialProofTerm</code>, which also collects the remaining holes:</p>
+<pre class="lean"><code>def getPartialProofTerm (proofState : ProofSnapshot)
+    : M m (Option PartialProofTerm.Json) := do
+  -- Get the partial proof (with metavars as holes)
+  match ← getFullAssignmentLambda proofState.metaState.mctx goalId with
+  | some pf =&gt;
+      let mvars ← Meta.getMVars pf  -- find remaining holes
+      -- ... serialize to JSON</code></pre>
+<p>The response includes:</p>
+<ul>
+<li><code>proofTerm</code>: The ExprDAG (same format as completed proofs)</li>
+<li><code>openMvars</code>: List of <code>{mvarId, type}</code> for remaining holes</li>
+<li><code>isComplete</code>: Whether all holes are filled</li>
+</ul>
+<h3 id="python-side">Python Side</h3>
+<p><strong>prover/expr.py</strong> has the data classes:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MvarHole:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    mvar_id: <span class="bu">str</span>    <span class="co"># e.g. &quot;cp1:_uniq.123&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    type_str: <span class="bu">str</span>   <span class="co"># e.g. &quot;True&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PartialProofTerm:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    proof_dag: ExprDAG</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    open_mvars: <span class="bu">list</span>[MvarHole]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    is_complete: <span class="bu">bool</span></span></code></pre></div>
+<p><strong>prover/assembly.py</strong> tracks the full sequence:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AssemblyStep:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    tactic: <span class="bu">str</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    mvar_id: <span class="bu">str</span>  <span class="co"># which goal this tactic targeted (checkpoint-scoped)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    partial_term_before: PartialProofTerm <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    partial_term_after: PartialProofTerm <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    goals_closed: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    goals_opened: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ProofAssemblyTrace:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    theorem: <span class="bu">str</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    root_mvar_id: <span class="bu">str</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    steps: <span class="bu">list</span>[AssemblyStep]</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    final_term: ExprDAG <span class="op">|</span> <span class="va">None</span></span></code></pre></div>
+<h3 id="integration">Integration</h3>
+<p><code>prover/lean.py</code> records each step during <code>commit_tactic</code>, using data from <code>preview_tactic</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>preview <span class="op">=</span> <span class="cf">await</span> <span class="va">self</span>.preview_tactic(mvar_id, tactic)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> preview <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> []</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>._last_partial_term <span class="op">=</span> preview.partial_term_after</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.assembly_trace.add_step(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    tactic<span class="op">=</span>preview.tactic,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    mvar_id<span class="op">=</span>preview.parent_mvar_id,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    partial_term_before<span class="op">=</span>preview.partial_term_before,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    partial_term_after<span class="op">=</span>preview.partial_term_after,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    goals_before<span class="op">=</span>preview.goals_before,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    goals_after<span class="op">=</span>preview.goals_after,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h2 id="example-output">Example Output</h2>
+<p>Running on <code>True /\ True</code>:</p>
+<pre><code>Initial goals: [&#39;_uniq.3&#39;]
+After constructor: [&#39;_uniq.5.7&#39;, &#39;_uniq.5.8&#39;]
+
+Assembly trace (3 steps):
+  1. constructor on _uniq.3: 2 holes, complete=False
+  2. trivial on _uniq.5.7: 0 holes, complete=True
+  3. trivial on _uniq.5.8: 0 holes, complete=True</code></pre>
+<p>The corpus runner saves these as <code>*_assembly.json.gz</code> files (gzipped) alongside the proof graphs.</p>
+<h2 id="relation-to-mvar_id">Relation to mvar_id</h2>
+<p>This connects to the mvar_id concept from <code>docs/core/mvar-goal-identity.md</code>:</p>
+<ul>
+<li>Each MCTS node corresponds to one mvar_id (one hole to fill)</li>
+<li>Partial proof terms show these holes as metavariables in the Expr</li>
+<li>When a tactic closes a goal, the corresponding mvar gets assigned</li>
+<li>The assembly trace shows this assignment process step by step</li>
+</ul>
+<h2 id="files">Files</h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>libs/leantree/lean-repl/REPL/JSON.lean</code></td>
+<td><code>MvarInfo.Json</code>, <code>PartialProofTerm.Json</code> structures</td>
+</tr>
+<tr class="even">
+<td><code>libs/leantree/lean-repl/REPL/Main.lean</code></td>
+<td><code>getPartialProofTerm</code> function</td>
+</tr>
+<tr class="odd">
+<td><code>prover/expr.py</code></td>
+<td><code>MvarHole</code>, <code>PartialProofTerm</code> Python classes</td>
+</tr>
+<tr class="even">
+<td><code>prover/assembly.py</code></td>
+<td><code>AssemblyStep</code>, <code>ProofAssemblyTrace</code></td>
+</tr>
+<tr class="odd">
+<td><code>prover/lean.py</code></td>
+<td>Integration with <code>preview_tactic</code>/<code>commit_tactic</code></td>
+</tr>
+</tbody>
+</table></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

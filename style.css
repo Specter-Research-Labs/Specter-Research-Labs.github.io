@@ -1,0 +1,287 @@
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Thin.woff2") format("woff2");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Berkeley Mono";
+    src: url("fonts/BerkeleyMono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --site-ink: #0b0e14;
+    --site-muted: rgba(11, 14, 20, 0.68);
+    --site-rule: rgba(11, 14, 20, 0.18);
+    --site-rule-strong: rgba(11, 14, 20, 0.42);
+}
+
+html {
+    font-size: 14px;
+    background: #fff;
+}
+
+body {
+    font-family:
+        "Berkeley Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+        Consolas, monospace;
+    background: #fff;
+    color: var(--site-ink);
+    line-height: 1.6;
+    padding: 0;
+    max-width: none;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+a {
+    color: inherit;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.site-masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.logo {
+    height: 20px;
+    width: auto;
+}
+
+.site-brand-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.site-rules {
+    margin: 16px 0 20px;
+}
+
+.site-rule {
+    height: 1px;
+    background: var(--site-rule);
+}
+
+.site-rule.strong {
+    height: 2px;
+    background: var(--site-rule-strong);
+    margin-bottom: 1px;
+}
+
+.site-acronym {
+    font-size: 11.5px;
+    font-weight: 100;
+    margin: 0;
+    text-align: right;
+}
+
+.intro {
+    font-weight: 300;
+    color: var(--site-muted);
+}
+
+.site-shell {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+}
+
+.site-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 24px;
+}
+
+.site-aside {
+    min-width: 0;
+    padding-right: 18px;
+    border-right: 1px solid var(--site-rule);
+    position: sticky;
+    top: 24px;
+    align-self: start;
+}
+
+.site-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.site-nav-title {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.site-nav-item,
+.site-nav-sub {
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    color: var(--site-ink);
+    font-weight: 400;
+}
+
+.site-nav-item:hover,
+.site-nav-sub:hover {
+    border-bottom-color: var(--site-ink);
+}
+
+.site-nav-item {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.site-nav-sub {
+    font-size: 11px;
+    color: var(--site-muted);
+    margin-left: 10px;
+}
+
+.site-main {
+    min-width: 0;
+}
+
+.site-toc-mobile {
+    display: none;
+}
+
+.site-rules-desktop {
+    display: block;
+}
+
+.site-section {
+    margin-bottom: 1.5em;
+}
+
+.site-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.site-section-title {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.75em;
+}
+
+.project {
+    margin-bottom: 1em;
+}
+
+.project p {
+    font-weight: 100;
+}
+
+.project-title {
+    font-weight: 500;
+}
+
+.project-status {
+    display: block;
+    width: fit-content;
+    margin: 0.35em 0 0.6em;
+    padding: 2px 6px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.project-status.active-research {
+    border: 1px solid #ff6600;
+    color: #ff6600;
+}
+
+.project-status.active-writing {
+    border: 1px solid #00a645;
+    color: #00a645;
+}
+
+@media (max-width: 900px) {
+    .site-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .site-aside {
+        display: none;
+    }
+
+    .site-toc-mobile {
+        display: block;
+    }
+
+    .site-rules-desktop {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+
+    .site-shell {
+        padding: 18px 14px 38px;
+    }
+}

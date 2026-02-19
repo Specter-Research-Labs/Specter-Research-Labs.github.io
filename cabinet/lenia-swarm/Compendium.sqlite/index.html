@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Compendium SQLite Schema | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-001</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">Compendium.sqlite</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/Compendium.sqlite.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#compendium-sqlite-schema" id="toc-compendium-sqlite-schema">Compendium SQLite Schema</a>
+                            <ul>
+                            <li><a href="#tables" id="toc-tables">Tables</a></li>
+                            <li><a href="#schema-versioning" id="toc-schema-versioning">Schema Versioning</a>
+                            <ul>
+                            <li><a href="#v3-current" id="toc-v3-current">v3 (current)</a></li>
+                            <li><a href="#migration-v2---v3" id="toc-migration-v2---v3">Migration: v2 -&gt; v3</a></li>
+                            </ul></li>
+                            <li><a href="#morphometrics" id="toc-morphometrics">Morphometrics</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="compendium-sqlite-schema">Compendium SQLite Schema</h1>
+<p>The compendium is a SQLite database produced by <code>LeniaCLI index</code> (<code>lenia-swarm index</code>). It is intended to be:</p>
+<ul>
+<li>Append-only-ish at the row level (re-indexing re-upserts rows).</li>
+<li>Backwards-migrated by the indexer when possible.</li>
+<li>Consumable by LeniaStudio in “Compendium” mode.</li>
+</ul>
+<h2 id="tables">Tables</h2>
+<p>Required tables:</p>
+<ul>
+<li><code>compendium_meta</code>: schema version (single row)</li>
+<li><code>runs</code>: indexed run metadata (run id, host id, output root, run dir)</li>
+<li><code>campaigns</code>: campaign ids observed in run outputs</li>
+<li><code>creatures</code>: library creatures with denormalized metrics</li>
+<li><code>exports</code>: export records (links into exported base/search configs)</li>
+<li><code>results</code>: optional per-seed results (when <code>--include-results</code>)</li>
+<li><code>ingest_state</code>: per-file incremental ingestion state (offset/mtime/size)</li>
+</ul>
+<h2 id="schema-versioning">Schema Versioning</h2>
+<p>The indexer enforces <code>compendium_meta.schema_version</code> exactly.</p>
+<h3 id="v3-current">v3 (current)</h3>
+<p>Delta vs v2:</p>
+<ul>
+<li><code>creatures</code> adds taxonomy columns:
+<ul>
+<li><code>taxonomy_family_id</code>, <code>taxonomy_genus_id</code>, <code>taxonomy_species_id</code></li>
+<li><code>taxonomy_confidence</code></li>
+<li><code>taxonomy_method</code>, <code>taxonomy_version</code></li>
+</ul></li>
+<li><code>creatures</code> adds morphometrics columns:
+<ul>
+<li><code>morphometrics_json</code></li>
+<li><code>morphometrics_method</code>, <code>morphometrics_version</code></li>
+</ul></li>
+</ul>
+<h3 id="migration-v2---v3">Migration: v2 -&gt; v3</h3>
+<p>The indexer migrates v2 databases in-place by <code>ALTER TABLE creatures ADD COLUMN ...</code> for the new columns and then updates <code>compendium_meta.schema_version</code> to <code>3</code>.</p>
+<h2 id="morphometrics">Morphometrics</h2>
+<p><code>creatures.morphometrics_json</code> is computed offline during indexing.</p>
+<p>Current method: <code>creatures.morphometrics_method = "lenia-swarm:morphometrics"</code>, <code>creatures.morphometrics_version = 1</code>.</p>
+<p>Inputs:</p>
+<ul>
+<li>Always: <code>creatures.metrics_json</code> (decoded as <code>SimulationMetrics</code>)</li>
+<li>When present: <code>overall/activity.jsonl</code> or <code>campaigns/*/activity.jsonl</code> (decoded as <code>ActivitySummaryRecord</code>)</li>
+</ul>
+<p>Missing-data behavior:</p>
+<ul>
+<li>If activity summaries are absent, activity-derived fields in <code>morphometrics_json</code> are <code>null</code>.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

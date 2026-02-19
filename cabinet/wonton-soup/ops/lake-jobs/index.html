@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Lake Jobs (Materialized Datasets) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-016</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/lake-jobs</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/lake-jobs.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#lake-jobs-materialized-datasets" id="toc-lake-jobs-materialized-datasets">Lake Jobs (Materialized Datasets)</a>
+                            <ul>
+                            <li><a href="#presets" id="toc-presets">Presets</a></li>
+                            <li><a href="#job-config-schema-v2" id="toc-job-config-schema-v2">Job Config Schema (v2)</a>
+                            <ul>
+                            <li><a href="#selection" id="toc-selection">selection</a></li>
+                            <li><a href="#datasets" id="toc-datasets">datasets</a></li>
+                            <li><a href="#reference" id="toc-reference">reference</a></li>
+                            </ul></li>
+                            <li><a href="#output-contract" id="toc-output-contract">Output Contract</a></li>
+                            <li><a href="#sql-convenience-job_contextref_id" id="toc-sql-convenience-job_contextref_id">SQL Convenience: job_context(ref_id)</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="lake-jobs-materialized-datasets">Lake Jobs (Materialized Datasets)</h1>
+<p>Lake jobs are a thin, explicit way to:</p>
+<ul>
+<li>select a set of runs from the lake registry,</li>
+<li>optionally build or attach a reference model,</li>
+<li>materialize one or more SQL datasets into files (JSONL or Parquet),</li>
+<li>write a manifest capturing selection + reference provenance.</li>
+</ul>
+<p>They are intended as the stable bridge from “raw lake tables” to downstream reporting/viz (for example, <code>addenda/specter-viz</code>).</p>
+<p>Implementation: <code>dossiers/wonton-soup/analysis/lake/job.py</code>.</p>
+<h2 id="presets">Presets</h2>
+<p>Preset job configs live in <code>dossiers/wonton-soup/analysis/lake/presets/*.json</code>.</p>
+<p>List them:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake job presets</span></code></pre></div>
+<p>Run one:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake job run <span class="at">--config</span> dossiers/wonton-soup/analysis/lake/presets/01_runs_overview.json <span class="at">--logs-dir</span> logs</span></code></pre></div>
+<h2 id="job-config-schema-v2">Job Config Schema (v2)</h2>
+<p>Job configs are JSON objects with <code>schema_version: 2</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;runs_overview&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;reprover&quot;</span><span class="ot">,</span> <span class="st">&quot;deepseek&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;backend&quot;</span><span class="fu">:</span> <span class="st">&quot;lean&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;mode&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;dev&quot;</span><span class="ot">,</span> <span class="st">&quot;research&quot;</span><span class="ot">]</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reference&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;datasets&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;runs&quot;</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;query&quot;</span><span class="fu">:</span> <span class="st">&quot;SELECT * FROM runs WHERE run_key IN (SELECT run_key FROM selected_runs)&quot;</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;format&quot;</span><span class="fu">:</span> <span class="st">&quot;jsonl&quot;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="selection">selection</h3>
+<p><code>selection</code> filters the <code>runs</code> table. Supported keys:</p>
+<ul>
+<li><code>root_id</code> (string)</li>
+<li><code>provider</code>, <code>backend</code>, <code>mode</code>, <code>corpus</code>, <code>goal_sig_scheme</code> (string or list of strings)</li>
+</ul>
+<p>When you pass <code>--logs-dir</code> to <code>wonton.py lake job run</code>, the job will set <code>selection.root_id</code> to that directory’s <code>root_id</code> unless you already provided one.</p>
+<p>The selection is applied as an AND across fields.</p>
+<h3 id="datasets">datasets</h3>
+<p>Each dataset is:</p>
+<ul>
+<li><code>name</code> (string, required)</li>
+<li><code>query</code> (SQL string, required)</li>
+<li><code>format</code> (<code>jsonl</code> or <code>parquet</code>, default <code>jsonl</code>)</li>
+<li><code>file</code> (optional base name; no directories)</li>
+</ul>
+<p>Jobs create a temporary <code>selected_runs(run_key)</code> table that dataset SQL can use.</p>
+<h3 id="reference">reference</h3>
+<p><code>reference</code> controls reference building and optional K scoring.</p>
+<p>Supported patterns:</p>
+<ol type="1">
+<li>Attach an existing reference by id:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;ref_id&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123&quot;</span><span class="fu">,</span> <span class="dt">&quot;score_k&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span></span></code></pre></div>
+<ol start="2" type="1">
+<li>Build a new goal-outcomes reference (from goal_cache aggregates), with an explicit run selection:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;build_outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;alpha&quot;</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">,</span> <span class="dt">&quot;meta&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;note&quot;</span><span class="fu">:</span> <span class="st">&quot;baseline reference&quot;</span><span class="fu">}},</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">,</span> <span class="dt">&quot;backend&quot;</span><span class="fu">:</span> <span class="st">&quot;lean&quot;</span><span class="fu">},</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;score_k&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Important invariant:</p>
+<ul>
+<li>If <code>reference.build_outcomes</code> is present, <code>reference.selection</code> must be a <strong>non-empty</strong> object. Enforced in <code>analysis.lake.job.load_job_config()</code> to prevent accidental in-sample leakage.</li>
+<li>Rationale for this guardrail: <code>docs/core/adr-lake-reference-selection.md</code>.</li>
+</ul>
+<p>If <code>score_k</code> is true, <code>--logs-dir</code> must be provided so the scorer can locate per-run directories and read MCTS traces.</p>
+<h2 id="output-contract">Output Contract</h2>
+<p>Each job run writes:</p>
+<ul>
+<li><code>manifest.json</code>: resolved selection + resolved reference (including ref id and reference members)</li>
+<li><code>job_config.json</code>: the original config snapshot (schema v2)</li>
+<li><code>inputs.json</code>: the selected run keys</li>
+<li>one file per dataset</li>
+</ul>
+<p>Jobs also record a row in the <code>lake_job_runs</code> table (for cross-run provenance).</p>
+<h2 id="sql-convenience-job_contextref_id">SQL Convenience: job_context(ref_id)</h2>
+<p>Jobs create a temporary <code>job_context(ref_id)</code> table:</p>
+<ul>
+<li>If a reference is present, it contains a single row with that <code>ref_id</code>.</li>
+<li>If no reference is present, the table exists but is empty.</li>
+</ul>
+<p>This lets dataset SQL bind deterministically to the job’s chosen reference, e.g.:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> k_reference_score</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ref_id <span class="kw">IN</span> (<span class="kw">SELECT</span> ref_id <span class="kw">FROM</span> job_context)</span></code></pre></div></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

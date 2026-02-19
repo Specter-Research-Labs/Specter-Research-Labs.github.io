@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Lean REPL Setup | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-017</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/lean-repl-setup</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/lean-repl-setup.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#lean-repl-setup" id="toc-lean-repl-setup">Lean REPL Setup</a>
+                            <ul>
+                            <li><a href="#pinned-toolchain" id="toc-pinned-toolchain">Pinned Toolchain</a></li>
+                            <li><a href="#requirements" id="toc-requirements">Requirements</a></li>
+                            <li><a href="#step-1-install-the-pinned-lean-version" id="toc-step-1-install-the-pinned-lean-version">Step 1: Install the Pinned Lean Version</a></li>
+                            <li><a href="#step-2-initialize-leantree" id="toc-step-2-initialize-leantree">Step 2: Initialize LeanTree</a></li>
+                            <li><a href="#step-3-create-a-lean-project" id="toc-step-3-create-a-lean-project">Step 3: Create a Lean Project</a></li>
+                            <li><a href="#step-4-set-environment-variable" id="toc-step-4-set-environment-variable">Step 4: Set Environment Variable</a></li>
+                            <li><a href="#step-5-run" id="toc-step-5-run">Step 5: Run</a></li>
+                            <li><a href="#troubleshooting" id="toc-troubleshooting">Troubleshooting</a>
+                            <ul>
+                            <li><a href="#lake-not-found" id="toc-lake-not-found">“lake not found”</a></li>
+                            <li><a href="#lean-version-mismatch" id="toc-lean-version-mismatch">“Lean version mismatch”</a></li>
+                            <li><a href="#repl-not-building" id="toc-repl-not-building">REPL not building</a></li>
+                            </ul></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="lean-repl-setup">Lean REPL Setup</h1>
+<p>Setup instructions for the Lean 4 environment used by MCTS proof search.</p>
+<h2 id="pinned-toolchain">Pinned Toolchain</h2>
+<p>We standardize on the Lean version pinned in <code>lean_project/lean-toolchain</code> (currently Lean 4.25.0) and the workspace checkout at <code>libs/leantree</code>. Each experiment uses its own local Lean project at <code>lean_project/</code>, and <code>LEAN_PROJECT_PATH</code> must point to that directory.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Lean version pinned in <code>lean_project/lean-toolchain</code> (currently 4.25.0)</li>
+<li>Python 3.12+</li>
+<li>elan (Lean version manager)</li>
+</ul>
+<h2 id="step-1-install-the-pinned-lean-version">Step 1: Install the Pinned Lean Version</h2>
+<p>Install elan if you haven’t:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh <span class="at">-sSf</span> <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+<p>Install the pinned version:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">elan</span> install leanprover/lean4:v4.25.0</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">elan</span> default leanprover/lean4:v4.25.0</span></code></pre></div>
+<p>Verify:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lean</span> <span class="at">--version</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Should show 4.25.x</span></span></code></pre></div>
+<h2 id="step-2-initialize-leantree">Step 2: Initialize LeanTree</h2>
+<p>LeanTree is a workspace dependency under <code>dossiers/wonton-soup/libs/leantree</code>. If it is a git submodule, initialize it from the project root:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/specter-labs</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> submodule update <span class="at">--init</span> <span class="at">--recursive</span> dossiers/wonton-soup/libs/leantree</span></code></pre></div>
+<h2 id="step-3-create-a-lean-project">Step 3: Create a Lean Project</h2>
+<p>LeanTree needs a Lean project to work with. Create one (from this experiment directory):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python setup_lean.py</span></code></pre></div>
+<p>Or do it directly in Python:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> leantree.core.project <span class="im">import</span> LeanProject</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>project <span class="op">=</span> LeanProject.create(<span class="st">&quot;lean_project&quot;</span>)</span></code></pre></div>
+<p>This creates a project with Mathlib. First run takes a while to download dependencies.</p>
+<h2 id="step-4-set-environment-variable">Step 4: Set Environment Variable</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LEAN_PROJECT_PATH</span><span class="op">=</span>/path/to/wonton-soup/lean_project</span></code></pre></div>
+<p>Or add to your shell profile.</p>
+<h2 id="step-5-run">Step 5: Run</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean run              <span class="co"># dev mode</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean run <span class="at">-m</span> research  <span class="co"># research mode</span></span></code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="lake-not-found">“lake not found”</h3>
+<p>Make sure elan is in your PATH:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.elan/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></span></code></pre></div>
+<h3 id="lean-version-mismatch">“Lean version mismatch”</h3>
+<p>LeanTree requires the version pinned in <code>lean_project/lean-toolchain</code> (currently Lean 4.25.0):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">elan</span> override set leanprover/lean4:v4.25.0</span></code></pre></div>
+<h3 id="repl-not-building">REPL not building</h3>
+<p>Try rebuilding:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> lean_project</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build</span></code></pre></div></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

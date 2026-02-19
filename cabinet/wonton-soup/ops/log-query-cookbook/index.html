@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log Query Cookbook | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-018</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/log-query-cookbook</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/log-query-cookbook.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-query-cookbook" id="toc-log-query-cookbook">Log Query Cookbook</a>
+                            <ul>
+                            <li><a href="#reading-gzipped-files" id="toc-reading-gzipped-files">Reading Gzipped Files</a></li>
+                            <li><a href="#interpretation-workflows" id="toc-interpretation-workflows">Interpretation Workflows</a>
+                            <ul>
+                            <li><a href="#how-well-did-the-run-go" id="toc-how-well-did-the-run-go">1. “How well did the run go?”</a></li>
+                            <li><a href="#why-did-theorem-x-fail" id="toc-why-did-theorem-x-fail">2. “Why did theorem X fail?”</a></li>
+                            <li><a href="#did-blocking-tactic-x-change-the-proof" id="toc-did-blocking-tactic-x-change-the-proof">3. “Did blocking tactic X change the proof?”</a></li>
+                            <li><a href="#is-the-model-behaving-consistently" id="toc-is-the-model-behaving-consistently">4. “Is the model behaving consistently?”</a></li>
+                            <li><a href="#what-tactics-work-for-what-goals" id="toc-what-tactics-work-for-what-goals">5. “What tactics work for what goals?”</a></li>
+                            <li><a href="#how-did-the-proof-actually-get-constructed" id="toc-how-did-the-proof-actually-get-constructed">6. “How did the proof actually get constructed?”</a></li>
+                            <li><a href="#compare-two-corpus-runs" id="toc-compare-two-corpus-runs">7. “Compare two corpus runs”</a></li>
+                            <li><a href="#find-interesting-intervention-effects" id="toc-find-interesting-intervention-effects">8. “Find interesting intervention effects”</a></li>
+                            <li><a href="#debug-a-specific-proof-attempt" id="toc-debug-a-specific-proof-attempt">9. “Debug a specific proof attempt”</a></li>
+                            <li><a href="#quick-reference-what-file-for-what-question" id="toc-quick-reference-what-file-for-what-question">Quick Reference: What File For What Question</a></li>
+                            </ul></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="log-query-cookbook">Log Query Cookbook</h1>
+<p>Operational query recipes for inspecting run artifacts. Canonical file schemas live in <code>docs/core/log-file-schemas.md</code>.</p>
+<h2 id="reading-gzipped-files">Reading Gzipped Files</h2>
+<p>Note: Use <code>gzcat</code> on macOS, <code>zcat</code> on Linux.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View full contents</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> file.json.gz <span class="kw">|</span> <span class="ex">jq</span> .</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pretty-print with less</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> file.json.gz <span class="kw">|</span> <span class="ex">jq</span> . <span class="kw">|</span> <span class="fu">less</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Query specific fields</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.theorems[] | select(.wild_type.solved) | .name&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Count nodes in proof term</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> wild_type_proof_term.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.nodes | length&#39;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for text patterns in gzipped files</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> goal_cache.json.gz <span class="kw">|</span> <span class="ex">rg</span> <span class="st">&quot;pattern&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract just the keys</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> goal_cache.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;keys&#39;</span></span></code></pre></div>
+<p>For Python scripts, the analysis modules handle gzip transparently:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python <span class="at">-c</span> <span class="st">&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">from analysis.summary import CorpusRun</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">from pathlib import Path</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">run = CorpusRun.load(Path(&#39;logs/corpus-.../&#39;))</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">print(f&#39;Solved: {len([t for t in run.theorems if t.wild_type_solved])}/{len(run.theorems)}&#39;)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<hr />
+<h2 id="interpretation-workflows">Interpretation Workflows</h2>
+<h3 id="how-well-did-the-run-go">1. “How well did the run go?”</h3>
+<p><strong>Start with:</strong> <code>summary.json.gz</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">  total: .aggregates.theorem_count,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">  solve_rate: .aggregates.wild_type_solve_rate,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">  interventions: .aggregates.intervention_count,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">  int_rate: .aggregates.intervention_solve_rate</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<p><strong>Check:</strong></p>
+<ul>
+<li>Wild-type solve rate (baseline capability)</li>
+<li>Intervention solve rate (robustness)</li>
+<li>If wild-type is low, check <code>failure_analysis.json</code> for patterns</li>
+</ul>
+<p><strong>Red flags:</strong></p>
+<ul>
+<li><code>MODEL_HALLUCINATION</code> &gt; 0 suggests inference bugs (check provider settings)</li>
+<li>High <code>TACTIC_DESERT</code> suggests model lacks tactics for these goal types</li>
+<li>Wild-type much lower than expected suggests corpus mismatch or model issues</li>
+</ul>
+<hr />
+<h3 id="why-did-theorem-x-fail">2. “Why did theorem X fail?”</h3>
+<p><strong>Start with:</strong> <code>&lt;theorem&gt;/wild_type_history.json</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_history.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.iterations[-5:] | map({iteration, attempts: [.attempts[]? | {tactic, outcome}]})&#39;</span></span></code></pre></div>
+<p><strong>Look for:</strong></p>
+<ul>
+<li>Last few tactics tried - are they sensible?</li>
+<li><code>attempts[].outcome == "failure"</code> patterns - same tactic failing repeatedly?</li>
+<li><code>attempts[].goal_type</code> near the end - is it within the model’s capability envelope?</li>
+</ul>
+<p><strong>Then check:</strong> <code>&lt;theorem&gt;/wild_type_metrics.json</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_metrics.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">  failure_ratio: .detour.failure_ratio,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">  unique_tactics: .trajectory.tactic_diversity,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">  max_depth: .trajectory.max_depth_reached</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>failure_ratio</code> &gt; 0.8 with low <code>tactic_diversity</code> = model stuck in a rut</li>
+<li><code>failure_ratio</code> &gt; 0.8 with high <code>tactic_diversity</code> = genuinely hard problem</li>
+<li><code>max_depth</code> = 0 means couldn’t even make progress on root goal</li>
+</ul>
+<hr />
+<h3 id="did-blocking-tactic-x-change-the-proof">3. “Did blocking tactic X change the proof?”</h3>
+<p><strong>Start with:</strong> <code>&lt;theorem&gt;/&lt;intervention&gt;_comparison.json</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/block_simp_comparison.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">  ged: .ged_search_graph.value,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">  iter_delta: .trajectory_diff.iteration_diff,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">  new_axioms: .axiom_delta</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>ged = 0</code>: Identical proof structure (tactic wasn’t used anyway)</li>
+<li><code>ged</code> small (1-3): Minor variation, same approach</li>
+<li><code>ged</code> large (&gt;5): Significantly different proof found</li>
+<li><code>axiom_delta</code> non-empty: Different lemmas used (interesting!)</li>
+</ul>
+<p><strong>For deeper analysis:</strong> Compare <code>wild_type_graph.json</code> vs <code>block_X_graph.json</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare proof lengths</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Wild:&quot;</span> <span class="kw">&amp;&amp;</span> <span class="fu">cat</span> wild_type_graph.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.nodes | length&#39;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Intervention:&quot;</span> <span class="kw">&amp;&amp;</span> <span class="fu">cat</span> block_simp_graph.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.nodes | length&#39;</span></span></code></pre></div>
+<hr />
+<h3 id="is-the-model-behaving-consistently">4. “Is the model behaving consistently?”</h3>
+<p><strong>Start with:</strong> <code>sheaf_analysis.json</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> sheaf_analysis.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">  consistency: .equiv_consistency,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">  problematic_families: [.per_family_residual | to_entries[] | select(.value &gt; 20)]</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>equiv_consistency</code> &gt; 0.95: Model responds consistently to similar goals (good)</li>
+<li><code>equiv_consistency</code> &lt; 0.90: High variance, model is unreliable</li>
+<li>High <code>per_family_residual</code> for a tactic family = that tactic has unpredictable effects</li>
+</ul>
+<p><strong>Check inconsistent cases:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> sheaf_analysis.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.inconsistent_cases[:5]&#39;</span></span></code></pre></div>
+<p>These are goal signatures where the model behaves erratically.</p>
+<hr />
+<h3 id="what-tactics-work-for-what-goals">5. “What tactics work for what goals?”</h3>
+<p><strong>Start with:</strong> <code>goal_cache.json.gz</code></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all unique signatures</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> goal_cache.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.entries | keys | length&#39;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># See which signatures have the most occurrences</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> goal_cache.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.entries | to_entries | map({sig: .key[:30], occs: (.value.occurrences | length)}) | sort_by(-.occs) | .[:10]&#39;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check outcomes for a specific signature (family 2 = intro)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> goal_cache.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.entries[&quot;&lt;sig&gt;&quot;].occurrences | to_entries[0].value.outcomes&#39;</span></span></code></pre></div>
+<p><strong>From summary.json.gz</strong> (aggregated tactic matrix):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Which goal types saw the most tactic attempts</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.aggregates.goal_type_tactic_matrix | to_entries | map({goal: .key[:40], tactics: (.value | keys | length)}) | sort_by(-.tactics) | .[:10]&#39;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Success rate for &quot;intro&quot; on goals containing &quot;→&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.aggregates.goal_type_tactic_matrix | to_entries | map(select(.key | contains(&quot;→&quot;))) | .[0].value | to_entries | map({tactic: .key, success: .value.success, fail: .value.failure})&#39;</span></span></code></pre></div>
+<hr />
+<h3 id="how-did-the-proof-actually-get-constructed">6. “How did the proof actually get constructed?”</h3>
+<p><strong>Start with:</strong> <code>&lt;theorem&gt;/wild_type_assembly.json.gz</code></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See the theorem and step count</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{theorem: .theorem[:60], steps: (.steps | length)}&#39;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace each step with goals closed/opened</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.steps | to_entries | .[] | &quot;\(.key + 1). \(.value.tactic)  closed=\(.value.goalsClosed | length) opened=\(.value.goalsOpened | length)&quot;&#39;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># See which tactics closed goals</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.steps | map(select(.goalsClosed | length &gt; 0)) | .[] | {tactic, closed: (.goalsClosed | length)}&#39;</span></span></code></pre></div>
+<p><strong>What to look for:</strong></p>
+<ul>
+<li>Steps that close multiple goals (powerful tactics)</li>
+<li>Steps that open many goals (case splits, inductions)</li>
+<li>The order tactics are applied (strategy)</li>
+</ul>
+<p><strong>For proof term analysis:</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count node types in final proof</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.finalTerm.nodes | group_by(.[1].kind) | map({kind: .[0][1].kind, count: length}) | sort_by(-.count)&#39;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total nodes in proof term</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.finalTerm.nodes | length&#39;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for incomplete proofs (mvar nodes = holes)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> theorem_name/wild_type_assembly.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.finalTerm.nodes | map(select(.[1].kind == &quot;mvar&quot;)) | length&#39;</span></span></code></pre></div>
+<p>Common patterns:</p>
+<ul>
+<li>Many <code>app</code> nodes = lots of function application (typical)</li>
+<li>Many <code>lam</code> nodes = proof involves constructing functions</li>
+<li><code>mvar</code> nodes = incomplete proof term (solved proofs are expected to have zero)</li>
+</ul>
+<hr />
+<h3 id="compare-two-corpus-runs">7. “Compare two corpus runs”</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up aliases for the two runs</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">RUN1</span><span class="op">=</span><span class="st">&quot;logs/corpus-2026-01-06-190731&quot;</span>  <span class="co"># ReProver</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="va">RUN2</span><span class="op">=</span><span class="st">&quot;logs/corpus-2026-01-07-120200&quot;</span>  <span class="co"># DeepSeek</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare overall solve rates</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Run 1:&quot;</span> <span class="kw">&amp;&amp;</span> <span class="ex">gzcat</span> <span class="va">$RUN1</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.aggregates | {theorems: .theorem_count, rate: .wild_type_solve_rate}&#39;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Run 2:&quot;</span> <span class="kw">&amp;&amp;</span> <span class="ex">gzcat</span> <span class="va">$RUN2</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.aggregates | {theorems: .theorem_count, rate: .wild_type_solve_rate}&#39;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get theorem names that are solved in run1 but failed in run2</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-23</span> <span class="dt">\</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;(</span><span class="ex">gzcat</span> <span class="va">$RUN1</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.theorems[] | select(.wild_type.solved) | .name&#39;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> <span class="dt">\</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;(</span><span class="ex">gzcat</span> <span class="va">$RUN2</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.theorems[] | select(.wild_type.solved) | .name&#39;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Get theorem names that failed in run1 but solved in run2</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-13</span> <span class="dt">\</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;(</span><span class="ex">gzcat</span> <span class="va">$RUN1</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.theorems[] | select(.wild_type.solved) | .name&#39;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> <span class="dt">\</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;(</span><span class="ex">gzcat</span> <span class="va">$RUN2</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.theorems[] | select(.wild_type.solved) | .name&#39;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare intervention solve rates</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> <span class="va">$RUN1</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{run: &quot;run1&quot;, interventions: .aggregates.intervention_count, rate: .aggregates.intervention_solve_rate}&#39;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> <span class="va">$RUN2</span>/summary.json.gz <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{run: &quot;run2&quot;, interventions: .aggregates.intervention_count, rate: .aggregates.intervention_solve_rate}&#39;</span></span></code></pre></div>
+<hr />
+<h3 id="find-interesting-intervention-effects">8. “Find interesting intervention effects”</h3>
+<p><strong>Anisomorphic proofs</strong> (structurally different when tactic blocked):</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> analysis_report.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.by_theorem[] | .theorem as $t | .interventions[] | select(.classification == &quot;TYPE_B_ANISOMORPHIC&quot;) | {</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">  theorem: $t,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">  intervention: .name,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">  ged: .search_dynamics.ged_search_graph,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">  wild_dag: .complexity.wild.dag_size,</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">  int_dag: .complexity.intervention.dag_size</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<p><strong>Interventions that found simpler proofs:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> analysis_report.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.by_theorem[] | .theorem as $t | .interventions[] | select(.complexity.intervention.dag_size &lt; .complexity.wild.dag_size) | {</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">  theorem: $t,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">  intervention: .name,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">  reduction: (.complexity.wild.dag_size - .complexity.intervention.dag_size)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-20</span></span></code></pre></div>
+<hr />
+<h3 id="debug-a-specific-proof-attempt">9. “Debug a specific proof attempt”</h3>
+<p>Full replay of what happened:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. See the theorem</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_history.json <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.theorem&#39;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Trace each step</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_history.json <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.iterations[] | .iteration as $i | .attempts[]? | &quot;\($i): \(.tactic) -&gt; \(.outcome)&quot;&#39;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Check where it got stuck</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_history.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.iterations | map(select([.attempts[].outcome] | index(&quot;success&quot;) | not)) | .[0]&#39;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. See the proof graph structure</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> theorem_name/wild_type_graph.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;{</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">  nodes: (.nodes | length),</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="st">  edges: (.edges | length),</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">  root_type: .nodes[0].type</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span></span></code></pre></div>
+<hr />
+<h3 id="quick-reference-what-file-for-what-question">Quick Reference: What File For What Question</h3>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>File(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Overall success rate</td>
+<td><code>summary.json.gz</code></td>
+</tr>
+<tr class="even">
+<td>Why did X fail?</td>
+<td><code>X/wild_type_history.json</code>, <code>failure_analysis.json</code></td>
+</tr>
+<tr class="odd">
+<td>Did blocking Y matter?</td>
+<td><code>X/block_Y_comparison.json</code></td>
+</tr>
+<tr class="even">
+<td>Model consistency</td>
+<td><code>sheaf_analysis.json</code>, <code>goal_cache.json.gz</code></td>
+</tr>
+<tr class="odd">
+<td>Proof structure</td>
+<td><code>X/wild_type_assembly.json.gz</code></td>
+</tr>
+<tr class="even">
+<td>Tactic patterns</td>
+<td><code>goal_cache.json.gz</code>, <code>summary.json.gz</code> (goal_type_tactic_matrix)</td>
+</tr>
+<tr class="odd">
+<td>Compare interventions</td>
+<td><code>X/ged_matrix.json</code>, <code>analysis_report.json</code></td>
+</tr>
+</tbody>
+</table></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

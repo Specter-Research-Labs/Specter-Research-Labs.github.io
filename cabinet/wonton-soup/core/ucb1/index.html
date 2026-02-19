@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>UCB1 (Upper Confidence Bound) in MCTS | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-010</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/ucb1</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/ucb1.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#ucb1-upper-confidence-bound-in-mcts" id="toc-ucb1-upper-confidence-bound-in-mcts">UCB1 (Upper Confidence Bound) in MCTS</a>
+                            <ul>
+                            <li><a href="#definition" id="toc-definition">Definition</a></li>
+                            <li><a href="#interpretation" id="toc-interpretation">Interpretation</a></li>
+                            <li><a href="#usage-here" id="toc-usage-here">Usage Here</a></li>
+                            <li><a href="#why-it-matters" id="toc-why-it-matters">Why It Matters</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="ucb1-upper-confidence-bound-in-mcts">UCB1 (Upper Confidence Bound) in MCTS</h1>
+<h2 id="definition">Definition</h2>
+<p>UCB1 comes from stochastic multi-armed bandits. For child <code>i</code>, the selection score is:</p>
+<pre><code>score_i = mu_hat_i + c * sqrt(ln(N) / n_i)</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>mu_hat_i</code> is the empirical mean reward for child <code>i</code></li>
+<li><code>n_i</code> is the visit count for child <code>i</code></li>
+<li><code>N</code> is the visit count for the parent node</li>
+<li><code>c</code> is the exploration constant</li>
+</ul>
+<p>If <code>n_i = 0</code>, this implementation treats the score as <code>+inf</code> so each child is explored at least once.</p>
+<h2 id="interpretation">Interpretation</h2>
+<ul>
+<li><code>mu_hat_i</code> is exploitation: prefer children with higher observed value.</li>
+<li><code>sqrt(ln(N) / n_i)</code> is exploration: prefer under-visited children.</li>
+<li>As <code>n_i</code> grows, the exploration bonus shrinks, so selection becomes increasingly value-driven.</li>
+</ul>
+<h2 id="usage-here">Usage Here</h2>
+<p>We use UCB1 during MCTS selection: repeatedly choose the child with maximum UCB1 score until reaching a node to expand.</p>
+<p>Implementation details:</p>
+<ul>
+<li><code>MCTSNode.ucb1()</code> computes the score.</li>
+<li><code>MCTSNode.best_child_by_ucb1()</code> chooses the argmax child (with optional randomized tie-break).</li>
+<li><code>MCTSTree.select()</code> applies UCB1 recursively during tree descent.</li>
+<li><code>BackpropStrategy.AND_MIN</code> modifies the exploitation component so multi-subgoal tactics are evaluated by their weakest child.</li>
+</ul>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>UCB1 controls search allocation across goals/tactics under a fixed budget, so it directly shapes which proof paths are explored and which proofs are found.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>P. Auer, N. Cesa-Bianchi, P. Fischer (2002), “Finite-time Analysis of the Multiarmed Bandit Problem”.</li>
+<li>https://en.wikipedia.org/wiki/Multi-armed_bandit</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Sequential Tactic Application API | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">backends</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-012</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">backends/sequential-tactic-api</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                backends
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/backends/sequential-tactic-api.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#sequential-tactic-application-api" id="toc-sequential-tactic-application-api">Sequential Tactic Application API</a>
+                            <ul>
+                            <li><a href="#problem-statement" id="toc-problem-statement">Problem Statement</a>
+                            <ul>
+                            <li><a href="#the-sorry-contamination-issue" id="toc-the-sorry-contamination-issue">The Sorry Contamination Issue</a></li>
+                            <li><a href="#why-this-design-exists" id="toc-why-this-design-exists">Why This Design Exists</a></li>
+                            </ul></li>
+                            <li><a href="#solution-sequential-tactic-mode" id="toc-solution-sequential-tactic-mode">Solution: Sequential Tactic Mode</a>
+                            <ul>
+                            <li><a href="#api-added-to-leanproofbranch" id="toc-api-added-to-leanproofbranch">API Added to LeanProofBranch</a></li>
+                            <li><a href="#implementation" id="toc-implementation">Implementation</a></li>
+                            <li><a href="#use-case-proof-term-reconstruction" id="toc-use-case-proof-term-reconstruction">Use Case: Proof Term Reconstruction</a></li>
+                            </ul></li>
+                            <li><a href="#files-modified" id="toc-files-modified">Files Modified</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="sequential-tactic-application-api">Sequential Tactic Application API</h1>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>leantree’s <code>apply_tactic_async</code> method partitions independent goals into separate branches, using <code>sorry</code> to mask goals not being worked on. This enables parallel exploration but breaks proof term extraction.</p>
+<h3 id="the-sorry-contamination-issue">The Sorry Contamination Issue</h3>
+<p>When a tactic like <code>constructor</code> creates multiple independent goals:</p>
+<pre><code>Goal: P &lt;-&gt; Q
+  | constructor
+Goal A: P -&gt; Q
+Goal B: Q -&gt; P</code></pre>
+<p>leantree creates two branches:</p>
+<ul>
+<li>Branch 1: Goal A visible, Goal B filled with <code>sorry</code></li>
+<li>Branch 2: Goal B visible, Goal A filled with <code>sorry</code></li>
+</ul>
+<p>When Branch 1 solves Goal A, its proof term contains <code>sorry</code> for Goal B. The Lean REPL’s <code>getProofTerm</code> function explicitly rejects proofs containing sorry:</p>
+<pre class="lean"><code>-- libs/leantree/lean-repl/REPL/Main.lean (getProofTerm)
+if pf.hasSorry then return none</code></pre>
+<p>This means neither branch can produce a valid proof term, even though MCTS correctly tracks that both branches are solved.</p>
+<h3 id="why-this-design-exists">Why This Design Exists</h3>
+<p>The branching/masking design allows independent subgoals to be explored in parallel without interference. In MCTS proof search, this matters because:</p>
+<ol type="1">
+<li>Different branches can be expanded independently</li>
+<li>Backtracking on one branch doesn’t affect others</li>
+<li>The search tree structure matches the logical structure</li>
+</ol>
+<p>For proof <em>search</em>, this works because we only track which goals are solved.</p>
+<p>For proof <em>term extraction</em>, we need a proof state where all goals are solved without <code>sorry</code>.</p>
+<h2 id="solution-sequential-tactic-mode">Solution: Sequential Tactic Mode</h2>
+<p>We added methods to leantree that apply tactics without goal partitioning, returning a single branch with all resulting goals visible.</p>
+<h3 id="api-added-to-leanproofbranch">API Added to LeanProofBranch</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> apply_tactic_no_branching_async(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    tactic: <span class="bu">str</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    timeout: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="dv">1000</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="st">&quot;LeanProofBranch&quot;</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Apply tactic without partitioning goals into independent branches.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns a single branch with ALL resulting goals visible (no masking).</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Use this when you need to replay a proof sequentially for proof term</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">    extraction.</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Unlike apply_tactic_async which returns list[LeanProofBranch] (one per</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">    independent goal partition), this returns a single branch.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span></code></pre></div>
+<h3 id="implementation">Implementation</h3>
+<p>The implementation is simpler than <code>apply_tactic_async</code> because we skip:</p>
+<ol type="1">
+<li>Goal partitioning via <code>MetavarGraph.partition_independent_goals</code></li>
+<li>Creating multiple branches with masks</li>
+</ol>
+<p>We still:</p>
+<ol type="1">
+<li>Validate the tactic</li>
+<li>Send the tactic to the REPL</li>
+<li>Check for errors</li>
+<li>Construct a new branch with all goals visible</li>
+</ol>
+<h3 id="use-case-proof-term-reconstruction">Use Case: Proof Term Reconstruction</h3>
+<p>Given an assembly trace (ordered list of tactics applied during search), we reconstruct the proof in <code>LeanAdapter.reconstruct_proof_term()</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> reconstruct_proof_term(<span class="va">self</span>) <span class="op">-&gt;</span> ExprDAG <span class="op">|</span> <span class="va">None</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create fresh proof state with unique theorem name</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    branch <span class="op">=</span> <span class="cf">await</span> <span class="va">self</span>.env.proof_from_sorry_async(theorem_with_new_name)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replay tactics sequentially</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> step <span class="kw">in</span> <span class="va">self</span>.assembly_trace.steps:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> branch.is_solved:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="cf">await</span> branch.try_apply_tactic_no_branching_async(step.tactic)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> result.is_success():</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        branch <span class="op">=</span> result.value</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># All goals solved without sorry contamination</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> branch.get_proof_term_json()</span></code></pre></div>
+<h2 id="files-modified">Files Modified</h2>
+<ul>
+<li><code>libs/leantree/leantree/repl_adapter/interaction.py</code>: Added <code>apply_tactic_no_branching_async</code> and <code>try_apply_tactic_no_branching_async</code></li>
+<li><code>prover/lean.py</code>: Added <code>reconstruct_proof_term()</code> method</li>
+<li><code>orchestrator/lean.py</code>: Calls reconstruction when direct extraction fails</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

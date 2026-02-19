@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Taxonomy Spec (family / genus / species) | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-005</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">Taxonomy</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/Taxonomy.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                            </aside>
+
+                    <article class="doc-content"><p>Taxonomy Spec (family / genus / species)</p>
+<p>Goal</p>
+<ul>
+<li>Define a deterministic, offline taxonomy assignment for compendium entries that supports curation and search.</li>
+<li>Define continuity tests used to decide whether a proposed species is “continuous” rather than a grab-bag of nearby points.</li>
+</ul>
+<p>Inputs (available today)</p>
+<ul>
+<li><code>genotype_json</code> (<code>ParamsPayload</code>): kernel parameters plus global <code>R</code>.</li>
+<li><code>SimulationMetrics</code> (per seed run): mass/occupancy/energy/speed, <code>path_length</code>, <code>displacement</code>, <code>gyration</code>, <code>center_velocity</code>, optional complexity and activity means.</li>
+<li>Optional activity summaries (<code>overall/activity.jsonl</code>): per-step <code>speciesCount</code>, <code>diversity</code>, etc (aggregated into <code>morphometrics_json</code> when present).</li>
+</ul>
+<p>Canonical Representation Taxonomy must be invariant to kernel ordering in the JSON payload.</p>
+<ol type="1">
+<li>Kernel canonicalization</li>
+</ol>
+<ul>
+<li>Build per-kernel tuples <code>(r_i, m_i, s_i, h_i, b_i[0..], w_i[0..], a_i[0..])</code>.</li>
+<li>Sort kernels by a stable signature (lexicographic on a compact summary such as <code>(r, m, s, h, mean(b), max(b), mean(w), max(w), mean(a), max(a))</code>).</li>
+<li>Flatten the sorted kernels to a fixed-length vector.</li>
+<li>Append global <code>R</code> to the end.</li>
+</ul>
+<ol start="2" type="1">
+<li>Feature vectors</li>
+</ol>
+<ul>
+<li>Genotype vector <code>g</code>: flattened canonical parameters (above).</li>
+<li>Phenotype vector <code>p</code>: a selected subset of metrics (example stable default):
+<ul>
+<li><code>mass_mean</code>, <code>occupancy_mean</code>, <code>energy_mean</code></li>
+<li><code>gyration</code>, <code>center_velocity</code></li>
+<li><code>path_length</code>, <code>displacement</code></li>
+<li>Derived morphometrics (if present): <code>path_tortuosity</code>, <code>movement_efficiency</code></li>
+<li>Activity-derived summary fields when present (for “swarminess”): <code>activity_species_max</code>, <code>activity_diversity_std</code>, etc.</li>
+</ul></li>
+</ul>
+<p>Distance Metrics Distances are used only for grouping; they are not “scores”.</p>
+<ol type="1">
+<li>Genotype distance (primary)</li>
+</ol>
+<ul>
+<li>Normalize each dimension of <code>g</code> by a fixed scale (either per-dimension range from config or a corpus-wide robust scale).</li>
+<li>Use weighted L2:
+<ul>
+<li><code>d_g(g1, g2) = sqrt(sum_j w_j (g1_j - g2_j)^2)</code></li>
+</ul></li>
+<li>Default weights should down-weight amplitude-like terms (<code>b</code>, <code>h</code>) relative to shape/location terms (<code>r</code>, <code>m</code>, <code>s</code>, <code>w</code>, <code>a</code>, <code>R</code>), because amplitude reweighting often preserves identity.</li>
+</ul>
+<ol start="2" type="1">
+<li>Phenotype distance (secondary)</li>
+</ol>
+<ul>
+<li>Standardize phenotype features with corpus statistics (z-score or robust MAD).</li>
+<li>Use L2 in standardized space:
+<ul>
+<li><code>d_p(p1, p2) = ||z(p1) - z(p2)||_2</code></li>
+</ul></li>
+</ul>
+<p>Taxonomy Levels All taxonomy IDs are stable hashes of the assignment procedure (so IDs survive reindexing).</p>
+<p>Family</p>
+<ul>
+<li>Definition: coarse grouping by “mechanism class” in genotype space.</li>
+<li>Procedure (deterministic):
+<ul>
+<li>Partition by kernel count and by coarse ranges of <code>R</code>.</li>
+<li>Within each partition, cluster by <code>d_g</code> with a density method (e.g. DBSCAN) or a fixed-radius graph connectedness.</li>
+</ul></li>
+<li>Family should be conservative: if unsure, split rather than merge.</li>
+</ul>
+<p>Genus</p>
+<ul>
+<li>Definition: within a family, a genus is a tighter grouping where phenotype variation is bounded.</li>
+<li>Procedure:
+<ul>
+<li>Start from family clusters.</li>
+<li>Cluster within family using combined distance:
+<ul>
+<li><code>d = alpha * d_g + (1 - alpha) * d_p</code>, with <code>alpha</code> near 0.7 by default.</li>
+</ul></li>
+<li>Enforce that each genus cluster is connected in kNN graph under <code>d_g</code> (see continuity test below).</li>
+</ul></li>
+</ul>
+<p>Species</p>
+<ul>
+<li>Definition: within a genus, a species is a group that is both (a) locally dense and (b) continuous under small parameter perturbations.</li>
+<li>Procedure:
+<ul>
+<li>Candidate species = subclusters of a genus, formed by a stricter threshold on <code>d_g</code> (or smaller DBSCAN epsilon).</li>
+<li>Each candidate must pass the continuity checks below.</li>
+</ul></li>
+</ul>
+<p>Continuity Tests Continuity is tested on a proposed species cluster <code>S</code>.</p>
+<ol type="1">
+<li>kNN connectivity (fast, offline)</li>
+</ol>
+<ul>
+<li>Build a kNN graph on <code>S</code> using <code>d_g</code> (k default 8–16).</li>
+<li>Test:
+<ul>
+<li>Graph has 1 connected component.</li>
+<li>Edge distances have low dispersion (no long “bridge” edges). A simple criterion:
+<ul>
+<li><code>max(edge_d) &lt;= q95(edge_d) * bridge_factor</code> with <code>bridge_factor ~ 2</code>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>Interpolation continuity (slow, verification)</li>
+</ol>
+<ul>
+<li>Sample pairs <code>(a, b)</code> from <code>S</code>:
+<ul>
+<li>Prefer near-neighbor pairs (small <code>d_g</code>) and a small number of far-ish pairs to probe boundaries.</li>
+</ul></li>
+<li>For each pair, build an interpolation path:
+<ul>
+<li><code>g(t) = (1 - t) g_a + t g_b</code> for <code>t</code> in <code>{0, 1/(n-1), ..., 1}</code> (n default 7–11).</li>
+<li>Clamp each interpolated parameter back to configured ranges.</li>
+</ul></li>
+<li>For each <code>t</code>, run sims at fixed seeds and record a phenotype vector <code>p(t)</code>.</li>
+<li>Continuity criteria (examples; to be validated in bd-tsd.20):
+<ul>
+<li>No catastrophic phase change: occupancy/mass don’t collapse to zero for interior points.</li>
+<li>Trait drift is smooth: <code>||p(t+Δ) - p(t)||</code> bounded for all steps.</li>
+<li>Optional: classifier continuity (if a downstream “species classifier” exists): predicted species label does not oscillate along the path.</li>
+</ul></li>
+</ul>
+<p>Outputs</p>
+<ul>
+<li><code>taxonomy_family_id</code>, <code>taxonomy_genus_id</code>, <code>taxonomy_species_id</code>: stable IDs.</li>
+<li><code>taxonomy_confidence</code>: heuristic confidence (e.g. based on local density + continuity pass rate).</li>
+<li><code>taxonomy_method</code>, <code>taxonomy_version</code>: capture the exact procedure.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

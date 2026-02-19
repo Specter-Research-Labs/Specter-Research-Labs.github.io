@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Search-Graph REPL Feasibility by Backend | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-004</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/adr-search-graph-feasibility-by-backend</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/adr-search-graph-feasibility-by-backend.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-search-graph-repl-feasibility-by-backend" id="toc-adr-search-graph-repl-feasibility-by-backend">ADR: Search-Graph REPL Feasibility by Backend</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#options" id="toc-options">Options</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#rationale" id="toc-rationale">Rationale</a></li>
+                            <li><a href="#per-backend-feasibility-notes" id="toc-per-backend-feasibility-notes">Per-Backend Feasibility Notes</a>
+                            <ul>
+                            <li><a href="#lean" id="toc-lean">Lean</a></li>
+                            <li><a href="#coq" id="toc-coq">Coq</a></li>
+                            <li><a href="#e-prover" id="toc-e-prover">E prover</a></li>
+                            <li><a href="#vampire" id="toc-vampire">Vampire</a></li>
+                            <li><a href="#z3" id="toc-z3">Z3</a></li>
+                            </ul></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="adr-search-graph-repl-feasibility-by-backend">ADR: Search-Graph REPL Feasibility by Backend</h1>
+<h2 id="context">Context</h2>
+<p>Search-graph GED is available for Lean/Coq via interactive REPLs, but ATP/SMT solvers typically expose proof objects or trace logs rather than a controllable step-by-step search API.</p>
+<h2 id="options">Options</h2>
+<ol type="1">
+<li>Build true search-graph REPLs for each solver (E/Vampire/Z3), enabling MCTS and full search-graph GED.</li>
+<li>Use trace-derived graphs (protocol logs, proof objects, instantiation traces) as proxies for search behavior.</li>
+<li>Mix: keep true search graphs for Lean/Coq, use trace graphs for E/Vampire/Z3, and label them explicitly.</li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>Adopt option 3. We will treat search-graph GED as a first-class metric only when a true REPL exists (Lean/Coq). For E/Vampire/Z3, we will generate trace-derived graphs and label them as <code>ged_trace_graph</code> with explicit <code>trace_source</code> and <code>trace_completeness=proxy</code>.</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li>True REPLs require solver instrumentation or forks, which is a multi-month research effort with performance risks.</li>
+<li>Trace-derived graphs provide immediate visibility and are sufficient for many comparative analyses.</li>
+<li>Explicit metric family labeling prevents mixing search behavior metrics with proof structure.</li>
+</ul>
+<h2 id="per-backend-feasibility-notes">Per-Backend Feasibility Notes</h2>
+<h3 id="lean">Lean</h3>
+<ul>
+<li><strong>Status:</strong> True REPL available.</li>
+<li><strong>Search graph:</strong> MCTS ProofGraph from interactive goals and tactics.</li>
+<li><strong>Work required:</strong> None beyond schema alignment.</li>
+</ul>
+<h3 id="coq">Coq</h3>
+<ul>
+<li><strong>Status:</strong> Feasible via SerAPI checkpoints.</li>
+<li><strong>Search graph:</strong> Similar to Lean with <code>preview/commit</code> semantics.</li>
+<li><strong>Work required:</strong> Adapter work and goal signature normalization.</li>
+</ul>
+<h3 id="e-prover">E prover</h3>
+<ul>
+<li><strong>Status:</strong> No public REPL for step-wise given-clause control.</li>
+<li><strong>Trace source:</strong> TSTP/PCL protocol logs and proof objects.</li>
+<li><strong>Feasibility of true REPL:</strong> Requires forking or plugin for given-clause stepping.</li>
+</ul>
+<h3 id="vampire">Vampire</h3>
+<ul>
+<li><strong>Status:</strong> No public REPL for step-wise search.</li>
+<li><strong>Trace source:</strong> TSTP proof objects; optional trace outputs if available.</li>
+<li><strong>Feasibility of true REPL:</strong> Requires forking or instrumented build.</li>
+</ul>
+<h3 id="z3">Z3</h3>
+<ul>
+<li><strong>Status:</strong> No public REPL for DPLL(T) stepping.</li>
+<li><strong>Trace source:</strong> Z3 trace logs (<code>trace=true</code>) and proof objects (<code>proof=true</code>).</li>
+<li><strong>Feasibility of true REPL:</strong> Likely requires custom build or embedding theory solvers behind a new search driver.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>We will maintain three GED families (<code>ged_search_graph</code>, <code>ged_proof_graph</code>, <code>ged_trace_graph</code>).</li>
+<li><code>ged_trace_graph</code> is a proxy metric and must be labeled as such.</li>
+<li>Search-graph GED for ATP/SMT is deferred work, not a near-term requirement.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

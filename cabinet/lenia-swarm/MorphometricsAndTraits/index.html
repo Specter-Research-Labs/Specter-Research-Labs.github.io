@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Morphometrics + Behavior Traits Spec | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-004</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">MorphometricsAndTraits</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/MorphometricsAndTraits.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                            </aside>
+
+                    <article class="doc-content"><p>Morphometrics + Behavior Traits Spec</p>
+<p>Goal</p>
+<ul>
+<li>Define a small, explicit set of morphometrics and behavior traits that can be computed offline for compendium tagging and search.</li>
+<li>Keep the contract aligned with what the indexer can compute from stored run artifacts.</li>
+</ul>
+<p>Inputs</p>
+<ul>
+<li>Always available (per creature):
+<ul>
+<li><code>SimulationMetrics</code>:
+<ul>
+<li><code>path_length</code>, <code>displacement</code></li>
+<li><code>gyration</code>, <code>center_velocity</code></li>
+<li><code>mass_mean</code>, <code>mass_std</code>, <code>mass_min</code>, <code>mass_max</code></li>
+<li><code>occupancy_mean</code>, <code>variance_mean</code>, <code>energy_mean</code>, <code>speed_mean</code></li>
+<li>Optional: <code>complexity_mean</code>, <code>complexity_scales</code>, <code>complexity_target_score</code></li>
+</ul></li>
+<li><code>ParamsPayload</code> (genotype) for kernel count and <code>R</code>.</li>
+</ul></li>
+<li>Optional:
+<ul>
+<li>Activity summaries (per seed): time series <code>speciesCount</code>, <code>diversity</code>, <code>eac</code>, <code>ean</code>.</li>
+</ul></li>
+</ul>
+<p>Morphometrics (current implementation) Stored as <code>creatures.morphometrics_json</code> (versioned), method <code>lenia-swarm:morphometrics</code>.</p>
+<ol type="1">
+<li>Path tortuosity</li>
+</ol>
+<ul>
+<li>Definition: <code>tortuosity = path_length / displacement</code> (dimensionless).</li>
+<li>Domain notes:
+<ul>
+<li>If <code>displacement</code> is ~0, tortuosity is undefined; store <code>null</code>.</li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>Movement efficiency</li>
+</ol>
+<ul>
+<li>Definition: <code>efficiency = displacement / path_length</code> (dimensionless).</li>
+<li>Domain notes:
+<ul>
+<li>If <code>path_length</code> is ~0, store <code>null</code>.</li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li>Activity-derived summaries (when activity JSONL exists)</li>
+</ol>
+<ul>
+<li><code>activity_species_max = max(speciesCount[t])</code></li>
+<li><code>activity_species_std = std(speciesCount[t])</code></li>
+<li><code>activity_diversity_std = std(diversity[t])</code></li>
+<li><code>activity_eac_max = max(eac[t])</code></li>
+<li><code>activity_ean_max = max(ean[t])</code></li>
+</ul>
+<p>Behavior Traits (tagging) Traits are derived labels built from morphometrics + metrics. Thresholds are guidance and must be validated on corpus distributions (bd-tsd.19).</p>
+<p>Stability gating (recommended)</p>
+<ul>
+<li>Many “identity” traits should only apply when the creature is not collapsing or filling the entire grid.</li>
+<li>Default gate: <code>mass_min &gt; 0</code> and <code>occupancy_mean</code> within a configured band; optionally require <code>is_stable == true</code> if stability is enabled.</li>
+</ul>
+<ol type="1">
+<li>Mover (glider-like)</li>
+</ol>
+<ul>
+<li>Signal:
+<ul>
+<li><code>displacement</code> large relative to <code>gyration</code> and/or <code>center_velocity</code> above baseline.</li>
+</ul></li>
+<li>Example rule (to tune):
+<ul>
+<li><code>center_velocity &gt;= v_min</code> AND <code>occupancy_mean &lt;= occ_max</code></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>Wanderer (meanders but advances)</li>
+</ol>
+<ul>
+<li>Signal:
+<ul>
+<li>high tortuosity with non-trivial displacement.</li>
+</ul></li>
+<li>Example rule (to tune):
+<ul>
+<li><code>tortuosity &gt;= tau_min</code> AND <code>displacement &gt;= d_min</code></li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li>Spinner / rotator (planned)</li>
+</ol>
+<ul>
+<li>Requires additional measurements not currently in <code>SimulationMetrics</code>:
+<ul>
+<li>angular velocity of mass distribution around center-of-mass, or phase progression in a rotational moment.</li>
+</ul></li>
+<li>Suggested artifact:
+<ul>
+<li>store <code>rotation_rate</code> and <code>rotation_rate_std</code> in future <code>morphometrics_json</code> version.</li>
+</ul></li>
+</ul>
+<ol start="4" type="1">
+<li>Oscillator (planned)</li>
+</ol>
+<ul>
+<li>Requires time-series features not currently stored:
+<ul>
+<li>periodicity in mass/occupancy/energy or a learned embedding with autocorrelation peaks.</li>
+</ul></li>
+<li>Suggested artifact:
+<ul>
+<li>store <code>dominant_period_steps</code>, <code>period_confidence</code>.</li>
+</ul></li>
+</ul>
+<ol start="5" type="1">
+<li>Swarm / multi-agent (partially supported via activity)</li>
+</ol>
+<ul>
+<li>Signal:
+<ul>
+<li>high <code>activity_species_max</code> and high variance/standard deviation in <code>speciesCount</code> and/or <code>diversity</code>.</li>
+</ul></li>
+<li>Example rule (to tune):
+<ul>
+<li><code>activity_species_max &gt;= s_min</code> AND <code>activity_diversity_std &gt;= div_std_min</code></li>
+</ul></li>
+</ul>
+<ol start="6" type="1">
+<li>Complex (if complexity metrics enabled)</li>
+</ol>
+<ul>
+<li>Signal:
+<ul>
+<li>high <code>complexity_mean</code> (and optionally multi-scale consistency).</li>
+</ul></li>
+<li>Example rule (to tune):
+<ul>
+<li><code>complexity_mean &gt;= c_min</code></li>
+</ul></li>
+</ul>
+<p>Trait Output Contract</p>
+<ul>
+<li>Store raw morphometrics (numbers) in <code>morphometrics_json</code>.</li>
+<li>Store discrete trait labels as taxonomy or tag fields (future), derived deterministically from the raw fields plus a versioned threshold set.</li>
+<li>Always record:
+<ul>
+<li>method name</li>
+<li>version number</li>
+<li>threshold set identifier (hash of the thresholds file) when traits become first-class.</li>
+</ul></li>
+</ul>
+<p>Threshold Verification (CLI) Use <code>lenia-swarm thresholds</code> to compute distribution stats, basic sanity checks, and heuristic threshold suggestions from a compendium DB.</p>
+<p>How to run</p>
+<ul>
+<li>Stable creatures table (recommended):
+<ul>
+<li><code>lenia-swarm thresholds --db &lt;compendium.sqlite&gt; --output outputs/thresholds</code></li>
+</ul></li>
+<li>Results-only runs (indexed with <code>--include-results</code>):
+<ul>
+<li><code>lenia-swarm thresholds --db &lt;compendium.sqlite&gt; --source results --include-unstable --output outputs/thresholds</code></li>
+</ul></li>
+</ul>
+<p>Notes / failure modes</p>
+<ul>
+<li>Invariant: <code>path_length &gt;= displacement</code> should hold; the report includes a <code>path_length_ge_displacement</code> check.</li>
+<li>If <code>sample_count == 2</code>, then <code>path_length == displacement</code> is expected even when the implementation is correct (only one step segment is measured).
+<ul>
+<li>For meaningful tortuosity distributions, prefer configs that record more than 2 samples (increase <code>steps</code> or decrease <code>record_interval</code>, with <code>warmup_steps</code> accounted for).</li>
+</ul></li>
+<li>The report filename includes a timestamp and encodes <code>source</code> and <code>stable|all</code> to avoid overwriting same-day reports.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

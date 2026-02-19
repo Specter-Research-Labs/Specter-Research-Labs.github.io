@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Checkpoint-Scoped Goal IDs | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-001</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/adr-checkpoint-goal-ids</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/adr-checkpoint-goal-ids.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-checkpoint-scoped-goal-ids" id="toc-adr-checkpoint-scoped-goal-ids">ADR: Checkpoint-Scoped Goal IDs</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#expected-behavioral-impact" id="toc-expected-behavioral-impact">Expected Behavioral Impact</a></li>
+                            <li><a href="#implementation-notes" id="toc-implementation-notes">Implementation Notes</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="adr-checkpoint-scoped-goal-ids">ADR: Checkpoint-Scoped Goal IDs</h1>
+<h2 id="context">Context</h2>
+<p>Our MCTS implementation historically keyed nodes by Lean’s raw metavariable IDs (mvar_id). That is only safe if mvar_id is globally unique for the entire run. In practice, we roll the Lean REPL back to earlier checkpoints to explore alternative branches. Lean can reuse raw mvar_ids after rollback, which causes collisions in:</p>
+<ul>
+<li><code>MCTSTree.nodes_by_mvar</code></li>
+<li><code>LeanAdapter.states</code></li>
+<li>log files keyed by mvar_id (history, graphs, goal cache)</li>
+</ul>
+<p>This collision can crash the search (duplicate mvar_id) or silently overwrite goal states.</p>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li><strong>Path-specific node IDs</strong> (fresh IDs for every expansion)
+<ul>
+<li>Minimal behavioral change, but loses the link to the underlying proof state.</li>
+</ul></li>
+<li><strong>Checkpoint-scoped IDs</strong> (checkpoint_id + raw mvar_id)
+<ul>
+<li>Goal identity is unique per REPL checkpoint, preserves path-specific semantics, and retains the raw mvar_id suffix for debugging.</li>
+</ul></li>
+<li><strong>Goal-signature identity</strong> (merge nodes by goal signature)
+<ul>
+<li>Changes search semantics to state-graph MCTS; alters exploration distribution.</li>
+</ul></li>
+<li><strong>Hybrid sharing</strong> (unique nodes but shared stats by goal signature)
+<ul>
+<li>Still changes search distribution, though less than full merging.</li>
+</ul></li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>We use <strong>checkpoint-scoped goal IDs</strong>:</p>
+<pre><code>cp&lt;checkpoint_id&gt;:&lt;lean_mvar_id&gt;</code></pre>
+<p>This keeps the search semantics as a tree of attempts (no state merging), while preventing collisions from REPL rollback.</p>
+<h2 id="expected-behavioral-impact">Expected Behavioral Impact</h2>
+<ul>
+<li><strong>Search distribution:</strong> unchanged (tactic selection and expansion order are preserved).</li>
+<li><strong>Graph size / node counts:</strong> may increase slightly because repeated raw mvar_ids are no longer collapsed.</li>
+<li><strong>GED and structural metrics:</strong> may shift upward in absolute counts but remain comparable within the new scheme.</li>
+<li><strong>Goal cache:</strong> counts unique goal occurrences per checkpoint rather than raw mvar_id.</li>
+</ul>
+<h2 id="implementation-notes">Implementation Notes</h2>
+<ul>
+<li><code>prover/lean.py</code> now generates checkpoint IDs and keys <code>states</code> by <code>cp&lt;id&gt;:&lt;lean_mvar_id&gt;</code>.</li>
+<li><code>prover/mcts.py</code> treats <code>mvar_id</code> as the checkpoint-scoped goal ID throughout the tree and traces.</li>
+<li>Logs and traces record the checkpoint-scoped goal ID in all <code>mvar_id</code> fields.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><code>prover/lean.py</code> (<code>LeanAdapter._state_id</code>, <code>preview_tactic</code>, <code>commit_tactic</code>)</li>
+<li><code>prover/mcts.py</code> (<code>MCTSNode.mvar_id</code>, <code>nodes_by_mvar</code>)</li>
+<li><code>docs/core/mvar-goal-identity.md</code></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>mvar Goal Identity and MCTS Nodes | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-009</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/mvar-goal-identity</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/mvar-goal-identity.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#mvar-goal-identity-and-mcts-nodes" id="toc-mvar-goal-identity-and-mcts-nodes">mvar Goal Identity and MCTS Nodes</a>
+                            <ul>
+                            <li><a href="#what-is-mvar_id" id="toc-what-is-mvar_id">What is mvar_id?</a></li>
+                            <li><a href="#checkpoint-scoped-goal-ids-what-we-log" id="toc-checkpoint-scoped-goal-ids-what-we-log">Checkpoint-scoped goal IDs (what we log)</a></li>
+                            <li><a href="#how-mcts-nodes-map-to-mvar_ids" id="toc-how-mcts-nodes-map-to-mvar_ids">How MCTS nodes map to mvar_ids</a></li>
+                            <li><a href="#why-key-by-mvar_id" id="toc-why-key-by-mvar_id">Why key by mvar_id?</a></li>
+                            <li><a href="#why-this-matters-for-proof-convergence" id="toc-why-this-matters-for-proof-convergence">Why This Matters for Proof Convergence</a>
+                            <ul>
+                            <li><a href="#proof-graph-construction" id="toc-proof-graph-construction">1. Proof Graph Construction</a></li>
+                            <li><a href="#graph-edit-distance" id="toc-graph-edit-distance">2. Graph Edit Distance</a></li>
+                            <li><a href="#intervention-experiments" id="toc-intervention-experiments">3. Intervention Experiments</a></li>
+                            <li><a href="#assembly-trace" id="toc-assembly-trace">4. Assembly Trace</a></li>
+                            </ul></li>
+                            <li><a href="#implementation-files" id="toc-implementation-files">Implementation Files</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="mvar-goal-identity-and-mcts-nodes">mvar Goal Identity and MCTS Nodes</h1>
+<h2 id="what-is-mvar_id">What is mvar_id?</h2>
+<p>In Lean, when you’re in the middle of a proof, each <strong>goal</strong> (thing you need to prove) has a unique identifier called a <strong>metavariable ID</strong> (<code>mvar_id</code>). Think of it as a “hole” in your proof that needs to be filled.</p>
+<pre class="lean"><code>theorem example : (1 + 1 = 2) ∧ (2 + 2 = 4) := by
+  constructor   -- splits into TWO goals, each gets a unique mvar_id
+  -- Goal 1: ?mvar_123  ⊢ 1 + 1 = 2
+  -- Goal 2: ?mvar_456  ⊢ 2 + 2 = 4</code></pre>
+<p>The <code>?mvar_123</code> and <code>?mvar_456</code> are the raw Lean mvar_ids. They are stable <strong>within a single proof state</strong>, but can be re-used if we roll the REPL back to an earlier checkpoint and explore a different branch.</p>
+<h2 id="checkpoint-scoped-goal-ids-what-we-log">Checkpoint-scoped goal IDs (what we log)</h2>
+<p>Because this project uses rollback to explore multiple branches, raw Lean mvar_ids can repeat. To avoid collisions, we treat the <strong>logged</strong> <code>mvar_id</code> as a checkpoint-scoped goal ID:</p>
+<pre><code>cp&lt;checkpoint_id&gt;:&lt;lean_mvar_id&gt;</code></pre>
+<p>Example:</p>
+<pre><code>cp12:_uniq.100099.72</code></pre>
+<p>So when you see <code>mvar_id</code> in logs or traces, it is <strong>not</strong> the raw Lean id. It is a stable goal identifier that is unique per checkpointed proof state. The raw Lean id is the suffix after <code>:</code>.</p>
+<h2 id="how-mcts-nodes-map-to-mvar_ids">How MCTS nodes map to mvar_ids</h2>
+<p>Each node in our MCTS tree represents <strong>one goal to prove</strong>. The tree structure shows how tactics transform goals. The ids shown below are checkpoint-scoped goal ids:</p>
+<pre><code>                    Root: cp1:?mvar_001
+                    goal: &quot;(1+1=2) ∧ (2+2=4)&quot;
+                           |
+                    tactic: &quot;constructor&quot;
+                           |
+              +------------+------------+
+              |                         |
+        cp2:?mvar_123              cp2:?mvar_456
+        goal: &quot;1+1=2&quot;              goal: &quot;2+2=4&quot;
+              |                         |
+        tactic: &quot;rfl&quot;              tactic: &quot;rfl&quot;
+              |                         |
+           SOLVED                    SOLVED</code></pre>
+<p>In code, this is represented as:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Root node</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> MCTSNode(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    mvar_id<span class="op">=</span><span class="st">&quot;cp1:?mvar_001&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    goal_type<span class="op">=</span><span class="st">&quot;(1+1=2) ∧ (2+2=4)&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    children<span class="op">=</span>{</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;constructor&quot;</span>: [child1, child2]  <span class="co"># tactic produced 2 children</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Child nodes</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>child1 <span class="op">=</span> MCTSNode(mvar_id<span class="op">=</span><span class="st">&quot;cp2:?mvar_123&quot;</span>, goal_type<span class="op">=</span><span class="st">&quot;1+1=2&quot;</span>, parent<span class="op">=</span>root)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>child2 <span class="op">=</span> MCTSNode(mvar_id<span class="op">=</span><span class="st">&quot;cp2:?mvar_456&quot;</span>, goal_type<span class="op">=</span><span class="st">&quot;2+2=4&quot;</span>, parent<span class="op">=</span>root)</span></code></pre></div>
+<h2 id="why-key-by-mvar_id">Why key by mvar_id?</h2>
+<p>We key MCTS nodes by checkpoint-scoped <code>mvar_id</code> to track the exact goal instance produced by a specific REPL checkpoint. <code>mvar_id</code> is not a semantic identifier, so equivalent goals usually receive different ids. Semantic deduplication is handled separately via <code>goal_signature</code>.</p>
+<pre><code>        A                    A
+        |                    |
+   tactic &quot;simp&quot;        tactic &quot;ring&quot;
+        |                    |
+        B (mvar_id=b1)   B&#39; (mvar_id=b2)
+        goal_sig = g     goal_sig = g</code></pre>
+<p>The <code>nodes_by_mvar</code> dict prevents duplicate nodes for the same checkpoint-scoped goal instance. Semantic deduplication is documented in <code>docs/core/goal-deduplication-and-preview-commit.md</code>.</p>
+<h2 id="why-this-matters-for-proof-convergence">Why This Matters for Proof Convergence</h2>
+<p>The mvar_id → MCTS node mapping is foundational to detecting structural convergence:</p>
+<h3 id="proof-graph-construction">1. Proof Graph Construction</h3>
+<p>Each solved proof becomes a directed graph where:</p>
+<ul>
+<li>Nodes are checkpoint-scoped mvar_ids (goals)</li>
+<li>Edges are tactics that transform goals</li>
+<li>Leaves are solved subgoals</li>
+</ul>
+<p>See <code>prover/proof.py</code> for <code>ProofGraph</code> implementation.</p>
+<h3 id="graph-edit-distance">2. Graph Edit Distance</h3>
+<p>To measure if two proofs are “structurally similar”, we compute graph edit distance (GED) between canonicalized proof graphs:</p>
+<ul>
+<li>Low GED → similar proof structure</li>
+<li>High GED → different approaches</li>
+</ul>
+<p>Canonicalization uses <code>goal_signature</code> on nodes and <code>tactic_family</code> on edges (see <code>orchestrator/lean.py</code>).</p>
+<h3 id="intervention-experiments">3. Intervention Experiments</h3>
+<p>When we block certain tactics and re-run search:</p>
+<ul>
+<li>Same goal signatures may be reached via different tactic sequences</li>
+<li>Comparing graphs shows if the “shape” of the proof converged</li>
+<li>This tests the platonic hypothesis: do different paths lead to similar structures?</li>
+</ul>
+<h3 id="assembly-trace">4. Assembly Trace</h3>
+<p>The <code>ProofAssemblyTrace</code> records (mvar_id, tactic) pairs in order. This lets us:</p>
+<ul>
+<li>Replay proofs sequentially for term extraction</li>
+<li>Compare tactic choices at each goal</li>
+<li>Analyze where proofs diverge</li>
+</ul>
+<p>See <code>docs/backends/partial-proof-terms.md</code> for assembly tracking details.</p>
+<h2 id="implementation-files">Implementation Files</h2>
+<table>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prover/mcts.py</code></td>
+<td><code>MCTSNode.mvar_id</code>, <code>nodes_by_mvar</code> dict</td>
+</tr>
+<tr class="even">
+<td><code>prover/proof.py</code></td>
+<td><code>ProofGraph</code> construction from MCTS tree</td>
+</tr>
+<tr class="odd">
+<td><code>prover/lean.py</code></td>
+<td><code>LeanAdapter.states</code> keyed by mvar_id</td>
+</tr>
+<tr class="even">
+<td><code>prover/providers/base.py</code></td>
+<td><code>goal_signature</code></td>
+</tr>
+<tr class="odd">
+<td><code>orchestrator/lean.py</code></td>
+<td>Graph edit distance computation</td>
+</tr>
+</tbody>
+</table></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

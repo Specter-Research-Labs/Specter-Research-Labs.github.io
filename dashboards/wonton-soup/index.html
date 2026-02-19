@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wonton Soup Dashboard</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                background: #080b10;
+            }
+
+            #wonton-dashboard {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="wonton-dashboard"></canvas>
+        <script type="module">
+            import init from "./wonton_soup_dashboard.js";
+            init();
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Distributed (Cell-View) MCTS Runner | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-002</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/adr-distributed-mcts</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/adr-distributed-mcts.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-distributed-cell-view-mcts-runner" id="toc-adr-distributed-cell-view-mcts-runner">ADR: Distributed (Cell-View) MCTS Runner</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#problem-definition" id="toc-problem-definition">Problem Definition</a></li>
+                            <li><a href="#constraints" id="toc-constraints">Constraints</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#definition-distributed-mcts-in-this-repo" id="toc-definition-distributed-mcts-in-this-repo">Definition: “Distributed MCTS” in This Repo</a></li>
+                            <li><a href="#differences-from-centralized-mcts" id="toc-differences-from-centralized-mcts">Differences from Centralized MCTS</a></li>
+                            <li><a href="#implementation-notes" id="toc-implementation-notes">Implementation Notes</a></li>
+                            <li><a href="#non-goals" id="toc-non-goals">Non-Goals</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="adr-distributed-cell-view-mcts-runner">ADR: Distributed (Cell-View) MCTS Runner</h1>
+<h2 id="context">Context</h2>
+<p>This ADR defines a “distributed” MCTS implementation aligned with the Zang-Levin cell-view idea: many local agents make decisions using only local views and limited coordination. The core MCTS engine and Lean integration must remain stable and reusable across experiments. Distributed behavior should support interventions (blocking, scheduling, local heuristics) without changing core MCTS semantics or data structures.</p>
+<h2 id="problem-definition">Problem Definition</h2>
+<p>Required properties:</p>
+<ul>
+<li>Run MCTS where control is not a single centralized loop.</li>
+<li>Model multiple local agents that each pick where to explore next.</li>
+<li>Inject intervention-like behavior (blocking, throttling, scheduling) at the agent or frontier level.</li>
+<li>Keep the canonical <code>prover/mcts.py</code> path unchanged to protect standard runs.</li>
+</ul>
+<h2 id="constraints">Constraints</h2>
+<ul>
+<li>Core MCTS (<code>prover/mcts.py</code>) must remain unchanged.</li>
+<li>Reuse existing tree, node, trace, and history data structures for compatibility.</li>
+<li>No concurrent Lean adapter usage (serializes Lean calls for safety).</li>
+<li>Explicit configuration required for distributed mode; no implicit fallbacks.</li>
+</ul>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li><strong>Modify core MCTS (<code>prover/mcts.py</code>) to be distributed</strong>
+<ul>
+<li>High coupling, high regression risk for standard runs.</li>
+</ul></li>
+<li><strong>Add a separate distributed runner that reuses core data structures</strong>
+<ul>
+<li>Isolates experimentation, preserves core behavior, enables interventions.</li>
+</ul></li>
+<li><strong>Full parallel adapter expansion (true concurrency)</strong>
+<ul>
+<li>Requires careful Lean adapter isolation and synchronization; higher risk.</li>
+</ul></li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p>Implement a <strong>separate distributed runner</strong> under <code>experiments/</code> and integrate it with a new <code>--mcts-mode</code> switch in <code>orchestrator/lean.py</code>. The distributed runner reuses <code>MCTSTree</code>, <code>MCTSNode</code>, <code>ExplorationHistory</code>, and <code>MCTSTraceWriter</code> unchanged.</p>
+<p>This keeps the core MCTS path intact while enabling distributed control and intervention hooks in a contained module.</p>
+<h2 id="definition-distributed-mcts-in-this-repo">Definition: “Distributed MCTS” in This Repo</h2>
+<p>Distributed MCTS is defined as:</p>
+<ul>
+<li>A single shared search tree (<code>MCTSTree</code>) with multiple <em>agents</em> acting as local controllers.</li>
+<li>Each agent independently selects a node to expand using its local view of the tree.</li>
+<li>Agents reserve nodes as “inflight” to avoid duplicate work; expansions are still serialized through one Lean adapter.</li>
+<li>Scheduling is explicit: selections can be blocked, delayed, or rerouted without changing core MCTS logic.</li>
+<li>Virtual loss can down-rank inflight nodes to reduce contention without true parallel expansion.</li>
+</ul>
+<p>This yields a multi-controller search loop where global coordination is limited to inflight reservations and shared tree updates, matching the “cell-view” inspiration.</p>
+<h2 id="differences-from-centralized-mcts">Differences from Centralized MCTS</h2>
+<p>Centralized MCTS:</p>
+<ul>
+<li>One global loop chooses a single node per iteration.</li>
+<li>Selection, expansion, and backprop are synchronized in a fixed sequence.</li>
+<li>Control is fully centralized and uniform across the tree.</li>
+</ul>
+<p>Distributed MCTS (this runner):</p>
+<ul>
+<li>Multiple agents choose nodes independently and in parallel (logical parallelism).</li>
+<li>Expansions happen out of order relative to a single centralized loop.</li>
+<li>Inflight reservations prevent duplicate expansions.</li>
+<li>Optional block schedules can freeze portions of the frontier for K steps (including permanent blocks and unfreeze rules).</li>
+<li>Optional delay schedules can pause a node for N iterations.</li>
+<li>Optional reroute policies can select a different node when blocked or delayed.</li>
+<li>Trace context includes agent identifiers and inflight counts, plus block/delay/reroute snapshots when enabled.</li>
+</ul>
+<p>An <code>agents=1</code> distributed run is expected to be behaviorally close to centralized MCTS, but still routes through the distributed scheduler.</p>
+<h2 id="implementation-notes">Implementation Notes</h2>
+<ul>
+<li>Distributed runner: <code>dossiers/wonton-soup/experiments/distributed_mcts/core.py</code></li>
+<li>Integration entry points: <code>wonton.py lean run</code> and <code>wonton.py lean basin</code> via <code>--mcts-mode centralized|distributed</code></li>
+<li>Required flags for distributed runs: <code>--mcts-agents</code>, <code>--mcts-inflight</code></li>
+<li>Optional intervention knobs:
+<ul>
+<li>Blocking: <code>--mcts-block-fraction</code>, <code>--mcts-block-duration</code>, <code>--mcts-block-seed</code>, <code>--mcts-block-immovable-fraction</code>, <code>--mcts-unfreeze-after</code>, <code>--mcts-unfreeze-prob</code></li>
+<li>Reroute: <code>--mcts-reroute-blocked</code>, <code>--mcts-reroute-max</code></li>
+<li>Delay: <code>--mcts-delay-prob</code>, <code>--mcts-delay-duration</code>, <code>--mcts-delay-seed</code></li>
+<li>Selection bias: <code>--mcts-virtual-loss</code>, <code>--mcts-depth-bias</code>, <code>--mcts-path-bias</code></li>
+<li>Caching: <code>--mcts-history-cache</code></li>
+</ul></li>
+<li>Distributed configuration is recorded in run logs for reproducibility.</li>
+<li>Core MCTS code and schemas remain unchanged.</li>
+</ul>
+<h2 id="non-goals">Non-Goals</h2>
+<ul>
+<li>No changes to <code>prover/mcts.py</code>.</li>
+<li>No true parallel Lean adapter execution.</li>
+<li>No optimistic concurrency beyond inflight reservations and optional virtual loss.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>Distributed behavior can diverge from centralized iteration order while sharing the same tree data structures.</li>
+<li>Interventions are expressed as scheduling and blocking rather than core algorithm changes.</li>
+<li>The distributed path provides a stable testbed for Zang-Levin-style interventions without destabilizing the core MCTS engine.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><code>dossiers/wonton-soup/experiments/distributed_mcts/core.py</code></li>
+<li><code>dossiers/wonton-soup/orchestrator/lean.py</code></li>
+<li><code>dossiers/wonton-soup/prover/mcts.py</code> (unchanged core)</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

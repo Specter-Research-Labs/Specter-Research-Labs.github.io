@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Analysis Lexicon (Wonton-Soup) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-005</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/analysis-lexicon</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/analysis-lexicon.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#analysis-lexicon-wonton-soup" id="toc-analysis-lexicon-wonton-soup">Analysis Lexicon (Wonton-Soup)</a>
+                            <ul>
+                            <li><a href="#canonical-references" id="toc-canonical-references">Canonical References</a></li>
+                            <li><a href="#core-artifacts-raw-data" id="toc-core-artifacts-raw-data">Core Artifacts (Raw Data)</a>
+                            <ul>
+                            <li><a href="#explorationhistory" id="toc-explorationhistory">ExplorationHistory</a></li>
+                            <li><a href="#mctstree" id="toc-mctstree">MCTSTree</a></li>
+                            <li><a href="#search-graph-mcts-proofgraph" id="toc-search-graph-mcts-proofgraph">Search Graph (MCTS ProofGraph)</a></li>
+                            <li><a href="#proof-subgraph-leandojo-style" id="toc-proof-subgraph-leandojo-style">Proof Subgraph (LeanDojo-style)</a></li>
+                            <li><a href="#proof-object-graph" id="toc-proof-object-graph">Proof Object Graph</a></li>
+                            <li><a href="#search-trace-graph" id="toc-search-trace-graph">Search Trace Graph</a></li>
+                            <li><a href="#proof-term-dag-exprdag" id="toc-proof-term-dag-exprdag">Proof Term DAG (ExprDAG)</a></li>
+                            <li><a href="#portable-proof-term-subset" id="toc-portable-proof-term-subset">Portable Proof-Term Subset</a></li>
+                            <li><a href="#goalcache" id="toc-goalcache">GoalCache</a></li>
+                            <li><a href="#proof-assembly-trace" id="toc-proof-assembly-trace">Proof Assembly Trace</a></li>
+                            </ul></li>
+                            <li><a href="#structural-metrics" id="toc-structural-metrics">Structural Metrics</a>
+                            <ul>
+                            <li><a href="#graph-edit-distance-ged" id="toc-graph-edit-distance-ged">Graph Edit Distance (GED)</a></li>
+                            <li><a href="#goal-ast-ordered-tree-edit-distance-ted" id="toc-goal-ast-ordered-tree-edit-distance-ted">Goal-AST Ordered Tree Edit Distance (TED)</a></li>
+                            <li><a href="#attractor-clustering" id="toc-attractor-clustering">Attractor Clustering</a></li>
+                            <li><a href="#structure-hash-wl" id="toc-structure-hash-wl">Structure Hash (WL)</a></li>
+                            <li><a href="#proof-term-structural-hash-and-diff" id="toc-proof-term-structural-hash-and-diff">Proof Term Structural Hash and Diff</a></li>
+                            <li><a href="#axiom-fingerprint" id="toc-axiom-fingerprint">Axiom Fingerprint</a></li>
+                            <li><a href="#proof-term-complexity" id="toc-proof-term-complexity">Proof Term Complexity</a></li>
+                            </ul></li>
+                            <li><a href="#search-dynamics-metrics" id="toc-search-dynamics-metrics">Search Dynamics Metrics</a>
+                            <ul>
+                            <li><a href="#trajectory-metrics" id="toc-trajectory-metrics">Trajectory Metrics</a></li>
+                            <li><a href="#detour-metrics" id="toc-detour-metrics">Detour Metrics</a></li>
+                            <li><a href="#trajectory-comparison-recovery-time" id="toc-trajectory-comparison-recovery-time">Trajectory Comparison (Recovery Time)</a></li>
+                            <li><a href="#solution-path-soft-distance" id="toc-solution-path-soft-distance">Solution-Path Soft Distance</a></li>
+                            <li><a href="#basin-analysis-multi-seed" id="toc-basin-analysis-multi-seed">Basin Analysis (Multi-Seed)</a></li>
+                            <li><a href="#k-style-search-efficiency-levin-style" id="toc-k-style-search-efficiency-levin-style">K-Style Search Efficiency (Levin-Style)</a></li>
+                            <li><a href="#failure-analysis" id="toc-failure-analysis">Failure Analysis</a></li>
+                            </ul></li>
+                            <li><a href="#tactic-and-goal-statistics" id="toc-tactic-and-goal-statistics">Tactic and Goal Statistics</a>
+                            <ul>
+                            <li><a href="#goal-type-tactic-matrix" id="toc-goal-type-tactic-matrix">Goal-Type / Tactic Matrix</a></li>
+                            <li><a href="#tactic-fingerprint" id="toc-tactic-fingerprint">Tactic Fingerprint</a></li>
+                            <li><a href="#goal-novelty-intervention-vs-wild-type" id="toc-goal-novelty-intervention-vs-wild-type">Goal Novelty (Intervention vs Wild-Type)</a></li>
+                            <li><a href="#sheaf-analysis" id="toc-sheaf-analysis">Sheaf Analysis</a></li>
+                            </ul></li>
+                            <li><a href="#aggregate-analyses-and-reports" id="toc-aggregate-analyses-and-reports">Aggregate Analyses and Reports</a>
+                            <ul>
+                            <li><a href="#summary-report" id="toc-summary-report">Summary Report</a></li>
+                            <li><a href="#root-goal-similarity-cross-theorem" id="toc-root-goal-similarity-cross-theorem">Root Goal Similarity (Cross-Theorem)</a></li>
+                            <li><a href="#external-statement-similarity-cross-problem" id="toc-external-statement-similarity-cross-problem">External Statement Similarity (Cross-Problem)</a></li>
+                            <li><a href="#corpus-classification" id="toc-corpus-classification">Corpus Classification</a></li>
+                            <li><a href="#proof-graph-registry" id="toc-proof-graph-registry">Proof Graph Registry</a></li>
+                            </ul></li>
+                            <li><a href="#overlaps-and-alignment" id="toc-overlaps-and-alignment">Overlaps and Alignment</a></li>
+                            <li><a href="#post-analysis-runner" id="toc-post-analysis-runner">Post-Analysis Runner</a></li>
+                            <li><a href="#known-caveats" id="toc-known-caveats">Known Caveats</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="analysis-lexicon-wonton-soup">Analysis Lexicon (Wonton-Soup)</h1>
+<p>Reference for wonton-soup analysis artifacts and metrics, including definitions and implementation locations.</p>
+<h2 id="canonical-references">Canonical References</h2>
+<ul>
+<li>Log schema reference: <code>docs/core/log-file-schemas.md</code></li>
+<li>Operational log-query recipes: <code>docs/ops/log-query-cookbook.md</code></li>
+<li>Cross-run lake operations: <code>docs/ops/run-lake.md</code> and <code>docs/ops/lake-jobs.md</code></li>
+</ul>
+<h2 id="core-artifacts-raw-data">Core Artifacts (Raw Data)</h2>
+<h3 id="explorationhistory">ExplorationHistory</h3>
+<p>Records per-iteration search behavior: which path was selected, which tactics were tried, and outcomes. Raw substrate for trajectory, detour, and tactic usage metrics.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code>, produced by <code>prover/mcts.py</code></li>
+<li>Outputs: <code>wild_type_history.json</code>, <code>*_history.json</code></li>
+</ul>
+<h3 id="mctstree">MCTSTree</h3>
+<p>Search tree with visit counts, backprop stats, and goal signatures on nodes. Used to extract solution paths and map iterations to goal signatures.</p>
+<ul>
+<li>Implementation: <code>prover/mcts.py</code></li>
+<li>Outputs: <code>wild_type_mcts_tree.json</code>, <code>*_mcts_tree.json</code></li>
+</ul>
+<h3 id="search-graph-mcts-proofgraph">Search Graph (MCTS ProofGraph)</h3>
+<p>A directed proof-search graph: nodes are goals (checkpoint-scoped mvar ids), edges are tactic expansions. Structural layer for search-graph GED and attractor clustering.</p>
+<ul>
+<li>Implementation: <code>prover/proof.py</code> (<code>ProofGraph</code>)</li>
+<li>Outputs: <code>wild_type_graph.json</code>, <code>*_graph.json</code> (Lean runs; external Coq/ATP emit proof graphs)</li>
+</ul>
+<h3 id="proof-subgraph-leandojo-style">Proof Subgraph (LeanDojo-style)</h3>
+<p>The minimal successful subgraph of the search graph that yields a proof. Distinct from the proof term DAG; preferred definition of a “proof graph” for Lean.</p>
+<ul>
+<li>Derived from: search graph + successful solution path</li>
+<li>Fields: <code>in_proof</code> tags on nodes/edges (or a dedicated <code>*_proof_graph.json</code>)</li>
+</ul>
+<h3 id="proof-object-graph">Proof Object Graph</h3>
+<p>A directed proof graph reconstructed from solver derivations or proof objects (clauses, inferences, proof-term nodes). Structural layer for proof-graph GED.</p>
+<ul>
+<li>Implementation: <code>atp/proof_objects.py</code>, backend parsers</li>
+<li>Outputs: <code>wild_type_graph.json</code>, <code>*_graph.json</code> (ATP runs)</li>
+</ul>
+<h3 id="search-trace-graph">Search Trace Graph</h3>
+<p>A trace-derived graph from solver logs (protocol output, traces, or instantiation logs). Used when a true search graph is not available; supports trace-graph GED.</p>
+<ul>
+<li>Implementation: trace parsers (backend-specific)</li>
+<li>Outputs: <code>*_search_trace_graph.json</code> (optional; see <code>docs/core/log-file-schemas.md</code>)</li>
+</ul>
+<h3 id="proof-term-dag-exprdag">Proof Term DAG (ExprDAG)</h3>
+<p>Semantic representation of the completed proof term. This powers structural hashes, diffs, and axiom fingerprints.</p>
+<ul>
+<li>Implementation: <code>prover/expr.py</code>, <code>prover/lean.py</code></li>
+<li>Outputs: <code>wild_type_proof_term.json.gz</code>, <code>*_proof_term.json.gz</code></li>
+</ul>
+<h3 id="portable-proof-term-subset">Portable Proof-Term Subset</h3>
+<p>A minimal, backend-agnostic subset for proof-term portability. Required fields: <code>rootId</code>, <code>nodes</code> as <code>[id, {kind, children...}]</code> pairs, and stable identifiers for constants.</p>
+<p><strong>Capability flags (per backend/run):</strong></p>
+<ul>
+<li><code>has_proof_term</code></li>
+<li><code>has_proof_term_pretty</code></li>
+<li><code>has_assembly_trace</code></li>
+<li><code>has_proof_term_metrics</code></li>
+</ul>
+<h3 id="goalcache">GoalCache</h3>
+<p>Maps checkpoint-scoped mvar ids to stable goal signatures and feature vectors derived from ASTs. Used for sheaf analysis, goal dedup metrics, and AST-based goal signatures in search.</p>
+<ul>
+<li>Implementation: <code>prover/goal_cache.py</code>, <code>analysis/goal_features.py</code></li>
+<li>Outputs: <code>goal_cache.json.gz</code></li>
+</ul>
+<h3 id="proof-assembly-trace">Proof Assembly Trace</h3>
+<p>Step-by-step mapping from tactics to partial proof terms. Useful for debugging and for reconstruction audits.</p>
+<ul>
+<li>Implementation: <code>prover/assembly.py</code>, <code>prover/lean.py</code></li>
+<li>Outputs: <code>wild_type_assembly.json.gz</code>, <code>*_assembly.json.gz</code> (gzipped)</li>
+</ul>
+<h2 id="structural-metrics">Structural Metrics</h2>
+<h3 id="graph-edit-distance-ged">Graph Edit Distance (GED)</h3>
+<p>Distance between graphs after canonicalization. We maintain distinct GED families and never mix them without labeling.</p>
+<p><strong>Families:</strong></p>
+<ul>
+<li><code>ged_search_graph</code>: Search-graph GED over MCTS ProofGraphs (Lean). Nodes match on goal signatures, edges match on tactic families.</li>
+<li><code>ged_search_graph_soft</code>: Search-graph GED with <em>soft</em> goal matching. Node substitution cost is normalized goal-AST ordered TED; edges still match on tactic families.</li>
+<li><code>ged_proof_graph</code>: Proof-object GED over solver derivation graphs (ATP). Nodes match on clause/term signatures, edges match on inference families.</li>
+<li><code>ged_trace_graph</code>: Trace-derived GED from solver logs when no true search graph is available.</li>
+</ul>
+<p><strong>Validity metadata (per intervention + run-level summary):</strong></p>
+<ul>
+<li><code>valid</code>: boolean</li>
+<li><code>validity_notes</code>: list of strings (e.g., missing trace, malformed proof, non-comparable backend)</li>
+<li><code>trace_source</code>: <code>mcts | proof_object | tstp | pcl | z3trace | other</code></li>
+<li><code>trace_completeness</code>: <code>full | partial | proxy</code></li>
+</ul>
+<p><strong>Normalization:</strong> Provide raw GED and an optional normalized score (e.g., GED / max(|V|+|E|)).</p>
+<ul>
+<li>Implementation: <code>prover/proof.py</code> (canonicalization), <code>orchestrator/lean.py</code> (hard GED), <code>analysis/postprocess_metrics.py</code> (soft GED + other heavy metrics)</li>
+<li>Note: <code>ged_search_graph_soft</code> is computed in postprocess to keep runs fast and deterministic.</li>
+<li>Outputs: <code>ged_matrix.json</code>, <code>all_ged_matrices.json</code>, <code>*_comparison.json</code> (<code>ged_*</code>)</li>
+<li>Uses: AST-based <code>goal_signature()</code> for node identity, <code>tactic_family()</code> for edge identity</li>
+</ul>
+<h3 id="goal-ast-ordered-tree-edit-distance-ted">Goal-AST Ordered Tree Edit Distance (TED)</h3>
+<p>Ordered tree edit distance over Lean goal ASTs (expression DAGs unfolded into trees), normalized to <code>[0, 1]</code> by dividing by <code>|T1| + |T2|</code>.</p>
+<p>Used as a semantic-ish distance between goal signatures when exact signature match is too brittle.</p>
+<ul>
+<li>Implementation: <code>prover/tree_edit_distance.py</code>, <code>prover/goal_distance.py</code></li>
+<li>Consumers: <code>ged_search_graph_soft</code>, <code>goal_novelty</code>, <code>solution_path_soft_distance</code>, <code>root_goal_similarity.json</code></li>
+</ul>
+<h3 id="attractor-clustering">Attractor Clustering</h3>
+<p>Hierarchical clustering over the GED matrix to identify structural basins. Groups proof variants into attractor families.</p>
+<ul>
+<li>Implementation: <code>analysis/attractors.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>attractor_clusters.json</code></li>
+</ul>
+<h3 id="structure-hash-wl">Structure Hash (WL)</h3>
+<p>Fast hash of proof graph structure, used to count unique basins. Basin-analysis proxy for graph isomorphism.</p>
+<ul>
+<li>Implementation: <code>orchestrator/lean.py</code> (<code>run_basin_analysis</code>)</li>
+<li>Outputs: <code>basin_analysis.json</code> (<code>structure_hash</code>)</li>
+</ul>
+<h3 id="proof-term-structural-hash-and-diff">Proof Term Structural Hash and Diff</h3>
+<p>Hash and detailed diff over the proof term DAG. Captures proof-term semantics alongside search-structure metrics.</p>
+<ul>
+<li>Implementation: <code>prover/expr.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>*_comparison.json</code> (<code>wild_type_hash</code>, <code>intervention_hash</code>, <code>proof_term_diff</code>)</li>
+</ul>
+<h3 id="axiom-fingerprint">Axiom Fingerprint</h3>
+<p>Tracks explicit/classical axioms used by a proof term. Used to detect semantic shifts despite structural similarity.</p>
+<ul>
+<li>Implementation: <code>prover/expr.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>*_comparison.json</code> (<code>axiom_delta</code>, <code>axiom_removed</code>)</li>
+</ul>
+<h3 id="proof-term-complexity">Proof Term Complexity</h3>
+<p>Complexity metrics over the proof term DAG. Used in corpus classification to distinguish shallow vs deep decompositions.</p>
+<ul>
+<li>Implementation: <code>prover/complexity.py</code>, <code>analysis/corpus.py</code></li>
+<li>Outputs: <code>analysis_report.json</code></li>
+</ul>
+<h2 id="search-dynamics-metrics">Search Dynamics Metrics</h2>
+<h3 id="trajectory-metrics">Trajectory Metrics</h3>
+<p>Counts of backtracks, depths, and unique goals/tactics visited. Summarizes the shape of the search trajectory.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code></li>
+<li>Outputs: <code>*_metrics.json</code> (<code>trajectory</code>)</li>
+</ul>
+<h3 id="detour-metrics">Detour Metrics</h3>
+<p>Counts of attempts, failures, blocked tactics, and terminal iteration. Summarizes how much work is spent off the solution path.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code></li>
+<li>Outputs: <code>*_metrics.json</code> (<code>detour</code>)</li>
+</ul>
+<h3 id="trajectory-comparison-recovery-time">Trajectory Comparison (Recovery Time)</h3>
+<p>Compares intervention trajectories to the wild solution path: divergence, reconvergence, and recovery iterations.</p>
+<ul>
+<li>Implementation: <code>analysis/trajectory.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>*_comparison.json</code> (<code>trajectory_comparison</code>)</li>
+</ul>
+<h3 id="solution-path-soft-distance">Solution-Path Soft Distance</h3>
+<p>Soft edit distance between the wild and intervention <em>solution</em> goal-signature sequences (solved-only). Uses sequence edit distance with substitution cost = normalized goal-AST ordered TED.</p>
+<ul>
+<li>Implementation: <code>prover/goal_distance.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>*_comparison.json</code> (<code>solution_path_soft_distance</code>)</li>
+</ul>
+<h3 id="basin-analysis-multi-seed">Basin Analysis (Multi-Seed)</h3>
+<p>Repeated seeded runs to measure convergence stability and basin size. Quantifies how often the same structure is reached.</p>
+<ul>
+<li>Implementation: <code>orchestrator/lean.py</code>, <code>prover/mcts.py</code>, <code>prover/providers/reprover.py</code></li>
+<li>Outputs: <code>basin_analysis.json</code></li>
+<li>Optional: <code>wonton.py lean basin --blind</code> also runs a <code>blind_uniform</code> baseline per seed and adds:
+<ul>
+<li>per-seed <code>blind_*</code> fields in <code>seed_results[]</code></li>
+<li><code>paper_k</code> (K = log10(tau_blind / tau_agent)) computed in iteration units with censoring at H = sum(<code>budget_tiers</code>) (conservative lower bound when blind fails)</li>
+</ul></li>
+</ul>
+<h3 id="k-style-search-efficiency-levin-style">K-Style Search Efficiency (Levin-Style)</h3>
+<p>Search-efficiency score computed from MCTS traces.</p>
+<p>We estimate:</p>
+<ul>
+<li><code>tau_agent</code>: actual search cost (currently <code>detour.total_attempts</code>, i.e. <code>tactic_attempt</code>s)</li>
+<li><code>tau_blind</code>: expected blind cost under a null model derived from trace candidates and/or <code>goal_cache</code></li>
+<li><code>K = log10(tau_blind / tau_agent)</code></li>
+</ul>
+<p>Interpret this run-configuration-dependent quantity as: “How many orders of magnitude of expected work did the solver save vs a blind baseline, given the choices that were actually available at the time each solution step was committed?”</p>
+<p>Note: <code>k_search_efficiency</code> is a trace-derived proxy null model (not an explicit paired run of a max-entropy blind policy). For a paper-style paired baseline, use <code>wonton.py lean basin --blind</code> and read <code>basin_analysis.json</code> → <code>paper_k</code>.</p>
+<ul>
+<li>Implementation: <code>analysis/postprocess_metrics.py</code> (<code>compute_k_search_efficiency_from_logs</code>)</li>
+<li>Inputs: <code>*_history.json</code>, <code>*_mcts_tree.json</code>, <code>*_mcts_trace.jsonl</code>, <code>goal_cache.json.gz</code></li>
+<li>Outputs:
+<ul>
+<li><code>summary.json.gz</code> → <code>theorems[].wild_type.k_search_efficiency</code>, <code>theorems[].interventions[].k_search_efficiency</code> (compact summary)</li>
+<li><code>*_comparison.json</code> → <code>k_search_efficiency</code> (full payload + variants)</li>
+</ul></li>
+</ul>
+<h3 id="failure-analysis">Failure Analysis</h3>
+<p>Heuristic categorization of failed searches (tactic desert, exhaustion, hallucination). Useful for triaging where to invest search improvements.</p>
+<ul>
+<li>Implementation: <code>analysis/failures.py</code></li>
+<li>Outputs: <code>failure_analysis.json</code></li>
+</ul>
+<h2 id="tactic-and-goal-statistics">Tactic and Goal Statistics</h2>
+<h3 id="goal-type-tactic-matrix">Goal-Type / Tactic Matrix</h3>
+<p>Outcome counts per goal type and normalized tactic. Used for aggregate summaries and replaceability analysis.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code> (<code>goal_type_tactic_matrix()</code>), <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>summary.json.gz</code> (<code>goal_type_tactic_matrix</code>)</li>
+</ul>
+<h3 id="tactic-fingerprint">Tactic Fingerprint</h3>
+<p>Attempted, successful, and solution-path tactics for wild-type runs. Useful for tactic diversity and replacement analysis.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code>, <code>orchestrator/lean.py</code></li>
+<li>Outputs: <code>wild_type_metrics.json</code> (<code>tactic_fingerprint</code>)</li>
+</ul>
+<h3 id="goal-novelty-intervention-vs-wild-type">Goal Novelty (Intervention vs Wild-Type)</h3>
+<p>Within-theorem comparison that summarizes which goal signatures are new or missing under an intervention, and how close they are (min normalized goal-AST TED to the other variant’s goals).</p>
+<ul>
+<li>Implementation: <code>analysis/postprocess_metrics.py</code></li>
+<li>Outputs: <code>*_comparison.json</code> (<code>goal_novelty</code>)</li>
+</ul>
+<h3 id="sheaf-analysis">Sheaf Analysis</h3>
+<p>Two sheaf-inspired metrics:</p>
+<ol type="1">
+<li>Equivalence sheaf: consistency of tactic success across goal signature occurrences.</li>
+<li>Tactic transform sheaf: linear maps between goal features by tactic family.</li>
+</ol>
+<ul>
+<li>Implementation: <code>experiments/cellular_sheaf/sheaves.py</code>, <code>experiments/cellular_sheaf/run.py</code>, <code>analysis/goal_features.py</code></li>
+<li>Outputs: <code>sheaf_analysis.json</code></li>
+</ul>
+<h2 id="aggregate-analyses-and-reports">Aggregate Analyses and Reports</h2>
+<h3 id="summary-report">Summary Report</h3>
+<p>Aggregates intervention outcomes, convergence rates, and tactic patterns.</p>
+<ul>
+<li>Implementation: <code>analysis/summary.py</code></li>
+<li>Inputs: <code>summary.json.gz</code></li>
+<li>Outputs: <code>report.md</code></li>
+</ul>
+<h3 id="root-goal-similarity-cross-theorem">Root Goal Similarity (Cross-Theorem)</h3>
+<p>Computes a cross-theorem distance matrix over each theorem’s root goal(s), using normalized goal-AST ordered TED, and clusters theorems by statement structure.</p>
+<ul>
+<li>Implementation: <code>analysis/root_goal_similarity.py</code>, <code>analysis/postprocess_metrics.py</code></li>
+<li>Inputs: <code>summary.json.gz</code>, <code>goal_cache.json.gz</code> (and/or <code>wild_type_graph.json</code> as a fallback)</li>
+<li>Outputs: <code>root_goal_similarity.json</code></li>
+</ul>
+<h3 id="external-statement-similarity-cross-problem">External Statement Similarity (Cross-Problem)</h3>
+<p>Computes a cross-problem distance matrix over external backend inputs (TPTP/SMT-LIB), using normalized ordered TED over parsed problem statements.</p>
+<ul>
+<li>Implementation: <code>analysis/external_statement_similarity.py</code>, <code>analysis/postprocess_metrics.py</code></li>
+<li>Inputs: <code>run_config.json</code> (corpus root + selection), problem files under the external corpus root</li>
+<li>Outputs: <code>external_statement_similarity.json</code></li>
+</ul>
+<h3 id="corpus-classification">Corpus Classification</h3>
+<p>Classifies interventions into A/B/C types based on GED and proof-term features.</p>
+<ul>
+<li>Implementation: <code>analysis/corpus.py</code></li>
+<li>Inputs: <code>*_comparison.json</code>, <code>*_metrics.json</code>, <code>*_proof_term.json.gz</code></li>
+<li>Outputs: <code>analysis_report.json</code></li>
+</ul>
+<h3 id="proof-graph-registry">Proof Graph Registry</h3>
+<p>Builds a registry of theorems by graph complexity for sampling.</p>
+<ul>
+<li>Implementation: <code>analysis/graphs.py</code></li>
+<li>Inputs: <code>wild_type_graph.json</code> across runs</li>
+<li>Outputs: <code>corpus/lean/problem_registry.json</code></li>
+</ul>
+<h2 id="overlaps-and-alignment">Overlaps and Alignment</h2>
+<ul>
+<li>GED, WL structure hash, and proof term structural hash all measure structure, but at different layers: search-graph structure, proof-object structure, and proof-term structure. Trace-graph GED is a proxy layer and must be labeled as such.</li>
+<li>Trajectory metrics, detour metrics, and trajectory comparison all derive from <code>ExplorationHistory</code>, but the comparison uses goal signatures while the others use checkpoint-scoped mvar ids and attempt counts.</li>
+<li>Sheaf analysis uses <code>GoalCache</code> signatures and tactic families; goal-type/tactic matrices use normalized tactics and goal types. Both summarize tactic behavior but from different abstractions.</li>
+<li>Many aggregate reports (<code>summary.json.gz</code>, <code>analysis_report.json</code>, <code>failure_analysis.json</code>, <code>sheaf_analysis.json</code>) are different views over the same underlying artifacts.</li>
+</ul>
+<h2 id="post-analysis-runner">Post-Analysis Runner</h2>
+<p>Use <code>--analysis</code> on <code>wonton.py lean run</code> to run failure analysis and corpus classification; run <code>python -m experiments.cellular_sheaf.run &lt;corpus_dir&gt;</code> for sheaf analysis after the corpus run completes.</p>
+<h2 id="known-caveats">Known Caveats</h2>
+<ul>
+<li>AST-based goal signatures can still over-merge (e.g., ignored binder names or reordered hypotheses). The signature scheme and fallback stats are recorded in <code>summary.json.gz</code>.</li>
+<li>Proof term structural hashes include binder names, which can treat alpha-equivalent terms as different.</li>
+<li>Attractor clustering quality depends on GED fidelity and the fixed distance threshold.</li>
+<li>Sheaf features are low-dimensional and tactic families are coarse; treat sheaf metrics as exploratory.</li>
+<li>Search-graph GED, proof-graph GED, and trace-graph GED are not interchangeable; they must be labeled and compared only within the same family unless explicitly normalized and justified.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

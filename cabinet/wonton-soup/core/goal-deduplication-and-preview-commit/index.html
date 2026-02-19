@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Goal Deduplication and Preview/Commit API | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-007</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/goal-deduplication-and-preview-commit</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/goal-deduplication-and-preview-commit.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#goal-deduplication-and-previewcommit-api" id="toc-goal-deduplication-and-previewcommit-api">Goal Deduplication and Preview/Commit API</a>
+                            <ul>
+                            <li><a href="#the-problem-infinite-goal-cycling" id="toc-the-problem-infinite-goal-cycling">The Problem: Infinite Goal Cycling</a>
+                            <ul>
+                            <li><a href="#symptoms" id="toc-symptoms">Symptoms</a></li>
+                            <li><a href="#health-metrics-showed-the-problem" id="toc-health-metrics-showed-the-problem">Health Metrics Showed the Problem</a></li>
+                            </ul></li>
+                            <li><a href="#why-this-happens" id="toc-why-this-happens">Why This Happens</a>
+                            <ul>
+                            <li><a href="#beam-search-and-repetition" id="toc-beam-search-and-repetition">Beam Search and Repetition</a></li>
+                            <li><a href="#no-goal-identity-tracking" id="toc-no-goal-identity-tracking">No Goal Identity Tracking</a></li>
+                            </ul></li>
+                            <li><a href="#goal-signature-coarse-deduplication" id="toc-goal-signature-coarse-deduplication">Goal Signature: Coarse Deduplication</a>
+                            <ul>
+                            <li><a href="#the-approach" id="toc-the-approach">The Approach</a></li>
+                            <li><a href="#limitations" id="toc-limitations">Limitations</a></li>
+                            </ul></li>
+                            <li><a href="#initial-fix-attempt-problems" id="toc-initial-fix-attempt-problems">Initial Fix Attempt: Problems</a>
+                            <ul>
+                            <li><a href="#the-naive-approach" id="toc-the-naive-approach">The Naive Approach</a></li>
+                            <li><a href="#what-went-wrong" id="toc-what-went-wrong">What Went Wrong</a></li>
+                            </ul></li>
+                            <li><a href="#the-solution-previewcommit-api" id="toc-the-solution-previewcommit-api">The Solution: Preview/Commit API</a>
+                            <ul>
+                            <li><a href="#core-insight" id="toc-core-insight">Core Insight</a></li>
+                            <li><a href="#tacticpreview-dataclass" id="toc-tacticpreview-dataclass">TacticPreview Dataclass</a></li>
+                            <li><a href="#api-methods" id="toc-api-methods">API Methods</a></li>
+                            <li><a href="#mcts-integration" id="toc-mcts-integration">MCTS Integration</a></li>
+                            </ul></li>
+                            <li><a href="#lean-repl-internals" id="toc-lean-repl-internals">Lean REPL Internals</a>
+                            <ul>
+                            <li><a href="#checkpoints-and-rollbacks" id="toc-checkpoints-and-rollbacks">Checkpoints and Rollbacks</a></li>
+                            <li><a href="#metavariables-mvars" id="toc-metavariables-mvars">Metavariables (mvars)</a></li>
+                            <li><a href="#branching-behavior" id="toc-branching-behavior">Branching Behavior</a></li>
+                            </ul></li>
+                            <li><a href="#dead-node-cascading" id="toc-dead-node-cascading">Dead Node Cascading</a></li>
+                            <li><a href="#references" id="toc-references">References</a>
+                            <ul>
+                            <li><a href="#relevant-papers" id="toc-relevant-papers">Relevant Papers</a></li>
+                            <li><a href="#implementation-files" id="toc-implementation-files">Implementation Files</a></li>
+                            </ul></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="goal-deduplication-and-previewcommit-api">Goal Deduplication and Preview/Commit API</h1>
+<p>This note records the goal-cycling problem we encountered in MCTS-based theorem proving, the solutions we considered, and the final implementation using a Preview/Commit API.</p>
+<h2 id="the-problem-infinite-goal-cycling">The Problem: Infinite Goal Cycling</h2>
+<h3 id="symptoms">Symptoms</h3>
+<p>When running <code>mul_add_distrib</code> (proving <code>a * (b + c) = a * b + a * c</code>), the MCTS search would:</p>
+<ol type="1">
+<li>Apply <code>rw [Nat.mul_comm, Nat.mul_comm, Nat.mul_comm]</code></li>
+<li>This transforms goal from <code>a * (b + c) = a * b + a * c</code> to <code>(b + c) * a = a * b + a * c</code></li>
+<li>The tactic provider suggests the same tactic again</li>
+<li>The goal cycles back to an equivalent form</li>
+<li>This repeats indefinitely, reaching 250+ depth with zero progress</li>
+</ol>
+<p>The key insight: these goal states are <strong>semantically equivalent</strong> even though syntactically different. The MCTS tree was building an infinitely deep linear chain of equivalent goals.</p>
+<h3 id="health-metrics-showed-the-problem">Health Metrics Showed the Problem</h3>
+<pre><code>detour_metrics: {
+  total_iterations: 60,
+  total_attempts: 2,
+  max_depth: 2,
+  depth_at_solution: 0,
+  terminal_iteration: null
+}</code></pre>
+<p>After the initial fix attempt, iterations 2-59 had <code>attempts: []</code> - the search was stuck, repeatedly selecting the same path but unable to make progress.</p>
+<h2 id="why-this-happens">Why This Happens</h2>
+<h3 id="beam-search-and-repetition">Beam Search and Repetition</h3>
+<p>The tactic provider uses beam search, which generates the N most likely tactic sequences. For symmetric goals like distributivity, the model keeps suggesting <code>rw [mul_comm]</code> variants because:</p>
+<ol type="1">
+<li>It’s a “reasonable” rewrite for any goal involving multiplication</li>
+<li>The model doesn’t have memory of previous failures</li>
+<li>Each call to the provider is independent</li>
+</ol>
+<h3 id="no-goal-identity-tracking">No Goal Identity Tracking</h3>
+<p>The original MCTS implementation tracked nodes by their metavariable ID (<code>mvar_id</code>), but this is just a unique identifier assigned by Lean - it says nothing about whether two goals are semantically equivalent. In addition, raw mvar_ids can be reused after REPL rollback. We now log <strong>checkpoint-scoped</strong> goal ids (<code>cp&lt;id&gt;:&lt;lean_mvar_id&gt;</code>) to avoid collisions, but semantic equivalence is still handled by goal signatures.</p>
+<h2 id="goal-signature-coarse-deduplication">Goal Signature: Coarse Deduplication</h2>
+<h3 id="the-approach">The Approach</h3>
+<p>We compute a signature for each goal based on:</p>
+<ul>
+<li>The goal AST (type expression)</li>
+<li>The hypothesis ASTs (available assumptions)</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> GoalSignatureConfig(scheme<span class="op">=</span><span class="st">&quot;ast&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> compute_goal_signature(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    type_str<span class="op">=</span>goal.<span class="bu">type</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    type_expr<span class="op">=</span>goal.type_expr,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    hyp_types<span class="op">=</span>[h.<span class="bu">type</span> <span class="cf">for</span> h <span class="kw">in</span> goal.hypotheses],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    hyp_exprs<span class="op">=</span>[h.type_expr <span class="cf">for</span> h <span class="kw">in</span> goal.hypotheses],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>config,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="limitations">Limitations</h3>
+<p>Coarse by design:</p>
+<ul>
+<li>It ignores fvar/mvar identity and binder names (AST nodes are canonicalized)</li>
+<li>Hypothesis order does not affect the signature (hashes are sorted)</li>
+<li>Commutative goals (<code>And</code>, <code>Or</code>, <code>Iff</code>) are normalized before hashing</li>
+<li>If ASTs are missing, we fail loudly; use <code>--goal-sig text</code> only when ASTs are unavailable</li>
+</ul>
+<p>The tradeoff: occasional false positives (pruning genuinely different goals) vs guaranteed termination on equivalent goal cycles.</p>
+<p>We also compute a <strong>strict</strong> signature for logs (<code>compute_goal_signature_strict</code>): it preserves fvar/mvar IDs, does not normalize commutative structure, and keeps hypothesis order. The search still uses the coarse signature for cycle-breaking.</p>
+<h2 id="initial-fix-attempt-problems">Initial Fix Attempt: Problems</h2>
+<h3 id="the-naive-approach">The Naive Approach</h3>
+<ol type="1">
+<li>Track <code>seen_goal_sigs: set[str]</code> initialized with root goal</li>
+<li>When expanding a node, filter out children whose signatures are already seen</li>
+<li>Mark node as “dead” when all children are duplicates</li>
+</ol>
+<h3 id="what-went-wrong">What Went Wrong</h3>
+<p><strong>Premature Death</strong>: We marked a node dead after the first tactic that only produced duplicates, without trying other tactics.</p>
+<p><strong>State Consumption</strong>: The single-step path mutates adapter state when a tactic is applied:</p>
+<ul>
+<li>Deleted the parent state from <code>self.states</code></li>
+<li>Updated <code>_last_partial_term</code>, <code>assembly_trace</code>, <code>completed_proof_term</code></li>
+<li>Created child states</li>
+</ul>
+<p>Once called, we couldn’t “undo” and try a different tactic. We thought this was a fundamental constraint of the Lean REPL.</p>
+<p><strong>The Revelation</strong>: This was wrong. <code>LeanAdapter.preview_tactic</code> (<code>prover/lean.py</code>) calls <code>self.env.rollback_to(state.checkpoint)</code> before applying a tactic. The REPL state can be rolled back; only the Python-side bookkeeping happens on <code>commit_tactic</code>.</p>
+<h2 id="the-solution-previewcommit-api">The Solution: Preview/Commit API</h2>
+<h3 id="core-insight">Core Insight</h3>
+<p>We can <strong>probe</strong> whether a tactic works without committing to it:</p>
+<ol type="1">
+<li>Roll back to the parent’s checkpoint</li>
+<li>Apply the tactic</li>
+<li>Examine the result</li>
+<li>Commit the state changes only if the preview is useful</li>
+</ol>
+<h3 id="tacticpreview-dataclass">TacticPreview Dataclass</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TacticPreview:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    tactic: <span class="bu">str</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    parent_mvar_id: <span class="bu">str</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    child_mvar_ids: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    child_goals: <span class="bu">list</span>[LeanGoal]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    partial_term_before: PartialProofTerm <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    partial_term_after: PartialProofTerm <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    completed_proof_term: ExprDAG <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    goals_before: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    goals_after: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    checkpoint: LeanEnvironmentCheckpoint</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    branches: <span class="bu">list</span>[LeanProofBranch]</span></code></pre></div>
+<h3 id="api-methods">API Methods</h3>
+<p><strong><code>preview_tactic(mvar_id, tactic) -&gt; TacticPreview | None</code></strong></p>
+<ul>
+<li>Applies tactic WITHOUT mutating adapter state</li>
+<li>Returns None on failure</li>
+<li>Returns preview object on success</li>
+</ul>
+<p><strong><code>commit_tactic(preview) -&gt; list[str]</code></strong></p>
+<ul>
+<li>Updates all adapter state based on preview</li>
+<li>Deletes parent, creates children, updates proof term tracking</li>
+<li>Returns list of child mvar_ids</li>
+</ul>
+<h3 id="mcts-integration">MCTS Integration</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tactic <span class="kw">in</span> tactics:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    preview <span class="op">=</span> <span class="cf">await</span> adapter.preview_tactic(node.mvar_id, tactic)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> preview <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># Tactic failed, try next</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    novel_mvars <span class="op">=</span> []</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    novel_goal_sigs <span class="op">=</span> []</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> child_goal <span class="kw">in</span> preview.child_goals:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        sig <span class="op">=</span> goal_signature(child_goal)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> sig <span class="kw">in</span> seen_goal_sigs:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> child_goal.mvar_id <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Child goal has no mvar_id&quot;</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        novel_mvars.append(child_goal.mvar_id)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        novel_goal_sigs.append(sig)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> novel_mvars:</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># All duplicates, try NEXT tactic</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Found novel goals - NOW commit</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    adapter.commit_tactic(preview)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sig <span class="kw">in</span> novel_goal_sigs:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        seen_goal_sigs.add(sig)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... create child nodes from novel_mvars</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> expanded:</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    node.is_dead <span class="op">=</span> <span class="va">True</span>  <span class="co"># Only after ALL tactics exhausted</span></span></code></pre></div>
+<h2 id="lean-repl-internals">Lean REPL Internals</h2>
+<h3 id="checkpoints-and-rollbacks">Checkpoints and Rollbacks</h3>
+<p>Lean’s REPL maintains an environment state. Key operations:</p>
+<ul>
+<li><code>env.checkpoint()</code> - Capture current state</li>
+<li><code>env.rollback_to(checkpoint)</code> - Restore to captured state</li>
+</ul>
+<p>These are cheap operations (reference counting, not deep copies).</p>
+<h3 id="metavariables-mvars">Metavariables (mvars)</h3>
+<p>When Lean encounters a <code>sorry</code> or incomplete proof, it creates a <strong>metavariable</strong> - a placeholder for the missing term. Each mvar has:</p>
+<ul>
+<li>Unique ID (<code>_uniq.179</code>, <code>_uniq.187.21</code>, etc.)</li>
+<li>Type (the goal to prove)</li>
+<li>Local context (available hypotheses)</li>
+</ul>
+<p>Applying a tactic may:</p>
+<ul>
+<li>Close an mvar (proof complete)</li>
+<li>Replace an mvar with new mvars (proof split)</li>
+<li>Fail (tactic doesn’t apply)</li>
+</ul>
+<h3 id="branching-behavior">Branching Behavior</h3>
+<p><code>try_apply_tactic_async</code> can return multiple branches when:</p>
+<ul>
+<li>Independent goals are partitioned into separate branches (masked goals).</li>
+<li>The REPL reports <code>sorries</code> for a tactic application (extra branches).</li>
+</ul>
+<p>Our adapter tracks each goal separately via its mvar_id.</p>
+<h2 id="dead-node-cascading">Dead Node Cascading</h2>
+<p>When a node is marked dead (all tactics exhausted or produce duplicates):</p>
+<ol type="1">
+<li>Mark <code>node.is_dead = True</code></li>
+<li>In selection, skip dead nodes in <code>best_child_by_ucb1</code></li>
+<li>If all children are dead, parent becomes dead</li>
+<li>When root is dead, search terminates</li>
+</ol>
+<p>This prevents wasting iterations selecting paths that can’t produce novel goals.</p>
+<h2 id="references">References</h2>
+<h3 id="relevant-papers">Relevant Papers</h3>
+<ul>
+<li>AlphaProof (DeepMind, 2024): Monte Carlo Tree Search for theorem proving</li>
+<li>DeepSeek-Prover: Language model-based tactic generation with beam search</li>
+<li>ReProver (Yang et al.): Retrieval-augmented prover using premise selection</li>
+</ul>
+<h3 id="implementation-files">Implementation Files</h3>
+<ul>
+<li><code>prover/lean.py</code> - Preview/Commit API, TacticPreview dataclass</li>
+<li><code>prover/mcts.py</code> - Goal signature, deduplication, dead node handling</li>
+<li><code>orchestrator/lean.py</code> - Experiment runner with debug flags</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

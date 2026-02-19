@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Attractor Metrics for Proof Search | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">core</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-006</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">core/attractor-metrics</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                core
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/core/attractor-metrics.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#attractor-metrics-for-proof-search" id="toc-attractor-metrics-for-proof-search">Attractor Metrics for Proof Search</a>
+                            <ul>
+                            <li><a href="#core-concept-algorithmic-basins" id="toc-core-concept-algorithmic-basins">Core Concept: Algorithmic Basins</a></li>
+                            <li><a href="#when-basin-size-is-meaningful" id="toc-when-basin-size-is-meaningful">When Basin Size Is Meaningful</a></li>
+                            <li><a href="#limitations" id="toc-limitations">Limitations</a></li>
+                            <li><a href="#confounds-in-cross-prover-comparison" id="toc-confounds-in-cross-prover-comparison">Confounds in Cross-Prover Comparison</a></li>
+                            <li><a href="#the-four-metrics" id="toc-the-four-metrics">The Four Metrics</a>
+                            <ul>
+                            <li><a href="#trajectory-comparison-recovery-time" id="toc-trajectory-comparison-recovery-time">1. Trajectory Comparison (Recovery Time)</a></li>
+                            <li><a href="#attractor-clustering" id="toc-attractor-clustering">2. Attractor Clustering</a></li>
+                            <li><a href="#basin-analysis-multi-seed" id="toc-basin-analysis-multi-seed">3. Basin Analysis (Multi-Seed)</a></li>
+                            <li><a href="#k-style-search-efficiency-levin-style" id="toc-k-style-search-efficiency-levin-style">4. K-Style Search Efficiency (Levin-Style)</a></li>
+                            </ul></li>
+                            <li><a href="#structure-hashing" id="toc-structure-hashing">Structure Hashing</a></li>
+                            <li><a href="#implementation-files" id="toc-implementation-files">Implementation Files</a></li>
+                            <li><a href="#output-files" id="toc-output-files">Output Files</a></li>
+                            <li><a href="#example-usage" id="toc-example-usage">Example Usage</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="attractor-metrics-for-proof-search">Attractor Metrics for Proof Search</h1>
+<p>Here, we describe metrics that treat proofs as attractors in a stochastic search process. These metrics quantify the robustness and convergence behavior of MCTS-based theorem proving under perturbations.</p>
+<h2 id="core-concept-algorithmic-basins">Core Concept: Algorithmic Basins</h2>
+<p><strong>Basin size is a property of the search algorithm, not the theorem.</strong></p>
+<p>When we say “basins” here, we mean: the fraction of random seeds that converge to a given proof structure under a fixed configuration (provider, MCTS parameters, budget, intervention, signature scheme).</p>
+<p>Unlike basins of attraction in dynamical systems, MCTS basins are distributions over outcomes in a stochastic search process. The metric quantifies:</p>
+<ul>
+<li><strong>Robustness</strong>: How stable is the search policy under random perturbations?</li>
+<li><strong>Convergence</strong>: Does the algorithm reliably find the same proof structure?</li>
+<li><strong>Sensitivity</strong>: How much does the outcome depend on early random choices?</li>
+</ul>
+<h2 id="when-basin-size-is-meaningful">When Basin Size Is Meaningful</h2>
+<p>Basin analysis produces useful signal when:</p>
+<ol type="1">
+<li><p><strong>Real stochasticity exists.</strong> If the provider is deterministic (beam search) and MCTS tie-breaking rarely triggers, basin size will be trivial (all seeds converge to the same outcome). Enable provider sampling when available (ReProver only) or ensure UCB ties occur frequently enough to matter.</p></li>
+<li><p><strong>Budget and parameters are fixed.</strong> Basin size is strongly budget-dependent in MCTS. A theorem might have basin size 0.3 at budget 100 but 0.9 at budget 1000 as the algorithm has more opportunity to explore alternatives. Always report the configuration.</p></li>
+<li><p><strong>Structure notion matches attractor definition.</strong> We use AST-based <code>goal_signature</code> for nodes and <code>tactic_family</code> for edges when hashing proof structures. If your attractor clustering uses different criteria, you’re measuring different things.</p></li>
+</ol>
+<h2 id="limitations">Limitations</h2>
+<p>Keep these caveats in mind when interpreting results:</p>
+<table>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Limitation</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Algorithm-specific</td>
+<td>Basin size changes if you swap providers, adjust UCB constants, or modify the MCTS tree policy. It’s not an intrinsic property of the proof space.</td>
+</tr>
+<tr class="even">
+<td>Goal signature dedup</td>
+<td>Semantically equivalent goals collapse to the same signature, which can shrink the apparent number of distinct basins.</td>
+</tr>
+<tr class="odd">
+<td>Budget-dependent</td>
+<td>Longer runs may converge to structures that shorter runs miss entirely.</td>
+</tr>
+<tr class="even">
+<td>Provider cache</td>
+<td>If the provider caches suggestions, different seeds may receive identical tactics for repeated goal states. Cache clearing is best-effort: we clear between seeds only when the provider implements <code>clear_cache</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="confounds-in-cross-prover-comparison">Confounds in Cross-Prover Comparison</h2>
+<p>If different provers converge to similar proof structures, this could indicate:</p>
+<ol type="1">
+<li><strong>Intrinsic structure</strong> - something “platonic” about the theorem’s proof space</li>
+<li><strong>Training data overlap</strong> - Mathlib is the dominant corpus; learned models inherit its statistical patterns</li>
+<li><strong>Architectural similarity</strong> - transformer-based models share inductive biases</li>
+<li><strong>Tactic vocabulary constraints</strong> - Lean’s tactic language shapes the space of expressible proofs</li>
+</ol>
+<p>To distinguish these explanations, compare provers that differ on multiple axes:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Prover</th>
+<th>Training Data</th>
+<th>Architecture</th>
+<th>Tactic Space</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ReProver</td>
+<td>Mathlib</td>
+<td>Transformer</td>
+<td>Lean4</td>
+</tr>
+<tr class="even">
+<td>DeepSeek</td>
+<td>Mathlib + ?</td>
+<td>Transformer</td>
+<td>Lean4</td>
+</tr>
+<tr class="odd">
+<td>Heuristic</td>
+<td>None</td>
+<td>Rule-based</td>
+<td>Lean4</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>heuristic provider</strong> (<code>--provider heuristic</code>) serves as a control: it has no learned statistics, only hard-coded rules. If it converges to structures similar to learned models, that’s stronger evidence for intrinsic structure than two transformers trained on overlapping data agreeing with each other.</p>
+<p><strong>Stronger tests</strong> (not currently implemented) would require:</p>
+<ul>
+<li>Provers trained on different proof assistants (Coq, Isabelle) and translated</li>
+<li>Provers with fundamentally different architectures (symbolic search, neurosymbolic hybrids)</li>
+<li>Human expert proofs as ground truth for “natural” structure</li>
+</ul>
+<p>When reporting cross-prover comparisons, always note which confounds apply. Two Mathlib-trained transformers agreeing tells us less than a transformer and a rule-based system agreeing.</p>
+<h2 id="the-four-metrics">The Four Metrics</h2>
+<h3 id="trajectory-comparison-recovery-time">1. Trajectory Comparison (Recovery Time)</h3>
+<p>Measures how intervention runs diverge from and reconverge to the wild-type solution path.</p>
+<p><strong>Definitions:</strong></p>
+<ul>
+<li><strong>Wild-type solution path</strong>: The sequence of <code>goal_sig</code> values on the solved wild-type path</li>
+<li><strong>Intervention trajectory</strong>: The per-iteration selected goal signatures (<code>selected_path[-1]</code>)</li>
+<li><strong>Divergence</strong>: First MCTS iteration where the intervention goal does not match the next expected wild goal</li>
+<li><strong>Reconvergence</strong>: First iteration after divergence where the remaining intervention trajectory matches a suffix of the wild path</li>
+<li><strong>Recovery iterations</strong>: <code>reconvergence - divergence</code> (MCTS iterations), or None if never reconverges</li>
+</ul>
+<pre><code>Wild-type path: [A, B, C, D]
+
+Intervention:   [A, B, X, Y, C, D]
+                      ^     ^
+                      |     reconverges at C (rejoins suffix [C, D])
+                      diverges (expected C, got X)
+
+Recovery iterations: 2</code></pre>
+<p>This metric answers: “When we perturb the search (by blocking tactics), how quickly does it find its way back to equivalent proof states?”</p>
+<h3 id="attractor-clustering">2. Attractor Clustering</h3>
+<p>Groups proof variants by structural similarity using the GED matrix.</p>
+<p>After running wild-type and intervention experiments, we have multiple proof graphs for the same theorem. Hierarchical clustering (average linkage) on the pairwise GED matrix identifies:</p>
+<ul>
+<li><strong>Clusters</strong>: Groups of proofs with similar structure</li>
+<li><strong>Representatives</strong>: The most central member of each cluster (minimizes total distance to other members)</li>
+<li><strong>Inter-cluster distances</strong>: How different the proof “families” are from each other</li>
+</ul>
+<p>A theorem with one dominant cluster suggests a robust proof structure. Multiple well-separated clusters indicate genuinely different proof strategies.</p>
+<h3 id="basin-analysis-multi-seed">3. Basin Analysis (Multi-Seed)</h3>
+<p>Runs the same theorem N times with different random seeds to measure convergence.</p>
+<p>For each seed:</p>
+<ol type="1">
+<li>Clear provider cache if the provider implements <code>clear_cache</code></li>
+<li>Call provider <code>set_seed</code> if available (affects sampling-based providers)</li>
+<li>Create per-seed MCTS RNG (affects UCB tie-breaking)</li>
+<li>Run full MCTS search</li>
+<li>Hash the resulting proof structure (nodes + tactic families)</li>
+</ol>
+<p><strong>Output metrics:</strong></p>
+<ul>
+<li><code>solve_rate</code>: Fraction of seeds that found a proof</li>
+<li><code>unique_structures</code>: Number of distinct proof hashes</li>
+<li><code>dominant_structure_frequency</code>: Fraction of solved seeds converging to the most common structure</li>
+<li><code>structure_distribution</code>: Hash → count mapping</li>
+</ul>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>dominant_structure_frequency = 1.0</code>: Single basin, completely deterministic outcome under this config</li>
+<li><code>dominant_structure_frequency = 0.5</code> with 2 structures: Two equally likely attractors</li>
+<li>Many structures with low frequencies: High sensitivity to initial conditions</li>
+</ul>
+<h3 id="k-style-search-efficiency-levin-style">4. K-Style Search Efficiency (Levin-Style)</h3>
+<p>Estimates how much work this solver saved relative to a simple “blind” null model, using the MCTS trace as the reference set of choices available at each committed solution step.</p>
+<p>We log and report:</p>
+<ul>
+<li><code>tau_agent</code>: actual search cost, measured in <code>tactic_attempt</code>s (currently <code>detour.total_attempts</code>)</li>
+<li><code>tau_blind</code>: expected blind cost under a null model</li>
+<li><code>K = log10(tau_blind / tau_agent)</code> (orders-of-magnitude efficiency over blind)</li>
+</ul>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>K &gt; 0</code>: the solver is more search-efficient than blind selection (under this null model).</li>
+<li><code>K = 0.301</code>: about a <code>2x</code> efficiency gain (<code>10^0.301 ≈ 2</code>).</li>
+<li><code>K &lt; 0</code>: the solver spent more attempts than blind would expect (often a smell of thrashing).</li>
+</ul>
+<p><strong>Null models (current implementation):</strong></p>
+<ul>
+<li><code>blind_uniform_candidate</code> (primary): at each solution step, pick uniformly from the trace-captured candidate tactic set at the iteration where that step was committed.</li>
+<li><code>blind_uniform_family</code> (fallback): pick a tactic <em>family</em> uniformly; estimate success probability from <code>goal_cache</code> outcomes for that goal signature (weaker, used when traces are missing/incomplete).</li>
+</ul>
+<p><strong>What this does NOT justify:</strong></p>
+<ul>
+<li>“Intrinsic basin size”: <code>tau_agent</code> and the candidate set are algorithm/config-dependent.</li>
+<li>“Semantic identity”: this metric does not compare proof terms; it only scores search efficiency.</li>
+</ul>
+<p><strong>Where it lives:</strong></p>
+<ul>
+<li>Full payload (per intervention): <code>*_comparison.json</code> → <code>k_search_efficiency</code></li>
+<li>Compact summary (wild + interventions): <code>summary.json.gz</code> → <code>theorems[].wild_type.k_search_efficiency</code> and <code>theorems[].interventions[].k_search_efficiency</code></li>
+<li>Computation: <code>analysis/postprocess_metrics.py</code> (<code>compute_k_search_efficiency_from_logs</code>)</li>
+</ul>
+<h2 id="structure-hashing">Structure Hashing</h2>
+<p>Proof structures are hashed for comparison using:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>canonical <span class="op">=</span> graph.to_canonical()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u, v, data <span class="kw">in</span> canonical.edges(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">&quot;tactic_family&quot;</span>] <span class="op">=</span> tactic_family(data.get(<span class="st">&quot;tactic_norm&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>structure_hash <span class="op">=</span> nx.weisfeiler_lehman_graph_hash(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    canonical,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    node_attr<span class="op">=</span><span class="st">&quot;goal_sig&quot;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    edge_attr<span class="op">=</span><span class="st">&quot;tactic_family&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)[:<span class="dv">16</span>]</span></code></pre></div>
+<p>This includes both the graph topology (which goals connect to which) and the tactic families used. Two proofs with identical goal structures but different tactics (e.g., <code>simp</code> vs <code>ring</code>) receive different hashes. The WL hash is a stable, fast proxy for labeled graph isomorphism. The goal signature scheme is recorded in <code>summary.json.gz</code>.</p>
+<h2 id="implementation-files">Implementation Files</h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>analysis/trajectory.py</code></td>
+<td><code>TrajectoryComparison</code>, <code>compare_trajectories()</code>, <code>extract_solution_goal_sigs()</code></td>
+</tr>
+<tr class="even">
+<td><code>analysis/attractors.py</code></td>
+<td><code>AttractorCluster</code>, <code>AttractorAnalysis</code>, <code>cluster_proof_structures()</code></td>
+</tr>
+<tr class="odd">
+<td><code>prover/history.py</code></td>
+<td><code>ExplorationHistory.iterations</code> with <code>selected_path</code></td>
+</tr>
+<tr class="even">
+<td><code>prover/mcts.py</code></td>
+<td><code>rng</code> parameter for seeded tie-breaking</td>
+</tr>
+<tr class="odd">
+<td><code>prover/providers/reprover.py</code></td>
+<td><code>set_seed()</code>, <code>clear_cache()</code> for independent runs (ReProver only)</td>
+</tr>
+<tr class="even">
+<td><code>orchestrator/lean.py</code></td>
+<td><code>run_basin_analysis()</code>, <code>BasinAnalysis</code> dataclass, CLI <code>lean basin --seeds</code> (and optional <code>--blind</code> for paper K)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-files">Output Files</h2>
+<p>Per-theorem outputs in <code>logs/corpus-.../theorem_name/</code>:</p>
+<pre><code>wild_type_metrics.json      # includes solution_path for trajectory comparison
+block_simp_comparison.json  # includes trajectory_comparison
+attractor_clusters.json     # hierarchical clustering results
+basin_analysis.json         # multi-seed convergence data (if using `lean basin --seeds`)</code></pre>
+<h2 id="example-usage">Example Usage</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard run with trajectory + attractor metrics</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean run <span class="at">-m</span> research</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Basin analysis with 20 seeds per theorem</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean basin <span class="at">-m</span> dev <span class="at">--seeds</span> 20 <span class="at">--sampling</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Basin analysis + blind baseline (adds paper K to basin_analysis.json)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean basin <span class="at">-m</span> dev <span class="at">--seeds</span> 20 <span class="at">--blind</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Single theorem deep analysis</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean basin <span class="at">-t</span> nat_add_comm <span class="at">--seeds</span> 50 <span class="at">--sampling</span> <span class="at">-b</span> deep</span></code></pre></div>
+<p>The <code>--sampling</code> flag enables temperature sampling for ReProver only. DeepSeek and the heuristic provider ignore it; in those cases, randomness mainly comes from UCB tie-breaking. Sampling is recommended (not required) for meaningful basin analysis.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

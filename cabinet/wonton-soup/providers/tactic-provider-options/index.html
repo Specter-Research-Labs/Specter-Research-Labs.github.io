@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Tactic Provider Options for Tactic Suggestion | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">providers</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-014</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">providers/tactic-provider-options</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                providers
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/providers/tactic-provider-options.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#tactic-provider-options-for-tactic-suggestion" id="toc-tactic-provider-options-for-tactic-suggestion">Tactic Provider Options for Tactic Suggestion</a>
+                            <ul>
+                            <li><a href="#provider-interface" id="toc-provider-interface">Provider Interface</a></li>
+                            <li><a href="#available-runtime-providers" id="toc-available-runtime-providers">Available Runtime Providers</a>
+                            <ul>
+                            <li><a href="#reprover-reprover" id="toc-reprover-reprover">ReProver (<code>reprover</code>)</a></li>
+                            <li><a href="#deepseek-deepseek" id="toc-deepseek-deepseek">DeepSeek (<code>deepseek</code>)</a></li>
+                            <li><a href="#bfs-prover-bfs" id="toc-bfs-prover-bfs">BFS-Prover (<code>bfs</code>)</a></li>
+                            <li><a href="#internlm-step-prover-internlm" id="toc-internlm-step-prover-internlm">InternLM Step Prover (<code>internlm</code>)</a></li>
+                            <li><a href="#heuristic-heuristic" id="toc-heuristic-heuristic">Heuristic (<code>heuristic</code>)</a></li>
+                            </ul></li>
+                            <li><a href="#selection-rubric" id="toc-selection-rubric">Selection Rubric</a></li>
+                            <li><a href="#why-reprover-is-default" id="toc-why-reprover-is-default">Why ReProver Is Default</a></li>
+                            <li><a href="#architecture-decision" id="toc-architecture-decision">Architecture Decision</a></li>
+                            <li><a href="#related-notes" id="toc-related-notes">Related Notes</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="tactic-provider-options-for-tactic-suggestion">Tactic Provider Options for Tactic Suggestion</h1>
+<p>Reference for the Lean tactic-provider surface used by MCTS and the current tradeoffs.</p>
+<h2 id="provider-interface">Provider Interface</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TacticProvider(ABC):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">async</span> <span class="kw">def</span> suggest_tactics_with_probs_async(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, goal: LeanGoal, mvar_id: <span class="bu">str</span>, adapter: LeanAdapter, n: <span class="bu">int</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">tuple</span>[<span class="bu">str</span>, <span class="bu">float</span>]]:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;Return up to n (tactic, probability) pairs.&quot;&quot;&quot;</span></span></code></pre></div>
+<h2 id="available-runtime-providers">Available Runtime Providers</h2>
+<p><code>wonton.py lean run</code> supports: <code>reprover</code>, <code>deepseek</code>, <code>bfs</code>, <code>internlm</code>, <code>heuristic</code>.</p>
+<p>Newly added model-backed providers in this integration:</p>
+<ul>
+<li><code>bfs</code> -&gt; <code>ByteDance-Seed/BFS-Prover-V1-7B</code></li>
+<li><code>internlm</code> -&gt; <code>internlm/internlm2_5-step-prover</code></li>
+</ul>
+<h3 id="reprover-reprover">ReProver (<code>reprover</code>)</h3>
+<ul>
+<li>Model: <code>kaiyuy/leandojo-lean4-tacgen-byt5-small</code></li>
+<li>Strengths: lightweight baseline, strong comparability with LeanDojo literature</li>
+<li>Limitations: may emit some Mathlib3-style tactics</li>
+<li>Default provider for <code>wonton.py lean run</code></li>
+</ul>
+<h3 id="deepseek-deepseek">DeepSeek (<code>deepseek</code>)</h3>
+<ul>
+<li>Model: <code>l3lab/ntp-mathlib-context-deepseek-coder-1.3b</code></li>
+<li>Runtime: local MLX inference (<code>mlx_lm</code>)</li>
+<li>Runtime decoding here: sampling-based (see <code>docs/providers/deepseek-provider-settings.md</code>)</li>
+<li>Strengths: better Lean4 syntax behavior, diverse candidates</li>
+<li>Limitations: larger footprint and stochastic outputs</li>
+</ul>
+<h3 id="bfs-prover-bfs">BFS-Prover (<code>bfs</code>)</h3>
+<ul>
+<li>Model: <code>ByteDance-Seed/BFS-Prover-V1-7B</code></li>
+<li>Runtime: local HuggingFace transformers</li>
+<li>Prompt contract: Lean state text followed by <code>:::</code>, then model continuation as tactic</li>
+<li>Runtime knob: <code>--bfs-samples</code> overrides provider sample count</li>
+<li>Strengths: larger model, good candidate breadth</li>
+<li>Limitations: higher resource cost</li>
+</ul>
+<h3 id="internlm-step-prover-internlm">InternLM Step Prover (<code>internlm</code>)</h3>
+<ul>
+<li>Model: <code>internlm/internlm2_5-step-prover</code></li>
+<li>Runtime: local HuggingFace transformers</li>
+<li>Prompt contract: <code>NAME / PROOF_BEFORE / STATE_BEFORE / TACTIC</code> step template</li>
+<li>Runtime knob: <code>--internlm-samples</code> overrides provider sample count</li>
+<li>Strengths: step-oriented prompt structure</li>
+<li>Limitations: model-card license marked <code>other</code>; keep opt-in</li>
+</ul>
+<h3 id="heuristic-heuristic">Heuristic (<code>heuristic</code>)</h3>
+<ul>
+<li>Implementation: <code>GoalAwareTacticProvider</code> in <code>prover/providers/base.py</code></li>
+<li>Strengths: deterministic, no model weights required</li>
+<li>Limitations: much narrower tactic surface than model-backed providers</li>
+</ul>
+<h2 id="selection-rubric">Selection Rubric</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Goal</th>
+<th>Recommended provider</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Baseline comparability and lower footprint</td>
+<td><code>reprover</code></td>
+</tr>
+<tr class="even">
+<td>Lean4 syntax quality + diverse candidates</td>
+<td><code>deepseek</code></td>
+</tr>
+<tr class="odd">
+<td>Larger-model tactic breadth</td>
+<td><code>bfs</code></td>
+</tr>
+<tr class="even">
+<td>Step-structured prompting experiments</td>
+<td><code>internlm</code></td>
+</tr>
+<tr class="odd">
+<td>Deterministic no-model fallback</td>
+<td><code>heuristic</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="why-reprover-is-default">Why ReProver Is Default</h2>
+<ul>
+<li>established baseline for this research line</li>
+<li>lower compute footprint than 7B/1.3B alternatives</li>
+<li>easier cross-paper comparability</li>
+</ul>
+<h2 id="architecture-decision">Architecture Decision</h2>
+<p>The system standardizes on one provider interface so MCTS/search logic does not change when models change. This preserves comparability between runs while allowing provider evolution.</p>
+<h2 id="related-notes">Related Notes</h2>
+<ul>
+<li>DeepSeek decoding/config details: <code>docs/providers/deepseek-provider-settings.md</code></li>
+<li>Search-side goal/tactic metrics that consume provider outputs: <code>docs/core/analysis-lexicon.md</code></li>
+<li>Runtime provider wiring and choices: <code>orchestrator/lean.py</code></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

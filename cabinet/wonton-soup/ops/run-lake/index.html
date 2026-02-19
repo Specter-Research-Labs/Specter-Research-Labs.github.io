@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Run Lake (Cross-Run DuckDB) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-019</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/run-lake</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/run-lake.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-02-19T15:28:20Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#run-lake-cross-run-duckdb" id="toc-run-lake-cross-run-duckdb">Run Lake (Cross-Run DuckDB)</a>
+                            <ul>
+                            <li><a href="#why-it-exists" id="toc-why-it-exists">Why It Exists</a></li>
+                            <li><a href="#storage-layout" id="toc-storage-layout">Storage Layout</a></li>
+                            <li><a href="#stable-ids" id="toc-stable-ids">Stable IDs</a></li>
+                            <li><a href="#core-commands" id="toc-core-commands">Core Commands</a></li>
+                            <li><a href="#what-we-extract-high-level" id="toc-what-we-extract-high-level">What We Extract (High Level)</a></li>
+                            <li><a href="#determinism-repro-notes" id="toc-determinism-repro-notes">Determinism / Repro Notes</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="run-lake-cross-run-duckdb">Run Lake (Cross-Run DuckDB)</h1>
+<p>The run lake is the cross-run analysis harness for wonton-soup. It indexes run directories, extracts normalized fact tables into DuckDB, and exports dashboard datasets.</p>
+<p>Operational focus: deterministic outputs, inspectable state, explicit provenance.</p>
+<h2 id="why-it-exists">Why It Exists</h2>
+<p>Single-run analysis helps debugging; cross-run questions are:</p>
+<ul>
+<li>how metrics shift across interventions/providers/backends</li>
+<li>whether effects persist across repeated seeds</li>
+<li>how to score against an explicitly selected reference model</li>
+</ul>
+<h2 id="storage-layout">Storage Layout</h2>
+<p>Lake paths resolve via <code>analysis.lake.db.resolve_lake_paths()</code> -&gt; <code>runtime_paths.resolve_artifacts_root()</code>.</p>
+<ul>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is unset:
+<ul>
+<li>active path: <code>dossiers/wonton-soup/outputs/lake/</code></li>
+</ul></li>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is set:
+<ul>
+<li>active local staging path: <code>tmp/runtime-artifacts/wonton-soup/artifacts/lake/</code></li>
+<li>remote target root: <code>$SPECTER_ARTIFACT_ROOT/wonton-soup/artifacts/lake/</code></li>
+</ul></li>
+</ul>
+<p>Inside the active lake root:</p>
+<ul>
+<li><code>lake.duckdb</code>: database</li>
+<li><code>exports/</code>: exported datasets</li>
+<li><code>jobs/</code>: materialized lake-job outputs</li>
+</ul>
+<h2 id="stable-ids">Stable IDs</h2>
+<p>Lake keys are deterministic:</p>
+<ul>
+<li><code>root_id</code>: stable hash of resolved log-root path</li>
+<li><code>run_key</code>: stable hash of <code>(root_id, rel_run_dir)</code></li>
+</ul>
+<h2 id="core-commands">Core Commands</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Fill missing/stale heavy metrics.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py postprocess <span class="at">--logs-dir</span> logs</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Reconcile runs into the lake.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake reconcile <span class="at">--logs-dir</span> logs</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Export dashboard-friendly JSONL datasets.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake export <span class="at">--format</span> specter-viz</span></code></pre></div>
+<p>For job-based materialization, see <code>docs/ops/lake-jobs.md</code>.</p>
+<h2 id="what-we-extract-high-level">What We Extract (High Level)</h2>
+<p>The lake stores:</p>
+<ul>
+<li>run registry (<code>runs</code>, <code>run_files</code>)</li>
+<li>per-theorem and per-intervention summaries from <code>summary.json.gz</code></li>
+<li>basin tables from <code>basin_analysis.json</code></li>
+<li>optional postprocess outputs (<code>postprocess_metrics.json</code>, <code>*_metrics.json</code>, <code>*_comparison.json</code>)</li>
+<li>goal-outcome aggregates from <code>goal_cache.json.gz</code></li>
+<li>optional reference-scored K outputs (<code>k_reference_score</code>)</li>
+</ul>
+<p>Implementation: <code>analysis/lake/db.py</code>, <code>analysis/lake/reconcile.py</code>, <code>analysis/lake/extract_basin.py</code>.</p>
+<h2 id="determinism-repro-notes">Determinism / Repro Notes</h2>
+<ul>
+<li>DB connections force single-thread execution for deterministic exports (<code>analysis.lake.db.connect()</code> sets <code>PRAGMA threads=1</code>).</li>
+<li>Exports order rows explicitly (<code>ORDER BY</code>) and JSON-encode deterministically.</li>
+<li>Reference populations must be explicit to avoid leakage; see <code>docs/core/adr-lake-reference-selection.md</code>.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
