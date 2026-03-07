@@ -1,0 +1,179 @@
+{
+  "runs": [
+    {
+      "id": "p2-paired__provider=deepseek__control=centralized",
+      "label": "control=centralized | deepseek | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 10.0% | int 15.5%",
+      "dashboard": "data/p2-paired__provider=deepseek__control=centralized/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.1,
+        "intervention_solve_rate": 0.15517241379310345,
+        "created_at": "2026-03-04T16:52:40",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "deepseek"
+        ],
+        "provider_label": "deepseek+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts centralized",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    },
+    {
+      "id": "p2-paired__provider=deepseek__distributed-a8-i64",
+      "label": "distributed-a8-i64 | deepseek | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 20.0% | int 25.0%",
+      "dashboard": "data/p2-paired__provider=deepseek__distributed-a8-i64/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.2,
+        "intervention_solve_rate": 0.25,
+        "created_at": "2026-03-05T01:01:58",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "deepseek"
+        ],
+        "provider_label": "deepseek+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts distributed",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    },
+    {
+      "id": "p2-paired__provider=heuristic__control=centralized",
+      "label": "control=centralized | heuristic | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 30.0% | int 4.3%",
+      "dashboard": "data/p2-paired__provider=heuristic__control=centralized/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.3,
+        "intervention_solve_rate": 0.042735042735042736,
+        "created_at": "2026-03-04T16:34:31",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "heuristic"
+        ],
+        "provider_label": "heuristic+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts centralized",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    },
+    {
+      "id": "p2-paired__provider=heuristic__distributed-a8-i64",
+      "label": "distributed-a8-i64 | heuristic | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 30.0% | int 4.3%",
+      "dashboard": "data/p2-paired__provider=heuristic__distributed-a8-i64/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.3,
+        "intervention_solve_rate": 0.04310344827586207,
+        "created_at": "2026-03-04T16:43:36",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "heuristic"
+        ],
+        "provider_label": "heuristic+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts distributed",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    },
+    {
+      "id": "p2-paired__provider=reprover__control=centralized",
+      "label": "control=centralized | reprover | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 20.0% | int 13.3%",
+      "dashboard": "data/p2-paired__provider=reprover__control=centralized/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.2,
+        "intervention_solve_rate": 0.13333333333333333,
+        "created_at": "2026-03-04T16:19:03",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "reprover"
+        ],
+        "provider_label": "reprover+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts centralized",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    },
+    {
+      "id": "p2-paired__provider=reprover__distributed-a8-i64",
+      "label": "distributed-a8-i64 | reprover | artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0 | tiers 10,50,200,1000 | 10 thm | wild 20.0% | int 13.0%",
+      "dashboard": "data/p2-paired__provider=reprover__distributed-a8-i64/dashboard_v2.json",
+      "meta": {
+        "theorem_count": 10,
+        "crashed_count": 0,
+        "wild_type_solve_rate": 0.2,
+        "intervention_solve_rate": 0.13043478260869565,
+        "created_at": "2026-03-04T16:25:20",
+        "mode": "research",
+        "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+        "budget_label": "standard",
+        "providers": [
+          "reprover"
+        ],
+        "provider_label": "reprover+block_easy",
+        "settings_summary": "tiers 10,50,200,1000 | wk 1 | mcts distributed",
+        "status": "completed",
+        "partial_results": false,
+        "goal_id_scheme": "checkpoint",
+        "capabilities": {
+          "has_proof_term": true,
+          "has_proof_term_pretty": true,
+          "has_assembly_trace": true,
+          "has_proof_term_metrics": true
+        }
+      }
+    }
+  ],
+  "default_run": "p2-paired__provider=deepseek__control=centralized"
+}

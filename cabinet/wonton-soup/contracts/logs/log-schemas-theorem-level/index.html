@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log Schemas: Per-Theorem Artifacts | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-014</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/logs/log-schemas-theorem-level</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/logs/log-schemas-theorem-level.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-schemas-per-theorem-artifacts" id="toc-log-schemas-per-theorem-artifacts">Log Schemas: Per-Theorem Artifacts</a>
+                            <ul>
+                            <li><a href="#graph-artifacts" id="toc-graph-artifacts">Graph Artifacts</a>
+                            <ul>
+                            <li><a href="#graph.json" id="toc-graph.json"><code>*_graph.json</code></a></li>
+                            <li><a href="#search_trace_graph.json" id="toc-search_trace_graph.json"><code>*_search_trace_graph.json</code></a></li>
+                            </ul></li>
+                            <li><a href="#search-and-assembly-traces" id="toc-search-and-assembly-traces">Search and Assembly Traces</a>
+                            <ul>
+                            <li><a href="#history.json" id="toc-history.json"><code>*_history.json</code></a></li>
+                            <li><a href="#assembly.json.gz" id="toc-assembly.json.gz"><code>*_assembly.json.gz</code></a></li>
+                            <li><a href="#process_trace.json.gz" id="toc-process_trace.json.gz"><code>*_process_trace.json.gz</code></a></li>
+                            <li><a href="#proof_term.json.gz" id="toc-proof_term.json.gz"><code>*_proof_term.json.gz</code></a></li>
+                            </ul></li>
+                            <li><a href="#variant-metrics-and-comparisons" id="toc-variant-metrics-and-comparisons">Variant Metrics and Comparisons</a>
+                            <ul>
+                            <li><a href="#metrics.json" id="toc-metrics.json"><code>*_metrics.json</code></a></li>
+                            <li><a href="#comparison.json" id="toc-comparison.json"><code>*_comparison.json</code></a></li>
+                            </ul></li>
+                            <li><a href="#distance-matrix-and-clustering" id="toc-distance-matrix-and-clustering">Distance Matrix and Clustering</a>
+                            <ul>
+                            <li><a href="#ged_matrix.json" id="toc-ged_matrix.json"><code>ged_matrix.json</code></a></li>
+                            <li><a href="#attractor_clusters.json" id="toc-attractor_clusters.json"><code>attractor_clusters.json</code></a></li>
+                            <li><a href="#basin_analysis.json" id="toc-basin_analysis.json"><code>basin_analysis.json</code></a></li>
+                            </ul></li>
+                            <li><a href="#trace-and-tree-optional-artifacts" id="toc-trace-and-tree-optional-artifacts">Trace and Tree Optional Artifacts</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../distributed-mcts-trace-events/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-010</span><span class="doc-backlinks-title">Distributed MCTS Trace Event Dictionary</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../log-file-schemas/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-011</span><span class="doc-backlinks-title">Log File Schemas</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="log-schemas-per-theorem-artifacts">Log Schemas: Per-Theorem Artifacts</h1>
+<p>Per-theorem schema contract for files under <code>logs/corpus-.../&lt;theorem_name&gt;/</code>.</p>
+<h2 id="graph-artifacts">Graph Artifacts</h2>
+<h3 id="graph.json"><code>*_graph.json</code></h3>
+<p>Graph payload for a theorem variant.</p>
+<ul>
+<li>Lean: search graph (<code>graph_kind=search_graph</code>)</li>
+<li>External backends: proof graph (<code>graph_kind=proof_graph</code>)</li>
+<li>Canonical family metadata:
+<ul>
+<li><code>graph_family</code></li>
+<li><code>graph_backend</code></li>
+<li><code>graph_provenance</code></li>
+<li><code>graph_schema_version</code></li>
+</ul></li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_family&quot;</span><span class="fu">:</span> <span class="st">&quot;search_trace&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_backend&quot;</span><span class="fu">:</span> <span class="st">&quot;lean&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_provenance&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;search_graph&quot;</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span> <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span> <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;edges&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span> <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.561&quot;</span><span class="fu">,</span> <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;root&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="search_trace_graph.json"><code>*_search_trace_graph.json</code></h3>
+<p>Trace-derived proxy graph when true search graph is unavailable.</p>
+<p>Coq replay traces also land here, with <code>trace_source=serapi_replay</code> and <code>trace_completeness=script|partial</code>.</p>
+<p>Required metadata:</p>
+<ul>
+<li><code>trace_source</code></li>
+<li><code>trace_completeness</code></li>
+<li><code>valid</code></li>
+<li><code>validity_notes</code></li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_family&quot;</span><span class="fu">:</span> <span class="st">&quot;search_trace&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_backend&quot;</span><span class="fu">:</span> <span class="st">&quot;unknown&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_provenance&quot;</span><span class="fu">:</span> <span class="st">&quot;proxy&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;graph_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;trace_graph&quot;</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;tstp&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;proxy&quot;</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;c1&quot;</span><span class="fu">,</span> <span class="dt">&quot;goal_sig&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_abc123&quot;</span><span class="fu">,</span> <span class="dt">&quot;node_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;clause&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;edges&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;src&quot;</span><span class="fu">:</span> <span class="st">&quot;c1&quot;</span><span class="fu">,</span> <span class="dt">&quot;dst&quot;</span><span class="fu">:</span> <span class="st">&quot;c2&quot;</span><span class="fu">,</span> <span class="dt">&quot;action_family&quot;</span><span class="fu">:</span> <span class="st">&quot;Resolution&quot;</span><span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="search-and-assembly-traces">Search and Assembly Traces</h2>
+<h3 id="history.json"><code>*_history.json</code></h3>
+<p>Iteration-level search trace for one variant.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;iteration_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solution_path&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;goal&quot;</span><span class="fu">:</span> <span class="st">&quot;P -&gt; Q&quot;</span><span class="fu">,</span> <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span> <span class="dt">&quot;mvar_id&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;iterations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;iteration&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;selected_path&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.560&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;attempts&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span> <span class="dt">&quot;outcome&quot;</span><span class="fu">:</span> <span class="st">&quot;success&quot;</span><span class="fu">,</span> <span class="dt">&quot;child_mvar_ids&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.561&quot;</span><span class="ot">]</span><span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;terminal_reached&quot;</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="assembly.json.gz"><code>*_assembly.json.gz</code></h3>
+<p>Stepwise proof assembly trace.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rootMvarId&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;steps&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;intro h&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;mvarId&quot;</span><span class="fu">:</span> <span class="st">&quot;cp1:_uniq.560&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;partialTermBefore&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;partialTermAfter&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;proofTerm&quot;</span><span class="fu">:</span> <span class="fu">{}},</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsClosed&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsOpened&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;cp1:_uniq.561&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;actionMetadata&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;continuation_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;chain&quot;</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;goal_coupling&quot;</span><span class="fu">:</span> <span class="st">&quot;none&quot;</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;effect_flags&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;opens_binder&quot;</span><span class="ot">,</span> <span class="st">&quot;uses_hypotheses&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;depends_on_count&quot;</span><span class="fu">:</span> <span class="dv">1</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;finalTerm&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;rootId&quot;</span><span class="fu">:</span> <span class="st">&quot;n0&quot;</span><span class="fu">,</span> <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="process_trace.json.gz"><code>*_process_trace.json.gz</code></h3>
+<p>Backend replay/process trace when a backend can step through a proof script but does not expose a true interactive search tree.</p>
+<p>Current producer:</p>
+<ul>
+<li>Coq external extraction via SerAPI replay</li>
+</ul>
+<p>Example skeleton:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorem&quot;</span><span class="fu">:</span> <span class="st">&quot;and_assoc&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;sourcePath&quot;</span><span class="fu">:</span> <span class="st">&quot;/abs/path/to/Logic.v&quot;</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;traceSource&quot;</span><span class="fu">:</span> <span class="st">&quot;serapi_replay&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;traceCompleteness&quot;</span><span class="fu">:</span> <span class="st">&quot;script&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;steps&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;index&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;sentence&quot;</span><span class="fu">:</span> <span class="st">&quot;split.&quot;</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;commandKind&quot;</span><span class="fu">:</span> <span class="st">&quot;tactic&quot;</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;commandNorm&quot;</span><span class="fu">:</span> <span class="st">&quot;split&quot;</span><span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsBefore&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;focused&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;goalId&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span> <span class="dt">&quot;goalType&quot;</span><span class="fu">:</span> <span class="st">&quot;(Const goal_demo)&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">},</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;goalsAfter&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;focused&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;goalId&quot;</span><span class="fu">:</span> <span class="st">&quot;2&quot;</span><span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;goalId&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">},</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;proofTermBefore&quot;</span><span class="fu">:</span> <span class="st">&quot;?demo&quot;</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;proofTermAfter&quot;</span><span class="fu">:</span> <span class="st">&quot;conj ?left ?right&quot;</span><span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;actionMetadata&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tactic_family&quot;</span><span class="fu">:</span> <span class="st">&quot;split&quot;</span><span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;branch_arity&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;continuation_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;branch&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="proof_term.json.gz"><code>*_proof_term.json.gz</code></h3>
+<p>Final proof term only (<code>ExprDAG</code> payload):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;rootId&quot;</span><span class="fu">:</span> <span class="st">&quot;n0&quot;</span><span class="fu">,</span> <span class="dt">&quot;nodes&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="st">&quot;n0&quot;</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;lam&quot;</span><span class="fu">}</span><span class="ot">]]</span><span class="fu">}</span></span></code></pre></div>
+<h2 id="variant-metrics-and-comparisons">Variant Metrics and Comparisons</h2>
+<h3 id="metrics.json"><code>*_metrics.json</code></h3>
+<p>Per-variant metric summary.</p>
+<p>Typical fields:</p>
+<ul>
+<li><code>trajectory</code></li>
+<li><code>detour</code></li>
+<li><code>proof_term</code></li>
+<li><code>solution_path</code></li>
+<li>optional pretty-print and fingerprint fields</li>
+</ul>
+<h3 id="comparison.json"><code>*_comparison.json</code></h3>
+<p>Intervention-vs-wild comparison payload.</p>
+<p>Typical fields:</p>
+<ul>
+<li>intervention status</li>
+<li>hash and axiom deltas</li>
+<li>GED family payloads</li>
+<li>trajectory and novelty comparisons</li>
+<li>optional postprocess-heavy enrichments</li>
+</ul>
+<p>Example skeleton:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;block_simp&quot;</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_search_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">4.0</span><span class="fu">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;normalized&quot;</span><span class="fu">:</span> <span class="fl">0.1</span><span class="fu">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_proof_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ged_trace_graph&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_novelty&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">},</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;solution_path_soft_distance&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Postprocess-owned sections may be placeholders before postprocess runs.</p>
+<h2 id="distance-matrix-and-clustering">Distance Matrix and Clustering</h2>
+<h3 id="ged_matrix.json"><code>ged_matrix.json</code></h3>
+<p>Pairwise variant distance matrix for one theorem.</p>
+<h3 id="attractor_clusters.json"><code>attractor_clusters.json</code></h3>
+<p>Clustering result over theorem variant distance matrix (when enough variants exist).</p>
+<h3 id="basin_analysis.json"><code>basin_analysis.json</code></h3>
+<p>Multi-seed convergence summary (basin mode).</p>
+<h2 id="trace-and-tree-optional-artifacts">Trace and Tree Optional Artifacts</h2>
+<ul>
+<li><code>*_mcts_tree.json</code></li>
+<li><code>*_mcts_trace.jsonl</code> (with tracing enabled)</li>
+</ul>
+<p>Presence depends on run mode and flags.</p>
+<p>Distributed trace field dictionary and examples:</p>
+<ul>
+<li><a href="../distributed-mcts-trace-events/">Distributed MCTS Trace Event Dictionary</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

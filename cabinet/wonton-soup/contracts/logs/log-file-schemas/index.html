@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log File Schemas | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-011</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/logs/log-file-schemas</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/logs/log-file-schemas.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-file-schemas" id="toc-log-file-schemas">Log File Schemas</a>
+                            <ul>
+                            <li><a href="#how-to-use-this-reference" id="toc-how-to-use-this-reference">How to Use This Reference</a></li>
+                            <li><a href="#scope-boundary" id="toc-scope-boundary">Scope Boundary</a></li>
+                            <li><a href="#cross-file-invariants" id="toc-cross-file-invariants">Cross-File Invariants</a></li>
+                            <li><a href="#postprocess-ownership" id="toc-postprocess-ownership">Postprocess Ownership</a></li>
+                            <li><a href="#multi-provider-layout" id="toc-multi-provider-layout">Multi-Provider Layout</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../../concepts/analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../../concepts/analysis-metrics/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-003</span><span class="doc-backlinks-title">Analysis Metrics Reference</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../../concepts/goal-deduplication-and-preview-commit/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-006</span><span class="doc-backlinks-title">Goal Identity, Deduplication, and Preview/Commit</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../analysis/analysis-artifacts/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-008</span><span class="doc-backlinks-title">Analysis Artifacts Reference</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../providers/deepseek-provider-settings/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-015</span><span class="doc-backlinks-title">DeepSeek Provider Settings</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../../decisions/adr-checkpoint-goal-ids/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-017</span><span class="doc-backlinks-title">ADR: Checkpoint-Scoped Goal IDs</span><span class="doc-backlinks-category">decisions</span></a></li><li class="doc-backlinks-item"><a href="../../../decisions/adr-search-graph-feasibility-by-backend/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-020</span><span class="doc-backlinks-title">ADR: Search-Graph Feasibility by Backend</span><span class="doc-backlinks-category">decisions</span></a></li><li class="doc-backlinks-item"><a href="../../../ops/log-query-cookbook/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-024</span><span class="doc-backlinks-title">Log Query Cookbook</span><span class="doc-backlinks-category">ops</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="log-file-schemas">Log File Schemas</h1>
+<p>Schema index for wonton-soup run artifacts.</p>
+<h2 id="how-to-use-this-reference">How to Use This Reference</h2>
+<ul>
+<li>For field-level run metadata and top-level files: <a href="../log-schemas-run-level/">Log Schemas: Run-Level</a></li>
+<li>For per-theorem variant artifacts: <a href="../log-schemas-theorem-level/">Log Schemas: Per-Theorem Artifacts</a></li>
+<li>For backend capability/artifact-family mapping: <a href="../log-schemas-backend-mapping/">Log Schemas: Backend Artifact Mapping</a></li>
+<li>For distributed trace JSONL event fields: <a href="../distributed-mcts-trace-events/">Distributed MCTS Trace Event Dictionary</a></li>
+<li>For operational inspection workflows: <a href="../../../ops/log-query-cookbook/">Log Query Cookbook</a></li>
+</ul>
+<h2 id="scope-boundary">Scope Boundary</h2>
+<p>This index defines ownership and cross-file invariants. Detailed JSON examples live in the split schema documents listed above.</p>
+<h2 id="cross-file-invariants">Cross-File Invariants</h2>
+<ul>
+<li>Lean goal IDs in logs are checkpoint-scoped IDs (<code>cp&lt;checkpoint&gt;:&lt;lean_mvar_id&gt;</code>).</li>
+<li><code>run_status.json</code> capability flags govern optional artifact expectations.</li>
+<li>GED family fields are family-specific and must include validity metadata.</li>
+<li>Postprocess-enriched fields may be absent or placeholder-valued before postprocess runs.</li>
+</ul>
+<h2 id="postprocess-ownership">Postprocess Ownership</h2>
+<p><code>wonton.py postprocess</code> may update existing run artifacts in place (notably <code>summary.json.gz</code> and <code>*_comparison.json</code>).</p>
+<p>Postprocess-owned enrichments include:</p>
+<ul>
+<li><code>ged_search_graph_soft</code></li>
+<li><code>goal_novelty</code></li>
+<li><code>solution_path_soft_distance</code></li>
+<li><code>k_search_efficiency</code></li>
+</ul>
+<h2 id="multi-provider-layout">Multi-Provider Layout</h2>
+<p>Multi-provider runs place complete single-provider runs under <code>provider=&lt;name&gt;/</code> with top-level provider aggregate files. See run-level schema doc for exact fields.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Lenia Compendium | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" />
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+        <style>
+            .site-shell {
+                --site-shell-max-width: 1400px;
+            }
+
+            /* --- Toolbar --- */
+
+            .compendium-toolbar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                align-items: end;
+                margin-bottom: 1.25em;
+            }
+
+            .compendium-toolbar label {
+                display: grid;
+                gap: 4px;
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--site-muted);
+            }
+
+            .compendium-toolbar select,
+            .compendium-toolbar input {
+                min-width: 14rem;
+                border: 1px solid var(--site-rule);
+                background: var(--sl-color-paper);
+                padding: 6px 8px;
+                font: inherit;
+                font-size: 12px;
+            }
+
+            .compendium-toolbar .detail-links {
+                display: flex;
+                gap: 1.25rem;
+                align-self: end;
+                margin-left: auto;
+            }
+
+            .compendium-toolbar .detail-links a {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+
+            .compendium-toolbar .detail-links a + a {
+                border-left: 1px solid rgba(20, 20, 20, 0.18);
+                padding-left: 1.25rem;
+            }
+
+            /* --- Detail panel --- */
+
+            .compendium-detail-panel {
+                display: none;
+                border: 1px solid var(--site-rule);
+                padding: 1em;
+                margin-bottom: 1.5em;
+            }
+
+            .compendium-detail-panel.is-open {
+                display: block;
+            }
+
+            .compendium-detail-close {
+                display: inline-block;
+                border: 1px solid var(--site-rule);
+                background: var(--sl-color-paper);
+                padding: 4px 8px;
+                font: inherit;
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                cursor: pointer;
+                margin-bottom: 1em;
+            }
+
+            .compendium-detail-close:hover {
+                border-color: var(--site-rule-strong);
+            }
+
+            /* --- Tile grid --- */
+
+            .compendium-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+                gap: 10px;
+            }
+
+            .compendium-tile {
+                display: grid;
+                gap: 0;
+                width: 100%;
+                border: 1px solid var(--site-rule);
+                background: var(--sl-color-paper);
+                overflow: hidden;
+                text-align: left;
+                cursor: pointer;
+                padding: 0;
+                font: inherit;
+                color: inherit;
+            }
+
+            .compendium-tile:hover,
+            .compendium-tile:focus-visible {
+                border-color: var(--site-rule-strong);
+                outline: none;
+            }
+
+            .compendium-tile.is-active {
+                border-color: var(--sl-color-ink);
+                box-shadow: 0 0 0 1px var(--sl-color-ink);
+            }
+
+            .compendium-tile-thumb {
+                position: relative;
+                display: block;
+                width: 100%;
+                aspect-ratio: 1;
+                overflow: hidden;
+                background: #0b0510;
+            }
+
+            .compendium-tile-thumb img,
+            .compendium-stage-poster,
+            .compendium-stage-canvas,
+            .compendium-anatomy-card img,
+            .compendium-anatomy-card canvas {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                image-rendering: pixelated;
+            }
+
+            .compendium-tile-thumb img {
+                opacity: 1;
+            }
+
+            .compendium-tile-thumb canvas {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                image-rendering: pixelated;
+                opacity: 0;
+                transition: opacity 280ms ease;
+            }
+
+            .compendium-tile-thumb canvas.is-live {
+                opacity: 1;
+            }
+
+            .compendium-tile-thumb canvas.is-live + img {
+                opacity: 0;
+            }
+
+            .compendium-tile-copy {
+                padding: 6px 8px 8px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .compendium-tile-name {
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .compendium-tile-score {
+                display: inline;
+                font-size: 11px;
+                font-weight: 300;
+                color: var(--site-muted);
+                margin-left: 4px;
+            }
+
+            .compendium-empty {
+                color: var(--site-muted);
+                line-height: 1.6;
+            }
+
+            /* --- Viz shell: stage + anatomy Chakazul-style --- */
+
+            .compendium-viz-shell {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin: 1em 0;
+            }
+
+            .compendium-viz-main {
+                min-width: 0;
+            }
+
+            .compendium-viz-anatomy {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .compendium-stage,
+            .compendium-stage-empty {
+                position: relative;
+                aspect-ratio: 1;
+                overflow: hidden;
+                border: 1px solid var(--site-rule);
+                background: #0b0510;
+            }
+
+            .compendium-stage-empty {
+                display: grid;
+                align-content: center;
+                gap: 6px;
+                padding: 1.5em;
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .compendium-stage-poster,
+            .compendium-stage-canvas,
+            .compendium-stage-veil {
+                position: absolute;
+                inset: 0;
+            }
+
+            .compendium-stage-poster {
+                transition: opacity 400ms ease;
+            }
+
+            .compendium-stage-canvas {
+                image-rendering: pixelated;
+                opacity: 0;
+                transition: opacity 320ms ease;
+            }
+
+            .compendium-stage.is-live .compendium-stage-poster {
+                opacity: 0;
+            }
+
+            .compendium-stage.is-live .compendium-stage-canvas {
+                opacity: 1;
+            }
+
+            .compendium-stage-live-badge {
+                position: absolute;
+                z-index: 2;
+                left: 10px;
+                top: 10px;
+                padding: 2px 6px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+
+
+            /* --- Metric cards --- */
+
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 10px;
+            }
+
+            .metric-card {
+                border: 1px solid var(--site-rule);
+                padding: 10px;
+            }
+
+            .metric-label {
+                display: block;
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--site-muted);
+            }
+
+            .metric-value {
+                display: block;
+                margin-top: 4px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            /* --- Equation cards --- */
+
+            .compendium-equation-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 10px;
+            }
+
+            .compendium-equation-card {
+                border: 1px solid var(--site-rule);
+                padding: 10px;
+                display: grid;
+                gap: 8px;
+                align-content: start;
+            }
+
+            .compendium-equation-kicker {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--site-muted);
+            }
+
+            .compendium-equation-card h4 {
+                display: none;
+            }
+
+            .compendium-equation-formula {
+                border: 1px solid var(--site-rule);
+                background: var(--sl-overlay-ink-2);
+                padding: 10px;
+                overflow-x: auto;
+                line-height: 1.6;
+            }
+
+            .compendium-equation-formula .katex {
+                font-size: 0.88em;
+            }
+
+            .compendium-equation-list {
+                display: grid;
+                gap: 6px;
+            }
+
+            .compendium-equation-row {
+                display: grid;
+                gap: 2px;
+            }
+
+            .compendium-equation-label {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--site-muted);
+            }
+
+            .compendium-equation-value {
+                font-size: 12px;
+                line-height: 1.5;
+                word-break: break-word;
+            }
+
+            /* --- Detail blocks --- */
+
+            .detail-block {
+                margin-top: 1.25em;
+            }
+
+            .detail-block-title {
+                display: block;
+                margin: 0 0 0.5em;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+            }
+
+            .detail-block pre {
+                overflow-x: auto;
+                border: 1px solid var(--site-rule);
+                background: var(--sl-overlay-ink-2);
+                padding: 10px;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+
+            .detail-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem 1.25rem;
+                margin-top: 1em;
+            }
+
+            .detail-links a {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+
+            .detail-links a + a {
+                border-left: 1px solid rgba(20, 20, 20, 0.18);
+                padding-left: 1.25rem;
+            }
+
+            /* --- Anatomy cards --- */
+
+            .compendium-anatomy-card {
+                position: relative;
+                margin: 0;
+                border: 1px solid var(--site-rule);
+                overflow: hidden;
+                background: #0b0510;
+            }
+
+            .compendium-anatomy-card img,
+            .compendium-anatomy-card canvas {
+                position: absolute;
+                inset: 0;
+            }
+
+            .compendium-anatomy-card figcaption {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 3px 6px;
+                font-size: 10px;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.7);
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+            }
+
+            @media (max-width: 980px) {
+                .compendium-viz-shell {
+                    grid-template-columns: 1fr;
+                }
+
+                .compendium-grid {
+                    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                }
+
+                .compendium-toolbar {
+                    align-items: stretch;
+                }
+
+                .compendium-toolbar label {
+                    width: 100%;
+                }
+
+                .compendium-toolbar select,
+                .compendium-toolbar input {
+                    min-width: 0;
+                    width: 100%;
+                }
+
+                .compendium-toolbar .detail-links {
+                    width: 100%;
+                    margin-left: 0;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                }
+
+                .compendium-toolbar .detail-links a + a {
+                    border-left: 0;
+                    padding-left: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="site-shell">
+            <header class="site-masthead">
+                <a class="site-brand" href="../../../">
+                    <img
+                        src="../../../assets/logo-black.svg"
+                        alt="SPECTER Labs logo"
+                        class="logo"
+                    />
+                    <span class="site-brand-name">SPECTER LABS</span>
+                </a>
+            </header>
+            <div class="site-rules" aria-hidden="true">
+                <div class="site-rule strong"></div>
+                <div class="site-rule"></div>
+            </div>
+
+            <div class="site-layout">
+                <aside class="site-aside">
+                    <nav class="site-nav" aria-label="Lenia compendium">
+                        <div class="site-nav-title">Compendium</div>
+                        <a class="site-nav-item" href="#overview">Overview</a>
+                        <a class="site-nav-item" href="#gallery">Gallery</a>
+                        <a class="site-nav-item" href="../">Lenia Dossier</a>
+                        <a class="site-nav-item" href="../../">Dossiers</a>
+                    </nav>
+                </aside>
+
+                <main class="site-main">
+                    <section class="project-header" id="overview">
+                        <span class="site-kicker">Read Only</span>
+                        <div class="site-page-title">Lenia Compendium</div>
+                        <p class="section-lead">
+                            Browse published Lenia creatures. Each entry shows
+                            a rendered specimen with its detail payload and a
+                            link to the exact replay config used to produce it.
+                        </p>
+                    </section>
+
+                    <section class="section-block" id="gallery">
+                        <div class="compendium-toolbar">
+                            <label>
+                                Release
+                                <select id="release-select" disabled>
+                                    <option>Loading...</option>
+                                </select>
+                            </label>
+                            <label>
+                                Sort
+                                <select id="sort-order" disabled>
+                                    <option value="glider">Gliderness</option>
+                                    <option value="score">Score</option>
+                                    <option value="speed">Speed</option>
+                                    <option value="displacement">Displacement</option>
+                                    <option value="translation">Translation</option>
+                                    <option value="gyration">Compactness</option>
+                                    <option value="name">Name</option>
+                                </select>
+                            </label>
+                            <label>
+                                Detail Path
+                                <input
+                                    id="detail-path"
+                                    type="text"
+                                    placeholder="?detail=data/.../meta.json"
+                                />
+                            </label>
+                            <div class="detail-links">
+                                <a href="../../../cabinet/lenia-swarm/contracts/CompendiumSchema/"
+                                    >Schema Contract</a
+                                >
+                                <a href="../../../cabinet/lenia-swarm/contracts/ArtifactLayout/"
+                                    >Artifact Layout</a
+                                >
+                            </div>
+                        </div>
+
+                        <div id="compendium-detail" class="compendium-detail-panel">
+                            Loading...
+                        </div>
+
+                        <div id="compendium-grid" class="compendium-grid"></div>
+                    </section>
+                </main>
+            </div>
+        </div>
+
+        <script type="module" src="./app.js"></script>
+    </body>
+</html>

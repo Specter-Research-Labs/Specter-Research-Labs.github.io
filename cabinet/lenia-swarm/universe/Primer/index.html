@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Primer | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">universe</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-017</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">universe/Primer</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                universe
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/universe/Primer.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#primer" id="toc-primer">Primer</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#what-this-dossier-is" id="toc-what-this-dossier-is">What This Dossier Is</a></li>
+                            <li><a href="#core-objects" id="toc-core-objects">Core Objects</a></li>
+                            <li><a href="#invariant-view" id="toc-invariant-view">Invariant View</a></li>
+                            <li><a href="#where-to-go-next" id="toc-where-to-go-next">Where to Go Next</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="primer">Primer</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This primer gives the minimum conceptual frame needed to read lenia-swarm docs without jumping into implementation details.</p>
+<h2 id="what-this-dossier-is">What This Dossier Is</h2>
+<p><code>lenia-swarm</code> is a Flow Lenia experiment system for discovering and indexing persistent patterns across parameter space.</p>
+<p>The system has three coupled concerns:</p>
+<ul>
+<li>physics: how states evolve each step,</li>
+<li>morphology: how we summarize form and behavior,</li>
+<li>ecology: how populations and niches are compared across runs.</li>
+</ul>
+<h2 id="core-objects">Core Objects</h2>
+<ul>
+<li>state field <code>A</code>: the simulated multi-channel lattice state.</li>
+<li>genotype: parameter payload controlling kernels and global parameters.</li>
+<li>phenotype: observed behavior summarized into metrics.</li>
+<li>creature record: an indexed row tying genotype, phenotype, and provenance.</li>
+</ul>
+<h2 id="invariant-view">Invariant View</h2>
+<p>The research loop is:</p>
+<ol type="1">
+<li>run deterministic simulations from explicit configs,</li>
+<li>extract metrics and derived morphometrics,</li>
+<li>index into a versioned compendium,</li>
+<li>analyze structure (taxonomy/ecology) offline.</li>
+</ol>
+<h2 id="where-to-go-next">Where to Go Next</h2>
+<ul>
+<li>For model mechanics: <code>Physics.md</code>.</li>
+<li>For descriptive language: <code>Morphology.md</code> and <code>Glossary.md</code>.</li>
+<li>For grouping concepts: <code>Taxonomy.md</code> and <code>Ecology.md</code>.</li>
+<li>For executable details: move to <code>../contracts/</code>.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

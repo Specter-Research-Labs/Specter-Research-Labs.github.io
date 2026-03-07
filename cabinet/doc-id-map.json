@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "dossiers": {
+    "jolt-material-memory": {
+      "code": "JMM",
+      "next_counter": 5,
+      "docs": {
+        "article-framing": "JMM-003",
+        "experiment-matrix": "JMM-001",
+        "metric-spec": "JMM-002",
+        "next-experiment-batch": "JMM-004"
+      }
+    },
+    "lenia-swarm": {
+      "code": "LS",
+      "next_counter": 20,
+      "docs": {
+        "README": "LS-001",
+        "contracts/ArtifactLayout": "LS-002",
+        "contracts/CompendiumSchema": "LS-003",
+        "contracts/EcologyCLI": "LS-004",
+        "contracts/LocalCLI": "LS-005",
+        "contracts/MorphometricsAndTraits": "LS-006",
+        "contracts/Reproducibility": "LS-007",
+        "decisions/ADR-001-taxonomy-status": "LS-008",
+        "decisions/ADR-002-schema-versioning": "LS-009",
+        "internals/FlowLeniaImplementationMap": "LS-010",
+        "internals/IndexerInternals": "LS-011",
+        "internals/SpeciesKnobs": "LS-019",
+        "internals/StudioCompendiumInternals": "LS-012",
+        "universe/Ecology": "LS-013",
+        "universe/Glossary": "LS-014",
+        "universe/Morphology": "LS-015",
+        "universe/Physics": "LS-016",
+        "universe/Primer": "LS-017",
+        "universe/Taxonomy": "LS-018"
+      }
+    },
+    "wonton-soup": {
+      "code": "WS",
+      "next_counter": 33,
+      "docs": {
+        "README": "WS-001",
+        "concepts/analysis-lexicon": "WS-002",
+        "concepts/analysis-metrics": "WS-003",
+        "concepts/attractor-metrics": "WS-004",
+        "concepts/distributed-mcts": "WS-005",
+        "concepts/goal-deduplication-and-preview-commit": "WS-006",
+        "concepts/proof-graph-ir": "WS-028",
+        "concepts/tactic-action-ir": "WS-029",
+        "concepts/ucb1": "WS-007",
+        "contracts/analysis/analysis-artifacts": "WS-008",
+        "contracts/backends/partial-proof-terms": "WS-009",
+        "contracts/logs/distributed-mcts-trace-events": "WS-010",
+        "contracts/logs/log-file-schemas": "WS-011",
+        "contracts/logs/log-schemas-backend-mapping": "WS-012",
+        "contracts/logs/log-schemas-run-level": "WS-013",
+        "contracts/logs/log-schemas-theorem-level": "WS-014",
+        "contracts/providers/deepseek-provider-settings": "WS-015",
+        "contracts/providers/tactic-provider-options": "WS-016",
+        "decisions/README": "WS-027",
+        "decisions/adr-checkpoint-goal-ids": "WS-017",
+        "decisions/adr-distributed-mcts": "WS-018",
+        "decisions/adr-lake-reference-selection": "WS-019",
+        "decisions/adr-proof-graph-ir-cross-assistant": "WS-030",
+        "decisions/adr-search-graph-feasibility-by-backend": "WS-020",
+        "ops/corpus-pipeline": "WS-021",
+        "ops/cross-assistant-alignment": "WS-031",
+        "ops/cross-assistant-paired-benchmark": "WS-032",
+        "ops/followup-run-program": "WS-026",
+        "ops/lake-jobs": "WS-022",
+        "ops/lean-repl-setup": "WS-023",
+        "ops/log-query-cookbook": "WS-024",
+        "ops/run-lake": "WS-025"
+      }
+    }
+  }
+}

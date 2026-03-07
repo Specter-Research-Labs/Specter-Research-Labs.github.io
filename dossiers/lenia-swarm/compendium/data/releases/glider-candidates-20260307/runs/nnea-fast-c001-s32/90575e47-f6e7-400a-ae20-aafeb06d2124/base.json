@@ -1,0 +1,94 @@
+{
+  "backend" : "mlx",
+  "channels" : 1,
+  "connectivity" : [
+    [
+      1
+    ]
+  ],
+  "flow" : {
+    "dt" : 0.2,
+    "n" : 2,
+    "theta_A" : 2
+  },
+  "grid" : {
+    "sx" : 128,
+    "sy" : 128
+  },
+  "implementation" : {
+    "mode" : "paper"
+  },
+  "init" : {
+    "a_uniform" : {
+      "high" : 1,
+      "low" : 0
+    },
+    "p_uniform" : {
+      "high" : 1,
+      "low" : 0
+    },
+    "patches" : [
+      {
+        "center" : [
+          64,
+          64
+        ],
+        "size" : 40
+      }
+    ],
+    "seed" : 55
+  },
+  "interventions" : [
+
+  ],
+  "parameter_embedding" : {
+    "enabled" : true,
+    "mix" : "avg"
+  },
+  "params" : {
+    "R" : 24.52668,
+    "a" : [
+      [
+        0.7856328,
+        0.01445061,
+        0.32868743
+      ]
+    ],
+    "b" : [
+      [
+        0.83149344,
+        0.48800611,
+        0.1801812
+      ]
+    ],
+    "h" : [
+      0.5126333
+    ],
+    "m" : [
+      0.23188126
+    ],
+    "mode" : "explicit",
+    "r" : [
+      0.36444336
+    ],
+    "s" : [
+      0.1406897
+    ],
+    "w" : [
+      [
+        0.42940554,
+        0.20951605,
+        0.111120336
+      ]
+    ]
+  },
+  "profile" : "paper",
+  "reintegration" : {
+    "border" : "torus",
+    "dd" : 5,
+    "sigma" : 0.65
+  },
+  "run" : {
+    "steps" : 500
+  }
+}

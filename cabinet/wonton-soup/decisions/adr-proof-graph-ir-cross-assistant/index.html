@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: ProofGraphIR for Cross-Assistant Alignment | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">decisions</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-030</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">decisions/adr-proof-graph-ir-cross-assistant</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                decisions
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/decisions/adr-proof-graph-ir-cross-assistant.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-proofgraphir-for-cross-assistant-alignment" id="toc-adr-proofgraphir-for-cross-assistant-alignment">ADR: ProofGraphIR for Cross-Assistant Alignment</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#research-findings-march-2-2026" id="toc-research-findings-march-2-2026">Research Findings (March 2, 2026)</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            <li><a href="#claim-boundaries" id="toc-claim-boundaries">Claim Boundaries</a></li>
+                            <li><a href="#verification-requirements" id="toc-verification-requirements">Verification Requirements</a></li>
+                            <li><a href="#follow-on-decisions-needed" id="toc-follow-on-decisions-needed">Follow-On Decisions Needed</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-027</span><span class="doc-backlinks-title">ADR Index</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="adr-proofgraphir-for-cross-assistant-alignment">ADR: ProofGraphIR for Cross-Assistant Alignment</h1>
+<h2 id="context">Context</h2>
+<p>Cross-assistant alignment in wonton-soup compares theorem-level artifacts between Lean and Coq runs.</p>
+<p>Before <code>ProofGraphIR</code>, graph distance directly mixed:</p>
+<ul>
+<li>Lean wild-type tactic-search traces (small, shallow, tactic-labeled)</li>
+<li>Coq proof-term DAGs (large, deep, structural-edge-labeled)</li>
+</ul>
+<p>This produced a high risk of invalid structural conclusions because the compared graph families were not semantically aligned.</p>
+<h2 id="research-findings-march-2-2026">Research Findings (March 2, 2026)</h2>
+<p>From paired Lean↔︎Coq logic micro runs (<code>84</code> pairs):</p>
+<ul>
+<li>pre-IR alignment collapse:
+<ul>
+<li><code>top1_unique_rate = 0.023810</code></li>
+<li>reciprocal top-1 rate <code>= 0.011905</code></li>
+<li>top-1 targets concentrated on two Coq theorems</li>
+</ul></li>
+<li>strong size confound:
+<ul>
+<li>correlation of pair rank with log Coq graph size <code>~0.918</code></li>
+</ul></li>
+<li>graph-family mismatch:
+<ul>
+<li>Lean run classified as search traces</li>
+<li>Coq run classified as proof-term DAGs</li>
+</ul></li>
+</ul>
+<p>After first <code>ProofGraphIR</code> integration:</p>
+<ul>
+<li>retrieval quality improved:
+<ul>
+<li><code>MRR: 0.122338 -&gt; 0.321572</code></li>
+<li><code>Recall@1: 0.023810 -&gt; 0.226190</code></li>
+<li><code>Recall@10: 0.309524 -&gt; 0.500000</code></li>
+</ul></li>
+<li>collapse reduced:
+<ul>
+<li><code>top1_unique_rate: 0.023810 -&gt; 0.392857</code></li>
+<li>reciprocal top-1 rate: <code>0.011905 -&gt; 0.380952</code></li>
+</ul></li>
+<li>size confound reduced:
+<ul>
+<li>rank/log-size correlation: <code>0.918 -&gt; 0.084</code></li>
+</ul></li>
+</ul>
+<p>After enabling same-kind benchmark mode (<code>proof_term_graph</code> vs <code>proof_term_graph</code>, solved-only):</p>
+<ul>
+<li>same-kind support became explicit (<code>same_kind pairs = 36</code>, <code>cross_kind pairs = 0</code>)</li>
+<li>same-kind retrieval on this slice:
+<ul>
+<li><code>MRR = 0.358735</code></li>
+<li><code>Recall@1 = 0.25</code></li>
+<li><code>Recall@10 = 0.583333</code></li>
+</ul></li>
+</ul>
+<p>The solved-only benchmark still missed gate at <code>Recall@10 = 0.277778</code> (threshold <code>0.30</code>), so this is a major improvement but not final.</p>
+<h2 id="decision">Decision</h2>
+<p>Adopt <code>ProofGraphIR</code> as the required graph abstraction for cross-assistant alignment.</p>
+<p><code>ProofGraphIR</code> introduces:</p>
+<ul>
+<li>explicit graph kind (<code>search_trace</code>, <code>term_dag</code>, <code>unknown</code>)</li>
+<li>edge-role normalization</li>
+<li>shared operator-ontology profile (<code>apply</code>, <code>bind</code>, <code>branch</code>, …)</li>
+<li>run-relative rank normalization by graph kind</li>
+<li>kind-aware graph distance and weighting</li>
+<li>report-time diagnostics:
+<ul>
+<li><code>cross_kind_rate</code></li>
+<li><code>kind_pair_distribution</code></li>
+<li>run-level graph-kind distributions</li>
+</ul></li>
+</ul>
+<p>For cross-kind pairs, suppress role/shape channels and rely on normalized structural ranks plus lexical/connective channels.</p>
+<p>Paired benchmark now supports:</p>
+<ul>
+<li>deterministic name-obfuscated evaluation mode (<code>--name-obfuscation names</code>)</li>
+<li><code>by_kind</code> summary and gate thresholds (<code>same_kind</code>, <code>cross_kind</code>)</li>
+<li>theorem-level proof aggregation modes (<code>single</code>, <code>best_of</code>, <code>consensus</code>)</li>
+<li>split gate axes (<code>coverage</code>, <code>quality</code>) with explicit cohort denominators</li>
+</ul>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li>Keep raw graph-size + family matching</li>
+<li>Disable graph channel and use text-only matching</li>
+<li>Add kind-aware IR with explicit comparability boundaries (chosen)</li>
+</ol>
+<h2 id="consequences">Consequences</h2>
+<p>Positive:</p>
+<ul>
+<li>removes major size-driven artifacts from ranking</li>
+<li>makes comparability assumptions explicit in artifacts</li>
+<li>improves paired benchmark performance without hiding mismatch semantics</li>
+</ul>
+<p>Costs and limits:</p>
+<ul>
+<li>cross-kind matching still depends heavily on statement/name lexical signal</li>
+<li>current runs are still mostly <code>search_trace -&gt; term_dag</code> comparisons, not same-family structure comparisons</li>
+<li>cannot yet claim theorem-level proof-shape equivalence across assistants</li>
+</ul>
+<h2 id="claim-boundaries">Claim Boundaries</h2>
+<p>Allowed:</p>
+<ul>
+<li>“We can compare cross-assistant theorem artifacts under explicit cross-kind semantics.”</li>
+<li>“Retrieval collapse from raw size mismatch is substantially reduced.”</li>
+</ul>
+<p>Not allowed:</p>
+<ul>
+<li>“We are measuring identical proof shape across Lean and Coq.”</li>
+<li>“High retrieval alone implies proof-structure invariance.”</li>
+</ul>
+<h2 id="verification-requirements">Verification Requirements</h2>
+<p>Cross-assistant reports must include:</p>
+<ul>
+<li>graph-kind distributions for each run</li>
+<li><code>cross_kind_rate</code></li>
+<li><code>kind_pair_distribution</code></li>
+<li>paired retrieval metrics (<code>Recall@k</code>, <code>MRR</code>)</li>
+</ul>
+<p>Any structural claim across assistants must report whether it is same-kind or cross-kind.</p>
+<h2 id="follow-on-decisions-needed">Follow-On Decisions Needed</h2>
+<ol type="1">
+<li>Expand operator-ontology v1 coverage for shared structural semantics.</li>
+<li>Expand motif ontology coverage so cross-assistant action channels are not dominated by lexical spillover.</li>
+<li>Build same-kind benchmark support (for example term-dag vs term-dag) so structural claims are not only cross-kind.</li>
+</ol>
+<h2 id="references">References</h2>
+<ul>
+<li><code>analysis/proof_graph_ir.py</code></li>
+<li><code>analysis/cross_assistant_alignment.py</code></li>
+<li><code>analysis/cross_assistant_paired_benchmark.py</code></li>
+<li><code>generated/cross_assistant_paired_benchmark_2026-03-02_v3_gated.json</code></li>
+<li><code>generated/cross_assistant_paired_benchmark_2026-03-02_v3_ir1.json</code></li>
+<li><code>generated/cross_assistant_alignment_diagnostic_2026-03-02_v3.json</code></li>
+<li><code>generated/cross_assistant_alignment_diagnostic_2026-03-02_v3_ir1.json</code></li>
+<li><a href="../../ops/cross-assistant-alignment/">Cross-Assistant Alignment (Diagnostic)</a></li>
+<li><a href="../../ops/cross-assistant-paired-benchmark/">Cross-Assistant Paired Benchmark (Primary Gate)</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,164 @@
+{
+  "artifact_source" : "computed_replay_configs",
+  "creature" : {
+    "config_hash" : "035c5d3d6b6f",
+    "genotype" : {
+      "R" : 16.83728,
+      "a" : [
+        [
+          0.8168397,
+          0.9135646,
+          0.95769507
+        ],
+        [
+          0.211999,
+          0.67564887,
+          0.08812189
+        ],
+        [
+          0.61845964,
+          0.322922,
+          0.027346611
+        ]
+      ],
+      "b" : [
+        [
+          0.6345172,
+          0.7098305,
+          0.83234435
+        ],
+        [
+          0.693911,
+          0.68330723,
+          0.4652794
+        ],
+        [
+          0.93276393,
+          0.6703723,
+          0.62811077
+        ]
+      ],
+      "h" : [
+        0.032248378,
+        0.8089138,
+        0.8303885
+      ],
+      "m" : [
+        0.084184915,
+        0.11617032,
+        0.14538337
+      ],
+      "r" : [
+        0.88072073,
+        0.6830284,
+        0.25298458
+      ],
+      "s" : [
+        0.15475896,
+        0.18082267,
+        0.068324655
+      ],
+      "w" : [
+        [
+          0.098229855,
+          0.19949305,
+          0.017815161
+        ],
+        [
+          0.26896673,
+          0.4169443,
+          0.27241677
+        ],
+        [
+          0.38193056,
+          0.22120729,
+          0.38629523
+        ]
+      ]
+    },
+    "id" : "89B61740-C582-49B5-854E-E326DDCF806A",
+    "metrics" : {
+      "center_velocity" : 0.01005621,
+      "complexity_mean" : 0.7545166,
+      "complexity_scales" : [
+        0.328125,
+        0.45166016,
+        0.8203125,
+        1.4179688
+      ],
+      "displacement" : 4.273889,
+      "energy_mean" : 298.41345,
+      "gyration" : 3697.4817,
+      "heading_rad" : 0.7599115,
+      "is_stable" : true,
+      "mass_max" : 802.298,
+      "mass_mean" : 802.2889,
+      "mass_min" : 802.2799,
+      "mass_std" : 0.25,
+      "occupancy_mean" : 0.20457967,
+      "path_length" : 4.281006,
+      "sample_count" : 18,
+      "speed_count" : 17,
+      "speed_mean" : 0.010072955,
+      "variance_mean" : 0.015815865,
+      "velocity_x" : 0.007289716,
+      "velocity_y" : 0.006927293
+    },
+    "name" : "mystic-pattern-0892",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "p_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            32,
+            32
+          ],
+          "size" : 20
+        },
+        {
+          "center" : [
+            96,
+            32
+          ],
+          "size" : 20
+        },
+        {
+          "center" : [
+            32,
+            96
+          ],
+          "size" : 20
+        },
+        {
+          "center" : [
+            96,
+            96
+          ],
+          "size" : 20
+        }
+      ],
+      "seed" : 34
+    },
+    "score" : 13.057638,
+    "score_weights" : {
+      "center_velocity" : 4,
+      "complexity_mean" : 0.25,
+      "displacement" : 2,
+      "path_length" : 1
+    },
+    "timestamp" : "2026-03-06T21:54:34.587Z"
+  },
+  "published_at" : "2026-03-06T23:13:07.393Z",
+  "recorded_at" : "2026-03-06T21:54:34.587Z",
+  "run_id" : "crossmap-motion-c001-s32",
+  "run_name" : "crossmap-motion-c001-s32",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/discovery-20260306-1936\/compendium.sqlite"
+}

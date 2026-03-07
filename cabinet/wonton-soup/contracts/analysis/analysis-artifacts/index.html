@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Analysis Artifacts Reference | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-008</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/analysis/analysis-artifacts</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/analysis/analysis-artifacts.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#analysis-artifacts-reference" id="toc-analysis-artifacts-reference">Analysis Artifacts Reference</a>
+                            <ul>
+                            <li><a href="#core-raw-artifacts" id="toc-core-raw-artifacts">Core Raw Artifacts</a>
+                            <ul>
+                            <li><a href="#explorationhistory" id="toc-explorationhistory">ExplorationHistory</a></li>
+                            <li><a href="#mctstree" id="toc-mctstree">MCTSTree</a></li>
+                            <li><a href="#search-graph-lean" id="toc-search-graph-lean">Search Graph (Lean)</a></li>
+                            <li><a href="#proof-graph-external-backends" id="toc-proof-graph-external-backends">Proof Graph (External Backends)</a></li>
+                            <li><a href="#search-trace-graph-proxy" id="toc-search-trace-graph-proxy">Search Trace Graph (Proxy)</a></li>
+                            <li><a href="#proof-process-trace-replay" id="toc-proof-process-trace-replay">Proof Process Trace (Replay)</a></li>
+                            <li><a href="#proof-term-dag-exprdag" id="toc-proof-term-dag-exprdag">Proof Term DAG (ExprDAG)</a></li>
+                            <li><a href="#proof-assembly-trace" id="toc-proof-assembly-trace">Proof Assembly Trace</a></li>
+                            <li><a href="#goalcache" id="toc-goalcache">GoalCache</a></li>
+                            </ul></li>
+                            <li><a href="#aggregate-run-artifacts" id="toc-aggregate-run-artifacts">Aggregate Run Artifacts</a>
+                            <ul>
+                            <li><a href="#summary" id="toc-summary">Summary</a></li>
+                            <li><a href="#failure-analysis" id="toc-failure-analysis">Failure Analysis</a></li>
+                            <li><a href="#corpus-classification-report" id="toc-corpus-classification-report">Corpus Classification Report</a></li>
+                            <li><a href="#root-goal-similarity" id="toc-root-goal-similarity">Root Goal Similarity</a></li>
+                            <li><a href="#external-statement-similarity" id="toc-external-statement-similarity">External Statement Similarity</a></li>
+                            <li><a href="#ged-matrix-bundle" id="toc-ged-matrix-bundle">GED Matrix Bundle</a></li>
+                            </ul></li>
+                            <li><a href="#lake-extraction-surfaces" id="toc-lake-extraction-surfaces">Lake Extraction Surfaces</a></li>
+                            <li><a href="#artifact-integrity-invariants" id="toc-artifact-integrity-invariants">Artifact Integrity Invariants</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../../concepts/analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="analysis-artifacts-reference">Analysis Artifacts Reference</h1>
+<p>Canonical definitions for raw and derived analysis artifacts.</p>
+<h2 id="core-raw-artifacts">Core Raw Artifacts</h2>
+<h3 id="explorationhistory">ExplorationHistory</h3>
+<p>Per-iteration search trace: selected paths, tactic attempts, outcomes, and terminal flags.</p>
+<ul>
+<li>Implementation: <code>prover/history.py</code> (produced by <code>prover/mcts.py</code>)</li>
+<li>Outputs: <code>*_history.json</code></li>
+</ul>
+<h3 id="mctstree">MCTSTree</h3>
+<p>Serialized MCTS state with visit/value data and node topology.</p>
+<ul>
+<li>Implementation: <code>prover/mcts.py</code></li>
+<li>Outputs: <code>*_mcts_tree.json</code></li>
+</ul>
+<h3 id="search-graph-lean">Search Graph (Lean)</h3>
+<p>Directed graph of explored goals and tactic expansions.</p>
+<ul>
+<li>Implementation: <code>prover/proof.py</code> (<code>ProofGraph</code>)</li>
+<li>Outputs: <code>*_graph.json</code> with <code>graph_kind=search_graph</code></li>
+</ul>
+<h3 id="proof-graph-external-backends">Proof Graph (External Backends)</h3>
+<p>Backend-derived proof object graph (not interactive search graph).</p>
+<ul>
+<li>Implementation: <code>atp/proof_objects.py</code> + backend parsers</li>
+<li>Outputs: <code>*_graph.json</code> with <code>graph_kind=proof_graph</code></li>
+</ul>
+<h3 id="search-trace-graph-proxy">Search Trace Graph (Proxy)</h3>
+<p>Trace-derived graph when true interactive search graph is unavailable.</p>
+<ul>
+<li>Outputs: <code>*_search_trace_graph.json</code></li>
+<li>Required metadata: <code>trace_source</code>, <code>trace_completeness</code></li>
+</ul>
+<h3 id="proof-process-trace-replay">Proof Process Trace (Replay)</h3>
+<p>Backend-native step trace used to derive proxy trace graphs without collapsing everything into the final proof term.</p>
+<ul>
+<li>Implementation: <code>atp/coq/process_trace.py</code></li>
+<li>Outputs: <code>*_process_trace.json.gz</code></li>
+</ul>
+<h3 id="proof-term-dag-exprdag">Proof Term DAG (ExprDAG)</h3>
+<p>Semantic proof-term representation for hashing, diffing, and complexity.</p>
+<ul>
+<li>Implementation: <code>prover/expr.py</code>, <code>prover/adapters/lean.py</code></li>
+<li>Outputs: <code>*_proof_term.json.gz</code></li>
+</ul>
+<h3 id="proof-assembly-trace">Proof Assembly Trace</h3>
+<p>Stepwise tactic-to-term assembly log.</p>
+<ul>
+<li>Implementation: <code>prover/assembly.py</code>, <code>prover/adapters/lean.py</code></li>
+<li>Outputs: <code>*_assembly.json.gz</code></li>
+</ul>
+<h3 id="goalcache">GoalCache</h3>
+<p>Maps checkpoint-scoped <code>mvar_id</code> values to signatures and outcome features.</p>
+<ul>
+<li>Implementation: <code>prover/goal_cache.py</code>, <code>prover/goal_features.py</code></li>
+<li>Outputs: <code>goal_cache.json.gz</code></li>
+</ul>
+<h2 id="aggregate-run-artifacts">Aggregate Run Artifacts</h2>
+<h3 id="summary">Summary</h3>
+<p>Primary run aggregate payload.</p>
+<ul>
+<li>Output: <code>summary.json.gz</code></li>
+<li>Includes theorem/intervention summaries, aggregates, optional postprocess enrichments</li>
+</ul>
+<h3 id="failure-analysis">Failure Analysis</h3>
+<p>Heuristic failure-mode categorization.</p>
+<ul>
+<li>Implementation: <code>analysis/failures.py</code></li>
+<li>Output: <code>failure_analysis.json</code></li>
+</ul>
+<h3 id="corpus-classification-report">Corpus Classification Report</h3>
+<p>Intervention classification over structural and term-level features.</p>
+<ul>
+<li>Implementation: <code>analysis/corpus.py</code></li>
+<li>Output: <code>analysis_report.json</code></li>
+</ul>
+<h3 id="root-goal-similarity">Root Goal Similarity</h3>
+<p>Cross-theorem root-goal TED matrix + clustering.</p>
+<ul>
+<li>Implementation: <code>analysis/root_goal_similarity.py</code>, <code>analysis/postprocess_metrics.py</code></li>
+<li>Output: <code>root_goal_similarity.json</code></li>
+</ul>
+<h3 id="external-statement-similarity">External Statement Similarity</h3>
+<p>Cross-problem statement TED matrix for external corpora.</p>
+<ul>
+<li>Implementation: <code>analysis/external_statement_similarity.py</code>, <code>analysis/postprocess_metrics.py</code></li>
+<li>Output: <code>external_statement_similarity.json</code></li>
+</ul>
+<h3 id="ged-matrix-bundle">GED Matrix Bundle</h3>
+<p>Pairwise variant distances per theorem and optional cross-theorem aggregations.</p>
+<ul>
+<li>Outputs: <code>ged_matrix.json</code>, <code>all_ged_matrices.json</code></li>
+</ul>
+<h2 id="lake-extraction-surfaces">Lake Extraction Surfaces</h2>
+<p>Cross-run lake extraction consumes run artifacts into normalized tables.</p>
+<ul>
+<li>Implementations: <code>analysis/lake/reconcile.py</code>, <code>analysis/lake/db.py</code>, <code>analysis/lake/extract_basin.py</code></li>
+<li>See operational reference: <a href="../../../ops/run-lake/">Run Lake (Cross-Run DuckDB)</a></li>
+</ul>
+<h2 id="artifact-integrity-invariants">Artifact Integrity Invariants</h2>
+<ul>
+<li>Artifact capability should be gated by <code>run_status.json</code> capability flags.</li>
+<li>Goal IDs in Lean artifacts are checkpoint-scoped IDs, not raw Lean IDs.</li>
+<li>Backend-specific artifacts must set correct family metadata (<code>graph_family</code>, <code>graph_backend</code>, <code>graph_provenance</code>, legacy <code>graph_kind</code>, <code>trace_source</code>, <code>trace_completeness</code>).</li>
+</ul>
+<p>For exact field-level JSON schemas, use <a href="../../logs/log-file-schemas/">Log File Schemas</a>.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

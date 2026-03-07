@@ -1,0 +1,138 @@
+{
+  "artifact_source" : "rendered_stage_media_with_replay",
+  "creature" : {
+    "config_hash" : "dcf445c317d3",
+    "genotype" : {
+      "R" : 9.486116,
+      "a" : [
+        [
+          0.2695706,
+          0.21286792,
+          0.38803178
+        ]
+      ],
+      "b" : [
+        [
+          0.94125915,
+          0.74757355,
+          0.084209144
+        ]
+      ],
+      "h" : [
+        0.3411311
+      ],
+      "m" : [
+        0.41784617
+      ],
+      "r" : [
+        0.50039595
+      ],
+      "s" : [
+        0.14541271
+      ],
+      "w" : [
+        [
+          0.23625721,
+          0.16296265,
+          0.48042187
+        ]
+      ]
+    },
+    "id" : "4444A506-A85E-4C5B-A3A3-0BA6AF199FB2",
+    "metrics" : {
+      "center_velocity" : 0.00092617865,
+      "complexity_mean" : 0.86312866,
+      "complexity_scales" : [
+        0.3968506,
+        0.6123047,
+        0.9199219,
+        1.5234375
+      ],
+      "displacement" : 0.5325527,
+      "energy_mean" : 620.7751,
+      "gyration" : 1081.0334,
+      "heading_rad" : -2.3983023,
+      "is_stable" : true,
+      "mass_max" : 798.65405,
+      "mass_mean" : 798.64185,
+      "mass_min" : 798.62976,
+      "mass_std" : 0.35355338,
+      "occupancy_mean" : 0.10902151,
+      "path_length" : 0.648543,
+      "sample_count" : 24,
+      "speed_count" : 23,
+      "speed_mean" : 0.0011279009,
+      "variance_mean" : 0.03551301,
+      "velocity_x" : -0.00068189536,
+      "velocity_y" : -0.0006267581
+    },
+    "name" : "pulsing-orbiter-7205",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            64,
+            64
+          ],
+          "size" : 40
+        }
+      ],
+      "seed" : 32
+    },
+    "score" : 7.4074416,
+    "score_weights" : {
+      "center_velocity" : 4,
+      "complexity_mean" : 0.2,
+      "displacement" : 2.5,
+      "path_length" : 1.5,
+      "translation_ratio" : 6
+    },
+    "timestamp" : "2026-03-07T06:54:30.840Z"
+  },
+  "media" : {
+    "anatomy" : {
+      "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/delta.png",
+      "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/field.png",
+      "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/kernel.png",
+      "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/neighbor.png"
+    },
+    "height" : 128,
+    "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/poster.png",
+    "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/replay.json",
+    "width" : 128
+  },
+  "published_at" : "2026-03-07T13:04:58.303Z",
+  "recorded_at" : "2026-03-07T06:54:30.840Z",
+  "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+  "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/orbium-like-20260307-0407\/compendium.sqlite",
+  "telemetry" : {
+    "centroid" : {
+      "x" : 0.49441776,
+      "y" : 0.4928176
+    },
+    "headingRad" : 0.94970703,
+    "speed" : 0.0002021403,
+    "trail" : [
+      {
+        "x" : 0.4943039,
+        "y" : 0.49340764
+      },
+      {
+        "x" : 0.49428347,
+        "y" : 0.49314335
+      },
+      {
+        "x" : 0.49430013,
+        "y" : 0.492982
+      }
+    ],
+    "vx" : 0.00011762977,
+    "vy" : 0.00016438961
+  }
+}

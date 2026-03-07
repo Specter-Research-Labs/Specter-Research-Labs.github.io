@@ -1,0 +1,2872 @@
+{
+  "run_id": "distributed-a8-i64",
+  "theorem_count": 10,
+  "crashed_count": 0,
+  "wild_type_solve_rate": 0.2,
+  "intervention_count": 32,
+  "intervention_solve_rate": 0.25,
+  "run_config": {
+    "format_version": 2,
+    "run_id": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=deepseek/distributed-a8-i64",
+    "log_dir": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=deepseek/distributed-a8-i64",
+    "created_at": "2026-03-05T01:01:58",
+    "providers": [
+      "deepseek"
+    ],
+    "provider": "deepseek",
+    "provider_label": "deepseek+block_easy",
+    "provider_desc": "FilteredTacticProvider(base=DeepSeekTacticProvider(ntp-mathlib-deepseek-1.3b,samples=10), rules=1, budget=no)",
+    "mode": "research",
+    "backend": "lean",
+    "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+    "corpus_spec": "lean:mathlib4#feasible",
+    "budget_label": "standard",
+    "budget_tiers": [
+      10,
+      50,
+      200,
+      1000
+    ],
+    "limit": null,
+    "offset": 0,
+    "sample": 160,
+    "seed": 20260301,
+    "wild_only": false,
+    "trace_mcts": true,
+    "analysis": false,
+    "device": null,
+    "workers": 1,
+    "goal_sig_scheme": "ast",
+    "guidance": null,
+    "allow_easy": false,
+    "sampling": false,
+    "theorem": null,
+    "debug": false,
+    "plain": true,
+    "basin_seeds": null,
+    "basin_blind": false,
+    "mode_defaults": {
+      "budget": "standard",
+      "corpus": "research",
+      "limit": null,
+      "wild_only": false,
+      "trace_mcts": true
+    },
+    "cli_args": {
+      "mode": "research",
+      "corpus": "lean:mathlib4#feasible",
+      "provider": "deepseek",
+      "tactic_ranker": "none",
+      "tactic_ranker_model": null,
+      "tactic_ranker_alpha": 1.0,
+      "providers": null,
+      "all_providers": false,
+      "budget": "standard",
+      "limit": null,
+      "theorem": null,
+      "wild_only": false,
+      "trace_mcts": true,
+      "mcts_mode": "distributed",
+      "mcts_agents": 8,
+      "mcts_inflight": 64,
+      "mcts_block_fraction": null,
+      "mcts_block_duration": null,
+      "mcts_block_seed": null,
+      "mcts_block_immovable_fraction": null,
+      "mcts_unfreeze_after": null,
+      "mcts_unfreeze_prob": null,
+      "mcts_reroute_blocked": false,
+      "mcts_reroute_max": null,
+      "mcts_delay_prob": null,
+      "mcts_delay_duration": null,
+      "mcts_delay_seed": null,
+      "mcts_virtual_loss": 1,
+      "mcts_depth_bias": 0.0,
+      "mcts_path_bias": 0.0,
+      "mcts_history_cache": false,
+      "allow_easy": false,
+      "debug": false,
+      "plain": true,
+      "sampling": false,
+      "deepseek_samples": null,
+      "bfs_samples": null,
+      "internlm_samples": null,
+      "device": null,
+      "workers": 1,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "goal_sig": "ast",
+      "run_id": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=deepseek/distributed-a8-i64",
+      "basin_seeds": null,
+      "basin_blind": false,
+      "analysis": false,
+      "no_sync": true
+    },
+    "corpus_artifact": {
+      "corpus_id": "mathlib4",
+      "build_id": "973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2",
+      "items_sha256": "41a436fde12b4ae61f7c01be622477e51ed058b8a25c9446aa011a933365dcd2",
+      "derived": "feasible",
+      "derived_build_id": "57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0"
+    },
+    "mcts_mode": "distributed",
+    "distributed_mcts": {
+      "agents": 8,
+      "inflight": 64,
+      "block_fraction": null,
+      "block_duration": null,
+      "block_seed": null,
+      "block_immovable_fraction": null,
+      "block_unfreeze_after": null,
+      "block_unfreeze_prob": null,
+      "reroute_max_attempts": null,
+      "delay_probability": null,
+      "delay_duration": null,
+      "delay_seed": null,
+      "virtual_loss": 1,
+      "depth_bias": 0.0,
+      "path_bias": 0.0,
+      "history_cache": false
+    },
+    "resolved": {
+      "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+      "corpus_spec": "lean:mathlib4#feasible",
+      "budget_label": "standard",
+      "budget_tiers": [
+        10,
+        50,
+        200,
+        1000
+      ],
+      "budget_total": 1260,
+      "limit": null,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "wild_only": false,
+      "trace_mcts": true,
+      "analysis": false,
+      "device": null,
+      "workers": 1,
+      "goal_sig_scheme": "ast",
+      "allow_easy": false,
+      "sampling": false,
+      "theorem": null,
+      "debug": false,
+      "plain": true,
+      "basin_seeds": null,
+      "basin_blind": false,
+      "project_path": "./lean_project",
+      "corpus_artifact": {
+        "corpus_id": "mathlib4",
+        "build_id": "973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2",
+        "items_sha256": "41a436fde12b4ae61f7c01be622477e51ed058b8a25c9446aa011a933365dcd2",
+        "derived": "feasible",
+        "derived_build_id": "57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0"
+      },
+      "mcts_mode": "distributed",
+      "distributed_mcts": {
+        "agents": 8,
+        "inflight": 64,
+        "block_fraction": null,
+        "block_duration": null,
+        "block_seed": null,
+        "block_immovable_fraction": null,
+        "block_unfreeze_after": null,
+        "block_unfreeze_prob": null,
+        "reroute_max_attempts": null,
+        "delay_probability": null,
+        "delay_duration": null,
+        "delay_seed": null,
+        "virtual_loss": 1,
+        "depth_bias": 0.0,
+        "path_bias": 0.0,
+        "history_cache": false
+      }
+    },
+    "corpus_meta": {
+      "name": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+      "total_theorems": 10,
+      "items_loaded": 10,
+      "items_path": "/Users/ludwig/dev/specter-labs/tmp/runtime-artifacts/wonton-soup/corpora/lean/mathlib4/973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2/derived/feasible/57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0/items.jsonl"
+    },
+    "theorem_selection": {
+      "method": "hash_sample",
+      "limit": null,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "selected_count": 10,
+      "selected_theorems": [
+        "div_x5fdiv",
+        "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+        "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+        "AddSemigroup_x2eto_x5fisAssociative",
+        "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+        "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+        "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+        "add_x5fzsmul",
+        "div_x5feq_x5fof_x5feq_x5fmul_x27",
+        "add_x5fleft_x5fiterate"
+      ],
+      "error": null
+    },
+    "providers_meta": {
+      "names": [
+        "deepseek"
+      ],
+      "primary": "deepseek",
+      "label": "deepseek+block_easy",
+      "description": "FilteredTacticProvider(base=DeepSeekTacticProvider(ntp-mathlib-deepseek-1.3b,samples=10), rules=1, budget=no)",
+      "config": {
+        "class": "FilteredTacticProvider",
+        "describe": "FilteredTacticProvider(base=DeepSeekTacticProvider(ntp-mathlib-deepseek-1.3b,samples=10), rules=1, budget=no)",
+        "provider": "filtered",
+        "blocked_tactics": [
+          "decide",
+          "native_decide",
+          "omega",
+          "rfl",
+          "simp",
+          "simp_all"
+        ],
+        "blocked_families": [],
+        "peg_rules": [
+          {
+            "peg_id": "block_tactic",
+            "kind": "tactic",
+            "blocked_tactics": [
+              "decide",
+              "native_decide",
+              "omega",
+              "rfl",
+              "simp",
+              "simp_all"
+            ],
+            "blocked_families": [],
+            "condition": null
+          }
+        ],
+        "peg_budget": null,
+        "provider_id": null,
+        "goal_sig_scheme": "ast",
+        "base": {
+          "class": "DeepSeekTacticProvider",
+          "describe": "DeepSeekTacticProvider(ntp-mathlib-deepseek-1.3b,samples=10)",
+          "provider": "deepseek",
+          "model_path": "/Volumes/Addenda/dev/specter-labs/wonton-soup/models/ntp-mathlib-deepseek-1.3b-mlx-bf16",
+          "cache_size": 100,
+          "num_samples": 10,
+          "model_id": "l3lab/ntp-mathlib-context-deepseek-coder-1.3b",
+          "max_input_length": 2048,
+          "max_new_tokens": 64,
+          "stop_sequences": [
+            "[/TAC]",
+            "\n\n\n",
+            "---"
+          ],
+          "system_prompt": "/- You are proving a theorem in Lean 4.\nYou are given the following information:\n- The file contents up to the current tactic, inside [CTX]...[/CTX]\n- The current proof state, inside [STATE]...[/STATE]\n\nYour task is to generate the next tactic in the proof.\nPut the next tactic inside [TAC]...[/TAC]\n-/\n",
+          "backend": "mlx"
+        }
+      }
+    },
+    "mcts": {
+      "defaults": {
+        "max_iterations": 1000,
+        "c": 1.4142135623730951,
+        "backprop_strategy": "uniform"
+      },
+      "mode": "distributed",
+      "distributed": {
+        "agents": 8,
+        "inflight": 64,
+        "block_fraction": null,
+        "block_duration": null,
+        "block_seed": null,
+        "block_immovable_fraction": null,
+        "block_unfreeze_after": null,
+        "block_unfreeze_prob": null,
+        "reroute_max_attempts": null,
+        "delay_probability": null,
+        "delay_duration": null,
+        "delay_seed": null,
+        "virtual_loss": 1,
+        "depth_bias": 0.0,
+        "path_bias": 0.0,
+        "history_cache": false
+      },
+      "budget_tiers": [
+        10,
+        50,
+        200,
+        1000
+      ],
+      "budget_total": 1260,
+      "warmstart_between_tiers": true,
+      "trace_mcts": true,
+      "trace_context_fields": [
+        "tier",
+        "budget"
+      ],
+      "goal_sig_scheme": "ast"
+    },
+    "interventions": {
+      "wild_only": false,
+      "block_easy": true,
+      "blocked_tactics": [
+        "decide",
+        "native_decide",
+        "omega",
+        "rfl",
+        "simp",
+        "simp_all"
+      ]
+    },
+    "problem_space": {
+      "schema_version": 1,
+      "P": {
+        "S": {
+          "repr": "goal_sig",
+          "goal_id_scheme": "checkpoint",
+          "goal_sig_scheme": "ast"
+        },
+        "O": {
+          "repr": "tactic_candidate",
+          "normalize": "normalize_tactic",
+          "family": "tactic_family"
+        },
+        "C": {
+          "interventions": {
+            "blocked_tactics": [
+              "decide",
+              "native_decide",
+              "omega",
+              "rfl",
+              "simp",
+              "simp_all"
+            ]
+          },
+          "invalid_move": "preview_tactic_failure",
+          "budget": {
+            "tiers": [
+              10,
+              50,
+              200,
+              1000
+            ],
+            "total": 1260
+          }
+        },
+        "E": {
+          "goal": "proof_complete"
+        },
+        "H": {
+          "budget_tiers": [
+            10,
+            50,
+            200,
+            1000
+          ],
+          "budget_total": 1260
+        }
+      },
+      "K": {
+        "tau_agent": "detour_metrics.total_attempts",
+        "w_unit": "tactic_attempt",
+        "null_models": [
+          "blind_uniform_candidate",
+          "blind_uniform_family"
+        ],
+        "primary": {
+          "metric": "any_success",
+          "null_model": "blind_uniform_candidate"
+        },
+        "requires": {
+          "goal_cache": true,
+          "trace_mcts_for_candidate": true
+        }
+      }
+    },
+    "runtime": {
+      "python": "3.13.7",
+      "platform": "darwin",
+      "pid": 40861
+    }
+  },
+  "run_status": {
+    "status": "completed",
+    "started_at": "2026-03-05T01:01:58",
+    "completed_at": "2026-03-05T01:25:02",
+    "goal_id_scheme": "checkpoint",
+    "partial_results": false,
+    "capabilities": {
+      "has_proof_term": true,
+      "has_proof_term_pretty": true,
+      "has_assembly_trace": true,
+      "has_proof_term_metrics": true
+    }
+  },
+  "node_count": null,
+  "edge_count": null,
+  "goal_count": null,
+  "expansion_count": null,
+  "crashed": [],
+  "overview": [
+    {
+      "name": "div_x5fdiv",
+      "solved": false,
+      "iterations": 5.0,
+      "max_depth": 4.0,
+      "backtracks": 3.0,
+      "unique_goals": 4.0,
+      "tactic_diversity": 6.0,
+      "failure_ratio": 0.167,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "solved": false,
+      "iterations": 5.0,
+      "max_depth": 4.0,
+      "backtracks": 3.0,
+      "unique_goals": 4.0,
+      "tactic_diversity": 3.0,
+      "failure_ratio": 0.667,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 7.0,
+      "failure_ratio": 0.429,
+      "mean_ged": 0.4,
+      "mean_ged_search_graph": 0.4,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "AddSemigroup_x2eto_x5fisAssociative",
+      "solved": true,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 1.3333333333333333,
+      "mean_ged_search_graph": 1.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 10.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 1.3333333333333333,
+      "mean_ged_search_graph": 1.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "solved": false,
+      "iterations": 11.0,
+      "max_depth": 6.0,
+      "backtracks": 6.0,
+      "unique_goals": 6.0,
+      "tactic_diversity": 34.0,
+      "failure_ratio": 0.159,
+      "mean_ged": 8.2,
+      "mean_ged_search_graph": 8.2,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 9.0,
+      "failure_ratio": 0.222,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5fzsmul",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 5.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 0.3333333333333333,
+      "mean_ged_search_graph": 0.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "solved": true,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 1.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 3.0,
+      "mean_ged_search_graph": 3.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5fleft_x5fiterate",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 1.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 4.0,
+      "mean_ged_search_graph": 4.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    }
+  ],
+  "interventions": [
+    {
+      "theorem": "div_x5fdiv",
+      "name": "block_intro",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -1.0,
+      "delta_max_depth": -1.0,
+      "delta_backtracks": -1.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv",
+      "name": "block_rw",
+      "ged": 5.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 5.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -4.0,
+      "delta_max_depth": -3.0,
+      "delta_backtracks": -3.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv",
+      "name": "block_simp",
+      "ged": 5.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 5.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -4.0,
+      "delta_max_depth": -3.0,
+      "delta_backtracks": -3.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "block_apply",
+      "ged": 5.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 5.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -4.0,
+      "delta_max_depth": -3.0,
+      "delta_backtracks": -3.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "block_ext",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -2.0,
+      "delta_max_depth": -2.0,
+      "delta_backtracks": -2.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "block_intro",
+      "ged": 5.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 5.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": -4.0,
+      "delta_max_depth": -3.0,
+      "delta_backtracks": -3.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_first",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_have",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_rw",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_simp",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_try",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "block_infer_instance",
+      "ged": 1.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 1.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "block_intro",
+      "ged": 1.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 1.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "control_null",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "name": "block_decide",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "name": "block_rfl",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_apply",
+      "ged": 9.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 9.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -10.0,
+      "delta_max_depth": -5.0,
+      "delta_backtracks": -6.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_have",
+      "ged": 8.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 8.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -8.0,
+      "delta_max_depth": -4.0,
+      "delta_backtracks": -5.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_intro",
+      "ged": 8.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 8.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -8.0,
+      "delta_max_depth": -4.0,
+      "delta_backtracks": -5.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_rw",
+      "ged": 9.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 9.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -10.0,
+      "delta_max_depth": -5.0,
+      "delta_backtracks": -6.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_simp",
+      "ged": 7.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 7.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -8.0,
+      "delta_max_depth": -4.0,
+      "delta_backtracks": -5.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "block_classical",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "block_have",
+      "ged": 12.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 12.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 4.0,
+      "delta_max_depth": 6.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "block_simp",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fzsmul",
+      "name": "block_decide",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fzsmul",
+      "name": "block_intros",
+      "ged": 1.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 1.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fzsmul",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "name": "block_intro",
+      "ged": 3.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 3.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "name": "block_rw",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "name": "block_simpa",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 2.0,
+      "delta_max_depth": 1.0,
+      "delta_backtracks": 1.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fleft_x5fiterate",
+      "name": "block_intros",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    }
+  ],
+  "ged_histogram": {
+    "bins": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      8.5,
+      9.5,
+      10.5,
+      11.5
+    ],
+    "counts": [
+      8.0,
+      3.0,
+      6.0,
+      1.0,
+      4.0,
+      4.0,
+      0.0,
+      1.0,
+      2.0,
+      2.0,
+      0.0,
+      1.0
+    ]
+  },
+  "ged_histogram_search": {
+    "bins": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      8.5,
+      9.5,
+      10.5,
+      11.5
+    ],
+    "counts": [
+      8.0,
+      3.0,
+      6.0,
+      1.0,
+      4.0,
+      4.0,
+      0.0,
+      1.0,
+      2.0,
+      2.0,
+      0.0,
+      1.0
+    ]
+  },
+  "ged_histogram_proof": {
+    "bins": [],
+    "counts": []
+  },
+  "ged_histogram_trace": {
+    "bins": [],
+    "counts": []
+  },
+  "recovery_histogram": {
+    "bins": [],
+    "counts": []
+  },
+  "trajectory_sample": {
+    "theorem": "div_x5fdiv",
+    "wild": {
+      "depth": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        1.0
+      ],
+      "attempts": [
+        1.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "success_ratio": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "intervention": {
+      "name": "block_intro",
+      "depth": [
+        1.0,
+        3.0,
+        2.0,
+        1.0
+      ],
+      "attempts": [
+        2.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "success_ratio": [
+        0.5,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "ged_sample": {
+    "theorem": "div_x5fdiv",
+    "variants": [
+      "wild_type",
+      "block_intro",
+      "block_rw",
+      "block_simp"
+    ],
+    "matrix": [
+      [
+        0.0,
+        0.8,
+        1.0,
+        1.0
+      ],
+      [
+        0.8,
+        0.0,
+        0.8,
+        0.8
+      ],
+      [
+        1.0,
+        0.8,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.8,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "goal_tactic_heatmap": {
+    "rows": [
+      "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+      "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+      "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+      "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+      "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+      "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+      "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+      "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+      "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+      "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+      "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+      "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d"
+    ],
+    "cols": [
+      "intros",
+      "simp [div_eq_mul_inv]",
+      "simp only [div_eq_mul_inv]",
+      "intro \u03b1",
+      "intro G _ _ _",
+      "intro \u03b1 _",
+      "simp",
+      "simp [mul_assoc]",
+      "intro \u03b1 _ _ _",
+      "simp only [div_eq_mul_inv, mul_inv_rev]"
+    ],
+    "matrix": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.75,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.6666666666666666,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "metric": "success_rate"
+  },
+  "rescue_matrix": {
+    "rows": [
+      "block_decide",
+      "block_intros",
+      "block_intro",
+      "block_have",
+      "block_simp",
+      "block_rw",
+      "block_apply",
+      "block_ext",
+      "block_first",
+      "block_try",
+      "block_rfl",
+      "block_classical",
+      "block_infer_instance",
+      "control_null",
+      "block_simpa"
+    ],
+    "cols": [
+      "rescue_rate",
+      "wild_solved_rate"
+    ],
+    "matrix": [
+      [
+        0.5,
+        0.0
+      ],
+      [
+        0.5,
+        0.0
+      ],
+      [
+        0.3333333333333333,
+        0.5
+      ],
+      [
+        0.3333333333333333,
+        0.0
+      ],
+      [
+        0.16666666666666666,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "metric": "rate"
+  },
+  "theorem_details": [
+    {
+      "name": "div_x5fdiv",
+      "status": "Failed",
+      "iterations": 5,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intro",
+        "block_rw",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.8,
+          1.0,
+          1.0
+        ],
+        [
+          0.8,
+          0.0,
+          0.8,
+          0.8
+        ],
+        [
+          1.0,
+          0.8,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.8,
+          0.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "intro \u03b1 _ _ _",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+          "outcome": "success"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [\u2190 div_eq_mul_inv, div_mul_div_cancel]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_inv_rev]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "rw [div_eq_mul_inv, mul_assoc, mul_inv_cancel_right\u2080 (zero_lt_one.trans_le (zero_le_one : 0 < 1)),\n    mul_one]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+          "outcome": "failure"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.2154",
+        "expansion_count": 3,
+        "nodes": {
+          "cp1:_uniq.2154": {
+            "mvar_id": "cp1:_uniq.2154",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+            "goal_sig": "00aeb42434d0",
+            "goal_sig_strict": "00aeb42434d0",
+            "visit_count": 7,
+            "success_count": 3,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intro \u03b1 _ _ _": [
+                "cp2:_uniq.2170.11"
+              ]
+            }
+          },
+          "cp2:_uniq.2170.11": {
+            "mvar_id": "cp2:_uniq.2170.11",
+            "goal_type": "\u2200 (c : \u03b1), a\u271d / b\u271d / c = a\u271d / (b\u271d * c)",
+            "goal_sig": "a7820483e5ba",
+            "goal_sig_strict": "29d5893c402b",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "intros": [
+                "cp3:_uniq.2170.14"
+              ]
+            }
+          },
+          "cp3:_uniq.2170.14": {
+            "mvar_id": "cp3:_uniq.2170.14",
+            "goal_type": "a\u271d / b\u271d / c\u271d = a\u271d / (b\u271d * c\u271d)",
+            "goal_sig": "595bb0eb2e12",
+            "goal_sig_strict": "f39038042727",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {
+              "rw [div_eq_mul_inv, div_eq_mul_inv]": [
+                "cp4:_uniq.2170.467"
+              ]
+            }
+          },
+          "cp4:_uniq.2170.467": {
+            "mvar_id": "cp4:_uniq.2170.467",
+            "goal_type": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+            "goal_sig": "72cd07610eb4",
+            "goal_sig_strict": "3ce6fd56c5fa",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 3,
+            "expansion_order": 3,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "status": "Failed",
+      "iterations": 5,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_apply",
+        "block_ext",
+        "block_intro"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.8,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.6,
+          0.0
+        ],
+        [
+          0.8,
+          0.6,
+          0.0,
+          0.6
+        ],
+        [
+          1.0,
+          0.0,
+          0.6,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "intro \u03b1",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "success"
+        },
+        {
+          "tactic": "ext",
+          "goal": "SubtractionMonoid.toSubNegZeroMonoid =\n  let __SubNegMonoid := inst.toSubNegMonoid;\n  { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "apply ext",
+          "goal": "SubtractionMonoid.toSubNegZeroMonoid =\n  let __SubNegMonoid := inst.toSubNegMonoid;\n  { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "failure"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.8829",
+        "expansion_count": 3,
+        "nodes": {
+          "cp1:_uniq.8829": {
+            "mvar_id": "cp1:_uniq.8829",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "2754a5d665cf",
+            "goal_sig_strict": "2754a5d665cf",
+            "visit_count": 7,
+            "success_count": 3,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intro \u03b1": [
+                "cp2:_uniq.8844.2"
+              ]
+            }
+          },
+          "cp2:_uniq.8844.2": {
+            "mvar_id": "cp2:_uniq.8844.2",
+            "goal_type": "\u2200 [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "41b89678652b",
+            "goal_sig_strict": "4cb2d9f383fc",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "letI := Classical.decEq \u03b1": [
+                "cp3:_uniq.8844.12"
+              ]
+            }
+          },
+          "cp3:_uniq.8844.12": {
+            "mvar_id": "cp3:_uniq.8844.12",
+            "goal_type": "\u2200 [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "3aff9f6aa18f",
+            "goal_sig_strict": "9ef4d22b8243",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {
+              "intro inst": [
+                "cp4:_uniq.8844.15"
+              ]
+            }
+          },
+          "cp4:_uniq.8844.15": {
+            "mvar_id": "cp4:_uniq.8844.15",
+            "goal_type": "SubtractionMonoid.toSubNegZeroMonoid =\n  let __SubNegMonoid := inst.toSubNegMonoid;\n  { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "0bf122f9500a",
+            "goal_sig_strict": "9741632382b3",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 3,
+            "expansion_order": 3,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 0.4,
+      "mean_ged_search_graph": 0.4,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_first",
+        "block_have",
+        "block_rw",
+        "block_simp",
+        "block_try"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_iff_eq_mul]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "try { rfl }",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "success"
+        },
+        {
+          "tactic": "have := div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv_w9",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "first | rintro \u27e8\u27e9 | rintro \u27e8\u27e9 | rintro \u27e8\u27e9 | rintro \u27e8\u27e9",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [div_eq_iff_eq_mul, div_eq_iff_eq_mul]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "failure"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.10114",
+        "expansion_count": 0,
+        "nodes": {
+          "cp1:_uniq.10114": {
+            "mvar_id": "cp1:_uniq.10114",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+            "goal_sig": "49e00c39610d",
+            "goal_sig_strict": "2b10d298e309",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "AddSemigroup_x2eto_x5fisAssociative",
+      "status": "Solved",
+      "iterations": 1,
+      "mean_ged": 1.3333333333333333,
+      "mean_ged_search_graph": 1.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_infer_instance",
+        "block_intro",
+        "control_null"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.5,
+          0.5,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp [AddSemigroup_x2eto_x5fisAssociative_w14]",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intro \u03b1",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+          "outcome": "success"
+        }
+      ],
+      "proof_term_stats": {
+        "node_count": 43,
+        "max_depth": 14,
+        "kind_counts": [
+          {
+            "label": "app",
+            "count": 17
+          },
+          {
+            "label": "lam",
+            "count": 4
+          },
+          {
+            "label": "forall",
+            "count": 0
+          },
+          {
+            "label": "unique_consts",
+            "count": 7
+          }
+        ]
+      },
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.15486",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.15486": {
+            "mvar_id": "cp1:_uniq.15486",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+            "goal_sig": "0ab46aabcb29",
+            "goal_sig_strict": "0ab46aabcb29",
+            "visit_count": 2,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intro \u03b1": [
+                "cp2:_uniq.15498.2"
+              ]
+            }
+          },
+          "cp2:_uniq.15498.2": {
+            "mvar_id": "cp2:_uniq.15498.2",
+            "goal_type": "\u2200 [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+            "goal_sig": "3191d17dd457",
+            "goal_sig_strict": "51544471af3a",
+            "visit_count": 1,
+            "success_count": 1,
+            "is_terminal": true,
+            "is_dead": false,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "infer_instance": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 1.3333333333333333,
+      "mean_ged_search_graph": 1.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_decide",
+        "block_rfl",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp only [\u2190 sub_eq_zero]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "decide",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "rfl",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [eq_comm]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [eq_iff_true_of_subsingleton]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [add_neg_eq_sub]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [add_comm]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [AddGroup.neg_eq_iff_add_eq_zero]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [eq_iff_iff, add_left_neg]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.21695",
+        "expansion_count": 0,
+        "nodes": {
+          "cp1:_uniq.21695": {
+            "mvar_id": "cp1:_uniq.21695",
+            "goal_type": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+            "goal_sig": "434160c49fe0",
+            "goal_sig_strict": "434160c49fe0",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "status": "Failed",
+      "iterations": 11,
+      "mean_ged": 8.2,
+      "mean_ged_search_graph": 8.2,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_apply",
+        "block_have",
+        "block_intro",
+        "block_rw",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.8888888888888888,
+          0.8888888888888888,
+          1.0,
+          0.7777777777777778
+        ],
+        [
+          1.0,
+          0.0,
+          0.2222222222222222,
+          0.2222222222222222,
+          0.0,
+          0.2222222222222222
+        ],
+        [
+          0.8888888888888888,
+          0.2222222222222222,
+          0.0,
+          0.0,
+          0.2222222222222222,
+          0.1111111111111111
+        ],
+        [
+          0.8888888888888888,
+          0.2222222222222222,
+          0.0,
+          0.0,
+          0.2222222222222222,
+          0.1111111111111111
+        ],
+        [
+          1.0,
+          0.0,
+          0.2222222222222222,
+          0.2222222222222222,
+          0.0,
+          0.2222222222222222
+        ],
+        [
+          0.7777777777777778,
+          0.2222222222222222,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.2222222222222222,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp only [div_eq_mul_inv, div_eq_mul_inv, mul_assoc, inv_div, mul_inv_cancel_right, mul_comm]",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_inv_rev]",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intro G _ _ _",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "success"
+        },
+        {
+          "tactic": "simp",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [mul_assoc]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_inv_rev, mul_assoc, mul_inv_cancel_left]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_inv_rev, mul_assoc]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "rw [div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, inv_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [mul_right_inv, mul_left_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "apply mul_left_cancel\u2080",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [mul_inv_rev]",
+          "goal": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "success"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_assoc]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [mul_div_cancel_left]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "rw [mul_div_cancel_left, mul_div_cancel_left]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [div_eq_mul_inv, mul_assoc, inv_div, mul_assoc]",
+          "goal": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [mul_inv_rev, div_eq_mul_inv, mul_assoc]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [\u2190 mul_assoc, div_mul_cancel]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv, mul_assoc]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [mul_assoc]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "have : c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = b\u271d\u207b\u00b9 := by",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [mul_assoc, mul_inv_cancel_left]",
+          "goal": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+          "outcome": "success"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_assoc, mul_inv_cancel_left]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_assoc, mul_left_comm (a\u271d : G), mul_inv_cancel_left]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_assoc, inv_mul_cancel_right]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, div_eq_mul_inv, mul_assoc, mul_left_comm b, mul_comm c]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_assoc, inv_mul_cancel_left]",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intro c",
+          "goal": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "success"
+        },
+        {
+          "tactic": "simp only [mul_div_mul_left, mul_div_cancel_left _ (div_ne_zero (div_ne_zero (div_ne_zero rfl) rfl) rfl)]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [mul_assoc]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, mul_div_cancel' _ (inv_ne_zero (mul_ne_zero c.inv_ne_zero b.inv_ne_zero))]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [mul_div, div_div_cancel_left]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "apply mul_right_cancel\u2080",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "rw [div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv]",
+          "goal": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.28376",
+        "expansion_count": 5,
+        "nodes": {
+          "cp1:_uniq.28376": {
+            "mvar_id": "cp1:_uniq.28376",
+            "goal_type": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+            "goal_sig": "e26def4a1c18",
+            "goal_sig_strict": "e26def4a1c18",
+            "visit_count": 11,
+            "success_count": 5,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intro G _ _ _": [
+                "cp2:_uniq.28392.11"
+              ]
+            }
+          },
+          "cp2:_uniq.28392.11": {
+            "mvar_id": "cp2:_uniq.28392.11",
+            "goal_type": "\u2200 (c : G), a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+            "goal_sig": "7b0de9ab75ac",
+            "goal_sig_strict": "626578106e52",
+            "visit_count": 9,
+            "success_count": 4,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "intro c": [
+                "cp3:_uniq.28392.14"
+              ]
+            }
+          },
+          "cp3:_uniq.28392.14": {
+            "mvar_id": "cp3:_uniq.28392.14",
+            "goal_type": "a\u271d / c / (b\u271d / c) = a\u271d / b\u271d",
+            "goal_sig": "97a72ac4ae2b",
+            "goal_sig_strict": "d9b16b88367b",
+            "visit_count": 7,
+            "success_count": 3,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {
+              "rw [div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv]": [
+                "cp4:_uniq.28392.388"
+              ]
+            }
+          },
+          "cp4:_uniq.28392.388": {
+            "mvar_id": "cp4:_uniq.28392.388",
+            "goal_type": "a\u271d * c\u207b\u00b9 * (b\u271d * c\u207b\u00b9)\u207b\u00b9 = a\u271d / b\u271d",
+            "goal_sig": "b1b98faf65d5",
+            "goal_sig_strict": "bfdbe4dbc761",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 3,
+            "expansion_order": 3,
+            "children": {
+              "rw [mul_inv_rev]": [
+                "cp5:_uniq.28392.749"
+              ]
+            }
+          },
+          "cp5:_uniq.28392.749": {
+            "mvar_id": "cp5:_uniq.28392.749",
+            "goal_type": "a\u271d * c\u207b\u00b9 * (c\u207b\u00b9\u207b\u00b9 * b\u271d\u207b\u00b9) = a\u271d / b\u271d",
+            "goal_sig": "bc8c1562b9c5",
+            "goal_sig_strict": "f9d371f0d2a5",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 4,
+            "expansion_order": 4,
+            "children": {
+              "rw [mul_assoc, mul_inv_cancel_left]": [
+                "cp6:_uniq.28392.2473"
+              ]
+            }
+          },
+          "cp6:_uniq.28392.2473": {
+            "mvar_id": "cp6:_uniq.28392.2473",
+            "goal_type": "a\u271d * b\u271d\u207b\u00b9 = a\u271d / b\u271d",
+            "goal_sig": "60d9438a5f7b",
+            "goal_sig_strict": "1176c03eda05",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 5,
+            "expansion_order": 5,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 4.666666666666667,
+      "mean_ged_search_graph": 4.666666666666667,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_classical",
+        "block_have",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.16666666666666666
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.16666666666666666
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.8333333333333334
+        ],
+        [
+          0.16666666666666666,
+          0.16666666666666666,
+          0.8333333333333334,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_iff_mul_eq, mul_assoc]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [div_eq_mul_inv, inv_mul_cancel_left]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [eq_comm, div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_iff_mul_eq]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp (config := { unfoldPartialApp := true }) [div_eq_mul_inv]",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "have := div_eq_mul_inv",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "failure"
+        },
+        {
+          "tactic": "classical",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "failure"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.32532",
+        "expansion_count": 0,
+        "nodes": {
+          "cp1:_uniq.32532": {
+            "mvar_id": "cp1:_uniq.32532",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+            "goal_sig": "86dc0a5e1af6",
+            "goal_sig_strict": "86dc0a5e1af6",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5fzsmul",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 0.3333333333333333,
+      "mean_ged_search_graph": 0.3333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_decide",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp [add_smul]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "decide",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [zsmul_add]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp only [add_smul, add_mul]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.41038",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.41038": {
+            "mvar_id": "cp1:_uniq.41038",
+            "goal_type": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+            "goal_sig": "8ce823394c5a",
+            "goal_sig_strict": "8ce823394c5a",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.41054.6"
+              ]
+            }
+          },
+          "cp2:_uniq.41054.6": {
+            "mvar_id": "cp2:_uniq.41054.6",
+            "goal_type": "(m\u271d + n\u271d) \u2022 a\u271d = m\u271d \u2022 a\u271d + n\u271d \u2022 a\u271d",
+            "goal_sig": "6a30ea3b7e52",
+            "goal_sig_strict": "a6ed0f156480",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "status": "Solved",
+      "iterations": 1,
+      "mean_ged": 3.0,
+      "mean_ged_search_graph": 3.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intro",
+        "block_rw",
+        "block_simpa"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.5,
+          0.6666666666666666,
+          0.3333333333333333
+        ],
+        [
+          0.5,
+          0.0,
+          0.3333333333333333,
+          0.8333333333333334
+        ],
+        [
+          0.6666666666666666,
+          0.3333333333333333,
+          0.0,
+          1.0
+        ],
+        [
+          0.3333333333333333,
+          0.8333333333333334,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "intro G _ _ _ _ H",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+          "outcome": "success"
+        }
+      ],
+      "proof_term_stats": {
+        "node_count": 2059,
+        "max_depth": 30,
+        "kind_counts": [
+          {
+            "label": "app",
+            "count": 1019
+          },
+          {
+            "label": "lam",
+            "count": 10
+          },
+          {
+            "label": "forall",
+            "count": 0
+          },
+          {
+            "label": "unique_consts",
+            "count": 29
+          }
+        ]
+      },
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.47207",
+        "expansion_count": 4,
+        "nodes": {
+          "cp1:_uniq.47207": {
+            "mvar_id": "cp1:_uniq.47207",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+            "goal_sig": "c18124ee5fef",
+            "goal_sig_strict": "c18124ee5fef",
+            "visit_count": 4,
+            "success_count": 4,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intro G _ _ _ _ H": [
+                "cp2:_uniq.47231.17"
+              ]
+            }
+          },
+          "cp2:_uniq.47231.17": {
+            "mvar_id": "cp2:_uniq.47231.17",
+            "goal_type": "a\u271d / b\u271d = c\u271d",
+            "goal_sig": "23e2135653b4",
+            "goal_sig_strict": "6faea9ada297",
+            "visit_count": 3,
+            "success_count": 3,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [H]": [
+                "cp3:_uniq.47231.21"
+              ]
+            }
+          },
+          "cp3:_uniq.47231.21": {
+            "mvar_id": "cp3:_uniq.47231.21",
+            "goal_type": "b\u271d * c\u271d / b\u271d = c\u271d",
+            "goal_sig": "7649fbb52f44",
+            "goal_sig_strict": "f4902beb1ac5",
+            "visit_count": 2,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {
+              "rw [div_eq_mul_inv, mul_comm]": [
+                "cp4:_uniq.47231.1383"
+              ]
+            }
+          },
+          "cp4:_uniq.47231.1383": {
+            "mvar_id": "cp4:_uniq.47231.1383",
+            "goal_type": "b\u271d\u207b\u00b9 * (b\u271d * c\u271d) = c\u271d",
+            "goal_sig": "ab4c3460599f",
+            "goal_sig_strict": "7abf21056048",
+            "visit_count": 1,
+            "success_count": 1,
+            "is_terminal": true,
+            "is_dead": false,
+            "depth": 3,
+            "expansion_order": 3,
+            "children": {
+              "simpa [inv_mul_cancel_right] using congr_arg (\u00b7 * c) H": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5fleft_x5fiterate",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 4.0,
+      "mean_ged_search_graph": 4.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.54350",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.54350": {
+            "mvar_id": "cp1:_uniq.54350",
+            "goal_type": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+            "goal_sig": "1b91982fe9f8",
+            "goal_sig_strict": "1b91982fe9f8",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.54367.5"
+              ]
+            }
+          },
+          "cp2:_uniq.54367.5": {
+            "mvar_id": "cp2:_uniq.54367.5",
+            "goal_type": "(fun x => a\u271d + x)^[n\u271d] = fun x => n\u271d \u2022 a\u271d + x",
+            "goal_sig": "a73343ce15ac",
+            "goal_sig_strict": "6b1e94b443b2",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "funext": [
+                "cp3:_uniq.54367.29"
+              ]
+            }
+          },
+          "cp3:_uniq.54367.29": {
+            "mvar_id": "cp3:_uniq.54367.29",
+            "goal_type": "(fun x => a\u271d + x)^[n\u271d] x\u271d = n\u271d \u2022 a\u271d + x\u271d",
+            "goal_sig": "ad3291af5f31",
+            "goal_sig_strict": "a6cafb7e74a6",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {}
+          }
+        }
+      }
+    }
+  ]
+}

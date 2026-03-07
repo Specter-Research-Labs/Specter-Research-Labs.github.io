@@ -1,0 +1,2205 @@
+{
+  "run_id": "distributed-a8-i64",
+  "theorem_count": 10,
+  "crashed_count": 0,
+  "wild_type_solve_rate": 0.2,
+  "intervention_count": 23,
+  "intervention_solve_rate": 0.13043478260869565,
+  "run_config": {
+    "format_version": 2,
+    "run_id": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=reprover/distributed-a8-i64",
+    "log_dir": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=reprover/distributed-a8-i64",
+    "created_at": "2026-03-04T16:25:20",
+    "providers": [
+      "reprover"
+    ],
+    "provider": "reprover",
+    "provider_label": "reprover+block_easy",
+    "provider_desc": "FilteredTacticProvider(base=ReProverTacticProvider(leandojo-lean4-tacgen-byt5-small), rules=1, budget=no)",
+    "mode": "research",
+    "backend": "lean",
+    "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+    "corpus_spec": "lean:mathlib4#feasible",
+    "budget_label": "standard",
+    "budget_tiers": [
+      10,
+      50,
+      200,
+      1000
+    ],
+    "limit": null,
+    "offset": 0,
+    "sample": 160,
+    "seed": 20260301,
+    "wild_only": false,
+    "trace_mcts": true,
+    "analysis": false,
+    "device": null,
+    "workers": 1,
+    "goal_sig_scheme": "ast",
+    "guidance": null,
+    "allow_easy": false,
+    "sampling": false,
+    "theorem": null,
+    "debug": false,
+    "plain": true,
+    "basin_seeds": null,
+    "basin_blind": false,
+    "mode_defaults": {
+      "budget": "standard",
+      "corpus": "research",
+      "limit": null,
+      "wild_only": false,
+      "trace_mcts": true
+    },
+    "cli_args": {
+      "mode": "research",
+      "corpus": "lean:mathlib4#feasible",
+      "provider": "reprover",
+      "tactic_ranker": "none",
+      "tactic_ranker_model": null,
+      "tactic_ranker_alpha": 1.0,
+      "providers": null,
+      "all_providers": false,
+      "budget": "standard",
+      "limit": null,
+      "theorem": null,
+      "wild_only": false,
+      "trace_mcts": true,
+      "mcts_mode": "distributed",
+      "mcts_agents": 8,
+      "mcts_inflight": 64,
+      "mcts_block_fraction": null,
+      "mcts_block_duration": null,
+      "mcts_block_seed": null,
+      "mcts_block_immovable_fraction": null,
+      "mcts_unfreeze_after": null,
+      "mcts_unfreeze_prob": null,
+      "mcts_reroute_blocked": false,
+      "mcts_reroute_max": null,
+      "mcts_delay_prob": null,
+      "mcts_delay_duration": null,
+      "mcts_delay_seed": null,
+      "mcts_virtual_loss": 1,
+      "mcts_depth_bias": 0.0,
+      "mcts_path_bias": 0.0,
+      "mcts_history_cache": false,
+      "allow_easy": false,
+      "debug": false,
+      "plain": true,
+      "sampling": false,
+      "deepseek_samples": null,
+      "bfs_samples": null,
+      "internlm_samples": null,
+      "device": null,
+      "workers": 1,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "goal_sig": "ast",
+      "run_id": "2026-03-02-followup-2026-03-addenda-r2/p2-paired/provider=reprover/distributed-a8-i64",
+      "basin_seeds": null,
+      "basin_blind": false,
+      "analysis": false,
+      "no_sync": true
+    },
+    "corpus_artifact": {
+      "corpus_id": "mathlib4",
+      "build_id": "973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2",
+      "items_sha256": "41a436fde12b4ae61f7c01be622477e51ed058b8a25c9446aa011a933365dcd2",
+      "derived": "feasible",
+      "derived_build_id": "57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0"
+    },
+    "mcts_mode": "distributed",
+    "distributed_mcts": {
+      "agents": 8,
+      "inflight": 64,
+      "block_fraction": null,
+      "block_duration": null,
+      "block_seed": null,
+      "block_immovable_fraction": null,
+      "block_unfreeze_after": null,
+      "block_unfreeze_prob": null,
+      "reroute_max_attempts": null,
+      "delay_probability": null,
+      "delay_duration": null,
+      "delay_seed": null,
+      "virtual_loss": 1,
+      "depth_bias": 0.0,
+      "path_bias": 0.0,
+      "history_cache": false
+    },
+    "resolved": {
+      "corpus": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+      "corpus_spec": "lean:mathlib4#feasible",
+      "budget_label": "standard",
+      "budget_tiers": [
+        10,
+        50,
+        200,
+        1000
+      ],
+      "budget_total": 1260,
+      "limit": null,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "wild_only": false,
+      "trace_mcts": true,
+      "analysis": false,
+      "device": null,
+      "workers": 1,
+      "goal_sig_scheme": "ast",
+      "allow_easy": false,
+      "sampling": false,
+      "theorem": null,
+      "debug": false,
+      "plain": true,
+      "basin_seeds": null,
+      "basin_blind": false,
+      "project_path": "./lean_project",
+      "corpus_artifact": {
+        "corpus_id": "mathlib4",
+        "build_id": "973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2",
+        "items_sha256": "41a436fde12b4ae61f7c01be622477e51ed058b8a25c9446aa011a933365dcd2",
+        "derived": "feasible",
+        "derived_build_id": "57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0"
+      },
+      "mcts_mode": "distributed",
+      "distributed_mcts": {
+        "agents": 8,
+        "inflight": 64,
+        "block_fraction": null,
+        "block_duration": null,
+        "block_seed": null,
+        "block_immovable_fraction": null,
+        "block_unfreeze_after": null,
+        "block_unfreeze_prob": null,
+        "reroute_max_attempts": null,
+        "delay_probability": null,
+        "delay_duration": null,
+        "delay_seed": null,
+        "virtual_loss": 1,
+        "depth_bias": 0.0,
+        "path_bias": 0.0,
+        "history_cache": false
+      }
+    },
+    "corpus_meta": {
+      "name": "artifact:mathlib4@973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2:derived/feasible@57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0",
+      "total_theorems": 10,
+      "items_loaded": 10,
+      "items_path": "/Users/ludwig/dev/specter-labs/tmp/runtime-artifacts/wonton-soup/corpora/lean/mathlib4/973f0905e770bc0f6b5b49bef6c69d00cbc0e00d7cdcdd87071d61774f117ff2/derived/feasible/57da946a8182fdacd5b27ed357cf2601a762e2f76059815f1396f6d3aa385da0/items.jsonl"
+    },
+    "theorem_selection": {
+      "method": "hash_sample",
+      "limit": null,
+      "offset": 0,
+      "sample": 160,
+      "seed": 20260301,
+      "selected_count": 10,
+      "selected_theorems": [
+        "div_x5fdiv",
+        "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+        "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+        "AddSemigroup_x2eto_x5fisAssociative",
+        "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+        "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+        "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+        "add_x5fzsmul",
+        "div_x5feq_x5fof_x5feq_x5fmul_x27",
+        "add_x5fleft_x5fiterate"
+      ],
+      "error": null
+    },
+    "providers_meta": {
+      "names": [
+        "reprover"
+      ],
+      "primary": "reprover",
+      "label": "reprover+block_easy",
+      "description": "FilteredTacticProvider(base=ReProverTacticProvider(leandojo-lean4-tacgen-byt5-small), rules=1, budget=no)",
+      "config": {
+        "class": "FilteredTacticProvider",
+        "describe": "FilteredTacticProvider(base=ReProverTacticProvider(leandojo-lean4-tacgen-byt5-small), rules=1, budget=no)",
+        "provider": "filtered",
+        "blocked_tactics": [
+          "decide",
+          "native_decide",
+          "omega",
+          "rfl",
+          "simp",
+          "simp_all"
+        ],
+        "blocked_families": [],
+        "peg_rules": [
+          {
+            "peg_id": "block_tactic",
+            "kind": "tactic",
+            "blocked_tactics": [
+              "decide",
+              "native_decide",
+              "omega",
+              "rfl",
+              "simp",
+              "simp_all"
+            ],
+            "blocked_families": [],
+            "condition": null
+          }
+        ],
+        "peg_budget": null,
+        "provider_id": null,
+        "goal_sig_scheme": "ast",
+        "base": {
+          "class": "ReProverTacticProvider",
+          "describe": "ReProverTacticProvider(leandojo-lean4-tacgen-byt5-small)",
+          "provider": "reprover",
+          "device": "mps",
+          "cache_size": 100,
+          "use_sampling": false,
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "num_runs": 1,
+          "use_retrieval": false,
+          "model_id": "kaiyuy/leandojo-lean4-tacgen-byt5-small",
+          "max_input_length": 2300,
+          "max_length": 256,
+          "beam_limit": 4
+        }
+      }
+    },
+    "mcts": {
+      "defaults": {
+        "max_iterations": 1000,
+        "c": 1.4142135623730951,
+        "backprop_strategy": "uniform"
+      },
+      "mode": "distributed",
+      "distributed": {
+        "agents": 8,
+        "inflight": 64,
+        "block_fraction": null,
+        "block_duration": null,
+        "block_seed": null,
+        "block_immovable_fraction": null,
+        "block_unfreeze_after": null,
+        "block_unfreeze_prob": null,
+        "reroute_max_attempts": null,
+        "delay_probability": null,
+        "delay_duration": null,
+        "delay_seed": null,
+        "virtual_loss": 1,
+        "depth_bias": 0.0,
+        "path_bias": 0.0,
+        "history_cache": false
+      },
+      "budget_tiers": [
+        10,
+        50,
+        200,
+        1000
+      ],
+      "budget_total": 1260,
+      "warmstart_between_tiers": true,
+      "trace_mcts": true,
+      "trace_context_fields": [
+        "tier",
+        "budget"
+      ],
+      "goal_sig_scheme": "ast"
+    },
+    "interventions": {
+      "wild_only": false,
+      "block_easy": true,
+      "blocked_tactics": [
+        "decide",
+        "native_decide",
+        "omega",
+        "rfl",
+        "simp",
+        "simp_all"
+      ]
+    },
+    "problem_space": {
+      "schema_version": 1,
+      "P": {
+        "S": {
+          "repr": "goal_sig",
+          "goal_id_scheme": "checkpoint",
+          "goal_sig_scheme": "ast"
+        },
+        "O": {
+          "repr": "tactic_candidate",
+          "normalize": "normalize_tactic",
+          "family": "tactic_family"
+        },
+        "C": {
+          "interventions": {
+            "blocked_tactics": [
+              "decide",
+              "native_decide",
+              "omega",
+              "rfl",
+              "simp",
+              "simp_all"
+            ]
+          },
+          "invalid_move": "preview_tactic_failure",
+          "budget": {
+            "tiers": [
+              10,
+              50,
+              200,
+              1000
+            ],
+            "total": 1260
+          }
+        },
+        "E": {
+          "goal": "proof_complete"
+        },
+        "H": {
+          "budget_tiers": [
+            10,
+            50,
+            200,
+            1000
+          ],
+          "budget_total": 1260
+        }
+      },
+      "K": {
+        "tau_agent": "detour_metrics.total_attempts",
+        "w_unit": "tactic_attempt",
+        "null_models": [
+          "blind_uniform_candidate",
+          "blind_uniform_family"
+        ],
+        "primary": {
+          "metric": "any_success",
+          "null_model": "blind_uniform_candidate"
+        },
+        "requires": {
+          "goal_cache": true,
+          "trace_mcts_for_candidate": true
+        }
+      }
+    },
+    "runtime": {
+      "python": "3.13.7",
+      "platform": "darwin",
+      "pid": 48277
+    }
+  },
+  "run_status": {
+    "status": "completed",
+    "started_at": "2026-03-04T16:25:20",
+    "completed_at": "2026-03-04T16:34:23",
+    "goal_id_scheme": "checkpoint",
+    "partial_results": false,
+    "capabilities": {
+      "has_proof_term": true,
+      "has_proof_term_pretty": true,
+      "has_assembly_trace": true,
+      "has_proof_term_metrics": true
+    }
+  },
+  "node_count": null,
+  "edge_count": null,
+  "goal_count": null,
+  "expansion_count": null,
+  "crashed": [],
+  "overview": [
+    {
+      "name": "div_x5fdiv",
+      "solved": false,
+      "iterations": 2.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 4.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 2.0,
+      "mean_ged_search_graph": 2.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "solved": true,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 3.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 0.0,
+      "mean_ged_search_graph": 0.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "solved": false,
+      "iterations": 2.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 2.5,
+      "mean_ged_search_graph": 2.5,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "AddSemigroup_x2eto_x5fisAssociative",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 3.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 0.0,
+      "mean_ged_search_graph": 0.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 4.5,
+      "mean_ged_search_graph": 4.5,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "solved": false,
+      "iterations": 3.0,
+      "max_depth": 2.0,
+      "backtracks": 1.0,
+      "unique_goals": 2.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 2.0,
+      "mean_ged_search_graph": 2.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "solved": true,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 4.333333333333333,
+      "mean_ged_search_graph": 4.333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5fzsmul",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 3.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 2.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    },
+    {
+      "name": "add_x5fleft_x5fiterate",
+      "solved": false,
+      "iterations": 1.0,
+      "max_depth": 1.0,
+      "backtracks": 0.0,
+      "unique_goals": 1.0,
+      "tactic_diversity": 3.0,
+      "failure_ratio": 0.0,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null
+    }
+  ],
+  "interventions": [
+    {
+      "theorem": "div_x5fdiv",
+      "name": "block_intros",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -1.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -1.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "block_intros",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "block_rw",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "name": "control_null",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_intros",
+      "ged": 5.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 5.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 1.0,
+      "delta_max_depth": 4.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -1.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "block_decide",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "block_intros",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "AddSemigroup_x2eto_x5fisAssociative",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "name": "block_intros",
+      "ged": 9.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 9.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 10.0,
+      "delta_max_depth": 5.0,
+      "delta_backtracks": 5.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_intros",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 2.0,
+      "delta_max_depth": 2.0,
+      "delta_backtracks": 2.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": -2.0,
+      "delta_max_depth": -1.0,
+      "delta_backtracks": -1.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "block_intros",
+      "ged": 9.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 9.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 10.0,
+      "delta_max_depth": 5.0,
+      "delta_backtracks": 5.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "block_rw",
+      "ged": 4.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 4.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "name": "control_null",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": true,
+      "delta_iterations": 1.0,
+      "delta_max_depth": 3.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": 0
+    },
+    {
+      "theorem": "add_x5fzsmul",
+      "name": "block_intros",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fzsmul",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "name": "block_intros",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fleft_x5fiterate",
+      "name": "block_intros",
+      "ged": 2.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 2.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    },
+    {
+      "theorem": "add_x5fleft_x5fiterate",
+      "name": "block_simp",
+      "ged": 0.0,
+      "ged_family": "ged_search_graph",
+      "ged_search_graph": 0.0,
+      "ged_proof_graph": null,
+      "ged_trace_graph": null,
+      "solved": false,
+      "delta_iterations": 0.0,
+      "delta_max_depth": 0.0,
+      "delta_backtracks": 0.0,
+      "recovery_iterations": null
+    }
+  ],
+  "ged_histogram": {
+    "bins": [
+      0.375,
+      1.125,
+      1.875,
+      2.625,
+      3.375,
+      4.125,
+      4.875,
+      5.625,
+      6.375,
+      7.125,
+      7.875,
+      8.625
+    ],
+    "counts": [
+      14.0,
+      0.0,
+      3.0,
+      0.0,
+      0.0,
+      3.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      2.0
+    ]
+  },
+  "ged_histogram_search": {
+    "bins": [
+      0.375,
+      1.125,
+      1.875,
+      2.625,
+      3.375,
+      4.125,
+      4.875,
+      5.625,
+      6.375,
+      7.125,
+      7.875,
+      8.625
+    ],
+    "counts": [
+      14.0,
+      0.0,
+      3.0,
+      0.0,
+      0.0,
+      3.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      2.0
+    ]
+  },
+  "ged_histogram_proof": {
+    "bins": [],
+    "counts": []
+  },
+  "ged_histogram_trace": {
+    "bins": [],
+    "counts": []
+  },
+  "recovery_histogram": {
+    "bins": [
+      0.0
+    ],
+    "counts": [
+      1.0
+    ]
+  },
+  "trajectory_sample": {
+    "theorem": "div_x5fdiv",
+    "wild": {
+      "depth": [
+        1.0,
+        1.0
+      ],
+      "attempts": [
+        4.0,
+        0.0
+      ],
+      "success_ratio": [
+        0.25,
+        0.0
+      ]
+    },
+    "intervention": {
+      "name": "block_intros",
+      "depth": [
+        1.0
+      ],
+      "attempts": [
+        1.0
+      ],
+      "success_ratio": [
+        0.0
+      ]
+    }
+  },
+  "ged_sample": {
+    "theorem": "div_x5fdiv",
+    "variants": [
+      "wild_type",
+      "block_intros",
+      "block_simp"
+    ],
+    "matrix": [
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ]
+  },
+  "goal_tactic_heatmap": {
+    "rows": [
+      "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+      "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+      "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+      "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+      "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+      "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+      "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+      "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+      "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+      "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+      "b' = -b \u2194 b = -b'",
+      "b + b' = 0 \u2194 -b = b'"
+    ],
+    "cols": [
+      "intros",
+      "simp",
+      "rw [neg_eq_iff_eq_neg]",
+      "intro \u03b1 _",
+      "constructor",
+      "simp [div_eq_mul_inv]",
+      "simp [mul_comm]",
+      "simp [SubtractionMonoid.toSubNegZeroMonoid]",
+      "intros G a b c d",
+      "intro G a b c d"
+    ],
+    "matrix": [
+      [
+        0.75,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.75,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.75,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "metric": "success_rate"
+  },
+  "rescue_matrix": {
+    "rows": [
+      "block_intros",
+      "block_simp",
+      "block_decide",
+      "block_rw",
+      "control_null"
+    ],
+    "cols": [
+      "rescue_rate",
+      "wild_solved_rate"
+    ],
+    "matrix": [
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "metric": "rate"
+  },
+  "theorem_details": [
+    {
+      "name": "div_x5fdiv",
+      "status": "Failed",
+      "iterations": 2,
+      "mean_ged": 2.0,
+      "mean_ged_search_graph": 2.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [div_eq_mul_inv]",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [mul_comm]",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.2154",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.2154": {
+            "mvar_id": "cp1:_uniq.2154",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : DivisionCommMonoid \u03b1] (a b c : \u03b1), a / b / c = a / (b * c)",
+            "goal_sig": "00aeb42434d0",
+            "goal_sig_strict": "00aeb42434d0",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.2170.6"
+              ]
+            }
+          },
+          "cp2:_uniq.2170.6": {
+            "mvar_id": "cp2:_uniq.2170.6",
+            "goal_type": "a\u271d / b\u271d / c\u271d = a\u271d / (b\u271d * c\u271d)",
+            "goal_sig": "595bb0eb2e12",
+            "goal_sig_strict": "b0ea255c17ed",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [div_eq_mul_inv, div_eq_mul_inv]": [
+                "cp3:_uniq.2170.459"
+              ]
+            }
+          },
+          "cp3:_uniq.2170.459": {
+            "mvar_id": "cp3:_uniq.2170.459",
+            "goal_type": "a\u271d * b\u271d\u207b\u00b9 * c\u271d\u207b\u00b9 = a\u271d / (b\u271d * c\u271d)",
+            "goal_sig": "72cd07610eb4",
+            "goal_sig_strict": "8c500829d02e",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "SubtractionMonoid_x2etoSubNegZeroMonoid_x2eeq_x5f1",
+      "status": "Solved",
+      "iterations": 1,
+      "mean_ged": 0.0,
+      "mean_ged_search_graph": 0.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_rw",
+        "control_null"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [SubtractionMonoid.toSubNegZeroMonoid]",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+          "outcome": "success"
+        }
+      ],
+      "proof_term_stats": {
+        "node_count": 256,
+        "max_depth": 14,
+        "kind_counts": [
+          {
+            "label": "app",
+            "count": 117
+          },
+          {
+            "label": "lam",
+            "count": 3
+          },
+          {
+            "label": "forall",
+            "count": 0
+          },
+          {
+            "label": "unique_consts",
+            "count": 13
+          }
+        ]
+      },
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.6660",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.6660": {
+            "mvar_id": "cp1:_uniq.6660",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : SubtractionMonoid \u03b1],\n  SubtractionMonoid.toSubNegZeroMonoid =\n    let __SubNegMonoid := inst.toSubNegMonoid;\n    { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "2754a5d665cf",
+            "goal_sig_strict": "2754a5d665cf",
+            "visit_count": 2,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.6675.3"
+              ]
+            }
+          },
+          "cp2:_uniq.6675.3": {
+            "mvar_id": "cp2:_uniq.6675.3",
+            "goal_type": "SubtractionMonoid.toSubNegZeroMonoid =\n  let __SubNegMonoid := inst\u271d.toSubNegMonoid;\n  { toSubNegMonoid := __SubNegMonoid, neg_zero := \u22ef }",
+            "goal_sig": "0f54c9c8d604",
+            "goal_sig_strict": "dc661af3aeae",
+            "visit_count": 1,
+            "success_count": 1,
+            "is_terminal": true,
+            "is_dead": false,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [SubtractionMonoid.toSubNegZeroMonoid]": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fdiv_x5fiff_x5fdiv_x5feq_x5fdiv",
+      "status": "Failed",
+      "iterations": 2,
+      "mean_ged": 2.5,
+      "mean_ged_search_graph": 2.5,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.7945",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.7945": {
+            "mvar_id": "cp1:_uniq.7945",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c d : G}, a / b = c / d \u2194 a / c = b / d",
+            "goal_sig": "49e00c39610d",
+            "goal_sig_strict": "2b10d298e309",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.7971.7"
+              ]
+            }
+          },
+          "cp2:_uniq.7971.7": {
+            "mvar_id": "cp2:_uniq.7971.7",
+            "goal_type": "a\u271d / b\u271d = c\u271d / d\u271d \u2194 a\u271d / c\u271d = b\u271d / d\u271d",
+            "goal_sig": "aee683a9bba9",
+            "goal_sig_strict": "08f5aae85294",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [div_eq_mul_inv, div_eq_mul_inv]": [
+                "cp3:_uniq.7971.422"
+              ]
+            }
+          },
+          "cp3:_uniq.7971.422": {
+            "mvar_id": "cp3:_uniq.7971.422",
+            "goal_type": "a\u271d * b\u271d\u207b\u00b9 = c\u271d * d\u271d\u207b\u00b9 \u2194 a\u271d / c\u271d = b\u271d / d\u271d",
+            "goal_sig": "efa64889a3ae",
+            "goal_sig_strict": "0a134154c852",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "AddSemigroup_x2eto_x5fisAssociative",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 0.0,
+      "mean_ged_search_graph": 0.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_decide",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "decide",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.10932",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.10932": {
+            "mvar_id": "cp1:_uniq.10932",
+            "goal_type": "\u2200 {\u03b1 : Type u_1} [inst : AddSemigroup \u03b1], Std.Associative fun x1 x2 => x1 + x2",
+            "goal_sig": "0ab46aabcb29",
+            "goal_sig_strict": "0ab46aabcb29",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.10944.3"
+              ]
+            }
+          },
+          "cp2:_uniq.10944.3": {
+            "mvar_id": "cp2:_uniq.10944.3",
+            "goal_type": "Std.Associative fun x1 x2 => x1 + x2",
+            "goal_sig": "44a0b3f0499e",
+            "goal_sig_strict": "127ebd895661",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5feq_x5fzero_x5fiff_x5fneg_x5feq",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 4.5,
+      "mean_ged_search_graph": 4.5,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.17141",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.17141": {
+            "mvar_id": "cp1:_uniq.17141",
+            "goal_type": "\u2200 {G : Type u_3} [inst : AddGroup G] {a b : G}, a + b = 0 \u2194 -a = b",
+            "goal_sig": "434160c49fe0",
+            "goal_sig_strict": "434160c49fe0",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.17159.5"
+              ]
+            }
+          },
+          "cp2:_uniq.17159.5": {
+            "mvar_id": "cp2:_uniq.17159.5",
+            "goal_type": "a\u271d + b\u271d = 0 \u2194 -a\u271d = b\u271d",
+            "goal_sig": "f7853fb97420",
+            "goal_sig_strict": "a889a745d839",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5fdiv_x5fdiv_x5fcancel_x5fright",
+      "status": "Failed",
+      "iterations": 3,
+      "mean_ged": 2.0,
+      "mean_ged_search_graph": 2.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.21756",
+        "expansion_count": 2,
+        "nodes": {
+          "cp1:_uniq.21756": {
+            "mvar_id": "cp1:_uniq.21756",
+            "goal_type": "\u2200 {G : Type u_3} [inst : Group G] (a b c : G), a / c / (b / c) = a / b",
+            "goal_sig": "e26def4a1c18",
+            "goal_sig_strict": "e26def4a1c18",
+            "visit_count": 5,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.21772.6"
+              ]
+            }
+          },
+          "cp2:_uniq.21772.6": {
+            "mvar_id": "cp2:_uniq.21772.6",
+            "goal_type": "a\u271d / c\u271d / (b\u271d / c\u271d) = a\u271d / b\u271d",
+            "goal_sig": "97a72ac4ae2b",
+            "goal_sig_strict": "b65021729d91",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [div_eq_mul_inv]": [
+                "cp3:_uniq.21772.222"
+              ]
+            }
+          },
+          "cp3:_uniq.21772.222": {
+            "mvar_id": "cp3:_uniq.21772.222",
+            "goal_type": "a\u271d / c\u271d * (b\u271d / c\u271d)\u207b\u00b9 = a\u271d / b\u271d",
+            "goal_sig": "bebc62e99afb",
+            "goal_sig_strict": "1dd581108112",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fiff_x5feq_x5fmul_x27",
+      "status": "Solved",
+      "iterations": 1,
+      "mean_ged": 4.333333333333333,
+      "mean_ged_search_graph": 4.333333333333333,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_rw",
+        "control_null"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.4444444444444444,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          0.4444444444444444,
+          1.0,
+          0.0,
+          0.4444444444444444
+        ],
+        [
+          0.0,
+          1.0,
+          0.4444444444444444,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+          "outcome": "success"
+        }
+      ],
+      "proof_term_stats": {
+        "node_count": 1937,
+        "max_depth": 28,
+        "kind_counts": [
+          {
+            "label": "app",
+            "count": 960
+          },
+          {
+            "label": "lam",
+            "count": 8
+          },
+          {
+            "label": "forall",
+            "count": 0
+          },
+          {
+            "label": "unique_consts",
+            "count": 32
+          }
+        ]
+      },
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.24469",
+        "expansion_count": 4,
+        "nodes": {
+          "cp1:_uniq.24469": {
+            "mvar_id": "cp1:_uniq.24469",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a / b = c \u2194 a = b * c",
+            "goal_sig": "86dc0a5e1af6",
+            "goal_sig_strict": "86dc0a5e1af6",
+            "visit_count": 4,
+            "success_count": 4,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.24491.6"
+              ]
+            }
+          },
+          "cp2:_uniq.24491.6": {
+            "mvar_id": "cp2:_uniq.24491.6",
+            "goal_type": "a\u271d / b\u271d = c\u271d \u2194 a\u271d = b\u271d * c\u271d",
+            "goal_sig": "cb97102b018c",
+            "goal_sig_strict": "c618882e36a2",
+            "visit_count": 3,
+            "success_count": 3,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {
+              "rw [div_eq_mul_inv]": [
+                "cp3:_uniq.24491.342"
+              ]
+            }
+          },
+          "cp3:_uniq.24491.342": {
+            "mvar_id": "cp3:_uniq.24491.342",
+            "goal_type": "a\u271d * b\u271d\u207b\u00b9 = c\u271d \u2194 a\u271d = b\u271d * c\u271d",
+            "goal_sig": "a6bdcb802503",
+            "goal_sig_strict": "c5a3b9960ff6",
+            "visit_count": 2,
+            "success_count": 2,
+            "is_terminal": false,
+            "is_dead": false,
+            "depth": 2,
+            "expansion_order": 2,
+            "children": {
+              "rw [mul_inv_eq_iff_eq_mul]": [
+                "cp4:_uniq.24491.751"
+              ]
+            }
+          },
+          "cp4:_uniq.24491.751": {
+            "mvar_id": "cp4:_uniq.24491.751",
+            "goal_type": "a\u271d = c\u271d * b\u271d \u2194 a\u271d = b\u271d * c\u271d",
+            "goal_sig": "cc5e92e0e0ac",
+            "goal_sig_strict": "fa7dbfbdd1ca",
+            "visit_count": 1,
+            "success_count": 1,
+            "is_terminal": true,
+            "is_dead": false,
+            "depth": 3,
+            "expansion_order": 3,
+            "children": {
+              "rw [mul_comm]": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5fzsmul",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [add_smul]",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.31218",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.31218": {
+            "mvar_id": "cp1:_uniq.31218",
+            "goal_type": "\u2200 {G : Type u_3} [inst : AddGroup G] (a : G) (m n : \u2124), (m + n) \u2022 a = m \u2022 a + n \u2022 a",
+            "goal_sig": "8ce823394c5a",
+            "goal_sig_strict": "8ce823394c5a",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.31234.6"
+              ]
+            }
+          },
+          "cp2:_uniq.31234.6": {
+            "mvar_id": "cp2:_uniq.31234.6",
+            "goal_type": "(m\u271d + n\u271d) \u2022 a\u271d = m\u271d \u2022 a\u271d + n\u271d \u2022 a\u271d",
+            "goal_sig": "6a30ea3b7e52",
+            "goal_sig_strict": "c2dd7d9ab80e",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "div_x5feq_x5fof_x5feq_x5fmul_x27",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.35915",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.35915": {
+            "mvar_id": "cp1:_uniq.35915",
+            "goal_type": "\u2200 {G : Type u_3} [inst : CommGroup G] {a b c : G}, a = b * c \u2192 a / b = c",
+            "goal_sig": "c18124ee5fef",
+            "goal_sig_strict": "c18124ee5fef",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.35939.7"
+              ]
+            }
+          },
+          "cp2:_uniq.35939.7": {
+            "mvar_id": "cp2:_uniq.35939.7",
+            "goal_type": "a\u271d\u00b9 / b\u271d = c\u271d",
+            "goal_sig": "23e2135653b4",
+            "goal_sig_strict": "47297d80286b",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "add_x5fleft_x5fiterate",
+      "status": "Failed",
+      "iterations": 1,
+      "mean_ged": 1.0,
+      "mean_ged_search_graph": 1.0,
+      "mean_ged_proof_graph": null,
+      "mean_ged_trace_graph": null,
+      "variants": [
+        "wild_type",
+        "block_intros",
+        "block_simp"
+      ],
+      "ged_matrix": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "history": [
+        {
+          "tactic": "simp",
+          "goal": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "simp [AddMonoid.iterate]",
+          "goal": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+          "outcome": "blocked"
+        },
+        {
+          "tactic": "intros",
+          "goal": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+          "outcome": "success"
+        }
+      ],
+      "mcts_tree": {
+        "root_mvar_id": "cp1:_uniq.41297",
+        "expansion_count": 1,
+        "nodes": {
+          "cp1:_uniq.41297": {
+            "mvar_id": "cp1:_uniq.41297",
+            "goal_type": "\u2200 {M : Type u_4} [inst : AddMonoid M] (a : M) (n : \u2115), (fun x => a + x)^[n] = fun x => n \u2022 a + x",
+            "goal_sig": "1b91982fe9f8",
+            "goal_sig_strict": "1b91982fe9f8",
+            "visit_count": 3,
+            "success_count": 1,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 0,
+            "expansion_order": 0,
+            "children": {
+              "intros": [
+                "cp2:_uniq.41314.5"
+              ]
+            }
+          },
+          "cp2:_uniq.41314.5": {
+            "mvar_id": "cp2:_uniq.41314.5",
+            "goal_type": "(fun x => a\u271d + x)^[n\u271d] = fun x => n\u271d \u2022 a\u271d + x",
+            "goal_sig": "a73343ce15ac",
+            "goal_sig_strict": "05205eb07c96",
+            "visit_count": 1,
+            "success_count": 0,
+            "is_terminal": false,
+            "is_dead": true,
+            "depth": 1,
+            "expansion_order": 1,
+            "children": {}
+          }
+        }
+      }
+    }
+  ]
+}

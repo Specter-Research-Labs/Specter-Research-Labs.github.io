@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Partial Proof Terms, Assembly Tracking, and Sequential Replay | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-009</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/backends/partial-proof-terms</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/backends/partial-proof-terms.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#partial-proof-terms-assembly-tracking-and-sequential-replay" id="toc-partial-proof-terms-assembly-tracking-and-sequential-replay">Partial Proof Terms, Assembly Tracking, and Sequential Replay</a>
+                            <ul>
+                            <li><a href="#problem-1-partial-term-visibility-during-search" id="toc-problem-1-partial-term-visibility-during-search">Problem 1: Partial Term Visibility During Search</a></li>
+                            <li><a href="#problem-2-sorry-contamination-from-branch-partitioning" id="toc-problem-2-sorry-contamination-from-branch-partitioning">Problem 2: <code>sorry</code> Contamination from Branch Partitioning</a></li>
+                            <li><a href="#why-track-assembly-replay-sequentially" id="toc-why-track-assembly-replay-sequentially">Why Track Assembly + Replay Sequentially</a></li>
+                            <li><a href="#lean-side-extraction-model" id="toc-lean-side-extraction-model">Lean-Side Extraction Model</a></li>
+                            <li><a href="#python-data-model" id="toc-python-data-model">Python Data Model</a></li>
+                            <li><a href="#adapter-integration-previewcommit" id="toc-adapter-integration-previewcommit">Adapter Integration (Preview/Commit)</a></li>
+                            <li><a href="#sequential-no-branching-replay-api" id="toc-sequential-no-branching-replay-api">Sequential No-Branching Replay API</a></li>
+                            <li><a href="#reconstruction-flow" id="toc-reconstruction-flow">Reconstruction Flow</a></li>
+                            <li><a href="#output-artifacts" id="toc-output-artifacts">Output Artifacts</a></li>
+                            <li><a href="#relation-to-goal-identity" id="toc-relation-to-goal-identity">Relation to Goal Identity</a></li>
+                            <li><a href="#implementation-files" id="toc-implementation-files">Implementation Files</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="partial-proof-terms-assembly-tracking-and-sequential-replay">Partial Proof Terms, Assembly Tracking, and Sequential Replay</h1>
+<p>In multi-step Lean proofs, the kernel assembles a term incrementally. This document defines the proof-term tracking model used in wonton-soup and the no-branching replay path used for final proof-term reconstruction.</p>
+<h2 id="problem-1-partial-term-visibility-during-search">Problem 1: Partial Term Visibility During Search</h2>
+<p>Consider proving <code>True ∧ True</code>:</p>
+<pre class="lean"><code>theorem example : True ∧ True := by
+  constructor
+  · trivial
+  · trivial</code></pre>
+<p>After <code>constructor</code>, Lean has a partial term with holes:</p>
+<pre><code>And.intro ?mvar_1 ?mvar_2</code></pre>
+<p>After solving one branch:</p>
+<pre><code>And.intro True.intro ?mvar_2</code></pre>
+<p>After solving both:</p>
+<pre><code>And.intro True.intro True.intro</code></pre>
+<p>If we only serialize the final term, we lose when and how subterms were committed. We track partial terms per tactic so that divergence points are inspectable.</p>
+<h2 id="problem-2-sorry-contamination-from-branch-partitioning">Problem 2: <code>sorry</code> Contamination from Branch Partitioning</h2>
+<p><code>leantree</code>’s branching tactic API partitions independent goals and masks non-target goals with <code>sorry</code>. That is acceptable for search bookkeeping, but unsafe for final proof-term extraction.</p>
+<p>When one branch is solved with another branch masked, the produced term still contains <code>sorry</code>. The Lean REPL proof-term extraction path rejects such terms.</p>
+<h2 id="why-track-assembly-replay-sequentially">Why Track Assembly + Replay Sequentially</h2>
+<ul>
+<li>Assembly trace explains <em>when</em> proof structures diverge.</li>
+<li>Partial terms expose intermediate commitments and open holes.</li>
+<li>Sequential replay produces one proof state with all goals visible and no masking artifacts.</li>
+</ul>
+<h2 id="lean-side-extraction-model">Lean-Side Extraction Model</h2>
+<p><code>libs/leantree/lean-repl/REPL/Main.lean</code> exposes partial-term extraction via metavariable assignment expansion.</p>
+<p>Core behavior:</p>
+<ul>
+<li>inline assigned metavariables recursively</li>
+<li>keep unassigned metavariables as holes</li>
+<li>serialize both the expression DAG and open-hole metadata</li>
+</ul>
+<p>The returned payload includes:</p>
+<ul>
+<li><code>proofTerm</code>: partial or complete <code>ExprDAG</code></li>
+<li><code>openMvars</code>: remaining holes (<code>mvarId</code>, <code>type</code>)</li>
+<li><code>isComplete</code>: whether all holes are closed</li>
+</ul>
+<h2 id="python-data-model">Python Data Model</h2>
+<p><code>prover/expr.py</code>:</p>
+<ul>
+<li><code>MvarHole</code></li>
+<li><code>PartialProofTerm</code></li>
+</ul>
+<p><code>prover/assembly.py</code>:</p>
+<ul>
+<li><code>AssemblyStep</code></li>
+<li><code>ProofAssemblyTrace</code></li>
+</ul>
+<p><code>ProofAssemblyTrace</code> is the canonical step-by-step audit artifact for proof assembly.</p>
+<h2 id="adapter-integration-previewcommit">Adapter Integration (Preview/Commit)</h2>
+<p><code>prover/adapters/lean.py</code> records assembly information on <code>commit_tactic</code> using preview data captured by <code>preview_tactic</code>.</p>
+<p>At commit time the adapter records:</p>
+<ul>
+<li>target goal (<code>mvar_id</code>)</li>
+<li>partial term before/after</li>
+<li>goals opened/closed</li>
+<li>terminal proof term when complete</li>
+</ul>
+<p>This produces <code>*_assembly.json.gz</code> for each variant.</p>
+<h2 id="sequential-no-branching-replay-api">Sequential No-Branching Replay API</h2>
+<p>To reconstruct a final proof term without branch masking, replay uses the no-branching API in <code>libs/leantree/leantree/repl_adapter/interaction.py</code>:</p>
+<ul>
+<li><code>apply_tactic_no_branching_async(...)</code></li>
+<li><code>try_apply_tactic_no_branching_async(...)</code></li>
+</ul>
+<p>Differences from branching API:</p>
+<ul>
+<li>returns a single branch with all resulting goals visible</li>
+<li>does not partition independent goals into masked branches</li>
+<li>preserves one coherent proof state for final extraction</li>
+</ul>
+<h2 id="reconstruction-flow">Reconstruction Flow</h2>
+<p><code>prover/adapters/lean.py</code> (<code>reconstruct_proof_term</code>):</p>
+<ol type="1">
+<li>Create a fresh theorem state.</li>
+<li>Replay <code>assembly_trace.steps</code> with no-branching tactic application.</li>
+<li>Abort if any replay step fails.</li>
+<li>Extract the final proof term once the branch is solved.</li>
+</ol>
+<p>This replay path is used as the fallback when direct in-run extraction cannot return a usable term.</p>
+<h2 id="output-artifacts">Output Artifacts</h2>
+<p>Per theorem variant (under <code>logs/corpus-.../&lt;theorem&gt;/</code>):</p>
+<ul>
+<li><code>*_assembly.json.gz</code>: assembly trace with partial terms per step</li>
+<li><code>*_proof_term.json.gz</code>: final term only</li>
+</ul>
+<h2 id="relation-to-goal-identity">Relation to Goal Identity</h2>
+<p>Assembly events are keyed by checkpoint-scoped goal IDs (<code>cp&lt;checkpoint&gt;:&lt;lean_mvar_id&gt;</code>). Conceptual background and cycle-breaking behavior are documented in <a href="../../../concepts/goal-deduplication-and-preview-commit/">Goal Identity, Deduplication, and Preview/Commit</a>.</p>
+<h2 id="implementation-files">Implementation Files</h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>libs/leantree/lean-repl/REPL/JSON.lean</code></td>
+<td>JSON structures for mvars and partial proof terms</td>
+</tr>
+<tr class="even">
+<td><code>libs/leantree/lean-repl/REPL/Main.lean</code></td>
+<td>partial proof-term extraction</td>
+</tr>
+<tr class="odd">
+<td><code>libs/leantree/leantree/repl_adapter/interaction.py</code></td>
+<td>no-branching tactic replay API</td>
+</tr>
+<tr class="even">
+<td><code>prover/expr.py</code></td>
+<td><code>MvarHole</code>, <code>PartialProofTerm</code></td>
+</tr>
+<tr class="odd">
+<td><code>prover/assembly.py</code></td>
+<td><code>AssemblyStep</code>, <code>ProofAssemblyTrace</code></td>
+</tr>
+<tr class="even">
+<td><code>prover/adapters/lean.py</code></td>
+<td>preview/commit integration and sequential reconstruction</td>
+</tr>
+</tbody>
+</table></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Species Knobs for Glider Search | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">internals</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-019</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">internals/SpeciesKnobs</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                internals
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/internals/SpeciesKnobs.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#species-knobs-for-glider-search" id="toc-species-knobs-for-glider-search">Species Knobs for Glider Search</a>
+                            <ul>
+                            <li><a href="#why-this-distinction-matters" id="toc-why-this-distinction-matters">Why this distinction matters</a></li>
+                            <li><a href="#what-counts-as-species-defining-in-this-repo" id="toc-what-counts-as-species-defining-in-this-repo">What counts as species-defining in this repo</a></li>
+                            <li><a href="#what-is-usually-safe-to-vary-first" id="toc-what-is-usually-safe-to-vary-first">What is usually safe to vary first</a></li>
+                            <li><a href="#what-each-rule-knob-tends-to-do" id="toc-what-each-rule-knob-tends-to-do">What each rule knob tends to do</a>
+                            <ul>
+                            <li><a href="#r" id="toc-r"><code>R</code></a></li>
+                            <li><a href="#m" id="toc-m"><code>m</code></a></li>
+                            <li><a href="#s" id="toc-s"><code>s</code></a></li>
+                            <li><a href="#h" id="toc-h"><code>h</code></a></li>
+                            <li><a href="#r-1" id="toc-r-1"><code>r</code></a></li>
+                            <li><a href="#a" id="toc-a"><code>a</code></a></li>
+                            <li><a href="#w" id="toc-w"><code>w</code></a></li>
+                            <li><a href="#b" id="toc-b"><code>b</code></a></li>
+                            </ul></li>
+                            <li><a href="#why-parameter-embedding-and-cross-map-search-are-wrong-for-orbium-like-reconstruction" id="toc-why-parameter-embedding-and-cross-map-search-are-wrong-for-orbium-like-reconstruction">Why parameter embedding and cross-map search are wrong for Orbium-like reconstruction</a></li>
+                            <li><a href="#current-repo-limitation-that-affects-glider-search" id="toc-current-repo-limitation-that-affects-glider-search">Current repo limitation that affects glider search</a></li>
+                            <li><a href="#recommended-glider-search-policy" id="toc-recommended-glider-search-policy">Recommended glider-search policy</a></li>
+                            <li><a href="#literature-notes" id="toc-literature-notes">Literature notes</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><p class="doc-backlinks-empty">No backlinks yet.</p></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="species-knobs-for-glider-search">Species Knobs for Glider Search</h1>
+<p>This dossier is a Flow Lenia system, not a classical Lenia implementation. When we say “Orbium-like” below, we mean “a constrained single-kernel Flow Lenia family chosen to stay visually and structurally close to classical Orbium-style gliders”, not an exact recreation of Chakazul’s preset browser.</p>
+<h2 id="why-this-distinction-matters">Why this distinction matters</h2>
+<ul>
+<li>Classical Lenia gliders like <code>O2 Orbium unicaudatus</code> are curated organisms inside a narrow rule family with fixed update semantics and a fixed kernel/growth family.</li>
+<li>This repo searches Flow Lenia, which changes the update rule from additive Lenia to flow plus reintegration. That is a different universe, even when some knob names overlap.</li>
+<li>Broad random sweeps over Flow Lenia rule space will happily find movers, translators, and distributed field patterns that are not canonical gliders.</li>
+</ul>
+<p>The practical consequence is simple: if the goal is “find something like Orbium”, we must freeze almost all rule-defining knobs and search mostly over initial conditions.</p>
+<h2 id="what-counts-as-species-defining-in-this-repo">What counts as species-defining in this repo</h2>
+<p>These knobs change the governing rule family or body-plan manifold. Do not randomize them when trying to recreate a known creature class.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Knob group</th>
+<th>Repo fields</th>
+<th>What it tends to change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Update family</td>
+<td><code>profile</code>, <code>implementation.mode</code>, <code>flow.dt</code>, <code>flow.n</code>, <code>flow.theta_A</code>, <code>reintegration.dd</code>, <code>reintegration.sigma</code>, <code>reintegration.border</code></td>
+<td>Transport physics, stability bands, tempo, whether a mover exists at all</td>
+</tr>
+<tr class="even">
+<td>Channel topology</td>
+<td><code>channels</code>, <code>connectivity</code></td>
+<td>Number of interacting fields and number of kernels; often changes body plan qualitatively</td>
+</tr>
+<tr class="odd">
+<td>Kernel geometry</td>
+<td><code>params.r</code>, <code>params.b</code>, <code>params.w</code>, <code>params.a</code></td>
+<td>Ring placement, segmentation, appendage count, shell thickness, internal banding</td>
+</tr>
+<tr class="even">
+<td>Growth law</td>
+<td><code>params.m</code>, <code>params.s</code>, <code>params.h</code></td>
+<td>Preferred activation, sharpness, aggressiveness, persistence, locomotion regime</td>
+</tr>
+<tr class="odd">
+<td>Absolute scale</td>
+<td><code>params.R</code></td>
+<td>Creature scale, interaction radius, motion tempo, stability window</td>
+</tr>
+<tr class="even">
+<td>Local rule heterogeneity</td>
+<td><code>parameter_embedding.*</code></td>
+<td>Multispecies or locally mixed rules; coherent single-species morphology is no longer guaranteed</td>
+</tr>
+<tr class="odd">
+<td>Environmental scaffolding</td>
+<td><code>environment.*</code>, <code>walls.*</code>, <code>food.*</code>, <code>chemotaxis.*</code></td>
+<td>Obstacle-following, ecology-scale patterning, field-wide motifs rather than isolated solitons</td>
+</tr>
+<tr class="even">
+<td>Rule mutation operators</td>
+<td><code>beam_mutation.*</code>, <code>interventions.*</code></td>
+<td>In-run rule drift and hybridization, which breaks species reconstruction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-is-usually-safe-to-vary-first">What is usually safe to vary first</h2>
+<p>These knobs explore individuals within a fixed rule family instead of redefining the family.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Safer search knob</th>
+<th>Repo fields</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Initial-condition seed</td>
+<td><code>init.seed</code> via <code>seed_start</code> and <code>init_seed_offset</code></td>
+<td>Primary search knob for fixed-rule glider hunting</td>
+</tr>
+<tr class="even">
+<td>Patch randomness</td>
+<td><code>init.a_uniform</code></td>
+<td>Vary the realized starting mass while keeping the same rule</td>
+</tr>
+<tr class="odd">
+<td>Run length and observation</td>
+<td><code>run.steps</code>, search <code>warmup_steps</code>, <code>record_interval</code></td>
+<td>Reveal longer periods or translational recurrence without changing the creature</td>
+</tr>
+<tr class="even">
+<td>Very small local rule nudges</td>
+<td>narrow curated changes in <code>R</code>, then <code>m/s</code>, then <code>h</code></td>
+<td>Explore nearby members of the same hand-chosen family after a hit exists</td>
+</tr>
+</tbody>
+</table>
+<p>For this repository, the correct order is:</p>
+<ol type="1">
+<li>Freeze the rule family.</li>
+<li>Sweep seeds.</li>
+<li>Only after finding a good mover, do tiny local nudges in <code>R</code>.</li>
+<li>Then consider tiny <code>m/s</code> shifts.</li>
+<li>Touch <code>b/w/a/r</code> only if you intentionally want a different species family.</li>
+</ol>
+<h2 id="what-each-rule-knob-tends-to-do">What each rule knob tends to do</h2>
+<h3 id="r"><code>R</code></h3>
+<ul>
+<li>Primary scale knob.</li>
+<li>Larger <code>R</code> usually makes a creature larger and often slower.</li>
+<li>Smaller <code>R</code> usually makes motion tighter and can destabilize a pattern if internal structures collapse.</li>
+</ul>
+<h3 id="m"><code>m</code></h3>
+<ul>
+<li>Growth-center knob.</li>
+<li>Moves the preferred activation level up or down.</li>
+<li>Small changes can flip a rule from inert to active, or from smooth translation to pulsing or fragmentation.</li>
+</ul>
+<h3 id="s"><code>s</code></h3>
+<ul>
+<li>Growth-width knob.</li>
+<li>Smaller <code>s</code> sharpens selection and can create crisp but fragile movers.</li>
+<li>Larger <code>s</code> broadens response and often yields blurrier, more robust but less characterful structures.</li>
+</ul>
+<h3 id="h"><code>h</code></h3>
+<ul>
+<li>Kernel contribution strength.</li>
+<li>Raising <code>h</code> usually makes the rule more forceful; too much can inflate or destabilize a pattern.</li>
+<li>Lowering <code>h</code> can quiet a rule into near-static behavior.</li>
+</ul>
+<h3 id="r-1"><code>r</code></h3>
+<ul>
+<li>Relative kernel-radius knob.</li>
+<li>Changes where the kernel senses structure relative to <code>R</code>.</li>
+<li>In practice this often changes whether the body forms one lobe, multiple lobes, or extended arms.</li>
+</ul>
+<h3 id="a"><code>a</code></h3>
+<ul>
+<li>Ring-center placement.</li>
+<li>Moves the locations of the Gaussian kernel bands.</li>
+<li>This is highly species-defining because it changes which spatial offsets are reinforced.</li>
+</ul>
+<h3 id="w"><code>w</code></h3>
+<ul>
+<li>Ring-width knob.</li>
+<li>Narrower widths make crisper, more selective bands.</li>
+<li>Wider widths make blurrier, more blended sensing.</li>
+</ul>
+<h3 id="b"><code>b</code></h3>
+<ul>
+<li>Ring-amplitude knob.</li>
+<li>Controls which kernel lobes matter and by how much.</li>
+<li>In this repo’s random sampler, <code>b</code> is sampled independently for three lobes, so broad random search here quickly stops being “unimodal Orbium-like” and becomes a different kernel family.</li>
+</ul>
+<h2 id="why-parameter-embedding-and-cross-map-search-are-wrong-for-orbium-like-reconstruction">Why parameter embedding and cross-map search are wrong for Orbium-like reconstruction</h2>
+<ul>
+<li><code>parameter_embedding.enabled</code> turns the local rule into a spatially varying field of parameters. That is useful for multispecies ecology, not for recreating a single canonical glider family.</li>
+<li><code>environment.type = "cross_map"</code> adds structured obstacles/passages. That is useful for navigation and mover discovery, but it promotes repeated field motifs and distributed patterns.</li>
+<li><code>beam_mutation</code> and in-run interventions explicitly mutate the rule during the simulation. That is the opposite of fixed-species reconstruction.</li>
+</ul>
+<p>If the target is “something like the Chakazul glider”, those features must stay off.</p>
+<h2 id="current-repo-limitation-that-affects-glider-search">Current repo limitation that affects glider search</h2>
+<p><code>params.mode = "random"</code> samples <code>b</code>, <code>w</code>, and <code>a</code> independently across all three stored lobes. That means random mode cannot express a clean “single dominant lobe plus two suppressed lobes” family except by luck.</p>
+<p>That is why the glider search now uses explicit fixed-rule configs in <code>configs/orbium_like_*.json</code> and searches seeds, not broad random rules.</p>
+<h2 id="recommended-glider-search-policy">Recommended glider-search policy</h2>
+<p>Use:</p>
+<ul>
+<li><code>configs/glider_sweeps.json</code></li>
+<li><code>configs/search_orbium_glider.json</code></li>
+<li>one of the explicit single-kernel configs in <code>configs/orbium_like_*.json</code> or the explicit seed-search families in <code>configs/glider_family_*.json</code></li>
+</ul>
+<p>Command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./dossiers/lenia-swarm/scripts/sweep.sh</span> <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--manifest</span> dossiers/lenia-swarm/configs/glider_sweeps.json <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> dossiers/lenia-swarm/artifacts/orbium-like-sweep <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--target-creatures</span> 32</span></code></pre></div>
+<p>Interpretation:</p>
+<ul>
+<li><code>orbium_like_classic_1c_128.json</code> is the closest classical anchor in this repo.</li>
+<li><code>orbium_like_relaxed_1c_128.json</code> broadens the classical growth width slightly because Flow Lenia usually needs a wider basin than classical additive Lenia.</li>
+<li><code>glider_family_luminous_spiral_4134_1c_128.json</code> is a local seed-search anchor copied from a real no-embedding compact mover hit already found in this corpus.</li>
+<li>The manifest mixes two classical anchors with one local-hit family because Flow Lenia is not classical Lenia, so the reliable workflow is “anchor near the classical family, then exploit real fixed-rule hits that survive without parameter embedding.”</li>
+</ul>
+<h2 id="literature-notes">Literature notes</h2>
+<p>These references do help decide which knobs not to touch, but only if read with the model boundary in mind.</p>
+<ul>
+<li>Chakazul’s JavaScript demo and preset file show that the famous gliders are curated presets inside a narrow classical Lenia family, not the output of a broad random search.</li>
+<li>The original Lenia paper argues that lifeforms occupy structured regions of parameter space, which supports freezing a family and searching locally rather than treating all parameters as free.</li>
+<li>“Lenia and Expanded Universe” is directly relevant because it treats multiple kernels and multiple channels as an expanded universe, not a small perturbation. That means those are family-defining knobs.</li>
+<li>Flow-Lenia is directly relevant because it says localized update-rule parameters define creature properties and can be mixed locally. That is exactly why parameter embedding is not a harmless local search knob when the goal is a single species.</li>
+<li>The step-size paper is directly relevant because it shows step size changes stability and qualitative behavior. In this repo, <code>flow.dt</code> belongs in the “do not casually randomize” bucket.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>Chakazul demo: <a href="https://chakazul.github.io/Lenia/JavaScript/Lenia.html" class="uri">https://chakazul.github.io/Lenia/JavaScript/Lenia.html</a></li>
+<li>Chakazul preset library: <a href="https://chakazul.github.io/Lenia/JavaScript/Lenia-LifeForms.js" class="uri">https://chakazul.github.io/Lenia/JavaScript/Lenia-LifeForms.js</a></li>
+<li>Lenia: Biology of Artificial Life: <a href="https://arxiv.org/abs/1812.05433" class="uri">https://arxiv.org/abs/1812.05433</a></li>
+<li>Lenia and Expanded Universe: <a href="https://direct.mit.edu/isal/article/doi/10.1162/isal_a_00297/98400/Lenia-and-Expanded-Universe" class="uri">https://direct.mit.edu/isal/article/doi/10.1162/isal_a_00297/98400/Lenia-and-Expanded-Universe</a></li>
+<li>Flow-Lenia: Towards open-ended evolution in cellular automata through mass conservation and parameter localization: <a href="https://arxiv.org/abs/2212.07906" class="uri">https://arxiv.org/abs/2212.07906</a></li>
+<li>Step Size is a Consequential Parameter in Continuous Cellular Automata: <a href="https://arxiv.org/abs/2205.12728" class="uri">https://arxiv.org/abs/2205.12728</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

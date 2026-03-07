@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Physics | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">universe</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-016</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">universe/Physics</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                universe
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/universe/Physics.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#physics" id="toc-physics">Physics</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#visual-anchors-from-this-corpus" id="toc-visual-anchors-from-this-corpus">Visual Anchors from This Corpus</a></li>
+                            <li><a href="#terms" id="toc-terms">Terms</a></li>
+                            <li><a href="#what-we-measure-today" id="toc-what-we-measure-today">What We Measure Today</a></li>
+                            <li><a href="#what-is-still-conceptual" id="toc-what-is-still-conceptual">What Is Still Conceptual</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="physics">Physics</h1>
+<h2 id="purpose">Purpose</h2>
+<p>In this dossier, “physics” means space-time properties of pattern persistence under the Flow Lenia update.</p>
+<h2 id="visual-anchors-from-this-corpus">Visual Anchors from This Corpus</h2>
+<p>Translational regime example (<code>crossmap</code>, seed <code>0</code>):</p>
+<figure>
+<img src="./assets/examples/crossmap-magma.webp" alt="Crossmap translational exemplar" />
+<figcaption aria-hidden="true">Crossmap translational exemplar</figcaption>
+</figure>
+<p>Constrained/meandering regime example (<code>nnea</code>, seed <code>0</code>):</p>
+<figure>
+<img src="./assets/examples/nnea-magma.webp" alt="NNEA meandering exemplar" />
+<figcaption aria-hidden="true">NNEA meandering exemplar</figcaption>
+</figure>
+<h2 id="terms">Terms</h2>
+<ul>
+<li><code>persist</code>: a pattern remains recognizable across many update steps.</li>
+<li><code>invariant</code>: a pattern identity survives controlled changes (for example small perturbations).</li>
+<li><code>perturbation</code>: a deliberate small change to state or parameters.</li>
+<li><code>regime</code>: a recurring dynamical mode, such as fast translation vs low-displacement meandering.</li>
+</ul>
+<h2 id="what-we-measure-today">What We Measure Today</h2>
+<p>Operationally, the current corpus separates regimes with trajectory statistics:</p>
+<ul>
+<li><code>center_velocity</code>: mean translational speed of the center of mass.</li>
+<li><code>path_length / displacement</code>: near <code>1</code> implies straight transport; larger values imply meander/looping motion.</li>
+</ul>
+<p>Current anchored examples:</p>
+<ul>
+<li><code>crossmap-128-local-20260227-153007</code>, seed <code>0</code>: <code>center_velocity=0.01027</code>, <code>path/displacement=1.0026</code>.</li>
+<li><code>nnea-128-local-20260227-153006</code>, seed <code>0</code>: <code>center_velocity=0.00009</code>, <code>path/displacement=9.1293</code>.</li>
+</ul>
+<h2 id="what-is-still-conceptual">What Is Still Conceptual</h2>
+<p>Prior Lenia literature mentions invariance under scale/transform/deformation. In this dossier, those are research goals, not yet formalized benchmark suites.</p>
+<p>Physics is currently partially operationalized:</p>
+<ul>
+<li>motion regime separation: implemented,</li>
+<li>full invariance test battery (scale/flip/rotate/deformation): planned.</li>
+</ul>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li>runtime implementation map: <code>../internals/FlowLeniaImplementationMap.md</code></li>
+<li>artifact contract: <code>../contracts/ArtifactLayout.md</code></li>
+<li>morphology interpretation: <code>Morphology.md</code></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

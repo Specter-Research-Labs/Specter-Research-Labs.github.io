@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Cross-Assistant Alignment (Diagnostic) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-031</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/cross-assistant-alignment</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/cross-assistant-alignment.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#cross-assistant-alignment-diagnostic" id="toc-cross-assistant-alignment-diagnostic">Cross-Assistant Alignment (Diagnostic)</a>
+                            <ul>
+                            <li><a href="#what-it-uses" id="toc-what-it-uses">What It Uses</a></li>
+                            <li><a href="#command" id="toc-command">Command</a></li>
+                            <li><a href="#output-contract" id="toc-output-contract">Output Contract</a></li>
+                            <li><a href="#interpretation-notes" id="toc-interpretation-notes">Interpretation Notes</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../decisions/adr-proof-graph-ir-cross-assistant/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-030</span><span class="doc-backlinks-title">ADR: ProofGraphIR for Cross-Assistant Alignment</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="cross-assistant-alignment-diagnostic">Cross-Assistant Alignment (Diagnostic)</h1>
+<p><code>wonton.py compare-cross-assistant</code> aligns theorem outputs across two runs even when theorem names do not overlap.</p>
+<p>This report is diagnostic-only. The paired benchmark gate is documented in <code>cross-assistant-paired-benchmark.md</code>.</p>
+<p>Current implementation combines a kind-aware <code>ProofGraphIR</code> with lexical signals and theorem-level proof aggregation.</p>
+<p>Graph source is configurable per side:</p>
+<ul>
+<li><code>wild_type_graph</code> (default)</li>
+<li><code>search_trace_graph</code> (derived from <code>*_search_trace_graph.json</code>)</li>
+<li><code>proof_term_graph</code> (derived from <code>wild_type_proof_term.json(.gz)</code>)</li>
+<li>theorem-level aggregation:
+<ul>
+<li><code>single</code> (wild-type entries only; provider pools may still contribute multiple proofs/theorem)</li>
+<li><code>best_of</code> (minimum proof-pair distance)</li>
+<li><code>consensus</code> (median nearest-neighbor distance across pooled proofs)</li>
+</ul></li>
+</ul>
+<h2 id="what-it-uses">What It Uses</h2>
+<p>Per theorem, the aligner builds a compact signature from graph artifacts plus text metadata:</p>
+<ul>
+<li>graph kind (<code>search_trace</code>, <code>term_dag</code>, <code>unknown</code>)</li>
+<li>run-relative rank features (node/edge/depth/leaf/branching)</li>
+<li>edge-role profile (tactic-family roles for search traces, structural roles for term DAGs)</li>
+<li>motif profile (assistant-agnostic tactic/constructor action motifs)</li>
+<li>WL shape hash (<code>hash_shape</code>) used only for same-kind comparisons</li>
+<li>theorem-name tokens (including Lean item-id decoding, e.g. <code>x5f -&gt; _</code>)</li>
+<li>statement/connective profile when statement text is available (Lean corpus items and Coq extraction via <code>coqtop</code> check fallback)</li>
+</ul>
+<p>Distance is kind-aware:</p>
+<ul>
+<li>same-kind pairs use rank features + edge-role profile + shape hash</li>
+<li>cross-kind pairs suppress incompatible role/shape channels and rely on rank + lexical/connective channels</li>
+</ul>
+<h2 id="command">Command</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py compare-cross-assistant <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-a</span> <span class="op">&lt;</span>run_dir_a<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-b</span> <span class="op">&lt;</span>run_dir_b<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--graph-source-a</span> wild_type_graph <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--graph-source-b</span> wild_type_graph <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--proof-aggregation</span> single <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--top-k</span> 100 <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--one-to-one</span> <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> <span class="op">&lt;</span>report.json<span class="op">&gt;</span></span></code></pre></div>
+<p>Useful options:</p>
+<ul>
+<li><code>--solved-only</code>: only include solved wild-type theorems from each run</li>
+<li><code>--top-k N</code>: candidate pool per theorem before assignment (use large values for one-to-one)</li>
+<li><code>--one-to-one</code> / <code>--allow-many-to-one</code></li>
+<li><code>--graph-source-a</code>, <code>--graph-source-b</code>: choose <code>wild_type_graph</code>, <code>search_trace_graph</code>, or <code>proof_term_graph</code></li>
+<li><code>--proof-aggregation</code>: <code>single|best_of|consensus</code></li>
+<li><code>--max-proofs-per-theorem</code>: optional cap for pooled-proof modes</li>
+<li><code>--name-obfuscation names</code>: obfuscate theorem/display/constant names in lexical channels</li>
+<li><code>--lexical-ablation drop_tokens|graph_only</code>: remove lexical tokens only, or remove both lexical and connective channels to inspect graph-only behavior</li>
+</ul>
+<h2 id="output-contract">Output Contract</h2>
+<p>The JSON report contains:</p>
+<ul>
+<li>run metadata (<code>run_a</code>, <code>run_b</code>, theorem counts, proof counts)</li>
+<li>obfuscation metadata (<code>name_obfuscation</code>)</li>
+<li>lexical-ablation metadata (<code>lexical_ablation</code>)</li>
+<li>aggregation metadata (<code>proof_aggregation</code>, <code>max_proofs_per_theorem</code>)</li>
+<li><code>matches</code> (selected theorem pairings with total distance, component distances, and reciprocal-top1 flag, representative proof pair, and proof support)</li>
+<li><code>candidates_by_theorem_a</code> (top-k candidate list for each theorem in run A)</li>
+<li>summary stats including:
+<ul>
+<li><code>mean_distance</code>, <code>mean_graph_distance</code>, <code>mean_lexical_distance</code>, <code>mean_connective_distance</code></li>
+<li><code>mean_lexical_overlap</code></li>
+<li><code>reciprocal_top1_rate</code>, <code>shape_hash_equal_rate</code></li>
+<li><code>cross_kind_rate</code></li>
+<li><code>kind_pair_distribution</code></li>
+<li><code>top1_unique_rate</code> (collapse diagnostic)</li>
+<li>run-level graph kind distributions (<code>run_a_graph_kind_distribution</code>, <code>run_b_graph_kind_distribution</code>)</li>
+<li>lexical/statement coverage for each run</li>
+</ul></li>
+</ul>
+<h2 id="interpretation-notes">Interpretation Notes</h2>
+<ul>
+<li>Low distance means structural similarity under this signature family, not semantic equivalence.</li>
+<li>If many theorems in one run map to the same target theorem in the other run, the signature is likely too coarse for semantic translation claims.</li>
+<li><code>top1_unique_rate</code> near zero indicates severe nearest-neighbor collapse.</li>
+<li><code>shape_hash_equal_rate</code> is a strong signal when non-zero; zero across runs is expected when backends induce very different proof-object constructions.</li>
+<li><code>cross_kind_rate = 1.0</code> means every selected pair is cross-kind (for example Lean search trace vs Coq proof-term DAG). In this regime, lexical/statement channels dominate and shape-equality is expected to be zero.</li>
+<li>For replayed Coq extraction runs, <code>search_trace_graph</code> is the closest proxy to Lean proof process/search behavior.</li>
+<li><code>proof_term_graph</code> remains the better Coq-side term-structure diagnostic when you want constructor-level information rather than replay/process structure.</li>
+<li><code>--lexical-ablation graph_only</code> is the quickest local stress test for whether the graph/action IR is carrying real alignment signal or just riding theorem text.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Indexer Internals | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">internals</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-011</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">internals/IndexerInternals</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                internals
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/internals/IndexerInternals.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#indexer-internals" id="toc-indexer-internals">Indexer Internals</a>
+                            <ul>
+                            <li><a href="#scope" id="toc-scope">Scope</a></li>
+                            <li><a href="#schema-lifecycle" id="toc-schema-lifecycle">Schema Lifecycle</a></li>
+                            <li><a href="#ingestion-model" id="toc-ingestion-model">Ingestion Model</a></li>
+                            <li><a href="#major-ingest-paths" id="toc-major-ingest-paths">Major Ingest Paths</a></li>
+                            <li><a href="#derived-field-writes" id="toc-derived-field-writes">Derived Field Writes</a></li>
+                            <li><a href="#fail-loud-behavior" id="toc-fail-loud-behavior">Fail-Loud Behavior</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="indexer-internals">Indexer Internals</h1>
+<h2 id="scope">Scope</h2>
+<p>Implementation details for <code>LeniaCLI index</code> and compendium ingestion paths.</p>
+<p>Primary source: <code>Sources/LeniaCLI/IndexCommand.swift</code>.</p>
+<h2 id="schema-lifecycle">Schema Lifecycle</h2>
+<ul>
+<li>current schema constant lives in <code>Sources/LeniaCLI/CompendiumSchema.swift</code>.</li>
+<li>indexer checks <code>compendium_meta.schema_version</code>.</li>
+<li>migrations are explicit (<code>migrate1to2</code>, <code>migrate2to3</code>, <code>migrate3to4</code>, <code>migrate4to5</code>).</li>
+</ul>
+<h2 id="ingestion-model">Ingestion Model</h2>
+<ul>
+<li>ingestion is incremental per source file via <code>ingest_state</code> (<code>offset</code>, <code>size</code>, <code>mtime</code>) and resets on in-place rewrites.</li>
+<li>each ingest pass is wrapped in explicit SQLite transactions (<code>BEGIN IMMEDIATE</code>).</li>
+<li>rows are inserted with <code>INSERT OR REPLACE</code> into canonical tables.</li>
+</ul>
+<h2 id="major-ingest-paths">Major Ingest Paths</h2>
+<ul>
+<li>run metadata upsert into <code>runs</code>.</li>
+<li>campaign linkage upsert into run-scoped <code>campaigns</code>.</li>
+<li>library index ingestion into <code>creatures</code>.</li>
+<li>optional results ingestion into <code>results</code>.</li>
+<li>activity summary enrichment updates <code>morphometrics_json</code> for matching <code>run_id + init_seed (+ campaign_id)</code> rows.</li>
+</ul>
+<h2 id="derived-field-writes">Derived Field Writes</h2>
+<ul>
+<li>morphometrics are computed by <code>Morphometrics.from(...)</code> and stored with method/version metadata.</li>
+<li>taxonomy columns are currently reserved and written as null by default.</li>
+</ul>
+<h2 id="fail-loud-behavior">Fail-Loud Behavior</h2>
+<ul>
+<li>newer-than-supported schema versions cause immediate error.</li>
+<li>invalid UTF-8 or malformed JSON lines fail ingest for the active path.</li>
+<li>compendium sanity command enforces required tables and exact schema version.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

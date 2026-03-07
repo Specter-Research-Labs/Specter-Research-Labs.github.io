@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specter-labs.local/site/status/registry.schema.json",
+  "title": "Specter Site Status Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "definitions",
+    "dossiers",
+    "addenda"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "definitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dossier_statuses",
+        "addenda_statuses",
+        "chips"
+      ],
+      "properties": {
+        "dossier_statuses": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "concept",
+              "active",
+              "active-writing",
+              "hold"
+            ]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/definition"
+          }
+        },
+        "addenda_statuses": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "concept",
+              "active",
+              "operational",
+              "hold",
+              "archived"
+            ]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/definition"
+          }
+        },
+        "chips": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "publication"
+          ],
+          "properties": {
+            "scope": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "expansion"
+                ]
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/definition"
+              }
+            },
+            "publication": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "preprint-pending",
+                  "public"
+                ]
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/definition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "dossiers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/dossierItem"
+      }
+    },
+    "addenda": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/addendumItem"
+      }
+    }
+  },
+  "$defs": {
+    "definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "title",
+        "class"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "class": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "baseItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "path"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "updated_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "dossierItem": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseItem"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "concept",
+                "active",
+                "active-writing",
+                "hold"
+              ]
+            },
+            "chips": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "scope": {
+                  "enum": [
+                    "expansion"
+                  ]
+                },
+                "publication": {
+                  "enum": [
+                    "preprint-pending",
+                    "public"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "addendumItem": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseItem"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "concept",
+                "active",
+                "operational",
+                "hold",
+                "archived"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

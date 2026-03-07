@@ -1,0 +1,138 @@
+{
+  "artifact_source" : "rendered_stage_media_with_replay",
+  "creature" : {
+    "config_hash" : "dcf445c317d3",
+    "genotype" : {
+      "R" : 9.486116,
+      "a" : [
+        [
+          0.2695706,
+          0.21286792,
+          0.38803178
+        ]
+      ],
+      "b" : [
+        [
+          0.94125915,
+          0.74757355,
+          0.084209144
+        ]
+      ],
+      "h" : [
+        0.3411311
+      ],
+      "m" : [
+        0.41784617
+      ],
+      "r" : [
+        0.50039595
+      ],
+      "s" : [
+        0.14541271
+      ],
+      "w" : [
+        [
+          0.23625721,
+          0.16296265,
+          0.48042187
+        ]
+      ]
+    },
+    "id" : "B1DD18A7-2980-4702-9225-499460077065",
+    "metrics" : {
+      "center_velocity" : 0.0021752592,
+      "complexity_mean" : 0.81451416,
+      "complexity_scales" : [
+        0.34399414,
+        0.52441406,
+        0.86621094,
+        1.5234375
+      ],
+      "displacement" : 1.250774,
+      "energy_mean" : 651.77203,
+      "gyration" : 1054.4769,
+      "heading_rad" : 0.9855869,
+      "is_stable" : true,
+      "mass_max" : 777.37286,
+      "mass_mean" : 777.3611,
+      "mass_min" : 777.3492,
+      "mass_std" : 0,
+      "occupancy_mean" : 0.099721275,
+      "path_length" : 1.3246322,
+      "sample_count" : 24,
+      "speed_count" : 23,
+      "speed_mean" : 0.002303708,
+      "variance_mean" : 0.037529856,
+      "velocity_x" : 0.0012015566,
+      "velocity_y" : 0.0018132882
+    },
+    "name" : "ancient-spiral-3028",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            64,
+            64
+          ],
+          "size" : 40
+        }
+      ],
+      "seed" : 103
+    },
+    "score" : 10.950942,
+    "score_weights" : {
+      "center_velocity" : 4,
+      "complexity_mean" : 0.2,
+      "displacement" : 2.5,
+      "path_length" : 1.5,
+      "translation_ratio" : 6
+    },
+    "timestamp" : "2026-03-07T06:54:30.841Z"
+  },
+  "media" : {
+    "anatomy" : {
+      "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/delta.png",
+      "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/field.png",
+      "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/kernel.png",
+      "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/neighbor.png"
+    },
+    "height" : 128,
+    "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/poster.png",
+    "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/replay.json",
+    "width" : 128
+  },
+  "published_at" : "2026-03-07T13:04:58.303Z",
+  "recorded_at" : "2026-03-07T06:54:30.841Z",
+  "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+  "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/orbium-like-20260307-0407\/compendium.sqlite",
+  "telemetry" : {
+    "centroid" : {
+      "x" : 0.50747794,
+      "y" : 0.5055427
+    },
+    "headingRad" : 1.2442209,
+    "speed" : 0.0016915158,
+    "trail" : [
+      {
+        "x" : 0.5066674,
+        "y" : 0.50723666
+      },
+      {
+        "x" : 0.5066113,
+        "y" : 0.5071062
+      },
+      {
+        "x" : 0.5069353,
+        "y" : 0.5071448
+      }
+    ],
+    "vx" : 0.0005426407,
+    "vy" : 0.0016021132
+  }
+}

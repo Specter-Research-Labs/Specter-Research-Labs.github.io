@@ -1,0 +1,3602 @@
+[
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e.json",
+    "id" : "A1D7B2C6-CCB2-43E8-81AE-36A63527310E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.012960479,
+      "displacement" : 5.5082035,
+      "gyration" : 3590.0735,
+      "heading_rad" : 0.8096615,
+      "occupancy_mean" : 0.24108547,
+      "path_length" : 5.522969,
+      "translation_ratio" : 0.99732655,
+      "velocity_x" : 0.008939407,
+      "velocity_y" : 0.009384084
+    },
+    "name" : "ancient-form-8399",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 16.786503,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a1d7b2c6-ccb2-43e8-81ae-36a63527310e\/search.json",
+    "seed" : 16,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5235942,
+        "y" : 0.528521
+      },
+      "headingRad" : -0.5717371,
+      "speed" : 0.0010306183,
+      "trail" : [
+        {
+          "x" : 0.5218724,
+          "y" : 0.52761585
+        },
+        {
+          "x" : 0.5224985,
+          "y" : 0.5281846
+        },
+        {
+          "x" : 0.5227275,
+          "y" : 0.52796334
+        }
+      ],
+      "vx" : 0.00086671114,
+      "vy" : -0.00055766106
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae.json",
+    "id" : "7812EBAB-4A74-4C7F-A5AF-2616F28BC7AE",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.012671926,
+      "displacement" : 5.3855686,
+      "gyration" : 3643.5142,
+      "heading_rad" : 0.78367525,
+      "occupancy_mean" : 0.23086888,
+      "path_length" : 5.3994646,
+      "translation_ratio" : 0.9974264,
+      "velocity_x" : 0.00897583,
+      "velocity_y" : 0.008944954
+    },
+    "name" : "pulsing-glider-0573",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 16.41537,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7812ebab-4a74-4c7f-a5af-2616f28bc7ae\/search.json",
+    "seed" : 64,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5308488,
+        "y" : 0.5326513
+      },
+      "headingRad" : 0.49691504,
+      "speed" : 0.00031495505,
+      "trail" : [
+        {
+          "x" : 0.5288458,
+          "y" : 0.5328506
+        },
+        {
+          "x" : 0.53026724,
+          "y" : 0.5333372
+        },
+        {
+          "x" : 0.53057194,
+          "y" : 0.53280145
+        }
+      ],
+      "vx" : 0.00027686357,
+      "vy" : 0.0001501441
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fa90df4a-006b-4738-b5d1-7ba301ec22a6.json",
+    "id" : "FA90DF4A-006B-4738-B5D1-7BA301EC22A6",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.012627608,
+      "displacement" : 5.3667336,
+      "gyration" : 3585.4053,
+      "heading_rad" : 0.79221267,
+      "occupancy_mean" : 0.24357775,
+      "path_length" : 5.384675,
+      "translation_ratio" : 0.99666804,
+      "velocity_x" : 0.0088680135,
+      "velocity_y" : 0.008989707
+    },
+    "name" : "luminous-amoeba-3617",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 16.371418,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fa90df4a-006b-4738-b5d1-7ba301ec22a6\/search.json",
+    "seed" : 13,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.52670455,
+        "y" : 0.5277263
+      },
+      "headingRad" : -0.6042015,
+      "speed" : 0.0006286707,
+      "trail" : [
+        {
+          "x" : 0.52444804,
+          "y" : 0.5275783
+        },
+        {
+          "x" : 0.5250431,
+          "y" : 0.5277862
+        },
+        {
+          "x" : 0.5261872,
+          "y" : 0.52736914
+        }
+      ],
+      "vx" : 0.0005173683,
+      "vy" : -0.00035715103
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/ab6335f6-a108-4e9c-a233-216c6f6b2524.json",
+    "id" : "AB6335F6-A108-4E9C-A233-216C6F6B2524",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.012403327,
+      "displacement" : 5.271414,
+      "gyration" : 3553.0088,
+      "heading_rad" : 0.77051216,
+      "occupancy_mean" : 0.2547031,
+      "path_length" : 5.2951016,
+      "translation_ratio" : 0.99552643,
+      "velocity_x" : 0.008900057,
+      "velocity_y" : 0.008638952
+    },
+    "name" : "pulsing-walker-0783",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 16.09335,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ab6335f6-a108-4e9c-a233-216c6f6b2524\/search.json",
+    "seed" : 9,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5386236,
+        "y" : 0.52676547
+      },
+      "headingRad" : -1.653977,
+      "speed" : 0.0006262856,
+      "trail" : [
+        {
+          "x" : 0.53680867,
+          "y" : 0.52646166
+        },
+        {
+          "x" : 0.5372163,
+          "y" : 0.52683187
+        },
+        {
+          "x" : 0.5386756,
+          "y" : 0.52614135
+        }
+      ],
+      "vx" : -5.2034855e-05,
+      "vy" : -0.00062412024
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d.json",
+    "id" : "7B4AEA89-37FF-4558-9FDF-CEE922B9CF8D",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0122375265,
+      "displacement" : 5.2009487,
+      "gyration" : 3622.8105,
+      "heading_rad" : 0.7974184,
+      "occupancy_mean" : 0.23755561,
+      "path_length" : 5.2139525,
+      "translation_ratio" : 0.99750596,
+      "velocity_x" : 0.0085486015,
+      "velocity_y" : 0.008756625
+    },
+    "name" : "pulsing-form-4988",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.867872,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/7b4aea89-37ff-4558-9fdf-cee922b9cf8d\/search.json",
+    "seed" : 66,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53188294,
+        "y" : 0.5321194
+      },
+      "headingRad" : -0.9700141,
+      "speed" : 0.0009443315,
+      "trail" : [
+        {
+          "x" : 0.52996945,
+          "y" : 0.5312435
+        },
+        {
+          "x" : 0.53055364,
+          "y" : 0.53133506
+        },
+        {
+          "x" : 0.5313491,
+          "y" : 0.5313404
+        }
+      ],
+      "vx" : 0.0005338192,
+      "vy" : -0.0007789731
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9c23032a-dcda-4127-a1a3-ef7817553931.json",
+    "id" : "9C23032A-DCDA-4127-A1A3-EF7817553931",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.012108795,
+      "displacement" : 5.146238,
+      "gyration" : 3624.4888,
+      "heading_rad" : 0.77292514,
+      "occupancy_mean" : 0.23631795,
+      "path_length" : 5.1537194,
+      "translation_ratio" : 0.9985483,
+      "velocity_x" : 0.008668339,
+      "velocity_y" : 0.008454751
+    },
+    "name" : "harmonic-walker-4281",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 15.698183,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9c23032a-dcda-4127-a1a3-ef7817553931\/search.json",
+    "seed" : 24,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53183055,
+        "y" : 0.531436
+      },
+      "headingRad" : -1.1445307,
+      "speed" : 0.0007225094,
+      "trail" : [
+        {
+          "x" : 0.53065705,
+          "y" : 0.5306327
+        },
+        {
+          "x" : 0.5311454,
+          "y" : 0.5305579
+        },
+        {
+          "x" : 0.5315318,
+          "y" : 0.53077817
+        }
+      ],
+      "vx" : 0.00029873848,
+      "vy" : -0.00065785646
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a.json",
+    "id" : "7EE2671D-FD4D-4FE5-9CB5-8C3B45BA8B5A",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.01199425,
+      "displacement" : 5.097556,
+      "gyration" : 3582.8606,
+      "heading_rad" : 0.77603936,
+      "occupancy_mean" : 0.24798584,
+      "path_length" : 5.1104712,
+      "translation_ratio" : 0.9974728,
+      "velocity_x" : 0.008560217,
+      "velocity_y" : 0.008401471
+    },
+    "name" : "pulsing-pulse-6679",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.555771,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/7ee2671d-fd4d-4fe5-9cb5-8c3b45ba8b5a\/search.json",
+    "seed" : 35,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53355163,
+        "y" : 0.53287715
+      },
+      "headingRad" : -2.0748775,
+      "speed" : 0.00078472786,
+      "trail" : [
+        {
+          "x" : 0.532075,
+          "y" : 0.5322923
+        },
+        {
+          "x" : 0.5331173,
+          "y" : 0.5319631
+        },
+        {
+          "x" : 0.53393066,
+          "y" : 0.53219
+        }
+      ],
+      "vx" : -0.00037902594,
+      "vy" : -0.00068712234
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/92618923-62c9-4534-b59b-6454f150ab9f.json",
+    "id" : "92618923-62C9-4534-B59B-6454F150AB9F",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0119737275,
+      "displacement" : 5.0888343,
+      "gyration" : 3598.1924,
+      "heading_rad" : 0.78726184,
+      "occupancy_mean" : 0.25165135,
+      "path_length" : 5.0992174,
+      "translation_ratio" : 0.9979638,
+      "velocity_x" : 0.0084509095,
+      "velocity_y" : 0.008482468
+    },
+    "name" : "vibrant-amoeba-7395",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.524382,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/92618923-62c9-4534-b59b-6454f150ab9f\/search.json",
+    "seed" : 86,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5339923,
+        "y" : 0.529472
+      },
+      "headingRad" : -1.5376241,
+      "speed" : 0.0009345189,
+      "trail" : [
+        {
+          "x" : 0.5324139,
+          "y" : 0.5283052
+        },
+        {
+          "x" : 0.5338162,
+          "y" : 0.5277986
+        },
+        {
+          "x" : 0.5339613,
+          "y" : 0.528538
+        }
+      ],
+      "vx" : 3.0994415e-05,
+      "vy" : -0.0009340048
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/521fa253-010a-49ef-a1a8-196e33bde71a.json",
+    "id" : "521FA253-010A-49EF-A1A8-196E33BDE71A",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011953343,
+      "displacement" : 5.0801706,
+      "gyration" : 3652.0227,
+      "heading_rad" : 0.80128217,
+      "occupancy_mean" : 0.23800999,
+      "path_length" : 5.098842,
+      "translation_ratio" : 0.99633807,
+      "velocity_x" : 0.008316973,
+      "velocity_y" : 0.008585474
+    },
+    "name" : "crystal-amoeba-9690",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.510134,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/521fa253-010a-49ef-a1a8-196e33bde71a\/search.json",
+    "seed" : 83,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53618157,
+        "y" : 0.5398978
+      },
+      "headingRad" : -0.9633635,
+      "speed" : 0.00045521063,
+      "trail" : [
+        {
+          "x" : 0.53495604,
+          "y" : 0.5390896
+        },
+        {
+          "x" : 0.53571093,
+          "y" : 0.5380519
+        },
+        {
+          "x" : 0.53592175,
+          "y" : 0.539524
+        }
+      ],
+      "vx" : 0.00025981665,
+      "vy" : -0.00037378073
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/993bde4b-d3e9-433c-8f18-c3338dbd97dd.json",
+    "id" : "993BDE4B-D3E9-433C-8F18-C3338DBD97DD",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011847387,
+      "displacement" : 5.0351396,
+      "gyration" : 3637.6511,
+      "heading_rad" : 0.7731825,
+      "occupancy_mean" : 0.23096721,
+      "path_length" : 5.0429487,
+      "translation_ratio" : 0.9984515,
+      "velocity_x" : 0.0084790755,
+      "velocity_y" : 0.008274411
+    },
+    "name" : "pulsing-cell-0677",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.361706,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/993bde4b-d3e9-433c-8f18-c3338dbd97dd\/search.json",
+    "seed" : 85,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5277291,
+        "y" : 0.5346998
+      },
+      "headingRad" : -1.9500523,
+      "speed" : 0.0009736906,
+      "trail" : [
+        {
+          "x" : 0.52671146,
+          "y" : 0.5330951
+        },
+        {
+          "x" : 0.5272612,
+          "y" : 0.53349286
+        },
+        {
+          "x" : 0.5280896,
+          "y" : 0.5337953
+        }
+      ],
+      "vx" : -0.0003604889,
+      "vy" : -0.0009045005
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/85259895-ff0c-42d6-823b-50be8442130c.json",
+    "id" : "85259895-FF0C-42D6-823B-50BE8442130C",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011830819,
+      "displacement" : 5.028098,
+      "gyration" : 3553.1462,
+      "heading_rad" : 0.78444004,
+      "occupancy_mean" : 0.25100708,
+      "path_length" : 5.040021,
+      "translation_ratio" : 0.99763435,
+      "velocity_x" : 0.008373665,
+      "velocity_y" : 0.008357634
+    },
+    "name" : "ethereal-cell-2764",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.348268,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/85259895-ff0c-42d6-823b-50be8442130c\/search.json",
+    "seed" : 51,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5408884,
+        "y" : 0.5353635
+      },
+      "headingRad" : -1.0698732,
+      "speed" : 0.00041342864,
+      "trail" : [
+        {
+          "x" : 0.53984797,
+          "y" : 0.53402245
+        },
+        {
+          "x" : 0.5396454,
+          "y" : 0.53464717
+        },
+        {
+          "x" : 0.5406899,
+          "y" : 0.53500086
+        }
+      ],
+      "vx" : 0.00019854307,
+      "vy" : -0.00036263466
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/5e084f62-d919-4c11-8c0d-34c56b0892c2.json",
+    "id" : "5E084F62-D919-4C11-8C0D-34C56B0892C2",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.01179683,
+      "displacement" : 5.013653,
+      "gyration" : 3646.7603,
+      "heading_rad" : 0.781886,
+      "occupancy_mean" : 0.24475437,
+      "path_length" : 5.042522,
+      "translation_ratio" : 0.99427485,
+      "velocity_x" : 0.008370864,
+      "velocity_y" : 0.00831227
+    },
+    "name" : "vibrant-walker-1910",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.322364,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5e084f62-d919-4c11-8c0d-34c56b0892c2\/search.json",
+    "seed" : 38,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5311693,
+        "y" : 0.5390613
+      },
+      "headingRad" : -0.7770273,
+      "speed" : 0.00043804754,
+      "trail" : [
+        {
+          "x" : 0.5303646,
+          "y" : 0.53811127
+        },
+        {
+          "x" : 0.53051245,
+          "y" : 0.5379797
+        },
+        {
+          "x" : 0.53085697,
+          "y" : 0.53875417
+        }
+      ],
+      "vx" : 0.00031232834,
+      "vy" : -0.00030714273
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7.json",
+    "id" : "ACBE8F41-9E9D-4F76-A3A3-8744B50829A7",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011788976,
+      "displacement" : 5.010315,
+      "gyration" : 3591.993,
+      "heading_rad" : 0.7462369,
+      "occupancy_mean" : 0.25006443,
+      "path_length" : 5.0363827,
+      "translation_ratio" : 0.9948241,
+      "velocity_x" : 0.008656042,
+      "velocity_y" : 0.008003307
+    },
+    "name" : "radiant-amoeba-0518",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 15.300126,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/acbe8f41-9e9d-4f76-a3a3-8744b50829a7\/search.json",
+    "seed" : 7,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5305135,
+        "y" : 0.5363028
+      },
+      "headingRad" : 0.44401824,
+      "speed" : 0.00043457665,
+      "trail" : [
+        {
+          "x" : 0.52873784,
+          "y" : 0.53595346
+        },
+        {
+          "x" : 0.5292456,
+          "y" : 0.5366388
+        },
+        {
+          "x" : 0.5301211,
+          "y" : 0.5364895
+        }
+      ],
+      "vx" : 0.00039243698,
+      "vy" : 0.00018668175
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/eba31652-5471-4588-a0ee-27ce5650c1c5.json",
+    "id" : "EBA31652-5471-4588-A0EE-27CE5650C1C5",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011727058,
+      "displacement" : 4.9839997,
+      "gyration" : 3737.7332,
+      "heading_rad" : 0.75907165,
+      "occupancy_mean" : 0.24130249,
+      "path_length" : 5.006726,
+      "translation_ratio" : 0.99546087,
+      "velocity_x" : 0.00850769,
+      "velocity_y" : 0.008071127
+    },
+    "name" : "serene-walker-6592",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.226177,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/eba31652-5471-4588-a0ee-27ce5650c1c5\/search.json",
+    "seed" : 69,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5271502,
+        "y" : 0.5319403
+      },
+      "headingRad" : -1.66096,
+      "speed" : 0.00043491356,
+      "trail" : [
+        {
+          "x" : 0.52637756,
+          "y" : 0.5308714
+        },
+        {
+          "x" : 0.5267293,
+          "y" : 0.53077066
+        },
+        {
+          "x" : 0.5271894,
+          "y" : 0.53150713
+        }
+      ],
+      "vx" : -3.916025e-05,
+      "vy" : -0.00043314695
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde.json",
+    "id" : "34ED05A9-3077-4BE9-B48A-BDB3EC9AACDE",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011706525,
+      "displacement" : 4.975273,
+      "gyration" : 3629.7456,
+      "heading_rad" : 0.8061482,
+      "occupancy_mean" : 0.24531385,
+      "path_length" : 4.999552,
+      "translation_ratio" : 0.99514383,
+      "velocity_x" : 0.00810423,
+      "velocity_y" : 0.008447733
+    },
+    "name" : "ancient-pulse-0952",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 15.201606,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/34ed05a9-3077-4be9-b48a-bdb3ec9aacde\/search.json",
+    "seed" : 6,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53138804,
+        "y" : 0.5352314
+      },
+      "headingRad" : -0.94683737,
+      "speed" : 0.00057344657,
+      "trail" : [
+        {
+          "x" : 0.52991146,
+          "y" : 0.53451645
+        },
+        {
+          "x" : 0.53050905,
+          "y" : 0.5343552
+        },
+        {
+          "x" : 0.531053,
+          "y" : 0.534766
+        }
+      ],
+      "vx" : 0.0003350377,
+      "vy" : -0.00046539307
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1.json",
+    "id" : "8F36CD45-F348-4C57-BEE9-B07FC5A54AE1",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011664576,
+      "displacement" : 4.9574447,
+      "gyration" : 3690.9219,
+      "heading_rad" : 0.77762705,
+      "occupancy_mean" : 0.2427097,
+      "path_length" : 4.970046,
+      "translation_ratio" : 0.99746454,
+      "velocity_x" : 0.008311947,
+      "velocity_y" : 0.008183755
+    },
+    "name" : "mystic-dancer-3050",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.13359,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/8f36cd45-f348-4c57-bee9-b07fc5a54ae1\/search.json",
+    "seed" : 36,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.524843,
+        "y" : 0.5245568
+      },
+      "headingRad" : 0.10517074,
+      "speed" : 0.0014972566,
+      "trail" : [
+        {
+          "x" : 0.5228129,
+          "y" : 0.5241402
+        },
+        {
+          "x" : 0.52273846,
+          "y" : 0.52417636
+        },
+        {
+          "x" : 0.523354,
+          "y" : 0.524714
+        }
+      ],
+      "vx" : 0.0014889836,
+      "vy" : 0.00015717745
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/96df5bf8-6144-4441-9f6e-8aadf72464d5.json",
+    "id" : "96DF5BF8-6144-4441-9F6E-8AADF72464D5",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011630197,
+      "displacement" : 4.942834,
+      "gyration" : 3611.9756,
+      "heading_rad" : 0.7871914,
+      "occupancy_mean" : 0.25354344,
+      "path_length" : 4.9666824,
+      "translation_ratio" : 0.9951983,
+      "velocity_x" : 0.008209031,
+      "velocity_y" : 0.008238525
+    },
+    "name" : "harmonic-dancer-6197",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 15.104246,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/96df5bf8-6144-4441-9f6e-8aadf72464d5\/search.json",
+    "seed" : 70,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.534166,
+        "y" : 0.531303
+      },
+      "headingRad" : -1.4688362,
+      "speed" : 0.00067812717,
+      "trail" : [
+        {
+          "x" : 0.53316164,
+          "y" : 0.5299954
+        },
+        {
+          "x" : 0.53413475,
+          "y" : 0.52966154
+        },
+        {
+          "x" : 0.53409696,
+          "y" : 0.5306284
+        }
+      ],
+      "vx" : 6.902218e-05,
+      "vy" : -0.00067460537
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/6d2fce43-43b3-4229-8261-5cf77b0ff361.json",
+    "id" : "6D2FCE43-43B3-4229-8261-5CF77B0FF361",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011592886,
+      "displacement" : 4.9269767,
+      "gyration" : 3768.7834,
+      "heading_rad" : 0.82630926,
+      "occupancy_mean" : 0.21361965,
+      "path_length" : 4.9400516,
+      "translation_ratio" : 0.9973533,
+      "velocity_x" : 0.007855278,
+      "velocity_y" : 0.008525821
+    },
+    "name" : "crystal-entity-1141",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.035433,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6d2fce43-43b3-4229-8261-5cf77b0ff361\/search.json",
+    "seed" : 40,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5393734,
+        "y" : 0.52929854
+      },
+      "headingRad" : 0.56567794,
+      "speed" : 0.0010523341,
+      "trail" : [
+        {
+          "x" : 0.5374798,
+          "y" : 0.52900606
+        },
+        {
+          "x" : 0.53811926,
+          "y" : 0.5292907
+        },
+        {
+          "x" : 0.538485,
+          "y" : 0.5298626
+        }
+      ],
+      "vx" : 0.00088840723,
+      "vy" : 0.00056403875
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9abf7f5b-cb94-4b7f-8823-b2373626b899.json",
+    "id" : "9ABF7F5B-CB94-4B7F-8823-B2373626B899",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011572566,
+      "displacement" : 4.9183407,
+      "gyration" : 3477.6797,
+      "heading_rad" : 0.80130464,
+      "occupancy_mean" : 0.26010472,
+      "path_length" : 4.925934,
+      "translation_ratio" : 0.99845856,
+      "velocity_x" : 0.008051847,
+      "velocity_y" : 0.008312163
+    },
+    "name" : "harmonic-cell-1902",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 15.0147085,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9abf7f5b-cb94-4b7f-8823-b2373626b899\/search.json",
+    "seed" : 41,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5326059,
+        "y" : 0.5263909
+      },
+      "headingRad" : -0.42503813,
+      "speed" : 0.00027622882,
+      "trail" : [
+        {
+          "x" : 0.5313511,
+          "y" : 0.52612275
+        },
+        {
+          "x" : 0.5318867,
+          "y" : 0.526213
+        },
+        {
+          "x" : 0.53235424,
+          "y" : 0.526277
+        }
+      ],
+      "vx" : 0.0002516508,
+      "vy" : -0.000113904476
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/df8950a8-7ae6-46ea-b209-657ec1c9a41a.json",
+    "id" : "DF8950A8-7AE6-46EA-B209-657EC1C9A41A",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011527452,
+      "displacement" : 4.899167,
+      "gyration" : 3653.176,
+      "heading_rad" : 0.7787228,
+      "occupancy_mean" : 0.21224636,
+      "path_length" : 4.9202905,
+      "translation_ratio" : 0.99570686,
+      "velocity_x" : 0.008205369,
+      "velocity_y" : 0.008096547
+    },
+    "name" : "ethereal-pattern-6731",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.959997,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/df8950a8-7ae6-46ea-b209-657ec1c9a41a\/search.json",
+    "seed" : 15,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.52492726,
+        "y" : 0.5303046
+      },
+      "headingRad" : -0.88867813,
+      "speed" : 0.0019091415,
+      "trail" : [
+        {
+          "x" : 0.52413696,
+          "y" : 0.5287487
+        },
+        {
+          "x" : 0.52537006,
+          "y" : 0.52783114
+        },
+        {
+          "x" : 0.52372366,
+          "y" : 0.52882266
+        }
+      ],
+      "vx" : 0.0012035966,
+      "vy" : -0.0014819503
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fd38039a-6988-46a3-a79f-518f60bb209e.json",
+    "id" : "FD38039A-6988-46A3-A79F-518F60BB209E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011494773,
+      "displacement" : 4.8852787,
+      "gyration" : 3610.923,
+      "heading_rad" : 0.79309404,
+      "occupancy_mean" : 0.2379286,
+      "path_length" : 4.892337,
+      "translation_ratio" : 0.9985573,
+      "velocity_x" : 0.0080652395,
+      "velocity_y" : 0.008190343
+    },
+    "name" : "glowing-form-1692",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.902985,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fd38039a-6988-46a3-a79f-518f60bb209e\/search.json",
+    "seed" : 56,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5285966,
+        "y" : 0.52448785
+      },
+      "headingRad" : -1.616184,
+      "speed" : 0.00076062337,
+      "trail" : [
+        {
+          "x" : 0.5269386,
+          "y" : 0.52406925
+        },
+        {
+          "x" : 0.5282913,
+          "y" : 0.5249186
+        },
+        {
+          "x" : 0.5286311,
+          "y" : 0.523728
+        }
+      ],
+      "vx" : -3.451109e-05,
+      "vy" : -0.00075984
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e.json",
+    "id" : "FB49B601-4C77-4281-A8C0-4E5ECB4C518E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011463688,
+      "displacement" : 4.8720675,
+      "gyration" : 3583.9402,
+      "heading_rad" : 0.7929821,
+      "occupancy_mean" : 0.25597805,
+      "path_length" : 4.882129,
+      "translation_ratio" : 0.99793905,
+      "velocity_x" : 0.008044343,
+      "velocity_y" : 0.008167294
+    },
+    "name" : "vibrant-dancer-3687",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.8698845,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb49b601-4c77-4281-a8c0-4e5ecb4c518e\/search.json",
+    "seed" : 11,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5354476,
+        "y" : 0.53009963
+      },
+      "headingRad" : 0.19861005,
+      "speed" : 0.00069299684,
+      "trail" : [
+        {
+          "x" : 0.53400964,
+          "y" : 0.52987206
+        },
+        {
+          "x" : 0.5346399,
+          "y" : 0.53001183
+        },
+        {
+          "x" : 0.5347682,
+          "y" : 0.53023636
+        }
+      ],
+      "vx" : 0.00067937374,
+      "vy" : 0.00013673306
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d565b52c-0881-4314-814c-e4852cfc2be7.json",
+    "id" : "D565B52C-0881-4314-814C-E4852CFC2BE7",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011436819,
+      "displacement" : 4.860648,
+      "gyration" : 3567.1194,
+      "heading_rad" : 0.7671372,
+      "occupancy_mean" : 0.25777858,
+      "path_length" : 4.882934,
+      "translation_ratio" : 0.99543595,
+      "velocity_x" : 0.008233373,
+      "velocity_y" : 0.007938035
+    },
+    "name" : "ancient-orbiter-5811",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.850398,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d565b52c-0881-4314-814c-e4852cfc2be7\/search.json",
+    "seed" : 57,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.52708095,
+        "y" : 0.53831124
+      },
+      "headingRad" : 0.37147313,
+      "speed" : 0.0011934444,
+      "trail" : [
+        {
+          "x" : 0.5255271,
+          "y" : 0.53834075
+        },
+        {
+          "x" : 0.52604324,
+          "y" : 0.5383618
+        },
+        {
+          "x" : 0.5259689,
+          "y" : 0.53874445
+        }
+      ],
+      "vx" : 0.0011120439,
+      "vy" : 0.00043320656
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf.json",
+    "id" : "4DF6E0F2-DDF6-4285-9EBA-0CBA8580CDBF",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011367479,
+      "displacement" : 4.8311787,
+      "gyration" : 3706.9011,
+      "heading_rad" : 0.7764781,
+      "occupancy_mean" : 0.24369642,
+      "path_length" : 4.8592095,
+      "translation_ratio" : 0.9942314,
+      "velocity_x" : 0.0081094,
+      "velocity_y" : 0.007966003
+    },
+    "name" : "mystic-glider-4076",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.771433,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4df6e0f2-ddf6-4285-9eba-0cba8580cdbf\/search.json",
+    "seed" : 12,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5359245,
+        "y" : 0.5311924
+      },
+      "headingRad" : -0.0003330373,
+      "speed" : 0.00053691864,
+      "trail" : [
+        {
+          "x" : 0.5345548,
+          "y" : 0.5305381
+        },
+        {
+          "x" : 0.5351781,
+          "y" : 0.5304222
+        },
+        {
+          "x" : 0.5353876,
+          "y" : 0.53119224
+        }
+      ],
+      "vx" : 0.00053691864,
+      "vy" : -1.7881393e-07
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0.json",
+    "id" : "52EEEDF0-9ED0-48A3-8F27-81FD95DF3AE0",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011379223,
+      "displacement" : 4.8361697,
+      "gyration" : 3582.5732,
+      "heading_rad" : 0.80017143,
+      "occupancy_mean" : 0.2553304,
+      "path_length" : 4.845663,
+      "translation_ratio" : 0.99804085,
+      "velocity_x" : 0.007926581,
+      "velocity_y" : 0.008164314
+    },
+    "name" : "luminous-form-2760",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.766637,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/52eeedf0-9ed0-48a3-8f27-81fd95df3ae0\/search.json",
+    "seed" : 84,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.527735,
+        "y" : 0.52949744
+      },
+      "headingRad" : -0.87604654,
+      "speed" : 0.0006611325,
+      "trail" : [
+        {
+          "x" : 0.5261995,
+          "y" : 0.528166
+        },
+        {
+          "x" : 0.5264768,
+          "y" : 0.5284879
+        },
+        {
+          "x" : 0.52731174,
+          "y" : 0.52898955
+        }
+      ],
+      "vx" : 0.00042325258,
+      "vy" : -0.0005078912
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/a5e06a44-a620-4b45-966c-bb31ccf7046f.json",
+    "id" : "A5E06A44-A620-4B45-966C-BB31CCF7046F",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011355158,
+      "displacement" : 4.825942,
+      "gyration" : 3529.0107,
+      "heading_rad" : 0.7868559,
+      "occupancy_mean" : 0.2577413,
+      "path_length" : 4.831091,
+      "translation_ratio" : 0.9989342,
+      "velocity_x" : 0.008017596,
+      "velocity_y" : 0.008041005
+    },
+    "name" : "luminous-cell-3939",
+    "recorded_at" : "2026-03-06T21:54:34.586Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.731406,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/a5e06a44-a620-4b45-966c-bb31ccf7046f\/search.json",
+    "seed" : 32,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53509134,
+        "y" : 0.5324638
+      },
+      "headingRad" : -0.8950306,
+      "speed" : 0.00039060178,
+      "trail" : [
+        {
+          "x" : 0.53392756,
+          "y" : 0.5315043
+        },
+        {
+          "x" : 0.5345414,
+          "y" : 0.53162056
+        },
+        {
+          "x" : 0.534847,
+          "y" : 0.53215903
+        }
+      ],
+      "vx" : 0.00024431944,
+      "vy" : -0.00030475855
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/295b6eb1-ce85-436e-95e0-68258880b762.json",
+    "id" : "295B6EB1-CE85-436E-95E0-68258880B762",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011260171,
+      "displacement" : 4.785573,
+      "gyration" : 3699.4348,
+      "heading_rad" : 0.7822186,
+      "occupancy_mean" : 0.22527398,
+      "path_length" : 4.8069324,
+      "translation_ratio" : 0.99555653,
+      "velocity_x" : 0.007987419,
+      "velocity_y" : 0.007936787
+    },
+    "name" : "flowing-form-1742",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.627293,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/295b6eb1-ce85-436e-95e0-68258880b762\/search.json",
+    "seed" : 80,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5172641,
+        "y" : 0.52800995
+      },
+      "headingRad" : -0.552897,
+      "speed" : 0.0005030284,
+      "trail" : [
+        {
+          "x" : 0.5162994,
+          "y" : 0.52663535
+        },
+        {
+          "x" : 0.5165062,
+          "y" : 0.52686495
+        },
+        {
+          "x" : 0.51683605,
+          "y" : 0.5277458
+        }
+      ],
+      "vx" : 0.00042808056,
+      "vy" : -0.0002641678
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9bfab2a8-cd48-4565-961d-70a603794877.json",
+    "id" : "9BFAB2A8-CD48-4565-961D-70A603794877",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0112022525,
+      "displacement" : 4.7609572,
+      "gyration" : 3522.4995,
+      "heading_rad" : 0.79125196,
+      "occupancy_mean" : 0.2180481,
+      "path_length" : 4.7851562,
+      "translation_ratio" : 0.9949429,
+      "velocity_x" : 0.007874684,
+      "velocity_y" : 0.007967422
+    },
+    "name" : "luminous-glider-8266",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.559564,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9bfab2a8-cd48-4565-961d-70a603794877\/search.json",
+    "seed" : 23,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.52616733,
+        "y" : 0.52228063
+      },
+      "headingRad" : -0.98582035,
+      "speed" : 0.00060081825,
+      "trail" : [
+        {
+          "x" : 0.52492154,
+          "y" : 0.520613
+        },
+        {
+          "x" : 0.5254609,
+          "y" : 0.521111
+        },
+        {
+          "x" : 0.5258356,
+          "y" : 0.5217797
+        }
+      ],
+      "vx" : 0.00033175945,
+      "vy" : -0.00050091743
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c.json",
+    "id" : "F766550C-270A-416C-B0EA-C8C1C7AA5A9C",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011171331,
+      "displacement" : 4.7478156,
+      "gyration" : 3644.28,
+      "heading_rad" : 0.7993895,
+      "occupancy_mean" : 0.24259779,
+      "path_length" : 4.78138,
+      "translation_ratio" : 0.9929801,
+      "velocity_x" : 0.0077880323,
+      "velocity_y" : 0.008009069
+    },
+    "name" : "vibrant-pattern-4103",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.524296,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/f766550c-270a-416c-b0ea-c8c1c7aa5a9c\/search.json",
+    "seed" : 14,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5379473,
+        "y" : 0.5236315
+      },
+      "headingRad" : -1.401545,
+      "speed" : 0.00060190517,
+      "trail" : [
+        {
+          "x" : 0.537106,
+          "y" : 0.52257156
+        },
+        {
+          "x" : 0.537678,
+          "y" : 0.5225289
+        },
+        {
+          "x" : 0.5378459,
+          "y" : 0.5230382
+        }
+      ],
+      "vx" : 0.0001013875,
+      "vy" : -0.00059330463
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e.json",
+    "id" : "BC801AC6-B7CC-4B5F-9009-606A2E5BDD6E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.01115959,
+      "displacement" : 4.742826,
+      "gyration" : 3660.0957,
+      "heading_rad" : 0.7641624,
+      "occupancy_mean" : 0.235928,
+      "path_length" : 4.7631035,
+      "translation_ratio" : 0.9957428,
+      "velocity_x" : 0.008056802,
+      "velocity_y" : 0.0077216835
+    },
+    "name" : "harmonic-spiral-5850",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.491503,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/bc801ac6-b7cc-4b5f-9009-606a2e5bdd6e\/search.json",
+    "seed" : 22,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5331552,
+        "y" : 0.5402229
+      },
+      "headingRad" : -0.25007844,
+      "speed" : 0.00086174824,
+      "trail" : [
+        {
+          "x" : 0.5314432,
+          "y" : 0.539733
+        },
+        {
+          "x" : 0.53210664,
+          "y" : 0.5394078
+        },
+        {
+          "x" : 0.53232026,
+          "y" : 0.5400096
+        }
+      ],
+      "vx" : 0.00083494186,
+      "vy" : -0.00021326542
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/0eb0aebb-894a-45d0-a88e-8611fc958f79.json",
+    "id" : "0EB0AEBB-894A-45D0-A88E-8611FC958F79",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0111623285,
+      "displacement" : 4.7439895,
+      "gyration" : 3540.1082,
+      "heading_rad" : 0.7532319,
+      "occupancy_mean" : 0.23202515,
+      "path_length" : 4.7520165,
+      "translation_ratio" : 0.9983108,
+      "velocity_x" : 0.008142718,
+      "velocity_y" : 0.0076350314
+    },
+    "name" : "pulsing-walker-2300",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.48497,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/0eb0aebb-894a-45d0-a88e-8611fc958f79\/search.json",
+    "seed" : 72,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.53006244,
+        "y" : 0.5223892
+      },
+      "headingRad" : -0.22717674,
+      "speed" : 0.0007211487,
+      "trail" : [
+        {
+          "x" : 0.5285603,
+          "y" : 0.52202964
+        },
+        {
+          "x" : 0.52877885,
+          "y" : 0.5223988
+        },
+        {
+          "x" : 0.5293598,
+          "y" : 0.52222675
+        }
+      ],
+      "vx" : 0.00070261955,
+      "vy" : -0.00016242266
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d5fc10b3-2622-4853-b92d-6ef6137c6d57.json",
+    "id" : "D5FC10B3-2622-4853-B92D-6EF6137C6D57",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/delta.png",
+        "fieldPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/field.png",
+        "kernelPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/kernel.png",
+        "neighborPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/poster.png",
+      "replayPath" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.011118088,
+      "displacement" : 4.7251873,
+      "gyration" : 3552.099,
+      "heading_rad" : 0.77411896,
+      "occupancy_mean" : 0.2499593,
+      "path_length" : 4.7372546,
+      "translation_ratio" : 0.9974527,
+      "velocity_x" : 0.007949847,
+      "velocity_y" : 0.007772504
+    },
+    "name" : "radiant-orbiter-8096",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.432209,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d5fc10b3-2622-4853-b92d-6ef6137c6d57\/search.json",
+    "seed" : 18,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.523365,
+        "y" : 0.5358104
+      },
+      "headingRad" : -2.3005586,
+      "speed" : 0.00035698825,
+      "trail" : [
+        {
+          "x" : 0.52265614,
+          "y" : 0.5345513
+        },
+        {
+          "x" : 0.5231787,
+          "y" : 0.53532904
+        },
+        {
+          "x" : 0.523603,
+          "y" : 0.53554434
+        }
+      ],
+      "vx" : -0.00023800135,
+      "vy" : -0.00026607513
+    }
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/d73bd427-a3ea-4522-801a-830a0d7f48af\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d73bd427-a3ea-4522-801a-830a0d7f48af.json",
+    "id" : "D73BD427-A3EA-4522-801A-830A0D7F48AF",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.011058955,
+      "displacement" : 4.700056,
+      "gyration" : 3568.9385,
+      "heading_rad" : 0.78131765,
+      "occupancy_mean" : 0.246816,
+      "path_length" : 4.726514,
+      "translation_ratio" : 0.9944023,
+      "velocity_x" : 0.007851706,
+      "velocity_y" : 0.0077878884
+    },
+    "name" : "flowing-glider-7804",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.377428,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/d73bd427-a3ea-4522-801a-830a0d7f48af\/search.json",
+    "seed" : 78
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/57ad9b2e-e8f3-44b3-9b90-e046031d9abb\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/57ad9b2e-e8f3-44b3-9b90-e046031d9abb.json",
+    "id" : "57AD9B2E-E8F3-44B3-9B90-E046031D9ABB",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.011056206,
+      "displacement" : 4.698888,
+      "gyration" : 3641.443,
+      "heading_rad" : 0.8062159,
+      "occupancy_mean" : 0.222524,
+      "path_length" : 4.713435,
+      "translation_ratio" : 0.9969137,
+      "velocity_x" : 0.0076534855,
+      "velocity_y" : 0.007978965
+    },
+    "name" : "vibrant-pattern-0480",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.353605,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/57ad9b2e-e8f3-44b3-9b90-e046031d9abb\/search.json",
+    "seed" : 74
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/dc25fe80-6ca1-490a-ad2b-d337d5155c65\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/dc25fe80-6ca1-490a-ad2b-d337d5155c65.json",
+    "id" : "DC25FE80-6CA1-490A-AD2B-D337D5155C65",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.011013592,
+      "displacement" : 4.6807766,
+      "gyration" : 3686.2363,
+      "heading_rad" : 0.77515304,
+      "occupancy_mean" : 0.24071248,
+      "path_length" : 4.7131114,
+      "translation_ratio" : 0.9931394,
+      "velocity_x" : 0.007867162,
+      "velocity_y" : 0.007707591
+    },
+    "name" : "ancient-dancer-2685",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.323011,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/dc25fe80-6ca1-490a-ad2b-d337d5155c65\/search.json",
+    "seed" : 29
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/e82b8998-4db6-475b-bfd0-4c06bc5e7dd5\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/e82b8998-4db6-475b-bfd0-4c06bc5e7dd5.json",
+    "id" : "E82B8998-4DB6-475B-BFD0-4C06BC5E7DD5",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010974453,
+      "displacement" : 4.6641426,
+      "gyration" : 3687.5774,
+      "heading_rad" : 0.76044196,
+      "occupancy_mean" : 0.23251003,
+      "path_length" : 4.7030306,
+      "translation_ratio" : 0.9917313,
+      "velocity_x" : 0.007951337,
+      "velocity_y" : 0.007564051
+    },
+    "name" : "mystic-entity-4605",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.277297,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/e82b8998-4db6-475b-bfd0-4c06bc5e7dd5\/search.json",
+    "seed" : 28
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9338132e-5827-411f-b2da-add65028395e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9338132e-5827-411f-b2da-add65028395e.json",
+    "id" : "9338132E-5827-411F-B2DA-ADD65028395E",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010997785,
+      "displacement" : 4.674059,
+      "gyration" : 3553.7578,
+      "heading_rad" : 0.76805776,
+      "occupancy_mean" : 0.2526008,
+      "path_length" : 4.6821947,
+      "translation_ratio" : 0.9982624,
+      "velocity_x" : 0.007910282,
+      "velocity_y" : 0.0076405965
+    },
+    "name" : "mystic-entity-8397",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.271466,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/9338132e-5827-411f-b2da-add65028395e\/search.json",
+    "seed" : 27
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/4ccea38f-f670-4ae9-87ea-51094f7d71c8\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4ccea38f-f670-4ae9-87ea-51094f7d71c8.json",
+    "id" : "4CCEA38F-F670-4AE9-87EA-51094F7D71C8",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010903243,
+      "displacement" : 4.633878,
+      "gyration" : 3624.1333,
+      "heading_rad" : 0.8246688,
+      "occupancy_mean" : 0.24916925,
+      "path_length" : 4.657221,
+      "translation_ratio" : 0.99498785,
+      "velocity_x" : 0.007401123,
+      "velocity_y" : 0.008006502
+    },
+    "name" : "flowing-entity-4504",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.17283,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/4ccea38f-f670-4ae9-87ea-51094f7d71c8\/search.json",
+    "seed" : 33
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/466fbef5-d086-46bd-bb9f-658d47cd1b8e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/466fbef5-d086-46bd-bb9f-658d47cd1b8e.json",
+    "id" : "466FBEF5-D086-46BD-BB9F-658D47CD1B8E",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0109071825,
+      "displacement" : 4.6355524,
+      "gyration" : 3562.4146,
+      "heading_rad" : 0.788289,
+      "occupancy_mean" : 0.2403361,
+      "path_length" : 4.6547465,
+      "translation_ratio" : 0.99587643,
+      "velocity_x" : 0.007690214,
+      "velocity_y" : 0.007734806
+    },
+    "name" : "serene-spiral-9269",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.1658535,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/466fbef5-d086-46bd-bb9f-658d47cd1b8e\/search.json",
+    "seed" : 49
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/a0b7467b-3e77-4022-9c92-003218569a3f\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/a0b7467b-3e77-4022-9c92-003218569a3f.json",
+    "id" : "A0B7467B-3E77-4022-9C92-003218569A3F",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010883086,
+      "displacement" : 4.625312,
+      "gyration" : 3704.8074,
+      "heading_rad" : 0.7738252,
+      "occupancy_mean" : 0.21364,
+      "path_length" : 4.6482472,
+      "translation_ratio" : 0.9950658,
+      "velocity_x" : 0.0077840467,
+      "velocity_y" : 0.0076059317
+    },
+    "name" : "ethereal-pulse-1687",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.130159,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/a0b7467b-3e77-4022-9c92-003218569a3f\/search.json",
+    "seed" : 90
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/95c2d9ad-9d60-4246-9e86-1a05faf3ef4a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/95c2d9ad-9d60-4246-9e86-1a05faf3ef4a.json",
+    "id" : "95C2D9AD-9D60-4246-9E86-1A05FAF3EF4A",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010851513,
+      "displacement" : 4.6118927,
+      "gyration" : 3634.622,
+      "heading_rad" : 0.77928966,
+      "occupancy_mean" : 0.2431878,
+      "path_length" : 4.629533,
+      "translation_ratio" : 0.99618965,
+      "velocity_x" : 0.007719906,
+      "velocity_y" : 0.0076261633
+    },
+    "name" : "radiant-orbiter-2004",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 14.099407,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/95c2d9ad-9d60-4246-9e86-1a05faf3ef4a\/search.json",
+    "seed" : 45
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/881249d8-713b-4def-b243-01c7f191344d\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/881249d8-713b-4def-b243-01c7f191344d.json",
+    "id" : "881249D8-713B-4DEF-B243-01C7F191344D",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010814024,
+      "displacement" : 4.59596,
+      "gyration" : 3705.2512,
+      "heading_rad" : 0.7511819,
+      "occupancy_mean" : 0.22590467,
+      "path_length" : 4.6110234,
+      "translation_ratio" : 0.9967332,
+      "velocity_x" : 0.007903784,
+      "velocity_y" : 0.0073806043
+    },
+    "name" : "radiant-blob-4217",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 14.047005,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/881249d8-713b-4def-b243-01c7f191344d\/search.json",
+    "seed" : 25
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/9a2390f5-7270-4d87-8460-d6cef2a42374\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9a2390f5-7270-4d87-8460-d6cef2a42374.json",
+    "id" : "9A2390F5-7270-4D87-8460-D6CEF2A42374",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010784526,
+      "displacement" : 4.5834236,
+      "gyration" : 3696.3237,
+      "heading_rad" : 0.7993581,
+      "occupancy_mean" : 0.21106635,
+      "path_length" : 4.602977,
+      "translation_ratio" : 0.99575204,
+      "velocity_x" : 0.0075186156,
+      "velocity_y" : 0.0077315206
+    },
+    "name" : "mystic-blob-8307",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 14.009388,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/9a2390f5-7270-4d87-8460-d6cef2a42374\/search.json",
+    "seed" : 95
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/43eae2ce-6597-4871-b5e4-36d79b6eac6b\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/43eae2ce-6597-4871-b5e4-36d79b6eac6b.json",
+    "id" : "43EAE2CE-6597-4871-B5E4-36D79B6EAC6B",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010728035,
+      "displacement" : 4.559415,
+      "gyration" : 3674.6897,
+      "heading_rad" : 0.7489433,
+      "occupancy_mean" : 0.23923747,
+      "path_length" : 4.5888615,
+      "translation_ratio" : 0.993583,
+      "velocity_x" : 0.007857307,
+      "velocity_y" : 0.007304346
+    },
+    "name" : "vibrant-orbiter-0276",
+    "recorded_at" : "2026-03-06T21:54:34.589Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.954526,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/43eae2ce-6597-4871-b5e4-36d79b6eac6b\/search.json",
+    "seed" : 62
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4e7ba9b8-d02e-4a90-9cf6-b1a70643001d\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4e7ba9b8-d02e-4a90-9cf6-b1a70643001d.json",
+    "id" : "4E7BA9B8-D02E-4A90-9CF6-B1A70643001D",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010724302,
+      "displacement" : 4.5578284,
+      "gyration" : 3698.1467,
+      "heading_rad" : 0.76830924,
+      "occupancy_mean" : 0.20307752,
+      "path_length" : 4.5712824,
+      "translation_ratio" : 0.99705684,
+      "velocity_x" : 0.007711702,
+      "velocity_y" : 0.0074525364
+    },
+    "name" : "vibrant-orbiter-4833",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.922292,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/4e7ba9b8-d02e-4a90-9cf6-b1a70643001d\/search.json",
+    "seed" : 19
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/83c81cb5-76e9-4390-9566-4035c338849f\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/83c81cb5-76e9-4390-9566-4035c338849f.json",
+    "id" : "83C81CB5-76E9-4390-9566-4035C338849F",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010703201,
+      "displacement" : 4.5488605,
+      "gyration" : 3595.712,
+      "heading_rad" : 0.73438066,
+      "occupancy_mean" : 0.24302165,
+      "path_length" : 4.5704713,
+      "translation_ratio" : 0.9952717,
+      "velocity_x" : 0.007944408,
+      "velocity_y" : 0.0071725105
+    },
+    "name" : "ethereal-amoeba-6935",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.91331,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/83c81cb5-76e9-4390-9566-4035c338849f\/search.json",
+    "seed" : 79
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/2949ecca-4f87-4ff6-a683-98204f00246f\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/2949ecca-4f87-4ff6-a683-98204f00246f.json",
+    "id" : "2949ECCA-4F87-4FF6-A683-98204F00246F",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01068886,
+      "displacement" : 4.5427656,
+      "gyration" : 3644.345,
+      "heading_rad" : 0.76425093,
+      "occupancy_mean" : 0.23732165,
+      "path_length" : 4.575591,
+      "translation_ratio" : 0.992826,
+      "velocity_x" : 0.0077162976,
+      "velocity_y" : 0.0073966533
+    },
+    "name" : "radiant-cell-7526",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.907694,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/2949ecca-4f87-4ff6-a683-98204f00246f\/search.json",
+    "seed" : 82
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5a0d8bf4-1c94-473e-acae-1a1d5d24fd03\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/5a0d8bf4-1c94-473e-acae-1a1d5d24fd03.json",
+    "id" : "5A0D8BF4-1C94-473E-ACAE-1A1D5D24FD03",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010688578,
+      "displacement" : 4.5426455,
+      "gyration" : 3677.6995,
+      "heading_rad" : 0.85121316,
+      "occupancy_mean" : 0.2204149,
+      "path_length" : 4.5532727,
+      "translation_ratio" : 0.997666,
+      "velocity_x" : 0.007044534,
+      "velocity_y" : 0.008038671
+    },
+    "name" : "radiant-pattern-8314",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.878686,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/5a0d8bf4-1c94-473e-acae-1a1d5d24fd03\/search.json",
+    "seed" : 39
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6bed87b4-54aa-4d00-a6da-c2e32e14d411\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/6bed87b4-54aa-4d00-a6da-c2e32e14d411.json",
+    "id" : "6BED87B4-54AA-4D00-A6DA-C2E32E14D411",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010659945,
+      "displacement" : 4.5304766,
+      "gyration" : 3632.0457,
+      "heading_rad" : 0.807078,
+      "occupancy_mean" : 0.24735853,
+      "path_length" : 4.5524464,
+      "translation_ratio" : 0.99517405,
+      "velocity_x" : 0.007372544,
+      "velocity_y" : 0.0076993518
+    },
+    "name" : "crystal-amoeba-3667",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.855224,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6bed87b4-54aa-4d00-a6da-c2e32e14d411\/search.json",
+    "seed" : 53
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/01200a42-abdf-463d-9550-274837f0f05b\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/01200a42-abdf-463d-9550-274837f0f05b.json",
+    "id" : "01200A42-ABDF-463D-9550-274837F0F05B",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01064785,
+      "displacement" : 4.5253363,
+      "gyration" : 3517.3796,
+      "heading_rad" : 0.7718873,
+      "occupancy_mean" : 0.2513733,
+      "path_length" : 4.53634,
+      "translation_ratio" : 0.99757427,
+      "velocity_x" : 0.0076302025,
+      "velocity_y" : 0.007426758
+    },
+    "name" : "vibrant-orbiter-4810",
+    "recorded_at" : "2026-03-06T21:54:34.589Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.827644,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/01200a42-abdf-463d-9550-274837f0f05b\/search.json",
+    "seed" : 59
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/017abe4e-323c-40ea-be6e-fa0bc2a35aeb\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/017abe4e-323c-40ea-be6e-fa0bc2a35aeb.json",
+    "id" : "017ABE4E-323C-40EA-BE6E-FA0BC2A35AEB",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010597856,
+      "displacement" : 4.504089,
+      "gyration" : 3493.3088,
+      "heading_rad" : 0.82072973,
+      "occupancy_mean" : 0.24760945,
+      "path_length" : 4.514611,
+      "translation_ratio" : 0.9976694,
+      "velocity_x" : 0.007224426,
+      "velocity_y" : 0.0077538523
+    },
+    "name" : "radiant-blob-3637",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.767809,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/017abe4e-323c-40ea-be6e-fa0bc2a35aeb\/search.json",
+    "seed" : 91
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fd82e197-c614-4047-9440-acfd9f9ed229\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fd82e197-c614-4047-9440-acfd9f9ed229.json",
+    "id" : "FD82E197-C614-4047-9440-ACFD9F9ED229",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010529763,
+      "displacement" : 4.475149,
+      "gyration" : 3710.3474,
+      "heading_rad" : 0.79453117,
+      "occupancy_mean" : 0.2356703,
+      "path_length" : 4.494422,
+      "translation_ratio" : 0.99571186,
+      "velocity_x" : 0.0073773554,
+      "velocity_y" : 0.007513356
+    },
+    "name" : "crystal-dancer-0650",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.687378,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fd82e197-c614-4047-9440-acfd9f9ed229\/search.json",
+    "seed" : 3
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4f4bdda6-0418-43a6-b419-870ff789b2b1\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4f4bdda6-0418-43a6-b419-870ff789b2b1.json",
+    "id" : "4F4BDDA6-0418-43A6-B419-870FF789B2B1",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010447984,
+      "displacement" : 4.440393,
+      "gyration" : 3653.2617,
+      "heading_rad" : 0.8196977,
+      "occupancy_mean" : 0.2188246,
+      "path_length" : 4.4602137,
+      "translation_ratio" : 0.9955561,
+      "velocity_x" : 0.007130145,
+      "velocity_y" : 0.007636844
+    },
+    "name" : "glowing-form-7152",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.578478,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4f4bdda6-0418-43a6-b419-870ff789b2b1\/search.json",
+    "seed" : 68
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/44c62cd9-d831-42d5-8fe2-e514423a61d0\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/44c62cd9-d831-42d5-8fe2-e514423a61d0.json",
+    "id" : "44C62CD9-D831-42D5-8FE2-E514423A61D0",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01039909,
+      "displacement" : 4.4196134,
+      "gyration" : 3655.3584,
+      "heading_rad" : 0.7862844,
+      "occupancy_mean" : 0.23586696,
+      "path_length" : 4.4672685,
+      "translation_ratio" : 0.9893324,
+      "velocity_x" : 0.007346748,
+      "velocity_y" : 0.007359781
+    },
+    "name" : "serene-spiral-3585",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.548527,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/44c62cd9-d831-42d5-8fe2-e514423a61d0\/search.json",
+    "seed" : 31
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/94d288de-adb7-4e9e-9bb1-f5cedb3ed598\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/94d288de-adb7-4e9e-9bb1-f5cedb3ed598.json",
+    "id" : "94D288DE-ADB7-4E9E-9BB1-F5CEDB3ED598",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01038344,
+      "displacement" : 4.412962,
+      "gyration" : 3706.5164,
+      "heading_rad" : 0.78145564,
+      "occupancy_mean" : 0.22845119,
+      "path_length" : 4.428036,
+      "translation_ratio" : 0.99659574,
+      "velocity_x" : 0.0073710904,
+      "velocity_y" : 0.0073131965
+    },
+    "name" : "ancient-entity-9479",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.496113,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/94d288de-adb7-4e9e-9bb1-f5cedb3ed598\/search.json",
+    "seed" : 94
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/513a4518-a99b-43fe-a5c0-99a9d7497a03\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/513a4518-a99b-43fe-a5c0-99a9d7497a03.json",
+    "id" : "513A4518-A99B-43FE-A5C0-99A9D7497A03",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010386676,
+      "displacement" : 4.414337,
+      "gyration" : 3577.879,
+      "heading_rad" : 0.7954477,
+      "occupancy_mean" : 0.22964478,
+      "path_length" : 4.4201603,
+      "translation_ratio" : 0.9986826,
+      "velocity_x" : 0.0072703105,
+      "velocity_y" : 0.0074179256
+    },
+    "name" : "pulsing-spiral-1663",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.491179,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/513a4518-a99b-43fe-a5c0-99a9d7497a03\/search.json",
+    "seed" : 88
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d4198681-fee6-46d0-8fed-981cb2a4e240\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d4198681-fee6-46d0-8fed-981cb2a4e240.json",
+    "id" : "D4198681-FEE6-46D0-8FED-981CB2A4E240",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010313039,
+      "displacement" : 4.3830414,
+      "gyration" : 3544.2515,
+      "heading_rad" : 0.8181294,
+      "occupancy_mean" : 0.24161445,
+      "path_length" : 4.390095,
+      "translation_ratio" : 0.99839324,
+      "velocity_x" : 0.0070498656,
+      "velocity_y" : 0.0075271605
+    },
+    "name" : "ancient-entity-2226",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.393391,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d4198681-fee6-46d0-8fed-981cb2a4e240\/search.json",
+    "seed" : 26
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/86932ffa-7a86-4aa7-b07b-50fbc1f46ab4\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/86932ffa-7a86-4aa7-b07b-50fbc1f46ab4.json",
+    "id" : "86932FFA-7A86-4AA7-B07B-50FBC1F46AB4",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01028277,
+      "displacement" : 4.3701773,
+      "gyration" : 3609.433,
+      "heading_rad" : 0.7666963,
+      "occupancy_mean" : 0.22406006,
+      "path_length" : 4.395756,
+      "translation_ratio" : 0.9941811,
+      "velocity_x" : 0.007405719,
+      "velocity_y" : 0.007133771
+    },
+    "name" : "vibrant-entity-8206",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.383624,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/86932ffa-7a86-4aa7-b07b-50fbc1f46ab4\/search.json",
+    "seed" : 87
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/145edb1c-87ee-43f5-8403-983366f969a3\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/145edb1c-87ee-43f5-8403-983366f969a3.json",
+    "id" : "145EDB1C-87EE-43F5-8403-983366F969A3",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010202985,
+      "displacement" : 4.336269,
+      "gyration" : 3647.7612,
+      "heading_rad" : 0.7723657,
+      "occupancy_mean" : 0.22746785,
+      "path_length" : 4.351039,
+      "translation_ratio" : 0.9966054,
+      "velocity_x" : 0.0073080086,
+      "velocity_y" : 0.007119966
+    },
+    "name" : "ancient-orbiter-9040",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.266541,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/145edb1c-87ee-43f5-8403-983366f969a3\/search.json",
+    "seed" : 21
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/21037303-582e-4bd8-adb8-69415008c6a2\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/21037303-582e-4bd8-adb8-69415008c6a2.json",
+    "id" : "21037303-582E-4BD8-ADB8-69415008C6A2",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010169763,
+      "displacement" : 4.3221493,
+      "gyration" : 3560.157,
+      "heading_rad" : 0.7854306,
+      "occupancy_mean" : 0.21676636,
+      "path_length" : 4.3585343,
+      "translation_ratio" : 0.991652,
+      "velocity_x" : 0.007190875,
+      "velocity_y" : 0.007191342
+    },
+    "name" : "flowing-dancer-4715",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.2585535,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/21037303-582e-4bd8-adb8-69415008c6a2\/search.json",
+    "seed" : 54
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a7306906-af50-4804-aec1-1484cd6a801e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/a7306906-af50-4804-aec1-1484cd6a801e.json",
+    "id" : "A7306906-AF50-4804-AEC1-1484CD6A801E",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010096495,
+      "displacement" : 4.2910104,
+      "gyration" : 3666.0505,
+      "heading_rad" : 0.75432444,
+      "occupancy_mean" : 0.21946886,
+      "path_length" : 4.372756,
+      "translation_ratio" : 0.9813057,
+      "velocity_x" : 0.0073576625,
+      "velocity_y" : 0.0069140447
+    },
+    "name" : "flowing-pulse-5013",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.191204,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/a7306906-af50-4804-aec1-1484cd6a801e\/search.json",
+    "seed" : 5
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fe8fa1e5-aea8-4377-b765-c660f0c627e8\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fe8fa1e5-aea8-4377-b765-c660f0c627e8.json",
+    "id" : "FE8FA1E5-AEA8-4377-B765-C660F0C627E8",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010139226,
+      "displacement" : 4.309171,
+      "gyration" : 3617.8918,
+      "heading_rad" : 0.74406004,
+      "occupancy_mean" : 0.23705377,
+      "path_length" : 4.335418,
+      "translation_ratio" : 0.9939459,
+      "velocity_x" : 0.007459681,
+      "velocity_y" : 0.0068671014
+    },
+    "name" : "serene-glider-0225",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.190667,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/fe8fa1e5-aea8-4377-b765-c660f0c627e8\/search.json",
+    "seed" : 37
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4c5cc1f4-1785-4603-9114-912224f038a3\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4c5cc1f4-1785-4603-9114-912224f038a3.json",
+    "id" : "4C5CC1F4-1785-4603-9114-912224F038A3",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010110046,
+      "displacement" : 4.2967696,
+      "gyration" : 3573.4656,
+      "heading_rad" : 0.7810339,
+      "occupancy_mean" : 0.21110027,
+      "path_length" : 4.3081293,
+      "translation_ratio" : 0.9973632,
+      "velocity_x" : 0.007180014,
+      "velocity_y" : 0.0071176146
+    },
+    "name" : "luminous-pattern-7812",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.143425,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4c5cc1f4-1785-4603-9114-912224f038a3\/search.json",
+    "seed" : 67
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/e32a5b89-a86e-45d9-9151-0ed1bc09e6a7\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/e32a5b89-a86e-45d9-9151-0ed1bc09e6a7.json",
+    "id" : "E32A5B89-A86E-45D9-9151-0ED1BC09E6A7",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0100776255,
+      "displacement" : 4.282991,
+      "gyration" : 3657.0593,
+      "heading_rad" : 0.83532876,
+      "occupancy_mean" : 0.20758735,
+      "path_length" : 4.3082814,
+      "translation_ratio" : 0.9941298,
+      "velocity_x" : 0.006761421,
+      "velocity_y" : 0.0074727316
+    },
+    "name" : "mystic-pulse-6519",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.111202,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/e32a5b89-a86e-45d9-9151-0ed1bc09e6a7\/search.json",
+    "seed" : 92
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/3ade901a-4168-4829-949a-db1c97b08bc6\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/3ade901a-4168-4829-949a-db1c97b08bc6.json",
+    "id" : "3ADE901A-4168-4829-949A-DB1C97B08BC6",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010055771,
+      "displacement" : 4.2737026,
+      "gyration" : 3675.6472,
+      "heading_rad" : 0.75680774,
+      "occupancy_mean" : 0.20394897,
+      "path_length" : 4.284538,
+      "translation_ratio" : 0.9974711,
+      "velocity_x" : 0.0073108627,
+      "velocity_y" : 0.006904333
+    },
+    "name" : "crystal-walker-8334",
+    "recorded_at" : "2026-03-06T21:36:09.560Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 13.068821,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/3ade901a-4168-4829-949a-db1c97b08bc6\/search.json",
+    "seed" : 0
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/07ab7327-2a21-4d55-b98e-30550c1da23e\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/07ab7327-2a21-4d55-b98e-30550c1da23e.json",
+    "id" : "07AB7327-2A21-4D55-B98E-30550C1DA23E",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.010058177,
+      "displacement" : 4.274725,
+      "gyration" : 3500.779,
+      "heading_rad" : 0.7630295,
+      "occupancy_mean" : 0.24987453,
+      "path_length" : 4.2788706,
+      "translation_ratio" : 0.9990311,
+      "velocity_x" : 0.0072695026,
+      "velocity_y" : 0.006951348
+    },
+    "name" : "vibrant-walker-2375",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 13.062359,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/07ab7327-2a21-4d55-b98e-30550c1da23e\/search.json",
+    "seed" : 75
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/89b61740-c582-49b5-854e-e326ddcf806a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/89b61740-c582-49b5-854e-e326ddcf806a.json",
+    "id" : "89B61740-C582-49B5-854E-E326DDCF806A",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.01005621,
+      "displacement" : 4.273889,
+      "gyration" : 3697.4817,
+      "heading_rad" : 0.7599115,
+      "occupancy_mean" : 0.20457967,
+      "path_length" : 4.281006,
+      "translation_ratio" : 0.99833757,
+      "velocity_x" : 0.007289716,
+      "velocity_y" : 0.006927293
+    },
+    "name" : "mystic-pattern-0892",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 13.057638,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/89b61740-c582-49b5-854e-e326ddcf806a\/search.json",
+    "seed" : 34
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/ea1c6f1f-5684-4a9c-9b9e-ed8411aa1abf\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/ea1c6f1f-5684-4a9c-9b9e-ed8411aa1abf.json",
+    "id" : "EA1C6F1F-5684-4A9C-9B9E-ED8411AA1ABF",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009975065,
+      "displacement" : 4.2394023,
+      "gyration" : 3627.621,
+      "heading_rad" : 0.7749721,
+      "occupancy_mean" : 0.22220866,
+      "path_length" : 4.2436657,
+      "translation_ratio" : 0.99899536,
+      "velocity_x" : 0.0071265907,
+      "velocity_y" : 0.006979514
+    },
+    "name" : "ancient-cell-3373",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 12.959431,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/ea1c6f1f-5684-4a9c-9b9e-ed8411aa1abf\/search.json",
+    "seed" : 89
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/2410e095-aff1-4de2-b5a4-079e2eb1bab8\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/2410e095-aff1-4de2-b5a4-079e2eb1bab8.json",
+    "id" : "2410E095-AFF1-4DE2-B5A4-079E2EB1BAB8",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0098884795,
+      "displacement" : 4.202604,
+      "gyration" : 3433.2915,
+      "heading_rad" : 0.81417966,
+      "occupancy_mean" : 0.23849148,
+      "path_length" : 4.2313433,
+      "translation_ratio" : 0.99320793,
+      "velocity_x" : 0.006788097,
+      "velocity_y" : 0.007190534
+    },
+    "name" : "radiant-glider-6074",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 12.879826,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/2410e095-aff1-4de2-b5a4-079e2eb1bab8\/search.json",
+    "seed" : 76
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/e00b3cef-118b-4870-81cd-2490c54550de\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/e00b3cef-118b-4870-81cd-2490c54550de.json",
+    "id" : "E00B3CEF-118B-4870-81CD-2490C54550DE",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.00988765,
+      "displacement" : 4.202251,
+      "gyration" : 3633.3105,
+      "heading_rad" : 0.8059312,
+      "occupancy_mean" : 0.24478827,
+      "path_length" : 4.2191315,
+      "translation_ratio" : 0.99599904,
+      "velocity_x" : 0.0068466007,
+      "velocity_y" : 0.0071336995
+    },
+    "name" : "mystic-glider-8585",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 12.870105,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/e00b3cef-118b-4870-81cd-2490c54550de\/search.json",
+    "seed" : 17
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6f32e3b3-d96e-41f1-85bc-faa5d868fe25\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/6f32e3b3-d96e-41f1-85bc-faa5d868fe25.json",
+    "id" : "6F32E3B3-D96E-41F1-85BC-FAA5D868FE25",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009852662,
+      "displacement" : 4.1873813,
+      "gyration" : 3545.748,
+      "heading_rad" : 0.82543135,
+      "occupancy_mean" : 0.2366299,
+      "path_length" : 4.1987576,
+      "translation_ratio" : 0.99729055,
+      "velocity_x" : 0.00668247,
+      "velocity_y" : 0.007240134
+    },
+    "name" : "radiant-walker-9257",
+    "recorded_at" : "2026-03-06T21:54:34.589Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.813588,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/6f32e3b3-d96e-41f1-85bc-faa5d868fe25\/search.json",
+    "seed" : 63
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/72ee4015-3dc7-4898-a912-2a6f0f4ea8e4\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/72ee4015-3dc7-4898-a912-2a6f0f4ea8e4.json",
+    "id" : "72EE4015-3DC7-4898-A912-2A6F0F4EA8E4",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009836155,
+      "displacement" : 4.180366,
+      "gyration" : 3680.0503,
+      "heading_rad" : 0.74902624,
+      "occupancy_mean" : 0.21458605,
+      "path_length" : 4.1891403,
+      "translation_ratio" : 0.9979055,
+      "velocity_x" : 0.0072035305,
+      "velocity_y" : 0.006697693
+    },
+    "name" : "ethereal-pulse-3754",
+    "recorded_at" : "2026-03-06T21:36:09.563Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 12.783641,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/72ee4015-3dc7-4898-a912-2a6f0f4ea8e4\/search.json",
+    "seed" : 30
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/f4d09c82-2523-4ccb-9de8-db5b5b43712a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/f4d09c82-2523-4ccb-9de8-db5b5b43712a.json",
+    "id" : "F4D09C82-2523-4CCB-9DE8-DB5B5B43712A",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.00980022,
+      "displacement" : 4.1650934,
+      "gyration" : 3687.061,
+      "heading_rad" : 0.7884135,
+      "occupancy_mean" : 0.23683675,
+      "path_length" : 4.189146,
+      "translation_ratio" : 0.99425834,
+      "velocity_x" : 0.0069088745,
+      "velocity_y" : 0.0069506657
+    },
+    "name" : "pulsing-entity-2411",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.762429,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/f4d09c82-2523-4ccb-9de8-db5b5b43712a\/search.json",
+    "seed" : 58
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/32a3ebae-d0f1-4682-a3d2-093e5faf2091\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/32a3ebae-d0f1-4682-a3d2-093e5faf2091.json",
+    "id" : "32A3EBAE-D0F1-4682-A3D2-093E5FAF2091",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009791916,
+      "displacement" : 4.1615644,
+      "gyration" : 3660.382,
+      "heading_rad" : 0.8072043,
+      "occupancy_mean" : 0.22412787,
+      "path_length" : 4.168311,
+      "translation_ratio" : 0.99838144,
+      "velocity_x" : 0.006771312,
+      "velocity_y" : 0.0070732567
+    },
+    "name" : "flowing-pattern-2091",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.730627,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/32a3ebae-d0f1-4682-a3d2-093e5faf2091\/search.json",
+    "seed" : 44
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/c8ff1dfa-8bd4-4afc-8178-b47c1febabc9\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/c8ff1dfa-8bd4-4afc-8178-b47c1febabc9.json",
+    "id" : "C8FF1DFA-8BD4-4AFC-8178-B47C1FEBABC9",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009631677,
+      "displacement" : 4.0934625,
+      "gyration" : 3660.0461,
+      "heading_rad" : 0.74114823,
+      "occupancy_mean" : 0.2282613,
+      "path_length" : 4.165017,
+      "translation_ratio" : 0.9828201,
+      "velocity_x" : 0.007105228,
+      "velocity_y" : 0.0065026856
+    },
+    "name" : "pulsing-amoeba-4663",
+    "recorded_at" : "2026-03-06T21:54:34.589Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.584503,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/c8ff1dfa-8bd4-4afc-8178-b47c1febabc9\/search.json",
+    "seed" : 61
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9938444d-9878-4f28-866b-48ebdc60b4fe\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/9938444d-9878-4f28-866b-48ebdc60b4fe.json",
+    "id" : "9938444D-9878-4F28-866B-48EBDC60B4FE",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0096246,
+      "displacement" : 4.090455,
+      "gyration" : 3683.7131,
+      "heading_rad" : 0.85070515,
+      "occupancy_mean" : 0.2126397,
+      "path_length" : 4.098344,
+      "translation_ratio" : 0.9980751,
+      "velocity_x" : 0.006346974,
+      "velocity_y" : 0.007235251
+    },
+    "name" : "ancient-orbiter-5894",
+    "recorded_at" : "2026-03-06T21:54:34.589Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.510624,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/9938444d-9878-4f28-866b-48ebdc60b4fe\/search.json",
+    "seed" : 60
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/c91016e0-5b2f-4670-b783-3c7e3ecd2712\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/c91016e0-5b2f-4670-b783-3c7e3ecd2712.json",
+    "id" : "C91016E0-5B2F-4670-B783-3C7E3ECD2712",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0094809765,
+      "displacement" : 4.029415,
+      "gyration" : 3639.187,
+      "heading_rad" : 0.7632169,
+      "occupancy_mean" : 0.23590766,
+      "path_length" : 4.075563,
+      "translation_ratio" : 0.98867697,
+      "velocity_x" : 0.0068511064,
+      "velocity_y" : 0.0065537216
+    },
+    "name" : "harmonic-pattern-9011",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.382103,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/c91016e0-5b2f-4670-b783-3c7e3ecd2712\/search.json",
+    "seed" : 46
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/566d51fc-a6f9-4425-a516-327a29bea011\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/566d51fc-a6f9-4425-a516-327a29bea011.json",
+    "id" : "566D51FC-A6F9-4425-A516-327A29BEA011",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009491853,
+      "displacement" : 4.0340376,
+      "gyration" : 3609.2966,
+      "heading_rad" : 0.8213985,
+      "occupancy_mean" : 0.22831218,
+      "path_length" : 4.047636,
+      "translation_ratio" : 0.9966404,
+      "velocity_x" : 0.0064658313,
+      "velocity_y" : 0.006948978
+    },
+    "name" : "pulsing-walker-6471",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.352562,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/566d51fc-a6f9-4425-a516-327a29bea011\/search.json",
+    "seed" : 55
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/bd2f276c-73e7-451a-8f90-ff28683dd6fe\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/bd2f276c-73e7-451a-8f90-ff28683dd6fe.json",
+    "id" : "BD2F276C-73E7-451A-8F90-FF28683DD6FE",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.00945099,
+      "displacement" : 4.0166707,
+      "gyration" : 3589.5242,
+      "heading_rad" : 0.7922158,
+      "occupancy_mean" : 0.2313368,
+      "path_length" : 4.0241094,
+      "translation_ratio" : 0.9981515,
+      "velocity_x" : 0.0066371425,
+      "velocity_y" : 0.0067282645
+    },
+    "name" : "vibrant-amoeba-7220",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.290705,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/bd2f276c-73e7-451a-8f90-ff28683dd6fe\/search.json",
+    "seed" : 52
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/bae19b2f-8acb-49dd-a7fd-48cc808e84fd\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/bae19b2f-8acb-49dd-a7fd-48cc808e84fd.json",
+    "id" : "BAE19B2F-8ACB-49DD-A7FD-48CC808E84FD",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009304211,
+      "displacement" : 3.9542897,
+      "gyration" : 3613.2312,
+      "heading_rad" : 0.7653595,
+      "occupancy_mean" : 0.21537611,
+      "path_length" : 3.9689417,
+      "translation_ratio" : 0.9963083,
+      "velocity_x" : 0.0067095766,
+      "velocity_y" : 0.006445923
+    },
+    "name" : "harmonic-entity-3732",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 12.114961,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/bae19b2f-8acb-49dd-a7fd-48cc808e84fd\/search.json",
+    "seed" : 48
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/22604e48-b1ff-4224-bd9a-e62d8ce55bff\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/22604e48-b1ff-4224-bd9a-e62d8ce55bff.json",
+    "id" : "22604E48-B1FF-4224-BD9A-E62D8CE55BFF",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009259334,
+      "displacement" : 3.935217,
+      "gyration" : 3609.8118,
+      "heading_rad" : 0.75204206,
+      "occupancy_mean" : 0.22283936,
+      "path_length" : 4.0155363,
+      "translation_ratio" : 0.9799978,
+      "velocity_x" : 0.006762049,
+      "velocity_y" : 0.0063253427
+    },
+    "name" : "ethereal-blob-4877",
+    "recorded_at" : "2026-03-06T22:08:57.861Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 12.105278,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/22604e48-b1ff-4224-bd9a-e62d8ce55bff\/search.json",
+    "seed" : 93
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ebaa628e-3350-4800-af1d-5152af3f407d\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/ebaa628e-3350-4800-af1d-5152af3f407d.json",
+    "id" : "EBAA628E-3350-4800-AF1D-5152AF3F407D",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0091606015,
+      "displacement" : 3.8932557,
+      "gyration" : 3692.0684,
+      "heading_rad" : 0.82331383,
+      "occupancy_mean" : 0.20947266,
+      "path_length" : 3.9016676,
+      "translation_ratio" : 0.99784404,
+      "velocity_x" : 0.006227327,
+      "velocity_y" : 0.006718409
+    },
+    "name" : "mystic-blob-5293",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 11.9176655,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/ebaa628e-3350-4800-af1d-5152af3f407d\/search.json",
+    "seed" : 4
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4c8178f8-00d0-4533-9a98-c3c87dbbb3d0\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/4c8178f8-00d0-4533-9a98-c3c87dbbb3d0.json",
+    "id" : "4C8178F8-00D0-4533-9A98-C3C87DBBB3D0",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009052036,
+      "displacement" : 3.8471153,
+      "gyration" : 3667.0217,
+      "heading_rad" : 0.8109578,
+      "occupancy_mean" : 0.22619969,
+      "path_length" : 3.8538167,
+      "translation_ratio" : 0.9982611,
+      "velocity_x" : 0.006235082,
+      "velocity_y" : 0.006562249
+    },
+    "name" : "glowing-cell-7687",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 11.781277,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/4c8178f8-00d0-4533-9a98-c3c87dbbb3d0\/search.json",
+    "seed" : 71
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/40c37638-e66b-4984-9495-579669fa4d20\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/40c37638-e66b-4984-9495-579669fa4d20.json",
+    "id" : "40C37638-E66B-4984-9495-579669FA4D20",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.009037812,
+      "displacement" : 3.8410702,
+      "gyration" : 3680.3584,
+      "heading_rad" : 0.8241075,
+      "occupancy_mean" : 0.22319539,
+      "path_length" : 3.8487794,
+      "translation_ratio" : 0.997997,
+      "velocity_x" : 0.006138593,
+      "velocity_y" : 0.006633229
+    },
+    "name" : "crystal-dancer-7697",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 11.76629,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/40c37638-e66b-4984-9495-579669fa4d20\/search.json",
+    "seed" : 1
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d745ac22-43a6-4ab7-99b6-47e8fb1973dc\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d745ac22-43a6-4ab7-99b6-47e8fb1973dc.json",
+    "id" : "D745AC22-43A6-4AB7-99B6-47E8FB1973DC",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.008979251,
+      "displacement" : 3.8161817,
+      "gyration" : 3570.8916,
+      "heading_rad" : 0.7923181,
+      "occupancy_mean" : 0.24049547,
+      "path_length" : 3.8316092,
+      "translation_ratio" : 0.9959736,
+      "velocity_x" : 0.006305201,
+      "velocity_y" : 0.0063930736
+    },
+    "name" : "glowing-glider-3704",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 11.704334,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/d745ac22-43a6-4ab7-99b6-47e8fb1973dc\/search.json",
+    "seed" : 10
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/82dd8251-6c29-4786-a6f9-0cff63016597\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/82dd8251-6c29-4786-a6f9-0cff63016597.json",
+    "id" : "82DD8251-6C29-4786-A6F9-0CFF63016597",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.008512329,
+      "displacement" : 3.6177402,
+      "gyration" : 3762.7698,
+      "heading_rad" : 0.7633459,
+      "occupancy_mean" : 0.20283678,
+      "path_length" : 3.628427,
+      "translation_ratio" : 0.9970547,
+      "velocity_x" : 0.006150387,
+      "velocity_y" : 0.005884938
+    },
+    "name" : "harmonic-orbiter-2570",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 11.091716,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/82dd8251-6c29-4786-a6f9-0cff63016597\/search.json",
+    "seed" : 50
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/06b7e4a1-495b-4529-8112-1b7e08ba5b59\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/06b7e4a1-495b-4529-8112-1b7e08ba5b59.json",
+    "id" : "06B7E4A1-495B-4529-8112-1B7E08BA5B59",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.008330823,
+      "displacement" : 3.5405998,
+      "gyration" : 3702.0767,
+      "heading_rad" : 0.78502184,
+      "occupancy_mean" : 0.21129693,
+      "path_length" : 3.5712469,
+      "translation_ratio" : 0.9914184,
+      "velocity_x" : 0.005892998,
+      "velocity_y" : 0.005888564
+    },
+    "name" : "vibrant-entity-2771",
+    "recorded_at" : "2026-03-06T22:08:57.859Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 10.881166,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/06b7e4a1-495b-4529-8112-1b7e08ba5b59\/search.json",
+    "seed" : 65
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb85e352-ddf2-4065-afe9-b1e134f868c4\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/fb85e352-ddf2-4065-afe9-b1e134f868c4.json",
+    "id" : "FB85E352-DDF2-4065-AFE9-B1E134F868C4",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.008309083,
+      "displacement" : 3.5313601,
+      "gyration" : 3528.3586,
+      "heading_rad" : 0.76480275,
+      "occupancy_mean" : 0.23386976,
+      "path_length" : 3.5449677,
+      "translation_ratio" : 0.99616146,
+      "velocity_x" : 0.0059951604,
+      "velocity_y" : 0.0057531646
+    },
+    "name" : "radiant-amoeba-8060",
+    "recorded_at" : "2026-03-06T21:36:09.562Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 10.849707,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/fb85e352-ddf2-4065-afe9-b1e134f868c4\/search.json",
+    "seed" : 20
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/f85dae0e-0482-4994-9fb9-0e93aadb47dd\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/f85dae0e-0482-4994-9fb9-0e93aadb47dd.json",
+    "id" : "F85DAE0E-0482-4994-9FB9-0E93AADB47DD",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.008230613,
+      "displacement" : 3.4980104,
+      "gyration" : 3627.8044,
+      "heading_rad" : 0.7506012,
+      "occupancy_mean" : 0.22569105,
+      "path_length" : 3.5195792,
+      "translation_ratio" : 0.99387175,
+      "velocity_x" : 0.0060188742,
+      "velocity_y" : 0.005613924
+    },
+    "name" : "serene-orbiter-4807",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 10.749809,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/f85dae0e-0482-4994-9fb9-0e93aadb47dd\/search.json",
+    "seed" : 81
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/82783e30-2d47-4286-8cb7-f02f71ff495b\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/82783e30-2d47-4286-8cb7-f02f71ff495b.json",
+    "id" : "82783E30-2D47-4286-8CB7-F02F71FF495B",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.007925336,
+      "displacement" : 3.3682678,
+      "gyration" : 3579.358,
+      "heading_rad" : 0.771545,
+      "occupancy_mean" : 0.20783488,
+      "path_length" : 3.392136,
+      "translation_ratio" : 0.9929636,
+      "velocity_x" : 0.0056811525,
+      "velocity_y" : 0.00552589
+    },
+    "name" : "ethereal-orbiter-5731",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 10.360137,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/82783e30-2d47-4286-8cb7-f02f71ff495b\/search.json",
+    "seed" : 43
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/77e45eb8-6688-40cf-b722-af073638171a\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/77e45eb8-6688-40cf-b722-af073638171a.json",
+    "id" : "77E45EB8-6688-40CF-B722-AF073638171A",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.007663618,
+      "displacement" : 3.2570376,
+      "gyration" : 3529.8594,
+      "heading_rad" : 0.767391,
+      "occupancy_mean" : 0.20197211,
+      "path_length" : 3.2748203,
+      "translation_ratio" : 0.9945699,
+      "velocity_x" : 0.005515693,
+      "velocity_y" : 0.0053205425
+    },
+    "name" : "luminous-entity-5683",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 10.0275,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/77e45eb8-6688-40cf-b722-af073638171a\/search.json",
+    "seed" : 8
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/f6ba279e-ae75-4f6d-82b6-77f876fc2695\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/f6ba279e-ae75-4f6d-82b6-77f876fc2695.json",
+    "id" : "F6BA279E-AE75-4F6D-82B6-77F876FC2695",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.007552722,
+      "displacement" : 3.2099068,
+      "gyration" : 3728.683,
+      "heading_rad" : 0.8411211,
+      "occupancy_mean" : 0.20640394,
+      "path_length" : 3.224714,
+      "translation_ratio" : 0.9954082,
+      "velocity_x" : 0.005034853,
+      "velocity_y" : 0.0056297304
+    },
+    "name" : "vibrant-glider-8340",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 9.867198,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/f6ba279e-ae75-4f6d-82b6-77f876fc2695\/search.json",
+    "seed" : 73
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d02999fd-6c87-4856-bc6e-eddfb9e0a46c\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/d02999fd-6c87-4856-bc6e-eddfb9e0a46c.json",
+    "id" : "D02999FD-6C87-4856-BC6E-EDDFB9E0A46C",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0069473977,
+      "displacement" : 2.952644,
+      "gyration" : 3619.0728,
+      "heading_rad" : 0.82003784,
+      "occupancy_mean" : 0.22203572,
+      "path_length" : 2.9701364,
+      "translation_ratio" : 0.9941106,
+      "velocity_x" : 0.00473947,
+      "velocity_y" : 0.0050797407
+    },
+    "name" : "pulsing-orbiter-1313",
+    "recorded_at" : "2026-03-06T21:54:34.588Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 9.105663,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/d02999fd-6c87-4856-bc6e-eddfb9e0a46c\/search.json",
+    "seed" : 47
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/ed44f016-cd27-4558-98e3-712e2a0b4a43\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/ed44f016-cd27-4558-98e3-712e2a0b4a43.json",
+    "id" : "ED44F016-CD27-4558-98E3-712E2A0B4A43",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0067590973,
+      "displacement" : 2.8726163,
+      "gyration" : 3587.5227,
+      "heading_rad" : 0.72443783,
+      "occupancy_mean" : 0.19320339,
+      "path_length" : 3.0276532,
+      "translation_ratio" : 0.94879305,
+      "velocity_x" : 0.0050616995,
+      "velocity_y" : 0.0044793524
+    },
+    "name" : "mystic-glider-3659",
+    "recorded_at" : "2026-03-06T22:08:57.860Z",
+    "run_id" : "crossmap-motion-c002-s64",
+    "run_name" : "crossmap-motion-c002-s64",
+    "score" : 9.00043,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c002-s64\/ed44f016-cd27-4558-98e3-712e2a0b4a43\/search.json",
+    "seed" : 77
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/90376d62-8a88-4540-969b-8e9a562fc9d1\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/90376d62-8a88-4540-969b-8e9a562fc9d1.json",
+    "id" : "90376D62-8A88-4540-969B-8E9A562FC9D1",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.006718635,
+      "displacement" : 2.519488,
+      "gyration" : 665.8404,
+      "heading_rad" : -2.3177896,
+      "occupancy_mean" : 0.16608429,
+      "path_length" : 2.678597,
+      "translation_ratio" : 0.9405999,
+      "velocity_x" : -0.0045648804,
+      "velocity_y" : -0.0049296976
+    },
+    "name" : "crystal-glider-6397",
+    "recorded_at" : "2026-03-06T21:48:07.757Z",
+    "run_id" : "open-glider-c000-s0",
+    "run_name" : "open-glider-c000-s0",
+    "score" : 8.109496,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/90376d62-8a88-4540-969b-8e9a562fc9d1\/search.json",
+    "seed" : 6
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/77d0ac3e-88ef-472e-ad03-88fc7d27fbaa\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/77d0ac3e-88ef-472e-ad03-88fc7d27fbaa.json",
+    "id" : "77D0AC3E-88EF-472E-AD03-88FC7D27FBAA",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.004386889,
+      "displacement" : 1.8644277,
+      "gyration" : 3744.1616,
+      "heading_rad" : 0.71870184,
+      "occupancy_mean" : 0.18187799,
+      "path_length" : 2.1481867,
+      "translation_ratio" : 0.86790764,
+      "velocity_x" : 0.0033018403,
+      "velocity_y" : 0.002888363
+    },
+    "name" : "pulsing-dancer-9483",
+    "recorded_at" : "2026-03-06T21:36:09.561Z",
+    "run_id" : "crossmap-motion-c000-s0",
+    "run_name" : "crossmap-motion-c000-s0",
+    "score" : 6.0866632,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c000-s0\/77d0ac3e-88ef-472e-ad03-88fc7d27fbaa\/search.json",
+    "seed" : 2
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/186daabd-c946-42e1-90f6-1f285a8407bb\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/186daabd-c946-42e1-90f6-1f285a8407bb.json",
+    "id" : "186DAABD-C946-42E1-90F6-1F285A8407BB",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.004314441,
+      "displacement" : 1.8336374,
+      "gyration" : 3620.4033,
+      "heading_rad" : 0.8225864,
+      "occupancy_mean" : 0.19390869,
+      "path_length" : 1.9809097,
+      "translation_ratio" : 0.9256542,
+      "velocity_x" : 0.0029352345,
+      "velocity_y" : 0.0031620879
+    },
+    "name" : "flowing-spiral-5000",
+    "recorded_at" : "2026-03-06T21:54:34.587Z",
+    "run_id" : "crossmap-motion-c001-s32",
+    "run_name" : "crossmap-motion-c001-s32",
+    "score" : 5.853976,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/crossmap-motion-c001-s32\/186daabd-c946-42e1-90f6-1f285a8407bb\/search.json",
+    "seed" : 42
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/648de089-fa4a-4139-b408-9f19d8c57ab9.json",
+    "id" : "648DE089-FA4A-4139-B408-9F19D8C57AB9",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0046985443,
+      "displacement" : 1.7619542,
+      "gyration" : 705.72504,
+      "heading_rad" : -2.8024514,
+      "occupancy_mean" : 0.13790512,
+      "path_length" : 1.8827081,
+      "translation_ratio" : 0.9358616,
+      "velocity_x" : -0.0044309185,
+      "velocity_y" : -0.0015631001
+    },
+    "name" : "ancient-form-9567",
+    "recorded_at" : "2026-03-06T21:48:07.758Z",
+    "run_id" : "open-glider-c000-s0",
+    "run_name" : "open-glider-c000-s0",
+    "score" : 5.7848454,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/search.json",
+    "seed" : 29
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/8c927711-c590-48d0-872c-06acab2bf6d8.json",
+    "id" : "8C927711-C590-48D0-872C-06ACAB2BF6D8",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0020213616,
+      "displacement" : 0.7580106,
+      "gyration" : 1103.1963,
+      "heading_rad" : 0.7948106,
+      "occupancy_mean" : 0.11539078,
+      "path_length" : 0.86384916,
+      "translation_ratio" : 0.8774803,
+      "velocity_x" : 0.001415802,
+      "velocity_y" : 0.0014427083
+    },
+    "name" : "serene-entity-6510",
+    "recorded_at" : "2026-03-06T22:02:56.127Z",
+    "run_id" : "open-glider-c001-s32",
+    "run_name" : "open-glider-c001-s32",
+    "score" : 2.8081443,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/search.json",
+    "seed" : 33
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/8710e6f6-e2fd-4c0b-a647-99e723a8f494.json",
+    "id" : "8710E6F6-E2FD-4C0B-A647-99E723A8F494",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0012635929,
+      "displacement" : 0.47384733,
+      "gyration" : 988.5138,
+      "heading_rad" : -2.3906527,
+      "occupancy_mean" : 0.12719727,
+      "path_length" : 0.6194104,
+      "translation_ratio" : 0.76499736,
+      "velocity_x" : -0.00092374673,
+      "velocity_y" : -0.00086218264
+    },
+    "name" : "mystic-pattern-1736",
+    "recorded_at" : "2026-03-06T22:02:56.128Z",
+    "run_id" : "open-glider-c001-s32",
+    "run_name" : "open-glider-c001-s32",
+    "score" : 1.9367424,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/search.json",
+    "seed" : 55
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/0327e51f-7c6b-4053-9f76-4a91cdd73bf7\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/0327e51f-7c6b-4053-9f76-4a91cdd73bf7.json",
+    "id" : "0327E51F-7C6B-4053-9F76-4A91CDD73BF7",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0011188072,
+      "displacement" : 0.4195527,
+      "gyration" : 583.59344,
+      "heading_rad" : -2.257836,
+      "occupancy_mean" : 0.17554474,
+      "path_length" : 0.45154876,
+      "translation_ratio" : 0.9291416,
+      "velocity_x" : -0.0007096049,
+      "velocity_y" : -0.00086498004
+    },
+    "name" : "radiant-entity-3628",
+    "recorded_at" : "2026-03-06T21:48:07.757Z",
+    "run_id" : "open-glider-c000-s0",
+    "run_name" : "open-glider-c000-s0",
+    "score" : 1.6453006,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c000-s0\/0327e51f-7c6b-4053-9f76-4a91cdd73bf7\/search.json",
+    "seed" : 18
+  },
+  {
+    "base_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/ef434675-975c-4b17-8ff5-d903afa712c2\/base.json",
+    "detail" : "releases\/discovery-20260306-movers\/details\/ef434675-975c-4b17-8ff5-d903afa712c2.json",
+    "id" : "EF434675-975C-4B17-8FF5-D903AFA712C2",
+    "is_stable" : true,
+    "metrics" : {
+      "center_velocity" : 0.0010054089,
+      "displacement" : 0.37702835,
+      "gyration" : 671.26337,
+      "heading_rad" : 0.82375497,
+      "occupancy_mean" : 0.15110779,
+      "path_length" : 0.41232502,
+      "translation_ratio" : 0.914396,
+      "velocity_x" : 0.0006831462,
+      "velocity_y" : 0.0007376709
+    },
+    "name" : "mystic-walker-1145",
+    "recorded_at" : "2026-03-06T22:02:56.128Z",
+    "run_id" : "open-glider-c001-s32",
+    "run_name" : "open-glider-c001-s32",
+    "score" : 1.554267,
+    "search_config" : "releases\/discovery-20260306-movers\/runs\/open-glider-c001-s32\/ef434675-975c-4b17-8ff5-d903afa712c2\/search.json",
+    "seed" : 53
+  }
+]

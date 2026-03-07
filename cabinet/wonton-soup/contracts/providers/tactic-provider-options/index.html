@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Tactic Provider Options for Tactic Suggestion | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-016</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/providers/tactic-provider-options</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/providers/tactic-provider-options.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#tactic-provider-options-for-tactic-suggestion" id="toc-tactic-provider-options-for-tactic-suggestion">Tactic Provider Options for Tactic Suggestion</a>
+                            <ul>
+                            <li><a href="#provider-interface" id="toc-provider-interface">Provider Interface</a></li>
+                            <li><a href="#provider-registry-and-exposure" id="toc-provider-registry-and-exposure">Provider Registry and Exposure</a></li>
+                            <li><a href="#construction-path-and-easy-tactic-gate" id="toc-construction-path-and-easy-tactic-gate">Construction Path and Easy-Tactic Gate</a></li>
+                            <li><a href="#provider-selection-semantics" id="toc-provider-selection-semantics">Provider Selection Semantics</a></li>
+                            <li><a href="#single-vs-multi-provider-execution" id="toc-single-vs-multi-provider-execution">Single vs Multi-Provider Execution</a></li>
+                            <li><a href="#provider-specific-runtime-knobs" id="toc-provider-specific-runtime-knobs">Provider-Specific Runtime Knobs</a></li>
+                            <li><a href="#tactic-ranker-compatibility" id="toc-tactic-ranker-compatibility">Tactic Ranker Compatibility</a></li>
+                            <li><a href="#available-runtime-providers" id="toc-available-runtime-providers">Available Runtime Providers</a>
+                            <ul>
+                            <li><a href="#reprover-reprover" id="toc-reprover-reprover">ReProver (<code>reprover</code>)</a></li>
+                            <li><a href="#deepseek-deepseek" id="toc-deepseek-deepseek">DeepSeek (<code>deepseek</code>)</a></li>
+                            <li><a href="#bfs-prover-bfs" id="toc-bfs-prover-bfs">BFS-Prover (<code>bfs</code>)</a></li>
+                            <li><a href="#internlm-step-prover-internlm" id="toc-internlm-step-prover-internlm">InternLM Step Prover (<code>internlm</code>)</a></li>
+                            <li><a href="#heuristic-heuristic" id="toc-heuristic-heuristic">Heuristic (<code>heuristic</code>)</a></li>
+                            </ul></li>
+                            <li><a href="#adding-another-lean-provider" id="toc-adding-another-lean-provider">Adding Another Lean Provider</a></li>
+                            <li><a href="#related-notes" id="toc-related-notes">Related Notes</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../deepseek-provider-settings/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-015</span><span class="doc-backlinks-title">DeepSeek Provider Settings</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="tactic-provider-options-for-tactic-suggestion">Tactic Provider Options for Tactic Suggestion</h1>
+<p>Reference for the Lean tactic-provider surface used by MCTS and distributed MCTS.</p>
+<h2 id="provider-interface">Provider Interface</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TacticProvider(ABC):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">async</span> <span class="kw">def</span> suggest_tactics_with_probs_async(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, goal: LeanGoal, mvar_id: <span class="bu">str</span>, adapter: LeanAdapter, n: <span class="bu">int</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">tuple</span>[<span class="bu">str</span>, <span class="bu">float</span>]]:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;Return up to n (tactic, probability) pairs.&quot;&quot;&quot;</span></span></code></pre></div>
+<p>This interface is the compatibility boundary: search code consumes <code>(tactic, probability)</code> pairs and does not need provider-specific branching.</p>
+<h2 id="provider-registry-and-exposure">Provider Registry and Exposure</h2>
+<p>CLI-exposed providers (<code>orchestrator/lean.py</code>, <code>PROVIDER_CHOICES</code>):</p>
+<ul>
+<li><code>reprover</code></li>
+<li><code>deepseek</code></li>
+<li><code>bfs</code></li>
+<li><code>internlm</code></li>
+<li><code>heuristic</code></li>
+</ul>
+<p>Internal-only provider (implemented but not exposed via <code>--provider</code>):</p>
+<ul>
+<li><code>AesopTacticProvider</code> (<code>prover/providers/base.py</code>)
+<ul>
+<li>Used as a programmatic helper, not a named CLI provider.</li>
+<li>Wraps <code>adapter.get_tactic_suggestions(..., search_tactic="aesop?")</code> and returns uniform weights over suggestions.</li>
+</ul></li>
+</ul>
+<h2 id="construction-path-and-easy-tactic-gate">Construction Path and Easy-Tactic Gate</h2>
+<p>Provider construction happens in <code>create_provider(...)</code> (<code>orchestrator/lean.py</code>):</p>
+<ol type="1">
+<li>Build the base provider from <code>provider_name</code>.</li>
+<li>If <code>block_easy=True</code>, wrap with <code>FilteredTacticProvider(blocked=EASY_TACTICS)</code>.</li>
+</ol>
+<p><code>wonton.py lean run</code> sets <code>block_easy = not --allow-easy</code>, so easy tactics are blocked by default unless <code>--allow-easy</code> is passed.</p>
+<p>Default easy block set:</p>
+<ul>
+<li><code>simp</code></li>
+<li><code>simp_all</code></li>
+<li><code>omega</code></li>
+<li><code>decide</code></li>
+<li><code>native_decide</code></li>
+<li><code>rfl</code></li>
+</ul>
+<h2 id="provider-selection-semantics">Provider Selection Semantics</h2>
+<p>Resolution order in CLI parsing (<code>main()</code>):</p>
+<ol type="1">
+<li>If <code>--all-providers</code>, use the full provider list in fixed order.</li>
+<li>Else choose <code>raw = --providers</code> if present, otherwise <code>--provider</code>.</li>
+<li>Parse comma list, trim, dedupe while preserving order.</li>
+<li>Validate each name against <code>PROVIDER_CHOICES</code>.</li>
+</ol>
+<p>Important parser constraints:</p>
+<ul>
+<li><code>--all-providers</code> and <code>--providers</code> are mutually exclusive.</li>
+<li><code>--provider all</code> is allowed and maps to all providers.</li>
+<li>Unknown provider names fail fast with the valid-provider list in the error.</li>
+</ul>
+<h2 id="single-vs-multi-provider-execution">Single vs Multi-Provider Execution</h2>
+<p>Single provider:</p>
+<ul>
+<li>One <code>run_corpus(...)</code> invocation.</li>
+<li>One provider configuration in run metadata.</li>
+</ul>
+<p>Multi-provider (<code>--all-providers</code> or multi-entry <code>--providers</code>):</p>
+<ul>
+<li>Sequential execution (not interleaved).</li>
+<li>One sub-run per provider, with provider-specific directories/metadata.</li>
+<li><code>--basin-seeds</code> is forbidden in multi-provider mode.
+<ul>
+<li>Parser error: <code>"Multi-provider runs do not support --basin-seeds"</code>.</li>
+</ul></li>
+</ul>
+<h2 id="provider-specific-runtime-knobs">Provider-Specific Runtime Knobs</h2>
+<p>Flags that override provider constructor sample counts:</p>
+<ul>
+<li><code>--deepseek-samples</code> -&gt; <code>DeepSeekTacticProvider(num_samples=...)</code></li>
+<li><code>--bfs-samples</code> -&gt; <code>BFSProverTacticProvider(num_samples=...)</code></li>
+<li><code>--internlm-samples</code> -&gt; <code>InternLMStepProverTacticProvider(num_samples=...)</code></li>
+</ul>
+<p>Validation:</p>
+<ul>
+<li>Each must be <code>&gt;= 1</code> when provided.</li>
+<li>Values are passed through unchanged for matching providers.</li>
+<li>Non-matching providers ignore the unrelated sample flag.</li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--provider</span> deepseek <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--deepseek-samples</span> 32 <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfs-samples</span> 8</span></code></pre></div>
+<p>This run only applies <code>--deepseek-samples</code>; BFS is not instantiated.</p>
+<h2 id="tactic-ranker-compatibility">Tactic Ranker Compatibility</h2>
+<p>Rankers are provider-agnostic reorderers:</p>
+<ul>
+<li><code>--tactic-ranker family_prior</code> with <code>--tactic-ranker-model PATH</code></li>
+<li>optional blend knob <code>--tactic-ranker-alpha</code> in <code>[0, 1]</code></li>
+</ul>
+<p>Runtime contracts enforced in search code (<code>prover/mcts.py</code> and <code>experiments/distributed_mcts/core.py</code>):</p>
+<ul>
+<li>ranker output must have the same length as input</li>
+<li>ranker output must contain the same tactic-probability pairs (reordering only)</li>
+</ul>
+<p>Violations raise <code>ValueError</code> immediately.</p>
+<h2 id="available-runtime-providers">Available Runtime Providers</h2>
+<h3 id="reprover-reprover">ReProver (<code>reprover</code>)</h3>
+<ul>
+<li>Model: <code>kaiyuy/leandojo-lean4-tacgen-byt5-small</code></li>
+<li>Strengths: lightweight baseline, comparability with LeanDojo-style work</li>
+<li>Limitations: may emit some Mathlib3-style tactics</li>
+<li>Default provider for <code>wonton.py lean run</code></li>
+</ul>
+<h3 id="deepseek-deepseek">DeepSeek (<code>deepseek</code>)</h3>
+<ul>
+<li>Model: <code>l3lab/ntp-mathlib-context-deepseek-coder-1.3b</code></li>
+<li>Runtime: local MLX inference (<code>mlx_lm</code>)</li>
+<li>Decoding: sampling-first in this integration</li>
+<li>Strengths: Lean4 syntax quality and candidate diversity</li>
+<li>Limitations: larger footprint, stochastic outputs</li>
+</ul>
+<h3 id="bfs-prover-bfs">BFS-Prover (<code>bfs</code>)</h3>
+<ul>
+<li>Model: <code>ByteDance-Seed/BFS-Prover-V1-7B</code></li>
+<li>Runtime: local HuggingFace transformers</li>
+<li>Prompt shape: proof-state text + <code>:::</code>, continuation parsed as tactic</li>
+<li>Strengths: larger-model breadth</li>
+<li>Limitations: higher resource cost</li>
+</ul>
+<h3 id="internlm-step-prover-internlm">InternLM Step Prover (<code>internlm</code>)</h3>
+<ul>
+<li>Model: <code>internlm/internlm2_5-step-prover</code></li>
+<li>Runtime: local HuggingFace transformers</li>
+<li>Prompt shape: <code>NAME / PROOF_BEFORE / STATE_BEFORE / TACTIC</code></li>
+<li>Strengths: step-structured generation</li>
+<li>Limitations: model-card license marked <code>other</code> (opt-in usage)</li>
+</ul>
+<h3 id="heuristic-heuristic">Heuristic (<code>heuristic</code>)</h3>
+<ul>
+<li>Implementation: <code>GoalAwareTacticProvider</code></li>
+<li>Strengths: deterministic, no model weights</li>
+<li>Limitations: narrower tactic surface than model-backed providers</li>
+</ul>
+<h2 id="adding-another-lean-provider">Adding Another Lean Provider</h2>
+<p>If you add a new provider, keep one path:</p>
+<ol type="1">
+<li>Implement <code>TacticProvider</code> in <code>prover/providers/</code>.</li>
+<li>Wire it in <code>create_provider(...)</code> in <code>orchestrator/lean.py</code>.</li>
+<li>Add its name to <code>PROVIDER_CHOICES</code>.</li>
+<li>Extend CLI help text and validation docs here.</li>
+<li>Capture provider config in <code>_provider_config(...)</code> so logs remain reproducible.</li>
+</ol>
+<p>Avoid adding a second provider-selection stack outside <code>create_provider(...)</code>.</p>
+<h2 id="related-notes">Related Notes</h2>
+<ul>
+<li>DeepSeek decoding/config details: <a href="../deepseek-provider-settings/">DeepSeek Provider Settings</a></li>
+<li>Search-side metric semantics consuming provider outputs: <a href="../../../concepts/analysis-metrics/">Analysis Metrics Reference</a></li>
+<li>Search policies and UCB/blind behavior: <a href="../../../concepts/ucb1/">UCB1 and Blind-Uniform Search in Wonton-Soup</a></li>
+<li>Distributed scheduling and constraints: <a href="../../../concepts/distributed-mcts/">Distributed MCTS Semantics</a></li>
+<li>Distributed runner isolation rationale: <a href="../../../decisions/adr-distributed-mcts/">ADR: Distributed (Cell-View) MCTS Runner</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

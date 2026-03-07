@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log Schemas: Backend Artifact Mapping | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-012</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/logs/log-schemas-backend-mapping</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/logs/log-schemas-backend-mapping.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-schemas-backend-artifact-mapping" id="toc-log-schemas-backend-artifact-mapping">Log Schemas: Backend Artifact Mapping</a>
+                            <ul>
+                            <li><a href="#artifact-families" id="toc-artifact-families">Artifact Families</a></li>
+                            <li><a href="#backend-mapping" id="toc-backend-mapping">Backend Mapping</a></li>
+                            <li><a href="#ged-family-selection-rules" id="toc-ged-family-selection-rules">GED Family Selection Rules</a></li>
+                            <li><a href="#reporting-constraints" id="toc-reporting-constraints">Reporting Constraints</a></li>
+                            <li><a href="#related-adr" id="toc-related-adr">Related ADR</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../log-file-schemas/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-011</span><span class="doc-backlinks-title">Log File Schemas</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../../decisions/adr-search-graph-feasibility-by-backend/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-020</span><span class="doc-backlinks-title">ADR: Search-Graph Feasibility by Backend</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="log-schemas-backend-artifact-mapping">Log Schemas: Backend Artifact Mapping</h1>
+<p>Canonical mapping from backend capabilities to artifact families.</p>
+<h2 id="artifact-families">Artifact Families</h2>
+<ul>
+<li>Search graph: interactive search-state transition structure</li>
+<li>Proof graph: derivation/proof-object structure</li>
+<li>Trace graph: proxy graph derived from protocol/log traces</li>
+</ul>
+<h2 id="backend-mapping">Backend Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Backend</th>
+<th>Search Graph</th>
+<th>Proof Graph</th>
+<th>Trace Graph</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lean</td>
+<td>Yes (<code>*_graph.json</code>)</td>
+<td>Optional derived proof subgraph</td>
+<td>n/a</td>
+<td>Interactive REPL + tactic-level search</td>
+</tr>
+<tr class="even">
+<td>Coq</td>
+<td>No true search graph in external mode</td>
+<td>Yes</td>
+<td>Yes (<code>serapi_replay</code>)</td>
+<td>Replay emits <code>*_process_trace.json.gz</code> plus <code>*_search_trace_graph.json</code></td>
+</tr>
+<tr class="odd">
+<td>E prover</td>
+<td>No true interactive search graph</td>
+<td>Yes</td>
+<td>Optional</td>
+<td>Trace/proof outputs are proxy surfaces for search behavior</td>
+</tr>
+<tr class="even">
+<td>Vampire</td>
+<td>No true interactive search graph</td>
+<td>Yes</td>
+<td>Optional</td>
+<td>Typically proof-object oriented</td>
+</tr>
+<tr class="odd">
+<td>Z3</td>
+<td>No true interactive search graph</td>
+<td>Yes</td>
+<td>Optional</td>
+<td>Proof/trace surfaces are solver-internal projections</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ged-family-selection-rules">GED Family Selection Rules</h2>
+<ul>
+<li>Use <code>ged_search_graph</code> only with true search graph artifacts.</li>
+<li>Use <code>ged_proof_graph</code> for proof-object families.</li>
+<li>Use <code>ged_trace_graph</code> when only trace-derived proxy graphs are available.</li>
+</ul>
+<p>When using <code>ged_trace_graph</code>, payloads must include:</p>
+<ul>
+<li><code>trace_source</code></li>
+<li><code>trace_completeness</code></li>
+<li>explicit validity notes for comparability limits</li>
+</ul>
+<h2 id="reporting-constraints">Reporting Constraints</h2>
+<ul>
+<li>Do not compare GED values across families without explicit normalization and rationale.</li>
+<li>Treat trace-family results as proxy evidence unless backend instrumentation provides true search-state transitions.</li>
+</ul>
+<h2 id="related-adr">Related ADR</h2>
+<ul>
+<li><a href="../../../decisions/adr-search-graph-feasibility-by-backend/">ADR: Search-Graph Feasibility by Backend</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

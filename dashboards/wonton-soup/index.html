@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wonton Soup Dashboard</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background:
+                    radial-gradient(circle at top, rgba(53, 109, 145, 0.26), transparent 38%),
+                    linear-gradient(180deg, #05080c 0%, #080b10 48%, #05070a 100%);
+                color: #e6edf3;
+                font-family: "JetBrains Mono", "Berkeley Mono", monospace;
+            }
+
+            .dashboard-shell {
+                position: fixed;
+                inset: 0;
+                width: 100vw;
+                height: 100dvh;
+            }
+
+            #wonton-dashboard {
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #05080c 0%, #080b10 48%, #05070a 100%);
+            }
+
+            .dashboard-status {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: clamp(16px, 3vw, 32px);
+                background:
+                    linear-gradient(180deg, rgba(6, 9, 13, 0.9) 0%, rgba(6, 9, 13, 0.32) 52%, rgba(6, 9, 13, 0.12) 100%);
+                pointer-events: none;
+            }
+
+            .dashboard-status[hidden] {
+                display: none;
+            }
+
+            .dashboard-status-card {
+                max-width: 34rem;
+                padding: 1.25rem 1.35rem;
+                border: 1px solid rgba(94, 126, 146, 0.42);
+                border-radius: 18px;
+                background: rgba(9, 13, 18, 0.88);
+                box-shadow: 0 22px 72px rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(12px);
+                pointer-events: auto;
+            }
+
+            .dashboard-status[data-state="error"] .dashboard-status-card {
+                border-color: rgba(255, 122, 107, 0.6);
+            }
+
+            .dashboard-status-eyebrow {
+                margin: 0 0 0.7rem;
+                color: #87b5d1;
+                font-size: 0.76rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+            }
+
+            .dashboard-status-title {
+                margin: 0;
+                font-size: clamp(1.4rem, 2.7vw, 2.1rem);
+                line-height: 1.05;
+            }
+
+            .dashboard-status-message {
+                margin: 0.75rem 0 0;
+                color: #b8c4cf;
+                font-size: 0.96rem;
+                line-height: 1.55;
+            }
+
+            .dashboard-status-detail {
+                margin: 1rem 0 0;
+                padding: 0.8rem 0.95rem;
+                border-radius: 12px;
+                background: rgba(20, 27, 35, 0.9);
+                color: #d0d7de;
+                font-size: 0.78rem;
+                line-height: 1.55;
+                white-space: pre-wrap;
+                pointer-events: auto;
+            }
+
+            @media (max-width: 720px) {
+                .dashboard-status {
+                    align-items: stretch;
+                }
+
+                .dashboard-status-card {
+                    width: 100%;
+                    max-width: none;
+                    max-height: calc(100vh - 32px);
+                    overflow: auto;
+                    border-radius: 14px;
+                    padding: 1rem 1.1rem;
+                }
+
+                .dashboard-status-title {
+                    font-size: clamp(1.2rem, 4.2vw, 1.6rem);
+                }
+
+                .dashboard-status-message {
+                    font-size: 0.9rem;
+                }
+
+                .dashboard-status-detail {
+                    max-height: 40vh;
+                    overflow: auto;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .dashboard-status {
+                    padding: 12px;
+                }
+
+                .dashboard-status-card {
+                    padding: 0.9rem 1rem;
+                    border-radius: 12px;
+                }
+
+                .dashboard-status-eyebrow {
+                    font-size: 0.7rem;
+                }
+
+                .dashboard-status-message {
+                    font-size: 0.86rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="dashboard-shell">
+            <canvas id="wonton-dashboard"></canvas>
+            <div id="dashboard-status" class="dashboard-status" data-state="booting">
+                <div class="dashboard-status-card">
+                    <p class="dashboard-status-eyebrow">Wonton Soup</p>
+                    <h1 id="dashboard-status-title" class="dashboard-status-title">
+                        Starting dashboard
+                    </h1>
+                    <p id="dashboard-status-message" class="dashboard-status-message">
+                        Loading the wasm bundle.
+                    </p>
+                    <pre id="dashboard-status-detail" class="dashboard-status-detail" hidden></pre>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            const statusRoot = document.getElementById("dashboard-status");
+            const titleNode = document.getElementById("dashboard-status-title");
+            const messageNode = document.getElementById("dashboard-status-message");
+            const detailNode = document.getElementById("dashboard-status-detail");
+            const shell = document.querySelector(".dashboard-shell");
+            const canvas = document.getElementById("wonton-dashboard");
+
+            let lastViewportWidth = 0;
+            let lastViewportHeight = 0;
+            const syncViewportSize = () => {
+                const root = document.documentElement;
+                const viewport = window.visualViewport;
+                const width = Math.round(
+                    Math.min(root.clientWidth, viewport?.width ?? root.clientWidth),
+                );
+                const height = Math.round(
+                    Math.min(root.clientHeight, viewport?.height ?? root.clientHeight),
+                );
+                if (width === lastViewportWidth && height === lastViewportHeight) {
+                    return;
+                }
+                lastViewportWidth = width;
+                lastViewportHeight = height;
+                shell.style.width = `${width}px`;
+                shell.style.height = `${height}px`;
+                canvas.style.width = `${width}px`;
+                canvas.style.height = `${height}px`;
+            };
+
+            syncViewportSize();
+            window.addEventListener("resize", syncViewportSize);
+            window.visualViewport?.addEventListener("resize", syncViewportSize);
+            window.visualViewport?.addEventListener("scroll", syncViewportSize);
+
+            const setStatus = ({ state, title, message, detail }) => {
+                statusRoot.dataset.state = state;
+                statusRoot.hidden = state === "ready";
+                titleNode.textContent = title;
+                messageNode.textContent = message;
+                if (detail) {
+                    detailNode.hidden = false;
+                    detailNode.textContent = detail;
+                } else {
+                    detailNode.hidden = true;
+                    detailNode.textContent = "";
+                }
+            };
+
+            setStatus({
+                state: "booting",
+                title: "Loading dashboard bundle",
+                message: "Fetching the runtime and preparing the renderer.",
+            });
+
+            try {
+                const { default: init } = await import("./wonton_soup_dashboard.js?v=20260307n");
+                setStatus({
+                    state: "booting",
+                    title: "Initializing renderer",
+                    message: "Booting the specter-viz surface.",
+                });
+                await init();
+            } catch (error) {
+                console.error("Dashboard module init failed", error);
+                setStatus({
+                    state: "error",
+                    title: "Dashboard boot failed",
+                    message: "The wasm bundle could not initialize.",
+                    detail: error?.stack ?? String(error),
+                });
+            }
+        </script>
+    </body>
+</html>

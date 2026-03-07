@@ -1,0 +1,50 @@
+{
+  "activity" : {
+    "enabled" : true,
+    "interval" : 50,
+    "matchThreshold" : 1.5,
+    "maxComponents" : 32,
+    "paramWeight" : 1,
+    "positionWeight" : 0.05,
+    "threshold" : 0.05
+  },
+  "batch_size" : 1,
+  "collection" : {
+    "enabled" : false,
+    "export_enabled" : false,
+    "require_filters_passed" : false,
+    "require_stable" : false
+  },
+  "count" : 1,
+  "filters" : {
+    "mass_min" : 0.01
+  },
+  "init_seed_offset" : 0,
+  "mass_channel" : -1,
+  "occupancy_threshold" : 0.05,
+  "overrides" : {
+
+  },
+  "record_interval" : 25,
+  "score_weights" : {
+    "activity_diversity_mean" : 2,
+    "activity_ean_mean" : 0.5,
+    "activity_species_mean" : 1
+  },
+  "seed_start" : 0,
+  "seed_stride" : 1,
+  "seeds_per_job" : 1,
+  "stability" : {
+    "enabled" : true,
+    "filters" : {
+
+    },
+    "mass_max_fraction" : 0.5,
+    "mass_min_fraction" : 0.01,
+    "require_survival" : false,
+    "window_samples" : 0
+  },
+  "steps" : 500,
+  "top_k" : 1,
+  "warmup_steps" : 50
+}

@@ -1,0 +1,2162 @@
+[
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/6dc166d0-8989-4d60-a7e5-e44096c94947.json",
+    "id" : "6DC166D0-8989-4D60-A7E5-E44096C94947",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0027871756,
+      "displacement" : 1.602626,
+      "gyration" : 1066.7294,
+      "heading_rad" : -2.3518286,
+      "occupancy_mean" : 0.10467529,
+      "path_length" : 1.6489102,
+      "translation_ratio" : 0.97193044,
+      "velocity_x" : -0.0019622073,
+      "velocity_y" : -0.0019794165
+    },
+    "name" : "vibrant-orbiter-0444",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 12.486139,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6dc166d0-8989-4d60-a7e5-e44096c94947\/search.json",
+    "seed" : 85,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4894257,
+        "y" : 0.48964095
+      },
+      "headingRad" : -2.8069875,
+      "speed" : 0.00032552413,
+      "trail" : [
+        {
+          "x" : 0.4898207,
+          "y" : 0.48959538
+        },
+        {
+          "x" : 0.4897998,
+          "y" : 0.48967573
+        },
+        {
+          "x" : 0.48973316,
+          "y" : 0.48953405
+        }
+      ],
+      "vx" : -0.00030747056,
+      "vy" : -0.00010690093
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b.json",
+    "id" : "5951EAEA-6B08-4E38-99FB-D06F98E4AB1B",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0026881713,
+      "displacement" : 1.5456985,
+      "gyration" : 1079.4136,
+      "heading_rad" : -2.3632152,
+      "occupancy_mean" : 0.10921987,
+      "path_length" : 1.5664909,
+      "translation_ratio" : 0.98672676,
+      "velocity_x" : -0.0019141223,
+      "velocity_y" : -0.0018874326
+    },
+    "name" : "ethereal-blob-6446",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 12.314368,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/5951eaea-6b08-4e38-99fb-d06f98e4ab1b\/search.json",
+    "seed" : 112,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.491968,
+        "y" : 0.48591113
+      },
+      "headingRad" : -0.019473549,
+      "speed" : 0.0009443166,
+      "trail" : [
+        {
+          "x" : 0.48921236,
+          "y" : 0.48676232
+        },
+        {
+          "x" : 0.48947954,
+          "y" : 0.4864331
+        },
+        {
+          "x" : 0.49102387,
+          "y" : 0.48589274
+        }
+      ],
+      "vx" : 0.0009441376,
+      "vy" : -1.8388033e-05
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/d70ec197-6efc-4d8a-a983-1fd578a73eed.json",
+    "id" : "D70EC197-6EFC-4D8A-A983-1FD578A73EED",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0024712968,
+      "displacement" : 1.4209957,
+      "gyration" : 1036.2621,
+      "heading_rad" : -2.3943965,
+      "occupancy_mean" : 0.10973358,
+      "path_length" : 1.4377493,
+      "translation_ratio" : 0.98834735,
+      "velocity_x" : -0.0018129365,
+      "velocity_y" : -0.0016794553
+    },
+    "name" : "harmonic-cell-1236",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 11.815737,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d70ec197-6efc-4d8a-a983-1fd578a73eed\/search.json",
+    "seed" : 106,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48159334,
+        "y" : 0.4788507
+      },
+      "headingRad" : 0.31051722,
+      "speed" : 0.0002928039,
+      "trail" : [
+        {
+          "x" : 0.48102868,
+          "y" : 0.4795519
+        },
+        {
+          "x" : 0.481266,
+          "y" : 0.47921094
+        },
+        {
+          "x" : 0.48131454,
+          "y" : 0.47894016
+        }
+      ],
+      "vx" : 0.00027880073,
+      "vy" : 8.946657e-05
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/0019209d-08ae-4d98-831b-189ee86c78ab.json",
+    "id" : "0019209D-08AE-4D98-831B-189EE86C78AB",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0024065708,
+      "displacement" : 1.3837782,
+      "gyration" : 1091.988,
+      "heading_rad" : -2.3359828,
+      "occupancy_mean" : 0.1063207,
+      "path_length" : 1.434184,
+      "translation_ratio" : 0.96485406,
+      "velocity_x" : -0.001666963,
+      "velocity_y" : -0.001735747
+    },
+    "name" : "pulsing-entity-7233",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 11.573449,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0019209d-08ae-4d98-831b-189ee86c78ab\/search.json",
+    "seed" : 57,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48704427,
+        "y" : 0.48503044
+      },
+      "headingRad" : -2.2965534,
+      "speed" : 0.001062409,
+      "trail" : [
+        {
+          "x" : 0.4877633,
+          "y" : 0.4845951
+        },
+        {
+          "x" : 0.4878247,
+          "y" : 0.4842629
+        },
+        {
+          "x" : 0.4877494,
+          "y" : 0.48423576
+        }
+      ],
+      "vx" : -0.00070512295,
+      "vy" : -0.0007946789
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/21e69234-3682-45b7-aa34-c5910df2a647.json",
+    "id" : "21E69234-3682-45B7-AA34-C5910DF2A647",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0023316457,
+      "displacement" : 1.3406962,
+      "gyration" : 1045.3057,
+      "heading_rad" : 0.95015985,
+      "occupancy_mean" : 0.10760244,
+      "path_length" : 1.3527421,
+      "translation_ratio" : 0.99109524,
+      "velocity_x" : 0.0013559756,
+      "velocity_y" : 0.0018968134
+    },
+    "name" : "harmonic-walker-8562",
+    "recorded_at" : "2026-03-07T06:54:30.838Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 11.496795,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/21e69234-3682-45b7-aa34-c5910df2a647\/search.json",
+    "seed" : 0,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5102187,
+        "y" : 0.51038504
+      },
+      "headingRad" : 1.5471162,
+      "speed" : 0.00044304633,
+      "trail" : [
+        {
+          "x" : 0.50979424,
+          "y" : 0.5105575
+        },
+        {
+          "x" : 0.5098472,
+          "y" : 0.51058257
+        },
+        {
+          "x" : 0.5102082,
+          "y" : 0.51082796
+        }
+      ],
+      "vx" : 1.04904175e-05,
+      "vy" : 0.00044292212
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/bc634ee4-cd29-4604-ba7a-46858051c92e.json",
+    "id" : "BC634EE4-CD29-4604-BA7A-46858051C92E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.002266039,
+      "displacement" : 1.3029723,
+      "gyration" : 1103.8705,
+      "heading_rad" : 0.8974225,
+      "occupancy_mean" : 0.10700226,
+      "path_length" : 1.3258226,
+      "translation_ratio" : 0.9827652,
+      "velocity_x" : 0.0014131629,
+      "velocity_y" : 0.0017714127
+    },
+    "name" : "harmonic-cell-7571",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 11.320311,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/bc634ee4-cd29-4604-ba7a-46858051c92e\/search.json",
+    "seed" : 14,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.51081735,
+        "y" : 0.5064889
+      },
+      "headingRad" : 2.3469777,
+      "speed" : 0.00048930355,
+      "trail" : [
+        {
+          "x" : 0.51092184,
+          "y" : 0.50627345
+        },
+        {
+          "x" : 0.51118904,
+          "y" : 0.5064236
+        },
+        {
+          "x" : 0.51116014,
+          "y" : 0.5068381
+        }
+      ],
+      "vx" : -0.0003427863,
+      "vy" : 0.000349164
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/8e88e288-6e55-454d-8426-269a369ab250.json",
+    "id" : "8E88E288-6E55-454D-8426-269A369AB250",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0022815433,
+      "displacement" : 1.3118874,
+      "gyration" : 1074.8445,
+      "heading_rad" : 0.741206,
+      "occupancy_mean" : 0.10933685,
+      "path_length" : 1.3623877,
+      "translation_ratio" : 0.9629325,
+      "velocity_x" : 0.0016829914,
+      "velocity_y" : 0.0015404477
+    },
+    "name" : "harmonic-entity-9984",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 11.276327,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8e88e288-6e55-454d-8426-269a369ab250\/search.json",
+    "seed" : 83,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50684583,
+        "y" : 0.5082266
+      },
+      "headingRad" : -2.597493,
+      "speed" : 0.0014693671,
+      "trail" : [
+        {
+          "x" : 0.507971,
+          "y" : 0.5063333
+        },
+        {
+          "x" : 0.5085385,
+          "y" : 0.50687474
+        },
+        {
+          "x" : 0.508103,
+          "y" : 0.50746596
+        }
+      ],
+      "vx" : -0.0012571812,
+      "vy" : -0.0007606149
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/b1dd18a7-2980-4702-9225-499460077065.json",
+    "id" : "B1DD18A7-2980-4702-9225-499460077065",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0021752592,
+      "displacement" : 1.250774,
+      "gyration" : 1054.4769,
+      "heading_rad" : 0.9855869,
+      "occupancy_mean" : 0.099721275,
+      "path_length" : 1.3246322,
+      "translation_ratio" : 0.94424254,
+      "velocity_x" : 0.0012015566,
+      "velocity_y" : 0.0018132882
+    },
+    "name" : "ancient-spiral-3028",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 10.950942,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b1dd18a7-2980-4702-9225-499460077065\/search.json",
+    "seed" : 103,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50747794,
+        "y" : 0.5055427
+      },
+      "headingRad" : 1.2442209,
+      "speed" : 0.0016915158,
+      "trail" : [
+        {
+          "x" : 0.5066674,
+          "y" : 0.50723666
+        },
+        {
+          "x" : 0.5066113,
+          "y" : 0.5071062
+        },
+        {
+          "x" : 0.5069353,
+          "y" : 0.5071448
+        }
+      ],
+      "vx" : 0.0005426407,
+      "vy" : 0.0016021132
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/b6cf8bad-77be-4e3d-998a-be4a49a7c794.json",
+    "id" : "B6CF8BAD-77BE-4E3D-998A-BE4A49A7C794",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0019929197,
+      "displacement" : 1.1459289,
+      "gyration" : 1092.6748,
+      "heading_rad" : -2.340936,
+      "occupancy_mean" : 0.11010488,
+      "path_length" : 1.1716222,
+      "translation_ratio" : 0.9780703,
+      "velocity_x" : -0.0013875414,
+      "velocity_y" : -0.0014305447
+    },
+    "name" : "mystic-entity-4390",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 10.66958,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b6cf8bad-77be-4e3d-998a-be4a49a7c794\/search.json",
+    "seed" : 30,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48858732,
+        "y" : 0.4901342
+      },
+      "headingRad" : -0.65910614,
+      "speed" : 0.0005168114,
+      "trail" : [
+        {
+          "x" : 0.48794377,
+          "y" : 0.4894178
+        },
+        {
+          "x" : 0.48816276,
+          "y" : 0.48944542
+        },
+        {
+          "x" : 0.48817876,
+          "y" : 0.4898177
+        }
+      ],
+      "vx" : 0.00040856004,
+      "vy" : -0.00031650066
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/6be36ff0-0714-4407-b174-c71b8a062a52.json",
+    "id" : "6BE36FF0-0714-4407-B174-C71B8A062A52",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0019322841,
+      "displacement" : 1.1110634,
+      "gyration" : 1071.9823,
+      "heading_rad" : 0.7215288,
+      "occupancy_mean" : 0.107536316,
+      "path_length" : 1.2157222,
+      "translation_ratio" : 0.9139122,
+      "velocity_x" : 0.0014507526,
+      "velocity_y" : 0.001276338
+    },
+    "name" : "radiant-pulse-6067",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 10.260284,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/6be36ff0-0714-4407-b174-c71b8a062a52\/search.json",
+    "seed" : 56,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5060496,
+        "y" : 0.50712764
+      },
+      "headingRad" : -0.8471336,
+      "speed" : 0.00014619088,
+      "trail" : [
+        {
+          "x" : 0.50584084,
+          "y" : 0.50663286
+        },
+        {
+          "x" : 0.505771,
+          "y" : 0.50704074
+        },
+        {
+          "x" : 0.5059528,
+          "y" : 0.5070181
+        }
+      ],
+      "vx" : 9.679794e-05,
+      "vy" : -0.00010955334
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/70c84606-1210-4cba-bdd6-c6d61ff7c19a.json",
+    "id" : "70C84606-1210-4CBA-BDD6-C6D61FF7C19A",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0019122806,
+      "displacement" : 1.0995613,
+      "gyration" : 1040.0308,
+      "heading_rad" : 0.8149287,
+      "occupancy_mean" : 0.11073557,
+      "path_length" : 1.2715118,
+      "translation_ratio" : 0.8647669,
+      "velocity_x" : 0.001311672,
+      "velocity_y" : 0.001391522
+    },
+    "name" : "harmonic-dancer-0017",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 10.017716,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/70c84606-1210-4cba-bdd6-c6d61ff7c19a\/search.json",
+    "seed" : 62,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.51258963,
+        "y" : 0.5085505
+      },
+      "headingRad" : 0.14705789,
+      "speed" : 0.00032013486,
+      "trail" : [
+        {
+          "x" : 0.51197606,
+          "y" : 0.50797474
+        },
+        {
+          "x" : 0.5121028,
+          "y" : 0.5081874
+        },
+        {
+          "x" : 0.51227295,
+          "y" : 0.50859743
+        }
+      ],
+      "vx" : 0.00031667948,
+      "vy" : 4.6908855e-05
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/222fa3ac-51fd-4d11-8f52-c414ccca5c53.json",
+    "id" : "222FA3AC-51FD-4D11-8F52-C414CCCA5C53",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017092787,
+      "displacement" : 0.98283523,
+      "gyration" : 1085.7261,
+      "heading_rad" : -2.458474,
+      "occupancy_mean" : 0.1073583,
+      "path_length" : 1.0118215,
+      "translation_ratio" : 0.9713524,
+      "velocity_x" : -0.00132573,
+      "velocity_y" : -0.0010789224
+    },
+    "name" : "harmonic-form-4450",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.975229,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/222fa3ac-51fd-4d11-8f52-c414ccca5c53\/search.json",
+    "seed" : 124,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48943272,
+        "y" : 0.48966426
+      },
+      "headingRad" : 2.3645992,
+      "speed" : 0.0004513244,
+      "trail" : [
+        {
+          "x" : 0.49024644,
+          "y" : 0.48983932
+        },
+        {
+          "x" : 0.49013245,
+          "y" : 0.48986542
+        },
+        {
+          "x" : 0.48975453,
+          "y" : 0.4899807
+        }
+      ],
+      "vx" : -0.00032180548,
+      "vy" : 0.00031644106
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d.json",
+    "id" : "8BDC9B4B-C7CB-4E82-8347-49EB2293263D",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017392659,
+      "displacement" : 1.0000778,
+      "gyration" : 1111.5144,
+      "heading_rad" : 0.8255269,
+      "occupancy_mean" : 0.1087265,
+      "path_length" : 1.0470545,
+      "translation_ratio" : 0.95513445,
+      "velocity_x" : 0.0011795177,
+      "velocity_y" : 0.0012781956
+    },
+    "name" : "ethereal-amoeba-8865",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.971561,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/search.json",
+    "seed" : 53,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5067648,
+        "y" : 0.5085152
+      },
+      "headingRad" : -1.7700187,
+      "speed" : 0.00044152228,
+      "trail" : [
+        {
+          "x" : 0.5068424,
+          "y" : 0.50742966
+        },
+        {
+          "x" : 0.50675595,
+          "y" : 0.5080721
+        },
+        {
+          "x" : 0.5068522,
+          "y" : 0.5080824
+        }
+      ],
+      "vx" : -8.738041e-05,
+      "vy" : -0.00043278933
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/54f44a24-6a61-4661-9b7c-0ada990ac2d9.json",
+    "id" : "54F44A24-6A61-4661-9B7C-0ADA990AC2D9",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017477417,
+      "displacement" : 1.0049515,
+      "gyration" : 1118.1675,
+      "heading_rad" : 0.8812521,
+      "occupancy_mean" : 0.1141332,
+      "path_length" : 1.062899,
+      "translation_ratio" : 0.94548166,
+      "velocity_x" : 0.0011118881,
+      "velocity_y" : 0.0013484458
+    },
+    "name" : "ethereal-walker-6826",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.952507,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/54f44a24-6a61-4661-9b7c-0ada990ac2d9\/search.json",
+    "seed" : 125,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5056646,
+        "y" : 0.50825906
+      },
+      "headingRad" : 0.46995667,
+      "speed" : 0.0005915086,
+      "trail" : [
+        {
+          "x" : 0.50465816,
+          "y" : 0.50861686
+        },
+        {
+          "x" : 0.5054776,
+          "y" : 0.5080908
+        },
+        {
+          "x" : 0.5051372,
+          "y" : 0.5085269
+        }
+      ],
+      "vx" : 0.0005273819,
+      "vy" : 0.00026786327
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/69a3326c-cd52-463e-9280-5d1a83669a28.json",
+    "id" : "69A3326C-CD52-463E-9280-5D1A83669A28",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017425265,
+      "displacement" : 1.0019528,
+      "gyration" : 1067.1559,
+      "heading_rad" : 0.8865203,
+      "occupancy_mean" : 0.10343424,
+      "path_length" : 1.1154441,
+      "translation_ratio" : 0.89825463,
+      "velocity_x" : 0.0011014723,
+      "velocity_y" : 0.0013502436
+    },
+    "name" : "harmonic-form-7434",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.743107,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/69a3326c-cd52-463e-9280-5d1a83669a28\/search.json",
+    "seed" : 96,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50342757,
+        "y" : 0.50846064
+      },
+      "headingRad" : 1.229248,
+      "speed" : 0.0010406679,
+      "trail" : [
+        {
+          "x" : 0.5043331,
+          "y" : 0.5100208
+        },
+        {
+          "x" : 0.50398713,
+          "y" : 0.5096867
+        },
+        {
+          "x" : 0.503079,
+          "y" : 0.5094412
+        }
+      ],
+      "vx" : 0.00034856796,
+      "vy" : 0.000980556
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/7a315b07-bc78-48b3-a948-31d61fb2d2f4.json",
+    "id" : "7A315B07-BC78-48B3-A948-31D61FB2D2F4",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017576669,
+      "displacement" : 1.0106585,
+      "gyration" : 1085.8586,
+      "heading_rad" : 0.7684201,
+      "occupancy_mean" : 0.10322825,
+      "path_length" : 1.1460387,
+      "translation_ratio" : 0.8818712,
+      "velocity_x" : 0.0012637794,
+      "velocity_y" : 0.0012215788
+    },
+    "name" : "glowing-orbiter-8688",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.7024765,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/7a315b07-bc78-48b3-a948-31d61fb2d2f4\/search.json",
+    "seed" : 15,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5021683,
+        "y" : 0.5048666
+      },
+      "headingRad" : -1.1581665,
+      "speed" : 0.0003266946,
+      "trail" : [
+        {
+          "x" : 0.5014418,
+          "y" : 0.5047185
+        },
+        {
+          "x" : 0.5014337,
+          "y" : 0.5047239
+        },
+        {
+          "x" : 0.5020373,
+          "y" : 0.5045673
+        }
+      ],
+      "vx" : 0.00013101101,
+      "vy" : -0.00029927492
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/400265ce-49ab-41bd-be3b-7f8fb633e217.json",
+    "id" : "400265CE-49AB-41BD-BE3B-7F8FB633E217",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0015904116,
+      "displacement" : 0.9144867,
+      "gyration" : 1063.876,
+      "heading_rad" : 0.81558627,
+      "occupancy_mean" : 0.10811869,
+      "path_length" : 1.0360327,
+      "translation_ratio" : 0.8826813,
+      "velocity_x" : 0.0010901344,
+      "velocity_y" : 0.0011580227
+    },
+    "name" : "vibrant-spiral-0132",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.31408,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/400265ce-49ab-41bd-be3b-7f8fb633e217\/search.json",
+    "seed" : 80,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5058549,
+        "y" : 0.50108695
+      },
+      "headingRad" : 2.001659,
+      "speed" : 0.000929488,
+      "trail" : [
+        {
+          "x" : 0.5068172,
+          "y" : 0.503617
+        },
+        {
+          "x" : 0.50606996,
+          "y" : 0.50351965
+        },
+        {
+          "x" : 0.5062431,
+          "y" : 0.5019315
+        }
+      ],
+      "vx" : -0.00038820505,
+      "vy" : 0.0008445382
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f.json",
+    "id" : "D24DCF17-87DC-4999-BFA8-1EC5852B4C4F",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0014835128,
+      "displacement" : 0.85301983,
+      "gyration" : 1078.5278,
+      "heading_rad" : 0.6563397,
+      "occupancy_mean" : 0.11676534,
+      "path_length" : 0.9179634,
+      "translation_ratio" : 0.92925256,
+      "velocity_x" : 0.001175285,
+      "velocity_y" : 0.0009052708
+    },
+    "name" : "pulsing-pulse-7787",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.265312,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/d24dcf17-87dc-4999-bfa8-1ec5852b4c4f\/search.json",
+    "seed" : 34,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50570196,
+        "y" : 0.50795895
+      },
+      "headingRad" : 2.3706357,
+      "speed" : 0.0011382522,
+      "trail" : [
+        {
+          "x" : 0.5069657,
+          "y" : 0.50980645
+        },
+        {
+          "x" : 0.5069478,
+          "y" : 0.5091336
+        },
+        {
+          "x" : 0.50651836,
+          "y" : 0.5087521
+        }
+      ],
+      "vx" : -0.0008164048,
+      "vy" : 0.000793159
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413.json",
+    "id" : "DFEBD3FD-AA16-49C5-8480-FB6B2FE28413",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0015602645,
+      "displacement" : 0.89715207,
+      "gyration" : 1069.3121,
+      "heading_rad" : 0.85815954,
+      "occupancy_mean" : 0.109298706,
+      "path_length" : 1.024497,
+      "translation_ratio" : 0.8757,
+      "velocity_x" : 0.0010201496,
+      "velocity_y" : 0.0011805593
+    },
+    "name" : "crystal-amoeba-8106",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 9.2111,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/dfebd3fd-aa16-49c5-8480-fb6b2fe28413\/search.json",
+    "seed" : 113,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49995598,
+        "y" : 0.49734372
+      },
+      "headingRad" : 2.1839347,
+      "speed" : 0.00024895818,
+      "trail" : [
+        {
+          "x" : 0.4996281,
+          "y" : 0.497901
+        },
+        {
+          "x" : 0.49995124,
+          "y" : 0.49784657
+        },
+        {
+          "x" : 0.50009924,
+          "y" : 0.49754733
+        }
+      ],
+      "vx" : -0.00014325976,
+      "vy" : 0.00020360947
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7.json",
+    "id" : "0E0B5F53-386E-4AE6-A5B9-EA619AB891B7",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.001524996,
+      "displacement" : 0.8768727,
+      "gyration" : 1059.1261,
+      "heading_rad" : 0.79143673,
+      "occupancy_mean" : 0.106051125,
+      "path_length" : 1.0456975,
+      "translation_ratio" : 0.838553,
+      "velocity_x" : 0.0010718039,
+      "velocity_y" : 0.0010848269
+    },
+    "name" : "mystic-orbiter-1041",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.967098,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/0e0b5f53-386e-4ae6-a5b9-ea619ab891b7\/search.json",
+    "seed" : 86,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5058162,
+        "y" : 0.5030148
+      },
+      "headingRad" : 2.713679,
+      "speed" : 0.00027233167,
+      "trail" : [
+        {
+          "x" : 0.5049254,
+          "y" : 0.50297
+        },
+        {
+          "x" : 0.50573874,
+          "y" : 0.503016
+        },
+        {
+          "x" : 0.506064,
+          "y" : 0.5031278
+        }
+      ],
+      "vx" : -0.0002477765,
+      "vy" : 0.00011301041
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c.json",
+    "id" : "37397DC0-F59F-4EE1-8680-F0ECB6618B1C",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0014028822,
+      "displacement" : 0.80665725,
+      "gyration" : 1075.5945,
+      "heading_rad" : -2.3851202,
+      "occupancy_mean" : 0.106943764,
+      "path_length" : 0.89926004,
+      "translation_ratio" : 0.8970233,
+      "velocity_x" : -0.0010202624,
+      "velocity_y" : -0.00096288265
+    },
+    "name" : "flowing-pulse-3197",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.914903,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/37397dc0-f59f-4ee1-8680-f0ecb6618b1c\/search.json",
+    "seed" : 8,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4871541,
+        "y" : 0.4909612
+      },
+      "headingRad" : -2.8249419,
+      "speed" : 0.00017371135,
+      "trail" : [
+        {
+          "x" : 0.48750865,
+          "y" : 0.49080956
+        },
+        {
+          "x" : 0.48745686,
+          "y" : 0.4909269
+        },
+        {
+          "x" : 0.48731917,
+          "y" : 0.4909071
+        }
+      ],
+      "vx" : -0.00016507506,
+      "vy" : -5.4091215e-05
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/2e6dbd11-f824-4991-916e-08c263522ef6.json",
+    "id" : "2E6DBD11-F824-4991-916E-08C263522EF6",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0014259777,
+      "displacement" : 0.81993717,
+      "gyration" : 1053.8773,
+      "heading_rad" : 0.71479386,
+      "occupancy_mean" : 0.10871124,
+      "path_length" : 1.0066266,
+      "translation_ratio" : 0.81453955,
+      "velocity_x" : 0.0010769388,
+      "velocity_y" : 0.0009346738
+    },
+    "name" : "luminous-walker-9065",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.623406,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2e6dbd11-f824-4991-916e-08c263522ef6\/search.json",
+    "seed" : 27,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5008852,
+        "y" : 0.50360596
+      },
+      "headingRad" : -0.095386475,
+      "speed" : 8.4486215e-05,
+      "trail" : [
+        {
+          "x" : 0.5006983,
+          "y" : 0.5037331
+        },
+        {
+          "x" : 0.500805,
+          "y" : 0.5036802
+        },
+        {
+          "x" : 0.5008011,
+          "y" : 0.5035979
+        }
+      ],
+      "vx" : 8.4102154e-05,
+      "vy" : -8.046627e-06
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/2288454f-a880-4b28-abfd-db76c74c4fdd.json",
+    "id" : "2288454F-A880-4B28-ABFD-DB76C74C4FDD",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0012114283,
+      "displacement" : 0.6965713,
+      "gyration" : 1109.9165,
+      "heading_rad" : -2.2988012,
+      "occupancy_mean" : 0.11312612,
+      "path_length" : 0.79257345,
+      "translation_ratio" : 0.8788729,
+      "velocity_x" : -0.00080606213,
+      "velocity_y" : -0.00090433535
+    },
+    "name" : "pulsing-amoeba-5390",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.37652,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/2288454f-a880-4b28-abfd-db76c74c4fdd\/search.json",
+    "seed" : 43,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48037797,
+        "y" : 0.48634008
+      },
+      "headingRad" : -2.3340714,
+      "speed" : 0.001953837,
+      "trail" : [
+        {
+          "x" : 0.4815375,
+          "y" : 0.48575118
+        },
+        {
+          "x" : 0.48127392,
+          "y" : 0.48547632
+        },
+        {
+          "x" : 0.48172864,
+          "y" : 0.48492828
+        }
+      ],
+      "vx" : -0.001350671,
+      "vy" : -0.0014117956
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/33fc915e-67fe-4195-87f8-22af8e7501f0.json",
+    "id" : "33FC915E-67FE-4195-87F8-22AF8E7501F0",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0013447724,
+      "displacement" : 0.77324414,
+      "gyration" : 1074.1519,
+      "heading_rad" : 0.68773824,
+      "occupancy_mean" : 0.10560354,
+      "path_length" : 0.9732135,
+      "translation_ratio" : 0.79452676,
+      "velocity_x" : 0.0010390837,
+      "velocity_y" : 0.00085364963
+    },
+    "name" : "ancient-spiral-7071",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.331247,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/33fc915e-67fe-4195-87f8-22af8e7501f0\/search.json",
+    "seed" : 123,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5061621,
+        "y" : 0.5063135
+      },
+      "headingRad" : -1.8304409,
+      "speed" : 0.00030065005,
+      "trail" : [
+        {
+          "x" : 0.5054205,
+          "y" : 0.505398
+        },
+        {
+          "x" : 0.50577754,
+          "y" : 0.50571436
+        },
+        {
+          "x" : 0.5062393,
+          "y" : 0.50602293
+        }
+      ],
+      "vx" : -7.7188015e-05,
+      "vy" : -0.00029057264
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/b05132da-0174-4a69-b7aa-8121600b9c5f.json",
+    "id" : "B05132DA-0174-4A69-B7AA-8121600B9C5F",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0010818935,
+      "displacement" : 0.62208873,
+      "gyration" : 1127.9812,
+      "heading_rad" : -2.4622357,
+      "occupancy_mean" : 0.10512797,
+      "path_length" : 0.6789848,
+      "translation_ratio" : 0.91620415,
+      "velocity_x" : -0.0008416881,
+      "velocity_y" : -0.00067974586
+    },
+    "name" : "luminous-blob-2759",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.235942,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/b05132da-0174-4a69-b7aa-8121600b9c5f\/search.json",
+    "seed" : 3,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49222293,
+        "y" : 0.49036804
+      },
+      "headingRad" : 2.941068,
+      "speed" : 0.00022787492,
+      "trail" : [
+        {
+          "x" : 0.49239933,
+          "y" : 0.49062344
+        },
+        {
+          "x" : 0.49243253,
+          "y" : 0.49060687
+        },
+        {
+          "x" : 0.49244624,
+          "y" : 0.49041343
+        }
+      ],
+      "vx" : -0.0002233088,
+      "vy" : 4.5388937e-05
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598.json",
+    "id" : "EA3E7F84-5160-4DEF-AFB9-E1D7BB2FD598",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0011942723,
+      "displacement" : 0.68670654,
+      "gyration" : 1082.8175,
+      "heading_rad" : -2.4266193,
+      "occupancy_mean" : 0.11113485,
+      "path_length" : 0.8218233,
+      "translation_ratio" : 0.83558905,
+      "velocity_x" : -0.0009018077,
+      "velocity_y" : -0.00078296167
+    },
+    "name" : "mystic-spiral-8865",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.137698,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/ea3e7f84-5160-4def-afb9-e1d7bb2fd598\/search.json",
+    "seed" : 23,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49010542,
+        "y" : 0.4947448
+      },
+      "headingRad" : -0.007012508,
+      "speed" : 0.00021249578,
+      "trail" : [
+        {
+          "x" : 0.4895922,
+          "y" : 0.49431172
+        },
+        {
+          "x" : 0.48960128,
+          "y" : 0.4946503
+        },
+        {
+          "x" : 0.48989293,
+          "y" : 0.49474332
+        }
+      ],
+      "vx" : 0.00021249056,
+      "vy" : -1.4901161e-06
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112.json",
+    "id" : "550B64E9-6CE3-4BB8-8E54-519BB2F1A112",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0011978856,
+      "displacement" : 0.68878424,
+      "gyration" : 1086.8771,
+      "heading_rad" : 0.72808105,
+      "occupancy_mean" : 0.11092123,
+      "path_length" : 0.8476443,
+      "translation_ratio" : 0.81258637,
+      "velocity_x" : 0.000894165,
+      "velocity_y" : 0.00079711917
+    },
+    "name" : "serene-pattern-2683",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 8.042747,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/550b64e9-6ce3-4bb8-8e54-519bb2f1a112\/search.json",
+    "seed" : 52,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50453675,
+        "y" : 0.50616664
+      },
+      "headingRad" : -2.7963123,
+      "speed" : 0.0006929737,
+      "trail" : [
+        {
+          "x" : 0.50420034,
+          "y" : 0.5079104
+        },
+        {
+          "x" : 0.50468904,
+          "y" : 0.5072393
+        },
+        {
+          "x" : 0.5051888,
+          "y" : 0.5059321
+        }
+      ],
+      "vx" : -0.0006520748,
+      "vy" : -0.00023454428
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/caf2a66f-3b1a-429f-8657-91ad704cd384.json",
+    "id" : "CAF2A66F-3B1A-429F-8657-91AD704CD384",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0011229845,
+      "displacement" : 0.6457161,
+      "gyration" : 1054.0425,
+      "heading_rad" : -2.5675867,
+      "occupancy_mean" : 0.11130524,
+      "path_length" : 0.77221185,
+      "translation_ratio" : 0.83619034,
+      "velocity_x" : -0.0009430064,
+      "velocity_y" : -0.000609781
+    },
+    "name" : "glowing-spiral-2794",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.961402,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/caf2a66f-3b1a-429f-8657-91ad704cd384\/search.json",
+    "seed" : 76,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4918139,
+        "y" : 0.48687425
+      },
+      "headingRad" : -0.45815316,
+      "speed" : 0.00040267172,
+      "trail" : [
+        {
+          "x" : 0.49056673,
+          "y" : 0.4882041
+        },
+        {
+          "x" : 0.49111953,
+          "y" : 0.48715946
+        },
+        {
+          "x" : 0.49145275,
+          "y" : 0.48669615
+        }
+      ],
+      "vx" : 0.00036114454,
+      "vy" : -0.00017809868
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/4a035364-54d7-47ef-bbc2-184f54c3495c.json",
+    "id" : "4A035364-54D7-47EF-BBC2-184F54C3495C",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0010131581,
+      "displacement" : 0.5825659,
+      "gyration" : 1081.9221,
+      "heading_rad" : -2.3439288,
+      "occupancy_mean" : 0.11160024,
+      "path_length" : 0.66081864,
+      "translation_ratio" : 0.88158214,
+      "velocity_x" : -0.00070756994,
+      "velocity_y" : -0.0007251441
+    },
+    "name" : "ancient-spiral-3603",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.9084306,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4a035364-54d7-47ef-bbc2-184f54c3495c\/search.json",
+    "seed" : 9,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4883847,
+        "y" : 0.48410785
+      },
+      "headingRad" : 0.80623394,
+      "speed" : 0.0011186937,
+      "trail" : [
+        {
+          "x" : 0.4893718,
+          "y" : 0.4848076
+        },
+        {
+          "x" : 0.48856497,
+          "y" : 0.48441917
+        },
+        {
+          "x" : 0.4876103,
+          "y" : 0.4849152
+        }
+      ],
+      "vx" : 0.00077438354,
+      "vy" : 0.0008073449
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/31baae50-9abc-475d-b6de-38d5ed9ea328.json",
+    "id" : "31BAAE50-9ABC-475D-B6DE-38D5ED9EA328",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.001097722,
+      "displacement" : 0.6311901,
+      "gyration" : 1079.4312,
+      "heading_rad" : -2.3960257,
+      "occupancy_mean" : 0.122316994,
+      "path_length" : 0.756319,
+      "translation_ratio" : 0.83455545,
+      "velocity_x" : -0.0008065,
+      "velocity_y" : -0.000744682
+    },
+    "name" : "pulsing-amoeba-3763",
+    "recorded_at" : "2026-03-07T06:54:30.841Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.897264,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/31baae50-9abc-475d-b6de-38d5ed9ea328\/search.json",
+    "seed" : 120,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49399444,
+        "y" : 0.4941103
+      },
+      "headingRad" : -1.027882,
+      "speed" : 0.00059819984,
+      "trail" : [
+        {
+          "x" : 0.49407163,
+          "y" : 0.4923834
+        },
+        {
+          "x" : 0.49426857,
+          "y" : 0.4925601
+        },
+        {
+          "x" : 0.4936854,
+          "y" : 0.4935981
+        }
+      ],
+      "vx" : 0.00030905008,
+      "vy" : -0.0005121827
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85.json",
+    "id" : "46773F6B-5D1A-478E-9E61-9FA83D5E1A85",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0011538554,
+      "displacement" : 0.6634668,
+      "gyration" : 1108.1487,
+      "heading_rad" : -2.3054624,
+      "occupancy_mean" : 0.107411705,
+      "path_length" : 0.8254888,
+      "translation_ratio" : 0.803726,
+      "velocity_x" : -0.00077347463,
+      "velocity_y" : -0.00085622375
+    },
+    "name" : "harmonic-cell-6314",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.8877997,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/46773f6b-5d1a-478e-9e61-9fa83d5e1a85\/search.json",
+    "seed" : 45,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49303743,
+        "y" : 0.49595642
+      },
+      "headingRad" : 2.540337,
+      "speed" : 0.00029750785,
+      "trail" : [
+        {
+          "x" : 0.49354884,
+          "y" : 0.49657014
+        },
+        {
+          "x" : 0.49324346,
+          "y" : 0.4964384
+        },
+        {
+          "x" : 0.49328277,
+          "y" : 0.4961247
+        }
+      ],
+      "vx" : -0.00024533272,
+      "vy" : 0.00016829371
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/80b254bf-df1c-44d8-a8fe-622cbae44eeb.json",
+    "id" : "80B254BF-DF1C-44D8-A8FE-622CBAE44EEB",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0012202725,
+      "displacement" : 0.7016567,
+      "gyration" : 1081.7823,
+      "heading_rad" : 0.6054872,
+      "occupancy_mean" : 0.10750834,
+      "path_length" : 0.9257728,
+      "translation_ratio" : 0.7579146,
+      "velocity_x" : 0.0010033384,
+      "velocity_y" : 0.00069453364
+    },
+    "name" : "harmonic-dancer-7160",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.866416,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/80b254bf-df1c-44d8-a8fe-622cbae44eeb\/search.json",
+    "seed" : 2,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49833602,
+        "y" : 0.50080967
+      },
+      "headingRad" : -2.422113,
+      "speed" : 0.00086730596,
+      "trail" : [
+        {
+          "x" : 0.49821904,
+          "y" : 0.5014524
+        },
+        {
+          "x" : 0.49886847,
+          "y" : 0.50051874
+        },
+        {
+          "x" : 0.49898836,
+          "y" : 0.5002381
+        }
+      ],
+      "vx" : -0.00065234303,
+      "vy" : -0.00057154894
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/e1e2145f-e6d1-4190-9ae9-cff411750961.json",
+    "id" : "E1E2145F-E6D1-4190-9AE9-CFF411750961",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.001098211,
+      "displacement" : 0.63147134,
+      "gyration" : 1114.6179,
+      "heading_rad" : -2.223376,
+      "occupancy_mean" : 0.10425822,
+      "path_length" : 0.7686794,
+      "translation_ratio" : 0.8215016,
+      "velocity_x" : -0.00066687545,
+      "velocity_y" : -0.00087255065
+    },
+    "name" : "flowing-dancer-0617",
+    "recorded_at" : "2026-03-07T06:54:30.839Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.827755,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/e1e2145f-e6d1-4190-9ae9-cff411750961\/search.json",
+    "seed" : 1,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.48917896,
+        "y" : 0.48872852
+      },
+      "headingRad" : -2.2556193,
+      "speed" : 0.0018226207,
+      "trail" : [
+        {
+          "x" : 0.4901367,
+          "y" : 0.48788878
+        },
+        {
+          "x" : 0.4904734,
+          "y" : 0.48740453
+        },
+        {
+          "x" : 0.49033183,
+          "y" : 0.48731685
+        }
+      ],
+      "vx" : -0.001152873,
+      "vy" : -0.0014116764
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/63decfd7-ec51-4a92-90e1-8bece9c84128.json",
+    "id" : "63DECFD7-EC51-4A92-90E1-8BECE9C84128",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0011405055,
+      "displacement" : 0.6557907,
+      "gyration" : 1075.588,
+      "heading_rad" : -2.0611455,
+      "occupancy_mean" : 0.10661316,
+      "path_length" : 0.8391982,
+      "translation_ratio" : 0.78144914,
+      "velocity_x" : -0.00053710275,
+      "velocity_y" : -0.0010061181
+    },
+    "name" : "flowing-cell-1023",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.7594414,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/63decfd7-ec51-4a92-90e1-8bece9c84128\/search.json",
+    "seed" : 46,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49053264,
+        "y" : 0.49138436
+      },
+      "headingRad" : 0.34529936,
+      "speed" : 0.00070482364,
+      "trail" : [
+        {
+          "x" : 0.48814085,
+          "y" : 0.49155626
+        },
+        {
+          "x" : 0.48903474,
+          "y" : 0.49172395
+        },
+        {
+          "x" : 0.48986942,
+          "y" : 0.49162292
+        }
+      ],
+      "vx" : 0.0006632209,
+      "vy" : 0.00023856759
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2.json",
+    "id" : "4444A506-A85E-4C5B-A3A3-0BA6AF199FB2",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.00092617865,
+      "displacement" : 0.5325527,
+      "gyration" : 1081.0334,
+      "heading_rad" : -2.3983023,
+      "occupancy_mean" : 0.10902151,
+      "path_length" : 0.648543,
+      "translation_ratio" : 0.8211525,
+      "velocity_x" : -0.00068189536,
+      "velocity_y" : -0.0006267581
+    },
+    "name" : "pulsing-orbiter-7205",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.4074416,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4444a506-a85e-4c5b-a3a3-0ba6af199fb2\/search.json",
+    "seed" : 32,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49441776,
+        "y" : 0.4928176
+      },
+      "headingRad" : 0.94970703,
+      "speed" : 0.0002021403,
+      "trail" : [
+        {
+          "x" : 0.4943039,
+          "y" : 0.49340764
+        },
+        {
+          "x" : 0.49428347,
+          "y" : 0.49314335
+        },
+        {
+          "x" : 0.49430013,
+          "y" : 0.492982
+        }
+      ],
+      "vx" : 0.00011762977,
+      "vy" : 0.00016438961
+    }
+  },
+  {
+    "base_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/base.json",
+    "detail" : "releases\/orbium-like-20260307\/details\/4e178a1a-700e-4552-a7c1-d43cd584d918.json",
+    "id" : "4E178A1A-700E-4552-A7C1-D43CD584D918",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/delta.png",
+        "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/field.png",
+        "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/kernel.png",
+        "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/poster.png",
+      "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0010689471,
+      "displacement" : 0.6146446,
+      "gyration" : 1064.9915,
+      "heading_rad" : 0.47373143,
+      "occupancy_mean" : 0.10593668,
+      "path_length" : 0.8265138,
+      "translation_ratio" : 0.7436592,
+      "velocity_x" : 0.0009512263,
+      "velocity_y" : 0.00048766428
+    },
+    "name" : "luminous-amoeba-5395",
+    "recorded_at" : "2026-03-07T06:54:30.840Z",
+    "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+    "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+    "score" : 7.4056993,
+    "search_config" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/4e178a1a-700e-4552-a7c1-d43cd584d918\/search.json",
+    "seed" : 79,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49258703,
+        "y" : 0.4976686
+      },
+      "headingRad" : -2.0045583,
+      "speed" : 0.00021365,
+      "trail" : [
+        {
+          "x" : 0.4932205,
+          "y" : 0.4971942
+        },
+        {
+          "x" : 0.4929021,
+          "y" : 0.4974628
+        },
+        {
+          "x" : 0.49267682,
+          "y" : 0.49747473
+        }
+      ],
+      "vx" : -8.97944e-05,
+      "vy" : -0.0001938641
+    }
+  }
+]

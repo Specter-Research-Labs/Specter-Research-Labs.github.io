@@ -1,0 +1,57 @@
+{
+  "batch_size" : 1,
+  "collection" : {
+    "enabled" : false,
+    "export_enabled" : false,
+    "require_filters_passed" : false,
+    "require_stable" : false
+  },
+  "complexity" : {
+    "backend" : "png",
+    "enabled" : true,
+    "polar" : true,
+    "scales" : [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "count" : 1,
+  "filters" : {
+    "gyration_max" : 5000,
+    "mass_min" : 0.01,
+    "occupancy_max" : 0.35,
+    "occupancy_min" : 0.03,
+    "velocity_min" : 0.003
+  },
+  "init_seed_offset" : 0,
+  "mass_channel" : -1,
+  "occupancy_threshold" : 0.05,
+  "overrides" : {
+
+  },
+  "record_interval" : 25,
+  "score_weights" : {
+    "center_velocity" : 4,
+    "complexity_mean" : 0.25,
+    "displacement" : 2,
+    "path_length" : 1
+  },
+  "seed_start" : 0,
+  "seed_stride" : 1,
+  "seeds_per_job" : 1,
+  "stability" : {
+    "enabled" : true,
+    "filters" : {
+
+    },
+    "mass_max_fraction" : 0.5,
+    "mass_min_fraction" : 0.01,
+    "require_survival" : false,
+    "window_samples" : 0
+  },
+  "steps" : 500,
+  "top_k" : 1,
+  "warmup_steps" : 50
+}

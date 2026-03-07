@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>UCB1 and Blind-Uniform Search in Wonton-Soup | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-007</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/ucb1</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/ucb1.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#ucb1-and-blind-uniform-search-in-wonton-soup" id="toc-ucb1-and-blind-uniform-search-in-wonton-soup">UCB1 and Blind-Uniform Search in Wonton-Soup</a>
+                            <ul>
+                            <li><a href="#policy-surface" id="toc-policy-surface">Policy Surface</a></li>
+                            <li><a href="#ucb1-definition-and-implementation" id="toc-ucb1-definition-and-implementation">UCB1 Definition and Implementation</a></li>
+                            <li><a href="#exploitation-term-and-backprop-strategy" id="toc-exploitation-term-and-backprop-strategy">Exploitation Term and Backprop Strategy</a></li>
+                            <li><a href="#tie-breaking-and-determinism" id="toc-tie-breaking-and-determinism">Tie-Breaking and Determinism</a></li>
+                            <li><a href="#tactic-ordering-under-ucb1" id="toc-tactic-ordering-under-ucb1">Tactic Ordering Under UCB1</a></li>
+                            <li><a href="#blind_uniform-semantics" id="toc-blind_uniform-semantics">BLIND_UNIFORM Semantics</a></li>
+                            <li><a href="#basin-mode-relation---basin-blind" id="toc-basin-mode-relation---basin-blind">Basin-Mode Relation (<code>--basin-blind</code>)</a></li>
+                            <li><a href="#interaction-with-provider-filtering---allow-easy" id="toc-interaction-with-provider-filtering---allow-easy">Interaction with Provider Filtering (<code>--allow-easy</code>)</a></li>
+                            <li><a href="#distributed-runner-note" id="toc-distributed-runner-note">Distributed Runner Note</a></li>
+                            <li><a href="#worked-micro-examples" id="toc-worked-micro-examples">Worked Micro-Examples</a></li>
+                            <li><a href="#reporting-checklist" id="toc-reporting-checklist">Reporting Checklist</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../distributed-mcts/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-005</span><span class="doc-backlinks-title">Distributed MCTS Semantics</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/logs/distributed-mcts-trace-events/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-010</span><span class="doc-backlinks-title">Distributed MCTS Trace Event Dictionary</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/providers/tactic-provider-options/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-016</span><span class="doc-backlinks-title">Tactic Provider Options for Tactic Suggestion</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="ucb1-and-blind-uniform-search-in-wonton-soup">UCB1 and Blind-Uniform Search in Wonton-Soup</h1>
+<p>Canonical semantics for centralized MCTS search policy and its basin-mode blind baselines.</p>
+<h2 id="policy-surface">Policy Surface</h2>
+<p>Centralized <code>mcts_search</code> (<code>prover/mcts.py</code>) supports:</p>
+<ul>
+<li><code>SearchPolicy.UCB1</code> (default)</li>
+<li><code>SearchPolicy.BLIND_UNIFORM</code></li>
+</ul>
+<p>Policy affects two different decisions per iteration:</p>
+<ol type="1">
+<li>Which node to expand.</li>
+<li>In what order to try suggested tactics at that node.</li>
+</ol>
+<h2 id="ucb1-definition-and-implementation">UCB1 Definition and Implementation</h2>
+<p>For child node <code>i</code>:</p>
+<pre><code>score_i = exploitation_i + c * sqrt(ln(N_parent) / n_i)</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>n_i</code> is child visit count.</li>
+<li><code>N_parent</code> is parent visit count.</li>
+<li><code>c</code> is exploration constant (<code>sqrt(2)</code> default).</li>
+</ul>
+<p><code>MCTSNode.ucb1(...)</code> returns <code>+inf</code> for <code>n_i == 0</code>, forcing first-touch exploration.</p>
+<p>Centralized selection path:</p>
+<ol type="1">
+<li><code>MCTSTree.select(...)</code> walks down from root.</li>
+<li>At each level, <code>best_child_by_ucb1(...)</code> chooses the highest-score live child.</li>
+<li>If all candidates are dead/terminal, node is marked dead and backpropagates failure.</li>
+</ol>
+<h2 id="exploitation-term-and-backprop-strategy">Exploitation Term and Backprop Strategy</h2>
+<p><code>backprop_strategy</code> changes exploitation:</p>
+<ul>
+<li><code>UNIFORM</code>: <code>success_count / visit_count</code></li>
+<li><code>AND_MIN</code>: <code>and_min_value()</code> over tactic fanout (best tactic by worst subgoal)</li>
+</ul>
+<p><code>AND_MIN</code> is deliberately conservative on multi-subgoal expansions: one hard residual branch can keep tactic value low even when average outcomes look good.</p>
+<h2 id="tie-breaking-and-determinism">Tie-Breaking and Determinism</h2>
+<p>If several children have identical UCB score:</p>
+<ul>
+<li>with <code>tie_breaker</code>: custom chooser (must return a valid candidate)</li>
+<li>else with RNG: <code>rng.choice(candidates)</code></li>
+<li>else: first candidate in iteration order</li>
+</ul>
+<p>Determinism therefore depends on both seed wiring and whether tie-break hooks are active.</p>
+<h2 id="tactic-ordering-under-ucb1">Tactic Ordering Under UCB1</h2>
+<p>After a node is selected, centralized MCTS:</p>
+<ol type="1">
+<li>asks provider for <code>(tactic, prob)</code> pairs,</li>
+<li>sorts descending by provider probability,</li>
+<li>optionally applies <code>tactic_ranker</code> reordering.</li>
+</ol>
+<p>Ranker contract is strict:</p>
+<ul>
+<li>same number of entries,</li>
+<li>same multiset of <code>(tactic, prob)</code> pairs,</li>
+<li>order may change only.</li>
+</ul>
+<p>Violations raise <code>ValueError</code>.</p>
+<h2 id="blind_uniform-semantics">BLIND_UNIFORM Semantics</h2>
+<p><code>SearchPolicy.BLIND_UNIFORM</code> is not just “low-c”. It changes both stages:</p>
+<ol type="1">
+<li>Node selection uses <code>select_leaf_uniform(rng)</code>:
+<ul>
+<li>collect all non-terminal, non-dead leaves,</li>
+<li>sample one uniformly.</li>
+</ul></li>
+<li>Tactic order ignores provider probabilities:
+<ul>
+<li>keep provider tactic set,</li>
+<li>shuffle tactic order with RNG.</li>
+</ul></li>
+</ol>
+<p>So blind-uniform still depends on provider candidate generation, but not on provider probability ranking or UCB exploitation/exploration.</p>
+<p>RNG is required for blind mode; missing RNG raises <code>ValueError</code>.</p>
+<h2 id="basin-mode-relation---basin-blind">Basin-Mode Relation (<code>--basin-blind</code>)</h2>
+<p><code>--basin-blind</code> runs two policies per seed in basin analysis:</p>
+<ul>
+<li>agent policy: <code>UCB1</code></li>
+<li>blind baseline: <code>BLIND_UNIFORM</code></li>
+</ul>
+<p>This is used to compute paper <code>K</code> summaries. Current guardrails:</p>
+<ul>
+<li><code>--basin-blind</code> requires <code>--basin-seeds</code>.</li>
+<li><code>--basin-blind</code> currently requires <code>--mcts-mode centralized</code>.</li>
+</ul>
+<p>Distributed runs do not expose a blind-uniform policy toggle today.</p>
+<h2 id="interaction-with-provider-filtering---allow-easy">Interaction with Provider Filtering (<code>--allow-easy</code>)</h2>
+<p>By default, easy tactics are blocked via <code>FilteredTacticProvider</code>. Both UCB1 and blind-uniform operate on the filtered candidate set.</p>
+<ul>
+<li>Without <code>--allow-easy</code>: blocked tactics never enter policy ranking/shuffling.</li>
+<li>With <code>--allow-easy</code>: those tactics can dominate early if provider confidence or random order favors them.</li>
+</ul>
+<p>When comparing policies, keep <code>--allow-easy</code> fixed across runs.</p>
+<h2 id="distributed-runner-note">Distributed Runner Note</h2>
+<p>Distributed MCTS (<code>experiments/distributed_mcts/core.py</code>) always uses UCB-style scoring for available-node reservation plus optional path/depth/virtual-loss adjustments. It does not implement a separate blind-uniform search policy.</p>
+<h2 id="worked-micro-examples">Worked Micro-Examples</h2>
+<p>Example A (UCB1):</p>
+<ul>
+<li>Parent visits <code>N=100</code></li>
+<li>Child A: <code>n=50</code>, exploitation <code>0.80</code></li>
+<li>Child B: <code>n=5</code>, exploitation <code>0.50</code></li>
+<li>With <code>c=sqrt(2)</code>, B can still win early due to large exploration bonus.</li>
+<li>As <code>n_B</code> grows, B’s exploration term shrinks and A usually dominates.</li>
+</ul>
+<p>Example B (blind-uniform):</p>
+<ul>
+<li>Tree has 20 expandable leaves, 2 are promising under UCB.</li>
+<li>Blind-uniform samples each leaf with probability <code>1/20</code>, regardless of value.</li>
+<li>At the chosen leaf, tactic order is randomized, so high-prob provider suggestions lose priority.</li>
+</ul>
+<h2 id="reporting-checklist">Reporting Checklist</h2>
+<p>Include all of the following in any claim about search quality:</p>
+<ul>
+<li><code>search_policy</code> (<code>ucb1</code> or <code>blind_uniform</code>)</li>
+<li><code>c</code></li>
+<li><code>backprop_strategy</code></li>
+<li>tie-break and RNG/seed policy</li>
+<li>provider and ranker config</li>
+<li><code>allow_easy</code> setting</li>
+<li>budget tiers and theorem set</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="$lang$">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>$pagetitle$</title>
+        <link rel="icon" href="../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../style.css" />
+        <link rel="stylesheet" href="../blog.css" />
+    </head>
+    <body class="blog-page">
+        <div class="blog-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../">
+                            <img
+                                src="../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Research Blog</span>
+                            $if(status)$
+                            <span class="doc-marking draft">$status$</span>
+                            $endif$
+                        </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <div class="doc-stamp">
+                            <div class="doc-stamp-title">Field Note</div>
+                            $if(slug)$
+                            <div class="doc-stamp-sub">$slug$</div>
+                            $endif$
+                        </div>
+
+                        $if(toc)$
+                        <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            $table-of-contents$
+                        </nav>
+                        $endif$
+                    </aside>
+
+                    <article class="doc-content">$body$</article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        $if(slug)$
+                        <div>$slug$</div>
+                        $endif$
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="../blog.js"></script>
+    </body>
+</html>

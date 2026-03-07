@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "definitions": {
+    "dossier_statuses": {
+      "concept": {
+        "label": "status:concept",
+        "title": "Planned or exploratory work; question and approach are still taking shape.",
+        "class": "concept"
+      },
+      "active": {
+        "label": "status:active",
+        "title": "Actively being advanced through implementation, runs, analysis, or writing.",
+        "class": "active"
+      },
+      "active-writing": {
+        "label": "status: active-writing",
+        "title": "Primary progress is writing and synthesis of results.",
+        "class": "active-writing"
+      },
+      "hold": {
+        "label": "status:hold",
+        "title": "Paused intentionally and retained for later reactivation.",
+        "class": "hold"
+      }
+    },
+    "addenda_statuses": {
+      "concept": {
+        "label": "status:concept",
+        "title": "Concept-level direction; not yet implementation-ready.",
+        "class": "status-concept"
+      },
+      "active": {
+        "label": "status:active",
+        "title": "Active development and validation are in progress.",
+        "class": "status-active"
+      },
+      "operational": {
+        "label": "status:operational",
+        "title": "Stable and routinely usable in active workflows.",
+        "class": "status-operational"
+      },
+      "hold": {
+        "label": "status:hold",
+        "title": "Paused; retained for later reactivation.",
+        "class": "status-hold"
+      },
+      "archived": {
+        "label": "status:archived",
+        "title": "Retained for historical reference only.",
+        "class": "status-archived"
+      }
+    },
+    "chips": {
+      "scope": {
+        "expansion": {
+          "label": "scope:expansion",
+          "title": "Work has expanded beyond the dossier's original objective.",
+          "class": "scope-chip"
+        }
+      },
+      "publication": {
+        "preprint-pending": {
+          "label": "publication:preprint-pending",
+          "title": "Write-up is in progress and not yet publicly released.",
+          "class": "publication-chip"
+        },
+        "public": {
+          "label": "publication:public",
+          "title": "A public write-up is available.",
+          "class": "publication-chip"
+        }
+      }
+    }
+  },
+  "dossiers": {
+    "zang-levin-playground": {
+      "status": "active-writing",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Preprint-oriented write-up is still in progress.",
+      "path": "dossiers/zang-levin-playground"
+    },
+    "wonton-soup": {
+      "status": "active",
+      "chips": {
+        "scope": "expansion"
+      },
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Scope expanded beyond the original Lean-only objective.",
+      "path": "dossiers/wonton-soup"
+    },
+    "lenia-swarm": {
+      "status": "active",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Infra complete; active on release and participation surfaces.",
+      "path": "dossiers/lenia-swarm"
+    },
+    "jolt-material-memory": {
+      "status": "concept",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Early-stage dossier with tentative framing and metrics.",
+      "path": "dossiers/jolt-material-memory"
+    }
+  },
+  "addenda": {
+    "lean-corpus-extractor": {
+      "status": "operational",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Stable corpus extraction utility.",
+      "path": "addenda/lean-corpus-extractor"
+    },
+    "lean-mcts-learning": {
+      "status": "active",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Active learning experiments tied to wonton-soup outputs.",
+      "path": "addenda/lean-mcts-learning"
+    },
+    "lean-sorry-dataset": {
+      "status": "operational",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Stable deterministic ingestion pipeline.",
+      "path": "addenda/lean-sorry-dataset"
+    },
+    "lean-sorry-repos-benchmark": {
+      "status": "operational",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Operational benchmark harness.",
+      "path": "addenda/lean-sorry-repos-benchmark"
+    },
+    "lean-tactic-representation": {
+      "status": "concept",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Planning track for proof-state tactic representation.",
+      "path": "addenda/lean-tactic-representation"
+    },
+    "k-semantics-reference": {
+      "status": "active",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Active K-semantics reference and validation work.",
+      "path": "addenda/k-semantics-reference"
+    },
+    "specter-viz": {
+      "status": "operational",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Stable dashboard component surface.",
+      "path": "addenda/specter-viz"
+    },
+    "tinygrad-benchmarks": {
+      "status": "hold",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Paused, retained for later.",
+      "path": "addenda/tinygrad-benchmarks"
+    },
+    "typst-field-manual": {
+      "status": "operational",
+      "updated_at": "2026-03-02",
+      "owner": "specter-labs",
+      "notes": "Stable template and output routing workflow.",
+      "path": "addenda/typst-field-manual"
+    }
+  }
+}

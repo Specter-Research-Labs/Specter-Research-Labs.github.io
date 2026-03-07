@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Follow-Up Run Program (March 2026) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-026</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/followup-run-program</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/followup-run-program.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#follow-up-run-program-march-2026" id="toc-follow-up-run-program-march-2026">Follow-Up Run Program (March 2026)</a>
+                            <ul>
+                            <li><a href="#entry-point" id="toc-entry-point">Entry Point</a></li>
+                            <li><a href="#cohort-contract" id="toc-cohort-contract">Cohort Contract</a></li>
+                            <li><a href="#phases" id="toc-phases">Phases</a></li>
+                            <li><a href="#k-calibration-presets" id="toc-k-calibration-presets">K Calibration Presets</a></li>
+                            <li><a href="#external-backend-inputs" id="toc-external-backend-inputs">External Backend Inputs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="follow-up-run-program-march-2026">Follow-Up Run Program (March 2026)</h1>
+<p>This run program is the operational answer to the follow-up thesis constraints in <code>site/blog/wonton-soup-follow-up/index.md</code>:</p>
+<ul>
+<li>broaden theorem coverage to hundreds of shared items,</li>
+<li>pair centralized and distributed MCTS on matched slices,</li>
+<li>expand basin coverage (wide and deep),</li>
+<li>add external-backend pilots,</li>
+<li>score with explicit locked references.</li>
+</ul>
+<h2 id="entry-point">Entry Point</h2>
+<p>Use:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dossiers/wonton-soup</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">scripts/followup_run_program.sh</span></span></code></pre></div>
+<p>The script defaults to dry-run and prints every command. Run with <code>--execute</code> to actually launch.</p>
+<p>For deepseek provider on an external artifacts volume, set:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">DEEPSEEK_ARTIFACT_ROOT</span><span class="op">=</span>/path/to/specter-archive</span></code></pre></div>
+<p>This root must contain: <code>wonton-soup/models/ntp-mathlib-deepseek-1.3b-mlx-bf16</code>.</p>
+<h2 id="cohort-contract">Cohort Contract</h2>
+<ul>
+<li>Program namespace: <code>PROGRAM_ID</code> (default: <code>followup-2026-03</code>)</li>
+<li>All run ids are nested under <code>PROGRAM_ID/...</code>.</li>
+<li>Lake/postprocess/K commands are scoped to one logs root: <code>resolve_logs_root()/&lt;PROGRAM_ID&gt;</code></li>
+<li>Run-id date prefix is frozen at program start, so cohorts do not split at UTC date rollover.</li>
+<li>Use one pinned Lean corpus ref (<code>LEAN_CORPUS_REF</code>) across phases. Prefer a pinned artifact ref such as <code>lean:&lt;corpus_id&gt;@&lt;build_id&gt;#feasible</code>.</li>
+</ul>
+<h2 id="phases">Phases</h2>
+<p><code>scripts/followup_run_program.sh --phase p1 --execute</code></p>
+<ul>
+<li><code>p1</code>: shared Lean panel (centralized MCTS), provider parity (<code>reprover/heuristic/deepseek</code>)</li>
+<li><code>p2</code>: paired centralized vs distributed MCTS on matched theorem slice</li>
+<li><code>p3</code>: basin wide (<code>--seeds 10 --blind</code>) on the broad panel</li>
+<li><code>p4</code>: basin deep (<code>--seeds 50 --blind</code>) on a focused subset</li>
+<li><code>p5</code>: external backend pilots (<code>e</code>, <code>vampire</code>, <code>z3</code>, optional <code>coq stdlib</code>)</li>
+<li><code>p6</code>: <code>postprocess</code> + <code>lake reconcile</code> scoped to this cohort logs root</li>
+<li><code>p7</code>: locked-reference K jobs via lake job presets</li>
+</ul>
+<p>Run all phases in order:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scripts/followup_run_program.sh</span> <span class="at">--execute</span></span></code></pre></div>
+<h2 id="k-calibration-presets">K Calibration Presets</h2>
+<p>Phase <code>p7</code> executes:</p>
+<ul>
+<li><code>analysis/lake/presets/73_followup_k_ref_reprover_v1.json</code></li>
+<li><code>analysis/lake/presets/74_followup_k_ref_deepseek_v1.json</code></li>
+<li><code>analysis/lake/presets/75_followup_k_ref_heuristic_v1.json</code></li>
+<li><code>analysis/lake/presets/76_followup_k_ref_pooled_v1.json</code></li>
+</ul>
+<p>Each preset:</p>
+<ul>
+<li>selects completed Lean runs from this cohort logs root,</li>
+<li>builds an explicit goal-outcomes reference (provider-specific or pooled),</li>
+<li>scores K against that reference,</li>
+<li>exports deterministic JSONL datasets for row-level and aggregate analysis.</li>
+</ul>
+<h2 id="external-backend-inputs">External Backend Inputs</h2>
+<p><code>p5</code> is opt-in (<code>ENABLE_EXTERNAL_PILOTS=1</code>) and uses:</p>
+<ul>
+<li><code>TPTP_ROOT</code> for <code>e</code> and <code>vampire</code></li>
+<li><code>SMTLIB_ROOT</code> for <code>z3</code></li>
+<li><code>ENABLE_COQ_STDLIB=1</code> for Coq stdlib pilot</li>
+</ul>
+<p>Unset inputs are skipped explicitly (fail-loud behavior by phase output).</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>lenia-swarm docs | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-001</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">README</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/README.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#lenia-swarm-docs" id="toc-lenia-swarm-docs">lenia-swarm docs</a>
+                            <ul>
+                            <li><a href="#lanes" id="toc-lanes">Lanes</a></li>
+                            <li><a href="#start-here" id="toc-start-here">Start Here</a></li>
+                            <li><a href="#universe" id="toc-universe">Universe</a></li>
+                            <li><a href="#contracts" id="toc-contracts">Contracts</a></li>
+                            <li><a href="#internals" id="toc-internals">Internals</a></li>
+                            <li><a href="#reading-paths" id="toc-reading-paths">Reading Paths</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><p class="doc-backlinks-empty">No backlinks yet.</p></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="lenia-swarm-docs">lenia-swarm docs</h1>
+<p>This dossier uses a three-lane docs system so readers can choose depth without mixing concerns.</p>
+<h2 id="lanes">Lanes</h2>
+<ul>
+<li><code>universe/</code>: conceptual language, ontology, interpretation, and research framing.</li>
+<li><code>contracts/</code>: executable interfaces and guarantees (CLI, schema, artifact layout, reproducibility rules).</li>
+<li><code>internals/</code>: implementation details tied directly to source files.</li>
+<li><code>decisions/</code>: ADRs that capture the rationale for durable structure choices.</li>
+</ul>
+<p>Rule of separation:</p>
+<ul>
+<li>Universe docs do not define CLI flags or SQL migration mechanics.</li>
+<li>Contract docs do not carry speculative worldview language.</li>
+<li>Internal docs do not serve as onboarding narrative.</li>
+</ul>
+<h2 id="start-here">Start Here</h2>
+<ul>
+<li><a href="../universe/Primer/">Primer</a></li>
+<li><a href="../universe/Glossary/">Glossary</a></li>
+</ul>
+<h2 id="universe">Universe</h2>
+<ul>
+<li><a href="../universe/Physics/">Physics</a></li>
+<li><a href="../universe/Morphology/">Morphology</a></li>
+<li><a href="../universe/Ecology/">Ecology</a></li>
+<li><a href="../universe/Taxonomy/">Taxonomy</a></li>
+</ul>
+<h2 id="contracts">Contracts</h2>
+<ul>
+<li><a href="../contracts/LocalCLI/">LocalCLI</a></li>
+<li><a href="../contracts/CompendiumSchema/">CompendiumSchema</a></li>
+<li><a href="../contracts/MorphometricsAndTraits/">MorphometricsAndTraits</a></li>
+<li><a href="../contracts/EcologyCLI/">EcologyCLI</a></li>
+<li><a href="../contracts/ArtifactLayout/">ArtifactLayout</a></li>
+<li><a href="../contracts/Reproducibility/">Reproducibility</a></li>
+</ul>
+<h2 id="internals">Internals</h2>
+<ul>
+<li><a href="../internals/FlowLeniaImplementationMap/">FlowLeniaImplementationMap</a></li>
+<li><a href="../internals/IndexerInternals/">IndexerInternals</a></li>
+<li><a href="../internals/StudioCompendiumInternals/">StudioCompendiumInternals</a></li>
+</ul>
+<h2 id="reading-paths">Reading Paths</h2>
+<p>Research orientation:</p>
+<ol type="1">
+<li><code>universe/Primer.md</code></li>
+<li><code>universe/Physics.md</code></li>
+<li><code>universe/Morphology.md</code></li>
+<li><code>universe/Ecology.md</code></li>
+<li><code>universe/Taxonomy.md</code></li>
+</ol>
+<p>Run and operate:</p>
+<ol type="1">
+<li><code>contracts/LocalCLI.md</code></li>
+<li><code>contracts/ArtifactLayout.md</code></li>
+<li><code>contracts/Reproducibility.md</code></li>
+<li><code>contracts/CompendiumSchema.md</code></li>
+</ol>
+<p>Implement and debug:</p>
+<ol type="1">
+<li><code>internals/FlowLeniaImplementationMap.md</code></li>
+<li><code>internals/IndexerInternals.md</code></li>
+<li><code>internals/StudioCompendiumInternals.md</code></li>
+</ol></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

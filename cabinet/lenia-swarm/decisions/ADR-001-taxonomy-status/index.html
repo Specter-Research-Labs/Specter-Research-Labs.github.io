@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR-001: Taxonomy Columns Exist, Assignment Deferred | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">decisions</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-008</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">decisions/ADR-001-taxonomy-status</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                decisions
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/decisions/ADR-001-taxonomy-status.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-001-taxonomy-columns-exist-assignment-deferred" id="toc-adr-001-taxonomy-columns-exist-assignment-deferred">ADR-001: Taxonomy Columns Exist, Assignment Deferred</a>
+                            <ul>
+                            <li><a href="#status" id="toc-status">Status</a></li>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#rationale" id="toc-rationale">Rationale</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><p class="doc-backlinks-empty">No backlinks yet.</p></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="adr-001-taxonomy-columns-exist-assignment-deferred">ADR-001: Taxonomy Columns Exist, Assignment Deferred</h1>
+<h2 id="status">Status</h2>
+<p>Accepted</p>
+<h2 id="context">Context</h2>
+<p>Compendium schema includes taxonomy columns, but production indexing currently has no deterministic taxonomy assignment pass.</p>
+<h2 id="decision">Decision</h2>
+<p>Keep taxonomy storage fields in schema now, while writing null taxonomy values during indexing until a deterministic assignment method is implemented and validated.</p>
+<h2 id="rationale">Rationale</h2>
+<ul>
+<li>Preserves forward-compatible schema for downstream consumers.</li>
+<li>Avoids shipping unstable taxonomy heuristics as if they were canonical.</li>
+<li>Allows ecology/studio surfaces to consume taxonomy fields when available without schema churn.</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>Consumers must treat taxonomy fields as optional.</li>
+<li>Documentation must clearly separate current implementation from planned taxonomy pipeline.</li>
+<li>Future taxonomy rollout requires method/version provenance fields and reproducible assignment protocol.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>DeepSeek Provider Settings | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-015</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/providers/deepseek-provider-settings</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/providers/deepseek-provider-settings.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#deepseek-provider-settings" id="toc-deepseek-provider-settings">DeepSeek Provider Settings</a>
+                            <ul>
+                            <li><a href="#model-and-loading-contract" id="toc-model-and-loading-contract">Model and Loading Contract</a></li>
+                            <li><a href="#current-decoding-settings" id="toc-current-decoding-settings">Current Decoding Settings</a></li>
+                            <li><a href="#prompt-contract" id="toc-prompt-contract">Prompt Contract</a></li>
+                            <li><a href="#caching-and-batching-behavior" id="toc-caching-and-batching-behavior">Caching and Batching Behavior</a></li>
+                            <li><a href="#reproducibility-contract" id="toc-reproducibility-contract">Reproducibility Contract</a></li>
+                            <li><a href="#resource-envelope-operational" id="toc-resource-envelope-operational">Resource Envelope (Operational)</a></li>
+                            <li><a href="#failure-modes-and-mitigations" id="toc-failure-modes-and-mitigations">Failure Modes and Mitigations</a></li>
+                            <li><a href="#change-control-checklist" id="toc-change-control-checklist">Change-Control Checklist</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../tactic-provider-options/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-016</span><span class="doc-backlinks-title">Tactic Provider Options for Tactic Suggestion</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="deepseek-provider-settings">DeepSeek Provider Settings</h1>
+<p>Runtime settings and reproducibility constraints for <code>DeepSeekTacticProvider</code>.</p>
+<h2 id="model-and-loading-contract">Model and Loading Contract</h2>
+<ul>
+<li>Model ID: <code>l3lab/ntp-mathlib-context-deepseek-coder-1.3b</code></li>
+<li>Runtime: local MLX (<code>mlx_lm</code>)</li>
+<li>Expected converted model location (default):
+<ul>
+<li><code>$SPECTER_ARTIFACT_ROOT/wonton-soup/models/ntp-mathlib-deepseek-1.3b-mlx-bf16</code></li>
+</ul></li>
+</ul>
+<p>Implementation: <code>prover/providers/deepseek.py</code> (<code>_resolve_model_path</code>).</p>
+<h2 id="current-decoding-settings">Current Decoding Settings</h2>
+<p>Current code path uses stochastic sampling:</p>
+<ul>
+<li>sampler: <code>make_sampler(temp=0.6, top_p=0.9)</code></li>
+<li><code>max_new_tokens = 64</code></li>
+<li>per-request generation count: <code>min(n, self._num_samples)</code></li>
+<li>default <code>num_samples = 10</code></li>
+</ul>
+<p>Implementation: <code>prover/providers/deepseek.py</code> (<code>_generate_tactics</code>).</p>
+<h2 id="prompt-contract">Prompt Contract</h2>
+<p>Provider prompt includes:</p>
+<ul>
+<li>system instruction block</li>
+<li><code>[CTX]</code> theorem/import context</li>
+<li><code>[STATE]</code> pretty goal state</li>
+<li><code>[TAC]</code> model completion region</li>
+</ul>
+<p>Tactic extraction prefers text before <code>[/TAC]</code>, then falls back to first non-empty line.</p>
+<h2 id="caching-and-batching-behavior">Caching and Batching Behavior</h2>
+<ul>
+<li>LRU-style in-memory prompt cache (<code>cache_size</code> default 100)</li>
+<li>batched request drain with <code>batch_max_size = 8</code></li>
+<li>latency stats tracked (<code>last_latency_ms</code>, <code>avg_latency_ms</code>)</li>
+</ul>
+<p>Caching improves throughput but can reduce effective stochastic variation for repeated prompts.</p>
+<h2 id="reproducibility-contract">Reproducibility Contract</h2>
+<p>This provider currently does <strong>not</strong> expose explicit seed control in its public interface. Reproducibility is therefore bounded by:</p>
+<ul>
+<li>MLX sampling internals</li>
+<li>runtime environment</li>
+<li>prompt cache effects</li>
+</ul>
+<p>Practical guidance:</p>
+<ul>
+<li>For strict reproducibility studies, use deterministic providers or run paired baselines.</li>
+<li>For basin-style variability studies, record full run config and disable assumptions of deterministic replay.</li>
+</ul>
+<h2 id="resource-envelope-operational">Resource Envelope (Operational)</h2>
+<p>Expected cost drivers:</p>
+<ul>
+<li>model load latency</li>
+<li>prompt length and sample count</li>
+<li>local MLX backend/device performance</li>
+</ul>
+<p>Primary knobs affecting cost/variance:</p>
+<ul>
+<li><code>num_samples</code> (provider-level)</li>
+<li>caller <code>n</code></li>
+<li>decoding params (<code>temp</code>, <code>top_p</code>, <code>max_new_tokens</code>)</li>
+</ul>
+<h2 id="failure-modes-and-mitigations">Failure Modes and Mitigations</h2>
+<ul>
+<li>Model path missing:
+<ul>
+<li>Ensure <code>$SPECTER_ARTIFACT_ROOT</code> is set and converted MLX model exists.</li>
+</ul></li>
+<li>Low diversity despite sampling:
+<ul>
+<li>Check prompt cache hit rate and effective <code>num_samples</code>.</li>
+</ul></li>
+<li>Unstable outputs across runs:
+<ul>
+<li>Treat as stochastic behavior; compare aggregates rather than single-run anecdotes.</li>
+</ul></li>
+</ul>
+<h2 id="change-control-checklist">Change-Control Checklist</h2>
+<p>When changing DeepSeek decoding/runtime behavior:</p>
+<ol type="1">
+<li>Update <code>prover/providers/deepseek.py</code>.</li>
+<li>Update this document.</li>
+<li>Update <a href="../tactic-provider-options/">Tactic Provider Options for Tactic Suggestion</a> if selection guidance changes.</li>
+<li>Note reproducibility impact in run/report metadata.</li>
+</ol>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li>Provider selection rubric: <a href="../tactic-provider-options/">Tactic Provider Options for Tactic Suggestion</a></li>
+<li>Metric semantics consuming provider outputs: <a href="../../../concepts/analysis-metrics/">Analysis Metrics Reference</a></li>
+<li>Artifact schemas and capability fields: <a href="../../logs/log-file-schemas/">Log File Schemas</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

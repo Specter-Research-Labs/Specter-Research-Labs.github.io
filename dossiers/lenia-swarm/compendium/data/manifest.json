@@ -1,0 +1,50 @@
+{
+  "default_release" : "qg-20260228-real-creatures",
+  "releases" : [
+    {
+      "creature_count" : 224,
+      "first_recorded_at" : "2026-02-28T17:09:59.384Z",
+      "id" : "qg-20260228-real-creatures",
+      "index" : "releases\/qg-20260228-real-creatures\/index.json",
+      "label" : "Lenia compendium | 224 real creatures | 7 runs",
+      "last_recorded_at" : "2026-02-28T18:26:08.264Z",
+      "published_at" : "2026-03-06T18:48:16.691Z",
+      "run_count" : 7,
+      "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/qg-20260228\/compendium.sqlite"
+    },
+    {
+      "creature_count" : 102,
+      "first_recorded_at" : "2026-03-06T21:36:09.560Z",
+      "id" : "discovery-20260306-movers",
+      "index" : "releases\/discovery-20260306-movers\/index.json",
+      "label" : "Lenia compendium | motion-biased discovery corpus",
+      "last_recorded_at" : "2026-03-06T22:08:57.861Z",
+      "published_at" : "2026-03-06T23:13:07.393Z",
+      "run_count" : 5,
+      "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/discovery-20260306-1936\/compendium.sqlite"
+    },
+    {
+      "creature_count" : 8,
+      "first_recorded_at" : "2026-03-06T18:46:13.621Z",
+      "id" : "glider-candidates-20260307",
+      "index" : "releases\/glider-candidates-20260307\/index.json",
+      "label" : "Lenia compendium | compact glider candidates",
+      "last_recorded_at" : "2026-03-07T00:43:41.902Z",
+      "published_at" : "2026-03-07T01:04:59.322Z",
+      "run_count" : 5,
+      "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/discovery-20260306-1936\/compendium.sqlite"
+    },
+    {
+      "creature_count" : 36,
+      "first_recorded_at" : "2026-03-07T06:54:30.838Z",
+      "id" : "orbium-like-20260307",
+      "index" : "releases\/orbium-like-20260307\/index.json",
+      "label" : "Lenia compendium | orbium-like fixed-rule sweep",
+      "last_recorded_at" : "2026-03-07T06:54:30.841Z",
+      "published_at" : "2026-03-07T13:04:58.303Z",
+      "run_count" : 1,
+      "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/orbium-like-20260307-0407\/compendium.sqlite"
+    }
+  ],
+  "schema_version" : 1
+}

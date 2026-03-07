@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Run Lake (Cross-Run DuckDB) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-025</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/run-lake</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/run-lake.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#run-lake-cross-run-duckdb" id="toc-run-lake-cross-run-duckdb">Run Lake (Cross-Run DuckDB)</a>
+                            <ul>
+                            <li><a href="#why-it-exists" id="toc-why-it-exists">Why It Exists</a></li>
+                            <li><a href="#storage-layout" id="toc-storage-layout">Storage Layout</a></li>
+                            <li><a href="#stable-ids" id="toc-stable-ids">Stable IDs</a></li>
+                            <li><a href="#canonical-workflows" id="toc-canonical-workflows">Canonical Workflows</a>
+                            <ul>
+                            <li><a href="#daily-incremental-update" id="toc-daily-incremental-update">Daily Incremental Update</a></li>
+                            <li><a href="#backfill-repair-missing-metrics" id="toc-backfill-repair-missing-metrics">Backfill / Repair Missing Metrics</a></li>
+                            <li><a href="#export-only-refresh" id="toc-export-only-refresh">Export-Only Refresh</a></li>
+                            <li><a href="#site-dashboard-release-hybrid-publish-path" id="toc-site-dashboard-release-hybrid-publish-path">Site Dashboard Release (Hybrid Publish Path)</a></li>
+                            <li><a href="#durable-sync-path" id="toc-durable-sync-path">Durable Sync Path</a></li>
+                            </ul></li>
+                            <li><a href="#what-reconcile-extracts" id="toc-what-reconcile-extracts">What Reconcile Extracts</a></li>
+                            <li><a href="#determinism-and-repro-guarantees" id="toc-determinism-and-repro-guarantees">Determinism and Repro Guarantees</a></li>
+                            <li><a href="#common-failure-modes" id="toc-common-failure-modes">Common Failure Modes</a>
+                            <ul>
+                            <li><a href="#reconcile-misses-expected-runs" id="toc-reconcile-misses-expected-runs">Reconcile misses expected runs</a></li>
+                            <li><a href="#export-output-looks-stale" id="toc-export-output-looks-stale">Export output looks stale</a></li>
+                            <li><a href="#dashboard-export-aborts-on-selected-runs" id="toc-dashboard-export-aborts-on-selected-runs">Dashboard export aborts on selected runs</a></li>
+                            <li><a href="#durability-drift-persists" id="toc-durability-drift-persists">Durability drift persists</a></li>
+                            </ul></li>
+                            <li><a href="#job-based-materialization" id="toc-job-based-materialization">Job-Based Materialization</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../concepts/analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/analysis/analysis-artifacts/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-008</span><span class="doc-backlinks-title">Analysis Artifacts Reference</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="run-lake-cross-run-duckdb">Run Lake (Cross-Run DuckDB)</h1>
+<p>The run lake is the cross-run analysis harness for wonton-soup. It reconciles run artifacts into DuckDB and exports stable datasets for downstream dashboards and reports.</p>
+<h2 id="why-it-exists">Why It Exists</h2>
+<p>Single-run logs answer local debugging questions. The lake answers cross-run questions:</p>
+<ul>
+<li>how effects vary across providers/backends/interventions</li>
+<li>whether patterns persist across repeated seeds</li>
+<li>how metrics behave against explicitly selected references</li>
+</ul>
+<h2 id="storage-layout">Storage Layout</h2>
+<p>Lake root resolves via <code>analysis.lake.db.resolve_lake_paths()</code> and <code>runtime_paths.resolve_artifacts_root()</code>.</p>
+<ul>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is unset:
+<ul>
+<li>active path: <code>dossiers/wonton-soup/outputs/lake/</code></li>
+</ul></li>
+<li>If <code>SPECTER_ARTIFACT_ROOT</code> is set:
+<ul>
+<li>active local staging path: <code>$SPECTER_RUNTIME_ROOT/wonton-soup/artifacts/lake/</code> when <code>SPECTER_RUNTIME_ROOT</code> is set, otherwise <code>tmp/runtime-artifacts/wonton-soup/artifacts/lake/</code></li>
+<li>remote target root: <code>$SPECTER_ARTIFACT_ROOT/wonton-soup/artifacts/lake/</code></li>
+</ul></li>
+</ul>
+<p>Inside active root:</p>
+<ul>
+<li><code>lake.duckdb</code></li>
+<li><code>exports/</code></li>
+<li><code>jobs/</code></li>
+</ul>
+<h2 id="stable-ids">Stable IDs</h2>
+<p>Lake keys are deterministic:</p>
+<ul>
+<li><code>root_id</code>: hash of resolved log-root path</li>
+<li><code>run_key</code>: hash of <code>(root_id, rel_run_dir)</code></li>
+</ul>
+<h2 id="canonical-workflows">Canonical Workflows</h2>
+<h3 id="daily-incremental-update">Daily Incremental Update</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py postprocess <span class="at">--logs-dir</span> logs</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake reconcile <span class="at">--logs-dir</span> logs</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake export <span class="at">--format</span> specter-viz</span></code></pre></div>
+<p>Use when adding fresh runs locally.</p>
+<h3 id="backfill-repair-missing-metrics">Backfill / Repair Missing Metrics</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py postprocess <span class="at">--logs-dir</span> logs</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake reconcile <span class="at">--logs-dir</span> logs</span></code></pre></div>
+<p>Use when old runs are missing postprocess-heavy fields.</p>
+<h3 id="export-only-refresh">Export-Only Refresh</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake export <span class="at">--format</span> specter-viz</span></code></pre></div>
+<p>Use when source lake tables are already current.</p>
+<h3 id="site-dashboard-release-hybrid-publish-path">Site Dashboard Release (Hybrid Publish Path)</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lake job release-site-dashboard <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--config</span> dossiers/wonton-soup/analysis/lake/presets/72_site_dashboard_superset_v1.json <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--logs-dir</span> logs</span></code></pre></div>
+<p>Use when publishing a reproducible compiled dashboard cohort to <code>site/dashboards/wonton-soup/data</code>. This path is intentionally hybrid: release materialization is human-triggered, while CI validates and publishes static site assets.</p>
+<h3 id="durable-sync-path">Durable Sync Path</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py sync now</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py sync durability-status</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py sync durable-push</span></code></pre></div>
+<p>Use when local and remote artifact roots must converge canonically.</p>
+<h2 id="what-reconcile-extracts">What Reconcile Extracts</h2>
+<p>High-level extracted surfaces:</p>
+<ul>
+<li>run registry and file registry</li>
+<li>theorem/intervention summaries from <code>summary.json.gz</code></li>
+<li>theorem artifact index</li>
+<li>graph node/edge fact tables</li>
+<li>MCTS trace summaries</li>
+<li>basin tables from basin-only or summary-backed runs</li>
+<li>optional postprocess outputs</li>
+<li>goal-outcome aggregates</li>
+<li>optional reference-scored K outputs</li>
+</ul>
+<p>Primary implementation modules:</p>
+<ul>
+<li><code>analysis/lake/db.py</code></li>
+<li><code>analysis/lake/reconcile.py</code></li>
+<li><code>analysis/lake/extract_basin.py</code></li>
+</ul>
+<h2 id="determinism-and-repro-guarantees">Determinism and Repro Guarantees</h2>
+<ul>
+<li>DB connections enforce single-thread mode for deterministic exports.</li>
+<li>Exports use explicit ordering and deterministic JSON encoding.</li>
+<li>Reference populations must be explicit for leakage-safe K scoring.</li>
+</ul>
+<p>Reference-selection guardrail ADR:</p>
+<ul>
+<li><a href="../../decisions/adr-lake-reference-selection/">ADR: Explicit Reference Selection for Lake Jobs</a></li>
+</ul>
+<h2 id="common-failure-modes">Common Failure Modes</h2>
+<h3 id="reconcile-misses-expected-runs">Reconcile misses expected runs</h3>
+<p>Checks:</p>
+<ul>
+<li>confirm <code>--logs-dir</code> points at intended run root</li>
+<li>confirm runs have <code>run_status.json</code></li>
+<li>check for partial/failed runs excluded by downstream filters</li>
+</ul>
+<h3 id="export-output-looks-stale">Export output looks stale</h3>
+<p>Checks:</p>
+<ul>
+<li>rerun <code>postprocess</code> then <code>reconcile</code></li>
+<li>confirm <code>lake.duckdb</code> under active artifact root is the one being queried</li>
+</ul>
+<h3 id="dashboard-export-aborts-on-selected-runs">Dashboard export aborts on selected runs</h3>
+<p>Checks:</p>
+<ul>
+<li>confirm the selected runs have <code>summary.json(.gz)</code> at the run root</li>
+<li>if the error says <code>basin-only run</code>, keep that run in the lake but exclude it from dashboard jobs</li>
+<li>do not rely on implicit skipping; mixed selections now fail loudly so site cohorts cannot shrink silently</li>
+</ul>
+<h3 id="durability-drift-persists">Durability drift persists</h3>
+<p>Checks:</p>
+<ul>
+<li>run <code>sync durability-status</code></li>
+<li>inspect log/artifact roots from <code>runtime_paths</code></li>
+<li>rerun <code>sync durable-push</code> after resolving root mismatch</li>
+</ul>
+<h2 id="job-based-materialization">Job-Based Materialization</h2>
+<p>For explicit dataset jobs, reference selection, and manifest provenance:</p>
+<ul>
+<li><a href="../lake-jobs/">Lake Jobs (Materialized Datasets)</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

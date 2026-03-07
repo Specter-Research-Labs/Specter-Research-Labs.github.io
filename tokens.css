@@ -1,0 +1,40 @@
+:root {
+    --sl-font-mono:
+        "Berkeley Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+        Consolas, monospace;
+
+    --sl-color-paper: #fff;
+    --sl-color-bg: #edeef0;
+    --sl-color-ink: #0b0e14;
+    --sl-color-muted: rgba(11, 14, 20, 0.68);
+    --sl-color-rule: rgba(11, 14, 20, 0.18);
+    --sl-color-rule-strong: rgba(11, 14, 20, 0.42);
+    --sl-color-accent: #ff6600;
+    --sl-color-accent-2: #00a645;
+
+    --sl-color-status-exploratory: #5f6c7b;
+    --sl-color-status-paused: #9f6f00;
+    --sl-color-status-archived: #7d8694;
+    --sl-color-idea-active: rgba(11, 14, 20, 0.78);
+    --sl-color-idea-exploring: #5f6c7b;
+    --sl-color-idea-paused: #786b52;
+
+    --sl-color-cab-tab: #e6e3db;
+    --sl-color-cab-tab-hover: #d9d5cb;
+    --sl-color-cab-folder: #f5f3ed;
+
+    --sl-overlay-ink-2: rgba(11, 14, 20, 0.02);
+    --sl-overlay-ink-2-5: rgba(11, 14, 20, 0.025);
+    --sl-overlay-ink-3: rgba(11, 14, 20, 0.03);
+    --sl-overlay-ink-6: rgba(11, 14, 20, 0.06);
+    --sl-overlay-ink-12: rgba(11, 14, 20, 0.12);
+    --sl-overlay-ink-32: rgba(11, 14, 20, 0.32);
+    --sl-overlay-ink-82: rgba(11, 14, 20, 0.82);
+
+    --sl-shadow-raised:
+        0 18px 46px var(--sl-overlay-ink-12),
+        0 2px 0 var(--sl-overlay-ink-6);
+    --sl-shadow-lightbox:
+        0 18px 46px var(--sl-overlay-ink-32),
+        0 2px 0 var(--sl-overlay-ink-12);
+}

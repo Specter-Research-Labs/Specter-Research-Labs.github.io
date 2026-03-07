@@ -1,0 +1,105 @@
+{
+  "artifact_source" : "computed_replay_configs",
+  "creature" : {
+    "config_hash" : "d8692c840d24",
+    "genotype" : {
+      "R" : 24.792652,
+      "a" : [
+        [
+          0.38511544,
+          0.6246999,
+          0.31734145
+        ]
+      ],
+      "b" : [
+        [
+          0.13415146,
+          0.6745668,
+          0.98083925
+        ]
+      ],
+      "h" : [
+        0.94561714
+      ],
+      "m" : [
+        0.15960994
+      ],
+      "r" : [
+        0.22917405
+      ],
+      "s" : [
+        0.12492399
+      ],
+      "w" : [
+        [
+          0.18653521,
+          0.08288409,
+          0.19186775
+        ]
+      ]
+    },
+    "id" : "0327E51F-7C6B-4053-9F76-4A91CDD73BF7",
+    "metrics" : {
+      "center_velocity" : 0.0011188072,
+      "complexity_mean" : 0.69810486,
+      "complexity_scales" : [
+        0.27093506,
+        0.4404297,
+        0.7060547,
+        1.375
+      ],
+      "displacement" : 0.4195527,
+      "energy_mean" : 493.2063,
+      "gyration" : 583.59344,
+      "heading_rad" : -2.257836,
+      "is_stable" : true,
+      "mass_max" : 805.95953,
+      "mass_mean" : 805.9515,
+      "mass_min" : 805.9435,
+      "mass_std" : 0,
+      "occupancy_mean" : 0.17554474,
+      "path_length" : 0.45154876,
+      "sample_count" : 16,
+      "speed_count" : 15,
+      "speed_mean" : 0.00120413,
+      "variance_mean" : 0.027683131,
+      "velocity_x" : -0.0007096049,
+      "velocity_y" : -0.00086498004
+    },
+    "name" : "radiant-entity-3628",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "p_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            64,
+            64
+          ],
+          "size" : 40
+        }
+      ],
+      "seed" : 18
+    },
+    "score" : 1.6453006,
+    "score_weights" : {
+      "center_velocity" : 5,
+      "complexity_mean" : 0.5,
+      "displacement" : 2,
+      "path_length" : 1
+    },
+    "timestamp" : "2026-03-06T21:48:07.757Z"
+  },
+  "published_at" : "2026-03-06T23:13:07.393Z",
+  "recorded_at" : "2026-03-06T21:48:07.757Z",
+  "run_id" : "open-glider-c000-s0",
+  "run_name" : "open-glider-c000-s0",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/discovery-20260306-1936\/compendium.sqlite"
+}

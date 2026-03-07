@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Log Schemas: Run-Level | SPECTER Labs</title>
+        <link rel="icon" href="../../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../../style.css" />
+        <link rel="stylesheet" href="../../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../../">
+                            <img
+                                src="../../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-013</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">contracts/logs/log-schemas-run-level</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/contracts/logs/log-schemas-run-level.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#log-schemas-run-level" id="toc-log-schemas-run-level">Log Schemas: Run-Level</a>
+                            <ul>
+                            <li><a href="#directory-layout-single-provider" id="toc-directory-layout-single-provider">Directory Layout (Single Provider)</a></li>
+                            <li><a href="#agent-mode-cli-events" id="toc-agent-mode-cli-events">Agent-Mode CLI Events</a></li>
+                            <li><a href="#run_status.json" id="toc-run_status.json"><code>run_status.json</code></a></li>
+                            <li><a href="#run_config.json" id="toc-run_config.json"><code>run_config.json</code></a></li>
+                            <li><a href="#summary.json.gz" id="toc-summary.json.gz"><code>summary.json.gz</code></a></li>
+                            <li><a href="#goal_cache.json.gz" id="toc-goal_cache.json.gz"><code>goal_cache.json.gz</code></a></li>
+                            <li><a href="#postprocess_metrics.json" id="toc-postprocess_metrics.json"><code>postprocess_metrics.json</code></a></li>
+                            <li><a href="#similarity-and-optional-analysis-files" id="toc-similarity-and-optional-analysis-files">Similarity and Optional Analysis Files</a>
+                            <ul>
+                            <li><a href="#root_goal_similarity.json" id="toc-root_goal_similarity.json"><code>root_goal_similarity.json</code></a></li>
+                            <li><a href="#external_statement_similarity.json" id="toc-external_statement_similarity.json"><code>external_statement_similarity.json</code></a></li>
+                            <li><a href="#failure_analysis.json" id="toc-failure_analysis.json"><code>failure_analysis.json</code></a></li>
+                            <li><a href="#sheaf_analysis.json" id="toc-sheaf_analysis.json"><code>sheaf_analysis.json</code></a></li>
+                            </ul></li>
+                            <li><a href="#multi-provider-extension" id="toc-multi-provider-extension">Multi-Provider Extension</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../log-file-schemas/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-011</span><span class="doc-backlinks-title">Log File Schemas</span><span class="doc-backlinks-category">contracts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="log-schemas-run-level">Log Schemas: Run-Level</h1>
+<p>Run-level schema contract for corpus outputs under <code>logs/corpus-YYYY-MM-DD-HHMMSS/</code>.</p>
+<h2 id="directory-layout-single-provider">Directory Layout (Single Provider)</h2>
+<p>Typical top-level files:</p>
+<ul>
+<li><code>run_status.json</code></li>
+<li><code>run_config.json</code></li>
+<li><code>summary.json.gz</code></li>
+<li><code>goal_cache.json.gz</code> (Lean-capable runs)</li>
+<li><code>postprocess_metrics.json</code> (if postprocess executed)</li>
+<li><code>root_goal_similarity.json</code> (if computed)</li>
+<li><code>external_statement_similarity.json</code> (external backends)</li>
+<li><code>failure_analysis.json</code> / <code>analysis_report.json</code> / <code>sheaf_analysis.json</code> (optional analyses)</li>
+<li><code>all_ged_matrices.json</code></li>
+<li><code>report.md</code></li>
+</ul>
+<h2 id="agent-mode-cli-events">Agent-Mode CLI Events</h2>
+<p><code>wonton.py --agent</code> emits JSONL events.</p>
+<p>Lean example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;event&quot;</span><span class="fu">:</span><span class="st">&quot;start&quot;</span><span class="fu">,</span><span class="dt">&quot;backend&quot;</span><span class="fu">:</span><span class="st">&quot;lean&quot;</span><span class="fu">,</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span><span class="st">&quot;reprover&quot;</span><span class="fu">,</span><span class="dt">&quot;run_id&quot;</span><span class="fu">:</span><span class="st">&quot;corpus-YYYY-MM-DD-HHMMSS&quot;</span><span class="fu">,</span><span class="dt">&quot;log_dir&quot;</span><span class="fu">:</span><span class="st">&quot;...&quot;</span><span class="fu">}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;event&quot;</span><span class="fu">:</span><span class="st">&quot;end&quot;</span><span class="fu">,</span><span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;completed&quot;</span><span class="fu">,</span><span class="dt">&quot;backend&quot;</span><span class="fu">:</span><span class="st">&quot;lean&quot;</span><span class="fu">,</span><span class="dt">&quot;run_id&quot;</span><span class="fu">:</span><span class="st">&quot;corpus-YYYY-MM-DD-HHMMSS&quot;</span><span class="fu">,</span><span class="dt">&quot;summary_path&quot;</span><span class="fu">:</span><span class="st">&quot;.../summary.json.gz&quot;</span><span class="fu">,</span><span class="dt">&quot;errors&quot;</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">}</span></span></code></pre></div>
+<h2 id="run_status.json"><code>run_status.json</code></h2>
+<p>Purpose: lifecycle and capability gating.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;completed&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;started_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-01-26T12:30:36&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;completed_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-01-26T13:18:02&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_id_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;checkpoint&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;partial_results&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;capabilities&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term_pretty&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_assembly_trace&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_process_trace&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;has_proof_term_metrics&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Notes:</p>
+<ul>
+<li><code>status</code>: <code>running | completed | failed</code></li>
+<li><code>goal_id_scheme</code> must be treated as part of comparability contract</li>
+<li>failed runs may include <code>error</code> and <code>traceback</code></li>
+</ul>
+<h2 id="run_config.json"><code>run_config.json</code></h2>
+<p>Purpose: reproducibility snapshot for run inputs.</p>
+<p>Minimal example:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;format_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-2026-02-04-143736&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;log_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;/.../dossiers/wonton-soup/logs/corpus-2026-02-04-143736&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-02-04T14:37:36&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;heuristic&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mode&quot;</span><span class="fu">:</span> <span class="st">&quot;dev&quot;</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;corpus&quot;</span><span class="fu">:</span> <span class="st">&quot;easy&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Multi-provider runs include provider arrays/metadata and per-provider subrun configs.</p>
+<h2 id="summary.json.gz"><code>summary.json.gz</code></h2>
+<p>Purpose: main aggregate payload for the run.</p>
+<p>Core shape:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;run_id&quot;</span><span class="fu">:</span> <span class="st">&quot;corpus-2026-01-07-120200&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;theorems&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;or_left&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;wild_type&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;iterations&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;k_search_efficiency&quot;</span><span class="fu">:</span> <span class="fu">{}},</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;interventions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;block_left&quot;</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;solved&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;ged_search_graph&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="fl">2.0</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;normalized&quot;</span><span class="fu">:</span> <span class="fl">0.12</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;validity_notes&quot;</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;trace_source&quot;</span><span class="fu">:</span> <span class="st">&quot;mcts&quot;</span><span class="fu">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;trace_completeness&quot;</span><span class="fu">:</span> <span class="st">&quot;full&quot;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;aggregates&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;theorem_count&quot;</span><span class="fu">:</span> <span class="dv">40</span><span class="fu">,</span> <span class="dt">&quot;wild_type_solve_rate&quot;</span><span class="fu">:</span> <span class="fl">0.7</span><span class="fu">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>GED-family payload contract (when present):</p>
+<ul>
+<li><code>value</code>, optional <code>normalized</code></li>
+<li><code>valid</code></li>
+<li><code>validity_notes</code></li>
+<li><code>trace_source</code></li>
+<li><code>trace_completeness</code></li>
+</ul>
+<h2 id="goal_cache.json.gz"><code>goal_cache.json.gz</code></h2>
+<p>Purpose: signature map + per-signature outcome aggregation.</p>
+<p>Core shape:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;sig_scheme&quot;</span><span class="fu">:</span> <span class="st">&quot;ast&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mvar_to_sig&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;cp1:_uniq.560&quot;</span><span class="fu">:</span> <span class="st">&quot;sig_abc123&quot;</span><span class="fu">},</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;entries&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;sig_abc123&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;occurrences&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;cp1:_uniq.560&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;0&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="kw">true</span><span class="ot">,</span> <span class="kw">false</span><span class="ot">,</span> <span class="kw">true</span><span class="ot">]</span><span class="fu">}}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Note: <code>mvar_id</code> values are checkpoint-scoped IDs in Lean runs.</p>
+<h2 id="postprocess_metrics.json"><code>postprocess_metrics.json</code></h2>
+<p>Purpose: provenance record for heavy metric computation.</p>
+<p>Core shape:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;valid&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;computed_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-02-07T02:31:56+00:00&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;params&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;max_soft_ged_nodes&quot;</span><span class="fu">:</span> <span class="dv">60</span><span class="fu">,</span> <span class="dt">&quot;max_root_goal_theorems&quot;</span><span class="fu">:</span> <span class="dv">400</span><span class="fu">},</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;inputs&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;summary_sha256&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;goal_cache_sha256&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">},</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;runs&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;run_dir&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;updated_interventions&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="similarity-and-optional-analysis-files">Similarity and Optional Analysis Files</h2>
+<h3 id="root_goal_similarity.json"><code>root_goal_similarity.json</code></h3>
+<p>Cross-theorem root-goal TED matrix and clustering.</p>
+<h3 id="external_statement_similarity.json"><code>external_statement_similarity.json</code></h3>
+<p>External-corpus statement TED matrix and clustering.</p>
+<h3 id="failure_analysis.json"><code>failure_analysis.json</code></h3>
+<p>Failure pattern categorization across unsolved variants.</p>
+<h3 id="sheaf_analysis.json"><code>sheaf_analysis.json</code></h3>
+<p>Sheaf-inspired consistency/residual metrics.</p>
+<h2 id="multi-provider-extension">Multi-Provider Extension</h2>
+<p>Top-level files for multi-provider runs:</p>
+<ul>
+<li><code>providers_summary.json</code></li>
+<li><code>providers_theorem_summary.json</code></li>
+<li><code>providers_report.md</code></li>
+</ul>
+<p>Each provider subdirectory (<code>provider=&lt;name&gt;/</code>) contains full single-provider run layout.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

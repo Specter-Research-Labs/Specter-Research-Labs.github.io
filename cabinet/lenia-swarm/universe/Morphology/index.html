@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Morphology | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">universe</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-015</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">universe/Morphology</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                universe
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/universe/Morphology.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#morphology" id="toc-morphology">Morphology</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#visual-anchors-from-this-corpus" id="toc-visual-anchors-from-this-corpus">Visual Anchors from This Corpus</a></li>
+                            <li><a href="#terms" id="toc-terms">Terms</a></li>
+                            <li><a href="#what-we-measure-today" id="toc-what-we-measure-today">What We Measure Today</a></li>
+                            <li><a href="#what-is-still-conceptual" id="toc-what-is-still-conceptual">What Is Still Conceptual</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="morphology">Morphology</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Morphology is the language for describing structure and behavior of discovered patterns.</p>
+<h2 id="visual-anchors-from-this-corpus">Visual Anchors from This Corpus</h2>
+<p>Near-ballistic translational form:</p>
+<figure>
+<img src="./assets/examples/crossmap-magma.webp" alt="Crossmap translational morphology" />
+<figcaption aria-hidden="true">Crossmap translational morphology</figcaption>
+</figure>
+<p>Low-speed meandering form:</p>
+<figure>
+<img src="./assets/examples/nnea-magma.webp" alt="NNEA meandering morphology" />
+<figcaption aria-hidden="true">NNEA meandering morphology</figcaption>
+</figure>
+<p>High-tortuosity meander from motile run:</p>
+<figure>
+<img src="./assets/examples/motile-magma.webp" alt="Motile high-tortuosity morphology" />
+<figcaption aria-hidden="true">Motile high-tortuosity morphology</figcaption>
+</figure>
+<h2 id="terms">Terms</h2>
+<ul>
+<li><code>symmetry</code>: coarse structural balance (for example bilateral vs radial appearance).</li>
+<li><code>segmentation</code>: visibly repeated substructures.</li>
+<li><code>swarm-like</code>: multiple granular mass clusters moving in coupled ways.</li>
+<li><code>trajectory geometry</code>: how a pattern moves over time (straight, curved, looping, drifting).</li>
+</ul>
+<p>Important boundary:</p>
+<ul>
+<li>symmetry/segmentation/swarm are currently descriptive vocabulary,</li>
+<li>trajectory geometry is currently measured and indexed.</li>
+</ul>
+<h2 id="what-we-measure-today">What We Measure Today</h2>
+<p>The measured morphology surface comes from metrics + morphometrics:</p>
+<ul>
+<li><code>pathTortuosity = pathLength / displacement</code>.</li>
+<li><code>movementEfficiency = displacement / pathLength</code>.</li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>low tortuosity + high efficiency =&gt; directional transport,</li>
+<li>high tortuosity + low efficiency =&gt; meander/loop with limited net displacement.</li>
+</ul>
+<p>Anchored examples:</p>
+<ul>
+<li><code>crossmap</code> seed <code>0</code>: <code>path/displacement=1.0026</code>.</li>
+<li><code>nnea</code> seed <code>1</code>: <code>path/displacement=6.3610</code>.</li>
+<li><code>motile</code> seed <code>8</code>: <code>path/displacement=22.2946</code>.</li>
+</ul>
+<h2 id="what-is-still-conceptual">What Is Still Conceptual</h2>
+<p>A richer structural morphology index (explicit symmetry classes, segmentation detectors, swarm decomposition) is not yet implemented as first-class indexed fields.</p>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li>exact computed fields: <code>../contracts/MorphometricsAndTraits.md</code></li>
+<li>taxonomy pipeline context: <code>Taxonomy.md</code></li>
+<li>ecology context: <code>Ecology.md</code></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Ecology | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">universe</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-013</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">universe/Ecology</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                universe
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/universe/Ecology.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#ecology" id="toc-ecology">Ecology</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#terms" id="toc-terms">Terms</a></li>
+                            <li><a href="#current-quality-gated-corpus-2026-02-28" id="toc-current-quality-gated-corpus-2026-02-28">Current Quality-Gated Corpus (2026-02-28)</a></li>
+                            <li><a href="#interpretation-limits" id="toc-interpretation-limits">Interpretation Limits</a></li>
+                            <li><a href="#visual-anchors-from-this-corpus" id="toc-visual-anchors-from-this-corpus">Visual Anchors from This Corpus</a></li>
+                            <li><a href="#what-is-still-planned" id="toc-what-is-still-planned">What Is Still Planned</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="ecology">Ecology</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Ecology describes how discovered patterns distribute across parameter and behavior space.</p>
+<h2 id="terms">Terms</h2>
+<ul>
+<li><code>parameter space</code>: the coordinate system induced by genotype parameters.</li>
+<li><code>niche</code>: a dense region of parameter-behavior occupancy.</li>
+<li><code>habitat</code>: practical synonym here for a region where similar behaviors persist.</li>
+<li><code>edge of chaos</code>: hypothesis that rich, diverse dynamics cluster near transition regions; this is a framing idea, not yet proven by the current dossier.</li>
+</ul>
+<h2 id="current-quality-gated-corpus-2026-02-28">Current Quality-Gated Corpus (2026-02-28)</h2>
+<p>From <code>artifacts/compendium.sqlite</code> (optionally synced to a remote artifact root):</p>
+<ul>
+<li>schema version: <code>4</code></li>
+<li>indexed runs: <code>7</code></li>
+<li>total indexed creatures: <code>224</code></li>
+<li>stable creatures: <code>224</code></li>
+<li>unique genotypes: <code>224</code> (unique/rows ratio <code>1.0000</code>)</li>
+<li>taxonomy-assigned rows: <code>0</code> (all taxonomy fields null)</li>
+</ul>
+<h2 id="interpretation-limits">Interpretation Limits</h2>
+<p>This quality-gated corpus has strong intra-regime diversity (non-overlapping seed blocks, no genotype duplication), but it is still a single-regime ecology sample (NNEA-style search only).</p>
+<p>What this supports well:</p>
+<ul>
+<li>threshold fitting from a clean morphology/ecology population,</li>
+<li>method testing for ecology export and PCA wiring,</li>
+<li>terminology and concept grounding with stable examples.</li>
+</ul>
+<p>What this does not yet support:</p>
+<ul>
+<li>multi-habitat niche mapping,</li>
+<li>cross-regime ecological band claims,</li>
+<li>taxonomy-aware ecology (taxonomy is still unassigned in indexing).</li>
+</ul>
+<h2 id="visual-anchors-from-this-corpus">Visual Anchors from This Corpus</h2>
+<p>Mu-sigma occupancy from the quality-gated corpus (<code>LeniaCLI ecology --plot</code>):</p>
+<figure>
+<img src="./assets/examples/ecology-mu-sigma-2026-02-28.png" alt="Ecology mu-sigma plot (2026-02-28 quality-gated corpus)" />
+<figcaption aria-hidden="true">Ecology mu-sigma plot (2026-02-28 quality-gated corpus)</figcaption>
+</figure>
+<p>In this plot, each point is one indexed creature projected to:</p>
+<ul>
+<li><code>mu</code>: mean kernel center value (<code>m</code>) across kernels,</li>
+<li><code>sigma</code>: mean kernel width value (<code>s</code>) across kernels.</li>
+</ul>
+<p>Slow/meandering exemplar frame:</p>
+<figure>
+<img src="./assets/examples/nnea-magma.webp" alt="NNEA ecology exemplar" />
+<figcaption aria-hidden="true">NNEA ecology exemplar</figcaption>
+</figure>
+<h2 id="what-is-still-planned">What Is Still Planned</h2>
+<ul>
+<li>automated niche labeling and naming,</li>
+<li>taxonomy-aware ecological maps,</li>
+<li>stronger causal tests for “edge of chaos” claims.</li>
+</ul>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li>export command contract: <code>../contracts/EcologyCLI.md</code></li>
+<li>schema contract: <code>../contracts/CompendiumSchema.md</code></li>
+<li>taxonomy concept: <code>Taxonomy.md</code></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Metric Spec | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">JMM-002</div>
+                                                        <div class="doc-stamp-title">Jolt Material Memory</div>
+                                                        <div class="doc-stamp-sub">metric-spec</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/jolt-material-memory/docs/metric-spec.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#metric-spec" id="toc-metric-spec">Metric Spec</a>
+                            <ul>
+                            <li><a href="#primary-metrics" id="toc-primary-metrics">Primary Metrics</a>
+                            <ul>
+                            <li><a href="#search-efficiency-k" id="toc-search-efficiency-k">1) Search Efficiency (K)</a></li>
+                            <li><a href="#memory-retention-index-mri" id="toc-memory-retention-index-mri">2) Memory Retention Index (MRI)</a></li>
+                            <li><a href="#hysteresis-loop-area-hla" id="toc-hysteresis-loop-area-hla">3) Hysteresis Loop Area (HLA)</a></li>
+                            </ul></li>
+                            <li><a href="#confidence-intervals" id="toc-confidence-intervals">Confidence Intervals</a></li>
+                            <li><a href="#damage-recovery-index-dri" id="toc-damage-recovery-index-dri">Damage Recovery Index (DRI)</a></li>
+                            <li><a href="#acceptance-criteria" id="toc-acceptance-criteria">Acceptance Criteria</a></li>
+                            <li><a href="#control-separation-readout" id="toc-control-separation-readout">Control-Separation Readout</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../experiment-matrix/" class="doc-backlinks-link"><span class="doc-backlinks-id">JMM-001</span><span class="doc-backlinks-title">Experiment Matrix</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="metric-spec">Metric Spec</h1>
+<h2 id="primary-metrics">Primary Metrics</h2>
+<h3 id="search-efficiency-k">1) Search Efficiency (K)</h3>
+<ul>
+<li><code>K = log10(tau_blind / tau_agent)</code></li>
+<li><code>tau_blind</code> is the median <code>tau_proxy</code> across runs with <code>policy=blind</code> and <code>memory=off</code> for the same <code>(scenario, backend)</code>.</li>
+<li><code>tau_agent</code> is per-run <code>tau_proxy</code> for directed policies.</li>
+</ul>
+<p><code>tau_proxy</code> is computed as:</p>
+<ul>
+<li><code>tau_proxy = cumulative_goal_distance + 0.05 * cumulative_energy</code></li>
+</ul>
+<p>where each term is accumulated across all simulation steps.</p>
+<p>Primary <code>DeltaK</code> compares <code>memory=on</code> against <code>memory=off</code>. The <code>memory=inertial_control</code> condition is reported as an explicit control to separate damping-only persistence from history-dependent material memory.</p>
+<h3 id="memory-retention-index-mri">2) Memory Retention Index (MRI)</h3>
+<p>For <code>imprint</code> runs only:</p>
+<ul>
+<li>detect pulse window by <code>abs(drive_signal) &gt;= 0.5 * max(abs(drive_signal))</code></li>
+<li>baseline: pre-pulse <code>com_x</code></li>
+<li>pulse response: mean <code>com_x</code> during pulse</li>
+<li>tail response: mean <code>com_x</code> in first post-pulse window</li>
+<li><code>MRI = (tail - baseline) / (pulse - baseline)</code></li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li><code>MRI &gt; 0</code>: persistent trace after pulse</li>
+<li><code>MRI ~= 0</code>: no measurable retention</li>
+</ul>
+<h3 id="hysteresis-loop-area-hla">3) Hysteresis Loop Area (HLA)</h3>
+<p>For <code>hysteresis</code> runs only:</p>
+<ul>
+<li>treat <code>(drive_signal(t), com_x(t))</code> as a closed trajectory</li>
+<li>compute normalized contour area via discrete line integral</li>
+<li>normalize by <code>(drive span * response span)</code></li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li><code>HLA &gt; 0</code>: path dependence</li>
+<li>larger values indicate stronger history dependence</li>
+</ul>
+<h2 id="confidence-intervals">Confidence Intervals</h2>
+<ul>
+<li>Bootstrap medians with 2000 resamples.</li>
+<li>95% CI reported as <code>[low, high]</code>.</li>
+<li>If every seed yields the same value, report <code>kind=exact</code> with <code>low = high = median</code> instead of pretending there is a stochastic interval.</li>
+</ul>
+<h2 id="damage-recovery-index-dri">Damage Recovery Index (DRI)</h2>
+<p>For <code>damage</code> runs only:</p>
+<ul>
+<li>read <code>damage_step</code> from the run <code>meta</code> record</li>
+<li>baseline: mean <code>goal_distance</code> in the pre-damage window</li>
+<li>spike: mean <code>goal_distance</code> immediately after damage</li>
+<li>tail: mean <code>goal_distance</code> in the final window</li>
+<li><code>DRI = (spike - tail) / (spike - baseline)</code></li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li><code>DRI &gt; 0</code>: recovery after perturbation</li>
+<li><code>DRI ~= 0</code>: little net recovery</li>
+<li><code>DRI &lt; 0</code>: damage trace persists or worsens</li>
+</ul>
+<h2 id="acceptance-criteria">Acceptance Criteria</h2>
+<ul>
+<li><code>HLA.low &gt; 0</code></li>
+<li><code>MRI.low &gt; 0</code></li>
+<li>At least 2 scenario/backend groups with <code>DeltaK_on_vs_off.low &gt; 0</code>, where <code>DeltaK_on_vs_off = K_memory_on - K_directed_off</code>.</li>
+</ul>
+<h2 id="control-separation-readout">Control-Separation Readout</h2>
+<ul>
+<li>Report <code>DeltaK_on_vs_inertial_control = K_memory_on - K_inertial_control</code>.</li>
+<li>Track whether at least 2 scenario/backend groups have <code>DeltaK_on_vs_inertial_control.low &gt; 0</code>.</li>
+</ul>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li><a href="../experiment-matrix/">Experiment Matrix</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Jolt Material Memory</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

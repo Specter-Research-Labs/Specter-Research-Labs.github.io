@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Reproducibility Contract | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-007</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">contracts/Reproducibility</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/contracts/Reproducibility.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#reproducibility-contract" id="toc-reproducibility-contract">Reproducibility Contract</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#required-inputs" id="toc-required-inputs">Required Inputs</a></li>
+                            <li><a href="#required-captures-per-run" id="toc-required-captures-per-run">Required Captures per Run</a></li>
+                            <li><a href="#required-captures-per-indexed-record" id="toc-required-captures-per-indexed-record">Required Captures per Indexed Record</a></li>
+                            <li><a href="#determinism-checks" id="toc-determinism-checks">Determinism Checks</a></li>
+                            <li><a href="#non-goals" id="toc-non-goals">Non-Goals</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="reproducibility-contract">Reproducibility Contract</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Defines what must be captured so a run can be reproduced later.</p>
+<h2 id="required-inputs">Required Inputs</h2>
+<ul>
+<li>base config JSON</li>
+<li>search config JSON</li>
+<li>explicit seed schedule (<code>seed_start</code>, <code>seed_stride</code>, <code>count</code>)</li>
+<li>implementation-affecting switches (for example compatibility modes)</li>
+</ul>
+<h2 id="required-captures-per-run">Required Captures per Run</h2>
+<ul>
+<li>copied <code>config.json</code> and <code>search.json</code> in run directory</li>
+<li><code>summary.json</code> with run id and execution counts</li>
+<li><code>results.jsonl</code> containing metrics and parameter payloads</li>
+<li>log stream and metrics stream for the same run id</li>
+</ul>
+<h2 id="required-captures-per-indexed-record">Required Captures per Indexed Record</h2>
+<ul>
+<li><code>run_id</code></li>
+<li>provenance fields in <code>runs</code> table</li>
+<li><code>config_hash</code> when available</li>
+<li>method/version tags for derived fields (for example morphometrics)</li>
+</ul>
+<h2 id="determinism-checks">Determinism Checks</h2>
+<p>Current deterministic smoke harness validates repeated fixed-seed runs by comparing:</p>
+<ul>
+<li><code>results.jsonl</code> byte identity</li>
+<li>exported frame checksums</li>
+</ul>
+<h2 id="non-goals">Non-Goals</h2>
+<p>This contract does not guarantee bitwise identity across different hardware, compiler versions, or MLX backend revisions unless explicitly pinned by the experiment protocol.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

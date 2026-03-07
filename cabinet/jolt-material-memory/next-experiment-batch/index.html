@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Next Experiment Batch | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">JMM-004</div>
+                                                        <div class="doc-stamp-title">Jolt Material Memory</div>
+                                                        <div class="doc-stamp-sub">next-experiment-batch</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/jolt-material-memory/docs/next-experiment-batch.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#next-experiment-batch" id="toc-next-experiment-batch">Next Experiment Batch</a>
+                            <ul>
+                            <li><a href="#what-the-next-batch-is-trying-to-answer" id="toc-what-the-next-batch-is-trying-to-answer">What the Next Batch Is Trying to Answer</a></li>
+                            <li><a href="#batch-1-false-memory-and-competing-targets" id="toc-batch-1-false-memory-and-competing-targets">Batch 1: False Memory and Competing Targets</a>
+                            <ul>
+                            <li><a href="#experiment" id="toc-experiment">Experiment</a></li>
+                            <li><a href="#readout" id="toc-readout">Readout</a></li>
+                            <li><a href="#why-this-matters" id="toc-why-this-matters">Why This Matters</a></li>
+                            <li><a href="#minimal-success-criterion" id="toc-minimal-success-criterion">Minimal Success Criterion</a></li>
+                            </ul></li>
+                            <li><a href="#batch-2-remapping-after-injury-without-strong-guidance" id="toc-batch-2-remapping-after-injury-without-strong-guidance">Batch 2: Remapping After Injury Without Strong Guidance</a>
+                            <ul>
+                            <li><a href="#experiment-1" id="toc-experiment-1">Experiment</a></li>
+                            <li><a href="#readout-1" id="toc-readout-1">Readout</a></li>
+                            <li><a href="#why-this-matters-1" id="toc-why-this-matters-1">Why This Matters</a></li>
+                            <li><a href="#minimal-success-criterion-1" id="toc-minimal-success-criterion-1">Minimal Success Criterion</a></li>
+                            </ul></li>
+                            <li><a href="#batch-3-body-plan-sweep-beyond-line-vs-staggered" id="toc-batch-3-body-plan-sweep-beyond-line-vs-staggered">Batch 3: Body-Plan Sweep Beyond Line vs Staggered</a>
+                            <ul>
+                            <li><a href="#experiment-2" id="toc-experiment-2">Experiment</a></li>
+                            <li><a href="#readout-2" id="toc-readout-2">Readout</a></li>
+                            <li><a href="#why-this-matters-2" id="toc-why-this-matters-2">Why This Matters</a></li>
+                            <li><a href="#minimal-success-criterion-2" id="toc-minimal-success-criterion-2">Minimal Success Criterion</a></li>
+                            </ul></li>
+                            <li><a href="#batch-4-basin-depth-and-commitment-strength" id="toc-batch-4-basin-depth-and-commitment-strength">Batch 4: Basin Depth and Commitment Strength</a>
+                            <ul>
+                            <li><a href="#experiment-3" id="toc-experiment-3">Experiment</a></li>
+                            <li><a href="#readout-3" id="toc-readout-3">Readout</a></li>
+                            <li><a href="#why-this-matters-3" id="toc-why-this-matters-3">Why This Matters</a></li>
+                            <li><a href="#minimal-success-criterion-3" id="toc-minimal-success-criterion-3">Minimal Success Criterion</a></li>
+                            </ul></li>
+                            <li><a href="#batch-5-parameter-family-search-for-damage-recovery" id="toc-batch-5-parameter-family-search-for-damage-recovery">Batch 5: Parameter Family Search for Damage Recovery</a>
+                            <ul>
+                            <li><a href="#experiment-4" id="toc-experiment-4">Experiment</a></li>
+                            <li><a href="#readout-4" id="toc-readout-4">Readout</a></li>
+                            <li><a href="#why-this-matters-4" id="toc-why-this-matters-4">Why This Matters</a></li>
+                            <li><a href="#minimal-success-criterion-4" id="toc-minimal-success-criterion-4">Minimal Success Criterion</a></li>
+                            </ul></li>
+                            <li><a href="#recommended-order" id="toc-recommended-order">Recommended Order</a></li>
+                            <li><a href="#what-to-keep-fixed" id="toc-what-to-keep-fixed">What to Keep Fixed</a></li>
+                            <li><a href="#exit-conditions" id="toc-exit-conditions">Exit Conditions</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><p class="doc-backlinks-empty">No backlinks yet.</p></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="next-experiment-batch">Next Experiment Batch</h1>
+<h2 id="what-the-next-batch-is-trying-to-answer">What the Next Batch Is Trying to Answer</h2>
+<p>The current dossier already shows that the substrate can retain a prior organization. The next question is not whether that counts as “memory.” The next question is what kind of remembered organization it is.</p>
+<p>The right Levin-style tests are about set-points, remapping, and competing commitments:</p>
+<ul>
+<li>can the substrate hold a remembered target when guidance is removed?</li>
+<li>can it overwrite one remembered target with another?</li>
+<li>after damage, does it return to a prior set-point or construct a new one?</li>
+<li>how much of the result belongs to the memory rule and how much belongs to the body plan?</li>
+</ul>
+<p>This batch is designed to answer those questions with minimal new machinery.</p>
+<h2 id="batch-1-false-memory-and-competing-targets">Batch 1: False Memory and Competing Targets</h2>
+<h3 id="experiment">Experiment</h3>
+<p>Add a two-pulse version of <code>imprint</code>:</p>
+<ul>
+<li>pulse A drives the assembly to one target</li>
+<li>a quiet interval follows</li>
+<li>pulse B drives it to a different target</li>
+<li>guidance is removed again</li>
+</ul>
+<h3 id="readout">Readout</h3>
+<ul>
+<li>final <code>com_x</code></li>
+<li>retention after pulse A</li>
+<li>retention after pulse B</li>
+<li>overwrite score: distance between the final state and the second target, normalized by the first and second pulse amplitudes</li>
+</ul>
+<h3 id="why-this-matters">Why This Matters</h3>
+<p>This distinguishes a substrate that merely gets displaced from one that stores a latest or dominant commitment. It also lets us ask whether the memory is additive, sticky, or overwritable.</p>
+<h3 id="minimal-success-criterion">Minimal Success Criterion</h3>
+<ul>
+<li>the final state should depend on pulse order</li>
+<li>the final state should land closer to the second target than to the first in at least one memory-on condition</li>
+</ul>
+<h2 id="batch-2-remapping-after-injury-without-strong-guidance">Batch 2: Remapping After Injury Without Strong Guidance</h2>
+<h3 id="experiment-1">Experiment</h3>
+<p>Split the current <code>damage</code> scenario into two recovery modes:</p>
+<ul>
+<li><code>reimpose</code>: after damage, restore directed forcing toward the original target</li>
+<li><code>unguided</code>: after damage, remove or sharply reduce directed forcing and observe the spontaneous post-damage tendency</li>
+</ul>
+<h3 id="readout-1">Readout</h3>
+<ul>
+<li><code>DRI</code></li>
+<li>tail <code>goal_distance</code></li>
+<li>spontaneous drift direction after damage</li>
+<li>whether the post-damage tail approaches the pre-damage attractor</li>
+</ul>
+<h3 id="why-this-matters-1">Why This Matters</h3>
+<p>The current <code>damage</code> result shows that memory can be maladaptive. This next step asks whether the substrate is trying to return to an old set-point or whether it simply becomes stuck.</p>
+<h3 id="minimal-success-criterion-1">Minimal Success Criterion</h3>
+<ul>
+<li>if the substrate truly encodes a set-point, the <code>unguided</code> condition should show a structured drift rather than random settling</li>
+<li>if it cannot remap, the <code>reimpose</code> condition should still recover more slowly than controls</li>
+</ul>
+<h2 id="batch-3-body-plan-sweep-beyond-line-vs-staggered">Batch 3: Body-Plan Sweep Beyond Line vs Staggered</h2>
+<h3 id="experiment-2">Experiment</h3>
+<p>Extend <code>layout</code> from <code>line</code> and <code>staggered</code> to a small morphology panel:</p>
+<ul>
+<li><code>line</code></li>
+<li><code>staggered</code></li>
+<li><code>clustered</code></li>
+<li><code>sparse</code></li>
+</ul>
+<p>Keep all other rules fixed.</p>
+<h3 id="readout-2">Readout</h3>
+<ul>
+<li><code>MRI</code></li>
+<li><code>HLA</code></li>
+<li><code>DeltaK_on_vs_off</code></li>
+<li><code>DRI</code></li>
+</ul>
+<h3 id="why-this-matters-2">Why This Matters</h3>
+<p>The staggered result already shows that morphology changes the expression of memory. The next step is to treat layout as body plan rather than nuisance variation.</p>
+<h3 id="minimal-success-criterion-2">Minimal Success Criterion</h3>
+<ul>
+<li>at least one morphology should preserve the <code>imprint</code> effect</li>
+<li>at least one morphology should flip or suppress <code>hysteresis</code></li>
+<li>the morphology dependence should be consistent across seeds</li>
+</ul>
+<h2 id="batch-4-basin-depth-and-commitment-strength">Batch 4: Basin Depth and Commitment Strength</h2>
+<h3 id="experiment-3">Experiment</h3>
+<p>For an imprinted state, apply graded perturbations of increasing strength without changing the remembered target.</p>
+<h3 id="readout-3">Readout</h3>
+<ul>
+<li>retention after perturbation as a function of kick magnitude</li>
+<li>threshold at which the prior state is lost</li>
+<li>basin-depth proxy: maximum perturbation that still returns to the same tail state</li>
+</ul>
+<h3 id="why-this-matters-3">Why This Matters</h3>
+<p>This turns “memory” into something measurable as an attractor landscape. If the substrate really stores commitments, those commitments should have basin depth, not just one-shot retention.</p>
+<h3 id="minimal-success-criterion-3">Minimal Success Criterion</h3>
+<ul>
+<li>memory-on should preserve the imprinted state under larger perturbations than memory-off</li>
+</ul>
+<h2 id="batch-5-parameter-family-search-for-damage-recovery">Batch 5: Parameter Family Search for Damage Recovery</h2>
+<h3 id="experiment-4">Experiment</h3>
+<p>Stop searching only along “less plasticity.” The ablation results show that simply reducing plasticity did not repair damage. The next parameter family should test structure, not just magnitude:</p>
+<ul>
+<li>asymmetry between learning and forgetting</li>
+<li>damage-triggered rapid forgetting</li>
+<li>capped plasticity with recovery-phase decay changes</li>
+</ul>
+<h3 id="readout-4">Readout</h3>
+<ul>
+<li><code>DeltaK_on_vs_off</code> in <code>damage</code></li>
+<li><code>DeltaK_on_vs_inertial_control</code> in <code>damage</code></li>
+<li><code>DRI</code></li>
+</ul>
+<h3 id="why-this-matters-4">Why This Matters</h3>
+<p>The current negative result suggests the memory trace is too sticky in the wrong way. The fix may require conditional remapping rather than globally weaker memory.</p>
+<h3 id="minimal-success-criterion-4">Minimal Success Criterion</h3>
+<ul>
+<li>one variant should make <code>DRI</code> positive against both controls without destroying <code>imprint</code></li>
+</ul>
+<h2 id="recommended-order">Recommended Order</h2>
+<p>Run these in this order:</p>
+<ol type="1">
+<li>false memory / competing targets</li>
+<li>remapping after injury without strong guidance</li>
+<li>basin depth on imprinted states</li>
+<li>expanded body-plan sweep</li>
+<li>structured damage-recovery variants</li>
+</ol>
+<p>This order keeps the conceptual thread clean. First ask whether there is a remembered set-point, then ask whether it can be overwritten, then ask whether it survives perturbation, then ask how morphology shapes it, and only then attempt a more targeted repair of the damage case.</p>
+<h2 id="what-to-keep-fixed">What to Keep Fixed</h2>
+<p>For the next batch, keep these fixed unless a specific experiment requires otherwise:</p>
+<ul>
+<li>same core rigid-body substrate</li>
+<li>same <code>memory=off</code>, <code>memory=on</code>, and <code>inertial_control</code> comparison</li>
+<li>same per-run provenance and NDJSON contract</li>
+<li>same exact-vs-bootstrap reporting</li>
+</ul>
+<p>This keeps the thread cumulative. The point is to learn what the current substrate is doing, not to open a second stack.</p>
+<h2 id="exit-conditions">Exit Conditions</h2>
+<p>The next batch is worth another article revision if any of these become true:</p>
+<ul>
+<li>we show order-sensitive overwrite of one remembered target by another</li>
+<li>we show unguided drift back to a prior set-point after damage</li>
+<li>we measure a nontrivial basin depth for imprinted states</li>
+<li>we find a morphology that preserves both <code>imprint</code> and <code>hysteresis</code></li>
+<li>we find a damage-recovery rule that improves <code>DRI</code> without losing the retention result</li>
+</ul>
+<p>If none of these happen, that is still informative. It would mean the current substrate stores sticky traces but not flexible set-points, which is itself a publishable negative boundary.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Jolt Material Memory</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Checkpoint-Scoped Goal IDs | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">decisions</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-017</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">decisions/adr-checkpoint-goal-ids</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                decisions
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/decisions/adr-checkpoint-goal-ids.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-checkpoint-scoped-goal-ids" id="toc-adr-checkpoint-scoped-goal-ids">ADR: Checkpoint-Scoped Goal IDs</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#behavioral-impact" id="toc-behavioral-impact">Behavioral Impact</a></li>
+                            <li><a href="#schema-and-migration-impact" id="toc-schema-and-migration-impact">Schema and Migration Impact</a></li>
+                            <li><a href="#implementation-notes" id="toc-implementation-notes">Implementation Notes</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../concepts/analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../concepts/goal-deduplication-and-preview-commit/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-006</span><span class="doc-backlinks-title">Goal Identity, Deduplication, and Preview/Commit</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-027</span><span class="doc-backlinks-title">ADR Index</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="adr-checkpoint-scoped-goal-ids">ADR: Checkpoint-Scoped Goal IDs</h1>
+<h2 id="context">Context</h2>
+<p>Raw Lean metavariable IDs are not globally unique across rollback-heavy search. The search stack rolls REPL state back to prior checkpoints, and Lean can reuse raw <code>mvar_id</code> values after rollback.</p>
+<p>Collision risk surfaces:</p>
+<ul>
+<li><code>MCTSTree.nodes_by_mvar</code></li>
+<li>adapter state maps (<code>LeanAdapter.states</code>)</li>
+<li>run artifacts keyed by <code>mvar_id</code> (history/graph/goal-cache/assembly payloads)</li>
+</ul>
+<p>Failure modes:</p>
+<ul>
+<li>hard failures (duplicate-key behavior)</li>
+<li>silent overwrite of logically distinct goal states</li>
+</ul>
+<h2 id="decision">Decision</h2>
+<p>Use checkpoint-scoped goal IDs in all Lean search bookkeeping and logs:</p>
+<pre><code>cp&lt;checkpoint_id&gt;:&lt;lean_mvar_id&gt;</code></pre>
+<p>Example:</p>
+<ul>
+<li>raw ID at one branch: <code>_uniq.560</code></li>
+<li>same raw ID after rollback elsewhere: <code>_uniq.560</code></li>
+<li>logged IDs: <code>cp4:_uniq.560</code> and <code>cp9:_uniq.560</code> (distinct)</li>
+</ul>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li>Path-specific opaque IDs</li>
+<li>Checkpoint-scoped IDs (chosen)</li>
+<li>Full state-graph merge by semantic signature</li>
+<li>Hybrid (unique IDs + shared stats)</li>
+</ol>
+<p>Chosen option preserves tree semantics while fixing rollback collisions.</p>
+<h2 id="behavioral-impact">Behavioral Impact</h2>
+<ul>
+<li>Search policy semantics: unchanged (tree of attempts remains tree-shaped)</li>
+<li>Node cardinality: may increase because raw-ID reuse no longer collapses states</li>
+<li>Structural metrics: absolute counts may shift; post-migration runs remain comparable under one scheme</li>
+<li>Goal-cache accounting: now counts checkpoint-scoped occurrences explicitly</li>
+</ul>
+<h2 id="schema-and-migration-impact">Schema and Migration Impact</h2>
+<p>Affected artifact fields:</p>
+<ul>
+<li><code>*_history.json</code>: <code>mvar_id</code>, <code>selected_path[]</code>, <code>child_mvar_ids[]</code></li>
+<li><code>*_graph.json</code>: node identifiers</li>
+<li><code>goal_cache.json.gz</code>: <code>mvar_to_sig</code> keys and occurrence IDs</li>
+<li><code>*_assembly.json.gz</code>: step-level target IDs and opened/closed lists</li>
+</ul>
+<p>Compatibility guidance:</p>
+<ul>
+<li>do not combine raw-ID and checkpoint-ID runs in one metric population without explicit migration logic</li>
+<li>rely on <code>run_status.json.goal_id_scheme</code> to gate mixed-run analyses</li>
+</ul>
+<h2 id="implementation-notes">Implementation Notes</h2>
+<ul>
+<li>adapter identity generation and state keys: <code>prover/adapters/lean.py</code></li>
+<li>MCTS node identity handling: <code>prover/mcts.py</code></li>
+<li>artifact readers should treat <code>mvar_id</code> as opaque, scheme-tagged identity</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<p>Pros:</p>
+<ul>
+<li>collision safety under rollback</li>
+<li>explicit scheme visible in run metadata</li>
+<li>reproducible identity semantics for downstream analysis</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>larger ID strings</li>
+<li>historical comparability requires scheme awareness</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><code>prover/adapters/lean.py</code> (<code>_state_id</code>, <code>preview_tactic</code>, <code>commit_tactic</code>)</li>
+<li><code>prover/mcts.py</code> (<code>MCTSNode.mvar_id</code>, <code>nodes_by_mvar</code>)</li>
+<li><a href="../../concepts/goal-deduplication-and-preview-commit/">Goal Identity, Deduplication, and Preview/Commit</a></li>
+<li><a href="../../contracts/logs/log-file-schemas/">Log File Schemas</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

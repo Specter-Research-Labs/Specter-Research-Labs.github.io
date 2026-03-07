@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Distributed MCTS Semantics | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-005</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/distributed-mcts</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/distributed-mcts.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#distributed-mcts-semantics" id="toc-distributed-mcts-semantics">Distributed MCTS Semantics</a>
+                            <ul>
+                            <li><a href="#scope-and-enablement" id="toc-scope-and-enablement">Scope and Enablement</a></li>
+                            <li><a href="#execution-model" id="toc-execution-model">Execution Model</a></li>
+                            <li><a href="#reservation-score-and-virtual-loss" id="toc-reservation-score-and-virtual-loss">Reservation Score and Virtual Loss</a></li>
+                            <li><a href="#intervention-schedules" id="toc-intervention-schedules">Intervention Schedules</a></li>
+                            <li><a href="#cli-contract-and-validation" id="toc-cli-contract-and-validation">CLI Contract and Validation</a></li>
+                            <li><a href="#provider-and-ranker-compatibility" id="toc-provider-and-ranker-compatibility">Provider and Ranker Compatibility</a></li>
+                            <li><a href="#provenance-and-reproducibility" id="toc-provenance-and-reproducibility">Provenance and Reproducibility</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/logs/distributed-mcts-trace-events/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-010</span><span class="doc-backlinks-title">Distributed MCTS Trace Event Dictionary</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/providers/tactic-provider-options/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-016</span><span class="doc-backlinks-title">Tactic Provider Options for Tactic Suggestion</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../decisions/adr-distributed-mcts/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-018</span><span class="doc-backlinks-title">ADR: Distributed (Cell-View) MCTS Runner</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="distributed-mcts-semantics">Distributed MCTS Semantics</h1>
+<p>Canonical semantics for distributed (cell-view) MCTS in wonton-soup.</p>
+<h2 id="scope-and-enablement">Scope and Enablement</h2>
+<p>Distributed mode is active when:</p>
+<ul>
+<li><code>--mcts-mode distributed</code></li>
+</ul>
+<p>Centralized semantics remain in <a href="../ucb1/">UCB1 and Blind-Uniform Search in Wonton-Soup</a>.</p>
+<h2 id="execution-model">Execution Model</h2>
+<p>Distributed mode has multiple logical controllers (agents) sharing one <code>MCTSTree</code>.</p>
+<p>Shared primitives:</p>
+<ul>
+<li><code>MCTSTree</code>, <code>MCTSNode</code></li>
+<li><code>ExplorationHistory</code>, <code>TacticAttempt</code></li>
+<li><code>MCTSTraceWriter</code></li>
+</ul>
+<p>Control loop:</p>
+<ol type="1">
+<li>Agent reserves a candidate node/path under a tree lock.</li>
+<li>Reservation marks inflight counts on node/path.</li>
+<li>Expansion uses one adapter (<code>adapter_mode="single"</code>), so Lean interaction is serialized.</li>
+<li>Backprop updates tree statistics and decrements inflight counters.</li>
+</ol>
+<p>This is logical parallelism over one shared search state, not concurrent Lean execution.</p>
+<h2 id="reservation-score-and-virtual-loss">Reservation Score and Virtual Loss</h2>
+<p>Reservation uses a UCT-like score with optional distributed modifiers:</p>
+<ul>
+<li>base exploitation/exploration from node stats (or <code>AND_MIN</code> value)</li>
+<li>virtual-loss penalties from inflight contention</li>
+<li>additive depth/path bias</li>
+</ul>
+<p>Effective parent visits:</p>
+<pre><code>parent_visit_eff = parent.visit_count + inflight(parent) * virtual_loss</code></pre>
+<p>Effective child stats:</p>
+<pre><code>visits_eff  = child.visit_count + inflight(child) * virtual_loss
+success_eff = child.success_count - inflight(child) * virtual_loss</code></pre>
+<p>Optional additives:</p>
+<ul>
+<li><code>depth_bias * node.depth</code></li>
+<li><code>path_bias</code> when node lies on the agent’s previous selected path</li>
+</ul>
+<p>Unvisited and non-inflight nodes keep first-touch priority (<code>+inf</code>).</p>
+<h2 id="intervention-schedules">Intervention Schedules</h2>
+<p>Blocking (<code>BlockSchedule</code>):</p>
+<ul>
+<li>probabilistic first-touch blocking by node</li>
+<li>finite duration and permanent blocks (<code>duration &lt; 0</code>)</li>
+<li>optional immovable subset and unfreeze controls</li>
+</ul>
+<p>Delay (<code>DelaySchedule</code>):</p>
+<ul>
+<li>probabilistically delays selected nodes for fixed windows</li>
+</ul>
+<p>Reroute:</p>
+<ul>
+<li>when blocked or delayed, selection can retry alternate nodes up to <code>max_attempts</code></li>
+<li>reroute trail is recorded in trace payloads</li>
+</ul>
+<h2 id="cli-contract-and-validation">CLI Contract and Validation</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Flag(s)</th>
+<th>Requirement</th>
+<th>Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>--mcts-agents</code>, <code>--mcts-inflight</code></td>
+<td>required in distributed mode</td>
+<td>both must be provided</td>
+</tr>
+<tr class="even">
+<td>distributed options in centralized mode</td>
+<td>forbidden</td>
+<td>parser error</td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-block-fraction</code></td>
+<td>enables block schedule</td>
+<td>must be in <code>(0,1)</code></td>
+</tr>
+<tr class="even">
+<td><code>--mcts-block-duration</code> with block fraction</td>
+<td>required</td>
+<td>must be non-zero</td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-block-seed</code> with block fraction</td>
+<td>required</td>
+<td>must be provided</td>
+</tr>
+<tr class="even">
+<td><code>--mcts-block-immovable-fraction</code></td>
+<td>optional with block schedule</td>
+<td>must be in <code>[0,1]</code>; requires positive duration</td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-unfreeze-after</code></td>
+<td>optional with block schedule</td>
+<td>must be <code>&gt;= 1</code></td>
+</tr>
+<tr class="even">
+<td><code>--mcts-unfreeze-prob</code></td>
+<td>optional with block schedule</td>
+<td>must be in <code>(0,1]</code></td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-reroute-blocked</code> + <code>--mcts-reroute-max</code></td>
+<td>paired</td>
+<td>max required when reroute enabled; max <code>&gt;= 1</code></td>
+</tr>
+<tr class="even">
+<td>delay triplet (<code>--mcts-delay-prob</code>, <code>--mcts-delay-duration</code>, <code>--mcts-delay-seed</code>)</td>
+<td>all-or-none</td>
+<td>prob in <code>(0,1)</code>, duration <code>&gt;= 1</code>, seed <code>&gt;= 0</code></td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-virtual-loss</code></td>
+<td>optional</td>
+<td><code>&gt;= 0</code></td>
+</tr>
+<tr class="even">
+<td><code>--mcts-depth-bias</code>, <code>--mcts-path-bias</code></td>
+<td>optional</td>
+<td>each <code>&gt;= 0</code></td>
+</tr>
+<tr class="odd">
+<td><code>--mcts-history-cache</code></td>
+<td>optional</td>
+<td>boolean switch</td>
+</tr>
+</tbody>
+</table>
+<p>Cross-mode constraints:</p>
+<ul>
+<li><code>--basin-blind</code> requires <code>--basin-seeds</code>.</li>
+<li><code>--basin-blind</code> currently requires centralized mode.</li>
+<li>Multi-provider runs do not support <code>--basin-seeds</code>.</li>
+</ul>
+<h2 id="provider-and-ranker-compatibility">Provider and Ranker Compatibility</h2>
+<p>Distributed mode uses the same provider stack as centralized mode:</p>
+<ul>
+<li>provider output is probability-sorted before ranker application</li>
+<li>ranker is reorder-only and must preserve count + tactic multiset</li>
+<li>violations fail fast</li>
+</ul>
+<h2 id="provenance-and-reproducibility">Provenance and Reproducibility</h2>
+<p>Run metadata captures distributed settings (<code>distributed_mcts</code>) and policy choices.</p>
+<p>Trace payloads capture distributed context:</p>
+<ul>
+<li><code>agent</code></li>
+<li>inflight state</li>
+<li>block/delay/reroute snapshots</li>
+</ul>
+<p>These fields allow post-hoc reconstruction without relying on CLI history.</p>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li><a href="../../decisions/adr-distributed-mcts/">ADR: Distributed (Cell-View) MCTS Runner</a></li>
+<li><a href="../../contracts/logs/distributed-mcts-trace-events/">Distributed MCTS Trace Event Dictionary</a></li>
+<li><a href="../ucb1/">UCB1 and Blind-Uniform Search in Wonton-Soup</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

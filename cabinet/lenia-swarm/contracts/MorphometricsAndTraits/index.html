@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Morphometrics and Trait Policy | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-006</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">contracts/MorphometricsAndTraits</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/contracts/MorphometricsAndTraits.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#morphometrics-and-trait-policy" id="toc-morphometrics-and-trait-policy">Morphometrics and Trait Policy</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#inputs" id="toc-inputs">Inputs</a></li>
+                            <li><a href="#implemented-morphometrics-v1" id="toc-implemented-morphometrics-v1">Implemented Morphometrics (v1)</a></li>
+                            <li><a href="#invariants-and-caveats" id="toc-invariants-and-caveats">Invariants and Caveats</a></li>
+                            <li><a href="#trait-policy-planned" id="toc-trait-policy-planned">Trait Policy (Planned)</a></li>
+                            <li><a href="#threshold-workflow" id="toc-threshold-workflow">Threshold Workflow</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="morphometrics-and-trait-policy">Morphometrics and Trait Policy</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This document defines the morphology surface used by compendium indexing and threshold analysis.</p>
+<p>Scope:</p>
+<ul>
+<li>what is computed today,</li>
+<li>what is stored in <code>creatures.morphometrics_json</code>,</li>
+<li>what remains in policy or planning.</li>
+</ul>
+<h2 id="inputs">Inputs</h2>
+<p>Available per creature:</p>
+<ul>
+<li><code>SimulationMetrics</code> (path, displacement, mass stats, occupancy, energy, speed, gyration, center velocity, optional complexity).</li>
+<li>optional <code>ActivitySummary</code> time series (<code>speciesCount</code>, <code>diversity</code>, <code>eac</code>, <code>ean</code>) when activity JSONL is present.</li>
+</ul>
+<h2 id="implemented-morphometrics-v1">Implemented Morphometrics (v1)</h2>
+<p>Method metadata written by indexer:</p>
+<ul>
+<li><code>morphometrics_method = "lenia-swarm:morphometrics"</code></li>
+<li><code>morphometrics_version = 1</code></li>
+</ul>
+<p>Fields currently computed:</p>
+<ul>
+<li><code>pathTortuosity = pathLength / displacement</code> when <code>displacement &gt; 1e-6</code>, else <code>null</code>.</li>
+<li><code>movementEfficiency = displacement / pathLength</code> when <code>pathLength &gt; 1e-6</code>, else <code>null</code>.</li>
+<li><code>activitySpeciesMax = max(speciesCount)</code> when activity exists.</li>
+<li><code>activitySpeciesStd = std(speciesCount)</code> when activity exists.</li>
+<li><code>activityDiversityStd = std(diversity)</code> when activity exists.</li>
+<li><code>activityEacMax = max(eac)</code> when activity exists.</li>
+<li><code>activityEanMax = max(ean)</code> when activity exists.</li>
+</ul>
+<p>If activity summaries are missing, all <code>activity*</code> morphometric fields are <code>null</code>.</p>
+<h2 id="invariants-and-caveats">Invariants and Caveats</h2>
+<ul>
+<li>Expected geometric invariant: <code>pathLength &gt;= displacement</code>.</li>
+<li>When only two samples exist, <code>pathLength == displacement</code> is expected and does not imply a bug.</li>
+<li>Tortuosity distributions are only meaningful when recordings include enough temporal samples.</li>
+</ul>
+<h2 id="trait-policy-planned">Trait Policy (Planned)</h2>
+<p>Trait labels (for example mover, wanderer, swarm, complex) are not yet first-class stored outputs.</p>
+<p>Current status:</p>
+<ul>
+<li><code>LeniaCLI thresholds</code> can suggest thresholds from corpus distributions.</li>
+<li>the indexer stores raw morphometrics, not discrete trait labels.</li>
+</ul>
+<p>When trait labels become first-class, we will persist:</p>
+<ul>
+<li>trait method name,</li>
+<li>trait version,</li>
+<li>threshold-set identifier (for reproducibility).</li>
+</ul>
+<h2 id="threshold-workflow">Threshold Workflow</h2>
+<p>Use <code>LeniaCLI thresholds</code> on a compendium DB to generate distribution and heuristic threshold reports.</p>
+<p>Examples:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">LeniaCLI</span> thresholds <span class="at">--db</span> artifacts/compendium.sqlite <span class="at">--output</span> outputs/thresholds</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">LeniaCLI</span> thresholds <span class="at">--db</span> artifacts/compendium.sqlite <span class="at">--source</span> results <span class="at">--include-unstable</span> <span class="at">--output</span> outputs/thresholds</span></code></pre></div>
+<p>Report naming includes timestamp, source (<code>creatures|results</code>), and stability scope (<code>stable|all</code>) to avoid collisions.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

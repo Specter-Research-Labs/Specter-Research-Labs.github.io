@@ -1,0 +1,138 @@
+{
+  "artifact_source" : "rendered_stage_media_with_replay",
+  "creature" : {
+    "config_hash" : "dcf445c317d3",
+    "genotype" : {
+      "R" : 9.486116,
+      "a" : [
+        [
+          0.2695706,
+          0.21286792,
+          0.38803178
+        ]
+      ],
+      "b" : [
+        [
+          0.94125915,
+          0.74757355,
+          0.084209144
+        ]
+      ],
+      "h" : [
+        0.3411311
+      ],
+      "m" : [
+        0.41784617
+      ],
+      "r" : [
+        0.50039595
+      ],
+      "s" : [
+        0.14541271
+      ],
+      "w" : [
+        [
+          0.23625721,
+          0.16296265,
+          0.48042187
+        ]
+      ]
+    },
+    "id" : "8BDC9B4B-C7CB-4E82-8347-49EB2293263D",
+    "metrics" : {
+      "center_velocity" : 0.0017392659,
+      "complexity_mean" : 0.81510925,
+      "complexity_scales" : [
+        0.32635498,
+        0.55126953,
+        0.87109375,
+        1.5117188
+      ],
+      "displacement" : 1.0000778,
+      "energy_mean" : 662.57184,
+      "gyration" : 1111.5144,
+      "heading_rad" : 0.8255269,
+      "is_stable" : true,
+      "mass_max" : 808.8919,
+      "mass_mean" : 808.87964,
+      "mass_min" : 808.86725,
+      "mass_std" : 0,
+      "occupancy_mean" : 0.1087265,
+      "path_length" : 1.0470545,
+      "sample_count" : 24,
+      "speed_count" : 23,
+      "speed_mean" : 0.0018209644,
+      "variance_mean" : 0.038002763,
+      "velocity_x" : 0.0011795177,
+      "velocity_y" : 0.0012781956
+    },
+    "name" : "ethereal-amoeba-8865",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            64,
+            64
+          ],
+          "size" : 40
+        }
+      ],
+      "seed" : 53
+    },
+    "score" : 9.971561,
+    "score_weights" : {
+      "center_velocity" : 4,
+      "complexity_mean" : 0.2,
+      "displacement" : 2.5,
+      "path_length" : 1.5,
+      "translation_ratio" : 6
+    },
+    "timestamp" : "2026-03-07T06:54:30.840Z"
+  },
+  "media" : {
+    "anatomy" : {
+      "deltaPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/delta.png",
+      "fieldPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/field.png",
+      "kernelPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/kernel.png",
+      "neighborPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/neighbor.png"
+    },
+    "height" : 128,
+    "posterPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/poster.png",
+    "replayPath" : "releases\/orbium-like-20260307\/runs\/glider-family-luminous-spiral-4134-c000-s0\/8bdc9b4b-c7cb-4e82-8347-49eb2293263d\/replay.json",
+    "width" : 128
+  },
+  "published_at" : "2026-03-07T13:04:58.303Z",
+  "recorded_at" : "2026-03-07T06:54:30.840Z",
+  "run_id" : "glider-family-luminous-spiral-4134-c000-s0",
+  "run_name" : "glider-family-luminous-spiral-4134-c000-s0",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/orbium-like-20260307-0407\/compendium.sqlite",
+  "telemetry" : {
+    "centroid" : {
+      "x" : 0.5067648,
+      "y" : 0.5085152
+    },
+    "headingRad" : -1.7700187,
+    "speed" : 0.00044152228,
+    "trail" : [
+      {
+        "x" : 0.5068424,
+        "y" : 0.50742966
+      },
+      {
+        "x" : 0.50675595,
+        "y" : 0.5080721
+      },
+      {
+        "x" : 0.5068522,
+        "y" : 0.5080824
+      }
+    ],
+    "vx" : -8.738041e-05,
+    "vy" : -0.00043278933
+  }
+}

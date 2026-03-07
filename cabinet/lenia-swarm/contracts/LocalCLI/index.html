@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Local CLI Harness (`LeniaCLI local`) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-005</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">contracts/LocalCLI</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/contracts/LocalCLI.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#local-cli-harness-leniacli-local" id="toc-local-cli-harness-leniacli-local">Local CLI Harness (<code>LeniaCLI local</code>)</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#build" id="toc-build">Build</a></li>
+                            <li><a href="#quickstart" id="toc-quickstart">Quickstart</a></li>
+                            <li><a href="#required-inputs" id="toc-required-inputs">Required Inputs</a></li>
+                            <li><a href="#key-optional-flags" id="toc-key-optional-flags">Key Optional Flags</a></li>
+                            <li><a href="#enforced-invariants" id="toc-enforced-invariants">Enforced Invariants</a></li>
+                            <li><a href="#artifact-layout" id="toc-artifact-layout">Artifact Layout</a></li>
+                            <li><a href="#determinism-smoke" id="toc-determinism-smoke">Determinism Smoke</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="local-cli-harness-leniacli-local">Local CLI Harness (<code>LeniaCLI local</code>)</h1>
+<h2 id="purpose">Purpose</h2>
+<p><code>LeniaCLI local</code> runs one local parameter sweep from a base config and a search config, writes a self-contained run directory, and optionally auto-indexes into a compendium.</p>
+<h2 id="build">Build</h2>
+<p>MLX Metal shaders are required. The checked-in metallib cache now lets <code>swift build</code> and <code>swift test</code> reuse one compiled shader bundle instead of rebuilding it for each regenerated app/test bundle.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dossiers/lenia-swarm</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xcrun</span> swift build <span class="at">-c</span> release <span class="at">--product</span> LeniaCLI</span></code></pre></div>
+<h2 id="quickstart">Quickstart</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dossiers/lenia-swarm</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">LeniaCLI</span> local <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--config</span> configs/paper_base_1c_128.json <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--search</span> configs/search_smoke.json <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> /tmp/lenia-smoke</span></code></pre></div>
+<p>If <code>SPECTER_RUNTIME_ROOT</code> is set, explicit <code>/tmp/...</code> or <code>/private/tmp/...</code> outputs resolve under <code>$SPECTER_RUNTIME_ROOT/lenia-swarm/...</code> instead of the system temp volume.</p>
+<p>With frame export:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">LeniaCLI</span> local <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--config</span> configs/paper_base_1c_128.json <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--search</span> configs/search_smoke.json <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> /tmp/lenia-smoke <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--frames</span> <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--frame-stride</span> 5</span></code></pre></div>
+<h2 id="required-inputs">Required Inputs</h2>
+<ul>
+<li><code>--config</code>: base config JSON (<code>LeniaBaseConfig</code>).</li>
+<li><code>--search</code>: search config JSON (<code>ParsedSearchConfig</code>).</li>
+<li><code>--output</code>: output root; command writes <code>--output/&lt;run_id&gt;/</code>.</li>
+</ul>
+<h2 id="key-optional-flags">Key Optional Flags</h2>
+<p>Simulation overrides:</p>
+<ul>
+<li><code>--seed</code>: override <code>seed_start</code> from search config.</li>
+<li><code>--count</code>: override <code>count</code> from search config.</li>
+<li><code>--validate-only</code>: validate config pair and exit.</li>
+</ul>
+<p>Frame export:</p>
+<ul>
+<li><code>--frames</code>: write grayscale frames to <code>&lt;run_dir&gt;/frames</code>.</li>
+<li><code>--frames-dir &lt;path&gt;</code>: override grayscale frame path.</li>
+<li><code>--frames-color</code>: also emit colorized frames.</li>
+<li><code>--frames-color-dir &lt;path&gt;</code>: override color frame path.</li>
+<li><code>--frame-stride &lt;n&gt;</code>: capture every <code>n</code> steps (<code>n &gt; 0</code>).</li>
+<li><code>--include-warmup-frames</code>: include warmup steps in capture.</li>
+<li><code>--sample-index &lt;n&gt;</code>: sample index when <code>batch_size &gt; 1</code>.</li>
+</ul>
+<p>Compendium indexing:</p>
+<ul>
+<li><code>--compendium &lt;path&gt;</code>: explicit compendium DB path for auto-index.</li>
+<li><code>--no-index</code>: disable auto-index after run.</li>
+</ul>
+<p>If <code>--compendium</code> is not provided, the command walks upward from the config path and auto-selects the first <code>artifacts/compendium.sqlite</code> it finds.</p>
+<p>Logging:</p>
+<ul>
+<li><code>--run-id</code>, <code>--log-dir</code>, <code>--log-level</code>, and <code>--no-log-console</code> come from shared log options.</li>
+<li>Log destination stays local by default (<code>&lt;output&gt;/logs</code> when <code>--output</code> is set, otherwise <code>./logs</code>).</li>
+</ul>
+<h2 id="enforced-invariants">Enforced Invariants</h2>
+<ul>
+<li><code>count &gt; 0</code>.</li>
+<li><code>batch_size &gt; 0</code>.</li>
+<li>If any frame output is enabled: <code>count == 1</code>.</li>
+<li>If any frame output is enabled: <code>sample_index == 0</code>.</li>
+<li>If any frame output is enabled: <code>frame_stride &gt; 0</code>.</li>
+</ul>
+<p>The command fails with a validation error if any invariant is violated.</p>
+<h2 id="artifact-layout">Artifact Layout</h2>
+<p>Within <code>--output/&lt;run_id&gt;/</code>:</p>
+<ul>
+<li><code>config.json</code>: copied base config.</li>
+<li><code>search.json</code>: copied search config.</li>
+<li><code>results.jsonl</code>: one line per simulation result.</li>
+<li><code>top.json</code>: top-K passing results (omitted when no passing result exists).</li>
+<li><code>summary.json</code>: run metadata, collection counts, and frame settings.</li>
+<li><code>frames/</code> (optional): grayscale PNG frames.</li>
+<li><code>frames_color/</code> (optional): colorized PNG frames.</li>
+<li><code>library/index.jsonl</code> (optional): collected creatures when collection is enabled in search config.</li>
+<li><code>exports/index.jsonl</code> (optional): replay-export bundles for collected creatures when <code>collection.export_enabled</code> is true.</li>
+<li><code>exports/&lt;slug&gt;-&lt;id&gt;/base.json</code>, <code>search.json</code>, <code>meta.json</code> (optional): export bundle consumed by compendium indexing and later replay/publish stages.</li>
+</ul>
+<p>Logs and metrics are written under <code>&lt;log_dir&gt;/&lt;run_id&gt;/</code> (for example <code>local.log.jsonl</code>, <code>local.metrics.jsonl</code>).</p>
+<h2 id="determinism-smoke">Determinism Smoke</h2>
+<p><code>dossiers/lenia-swarm/scripts/deterministic-smoke.sh</code> runs two fixed-seed local runs and checks:</p>
+<ul>
+<li><code>results.jsonl</code> byte equality.</li>
+<li>exported frame checksums.</li>
+</ul>
+<p>Run from repo root:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./dossiers/lenia-swarm/scripts/deterministic-smoke.sh</span></span></code></pre></div></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Wonton Soup: Proof Structures Under Interventions | SPECTER Labs</title>
+        <link rel="icon" href="../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../style.css" />
+        <link rel="stylesheet" href="../blog.css" />
+    </head>
+    <body class="blog-page">
+        <div class="blog-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../">
+                            <img
+                                src="../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Research Blog</span>
+                                                        <span class="doc-marking draft">Draft</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <div class="doc-stamp">
+                            <div class="doc-stamp-title">Field Note</div>
+                                                        <div class="doc-stamp-sub">wonton-soup</div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#wonton-soup-proof-structures-under-interventions" id="toc-wonton-soup-proof-structures-under-interventions">Wonton Soup: Proof Structures Under Interventions</a>
+                            <ul>
+                            <li><a href="#what-were-looking-for" id="toc-what-were-looking-for">1. What We’re Looking For</a></li>
+                            <li><a href="#inspirations-and-framing" id="toc-inspirations-and-framing">2. Inspirations and Framing</a></li>
+                            <li><a href="#harness-and-corpus-design" id="toc-harness-and-corpus-design">3. Harness and Corpus Design</a></li>
+                            <li><a href="#search-core-centralized-and-distributed-mcts" id="toc-search-core-centralized-and-distributed-mcts">4. Search Core: Centralized and Distributed MCTS</a></li>
+                            <li><a href="#multi-backend-surface" id="toc-multi-backend-surface">5. Multi-Backend Surface</a></li>
+                            <li><a href="#metrics-surface" id="toc-metrics-surface">6. Metrics Surface</a></li>
+                            <li><a href="#intervention-protocol" id="toc-intervention-protocol">7. Intervention Protocol</a></li>
+                            <li><a href="#log-derived-vignettes" id="toc-log-derived-vignettes">8. Log-Derived Vignettes</a></li>
+                            <li><a href="#speculative-reach" id="toc-speculative-reach">9. Speculative Reach</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                                            </aside>
+
+                    <article class="doc-content"><h1 id="wonton-soup-proof-structures-under-interventions">Wonton Soup: Proof Structures Under Interventions</h1>
+<p><code>wonton-soup</code> is our intervention harness for proof-search experiments. The core question is simple:</p>
+<p>when we perturb a solver’s search process, does it return to the same proof structure, or settle into a different one?</p>
+<p>We run wild-type and intervention sweeps over deterministic theorem samples, capture full search artifacts (<code>*_history.json</code>, <code>*_mcts_tree.json</code>, <code>*_graph.json</code>, <code>*_comparison.json</code>), and compare outcomes across seeds, tactics, providers, and backends.</p>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig1-mcts-tree.png" alt="MCTS Proof Search Tree" />
+<figcaption aria-hidden="true">MCTS Proof Search Tree</figcaption>
+</figure>
+<h2 id="what-were-looking-for">1. What We’re Looking For</h2>
+<p>We treat proof search as a stochastic process over structured states.</p>
+<ul>
+<li>A perturbation can be a blocked tactic or tactic family, a seed change, or a policy/scheduler change.</li>
+<li>A response can be recovery to the same structural family or migration into a different attractor.</li>
+<li>The object of study is not only solve rate; it is the shape and stability of search trajectories.</li>
+</ul>
+<p>This is why we log enough structure to replay and compare runs months later under fixed configuration.</p>
+<h2 id="inspirations-and-framing">2. Inspirations and Framing</h2>
+<p>Three threads from the <a href="https://www.diverseintelligence.org/">Diverse Intelligence</a> research program motivate this setup.</p>
+<h3 id="search-efficiency-as-a-measurable-quantity">Search efficiency as a measurable quantity</h3>
+<p><a href="https://link.springer.com/article/10.1007/s11229-025-05319-6">Chis-Ciure and Levin (2025)</a> formalize biological intelligence as search efficiency in multi-scale problem spaces. Their central metric is the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">log10</annotation></semantics></math> of the ratio between the cost of a random walk and that of the observed agent: how many orders of magnitude of work does a directed policy save over maximal-entropy search? Even under conservative assumptions, they show that organisms as simple as amoebae navigating chemical gradients operate hundreds to sextillions of times more efficiently than a blind baseline.</p>
+<p>We borrow this framing directly. Our <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> metric is the same log-ratio, applied to proof search: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>b</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{blind}</annotation></semantics></math> is the expected edge count for a null policy over the tactic action surface, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>a</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{agent}</annotation></semantics></math> is the observed count, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><msub><mo>log</mo><mn>10</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>τ</mi><mrow><mi>b</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>d</mi></mrow></msub><mi>/</mi><msub><mi>τ</mi><mrow><mi>a</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">K = \log_{10}(\tau_{blind} / \tau_{agent})</annotation></semantics></math>. A positive <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> means the solver is exploiting structure in the problem space rather than brute-forcing it.</p>
+<h3 id="local-lesions-global-behavioral-readout">Local lesions, global behavioral readout</h3>
+<p><a href="https://arxiv.org/abs/2401.05375">Zhang, Goldstein, and Levin (2024)</a> reframe classical sorting algorithms as models of morphogenesis. Rather than treating algorithms as fixed computational procedures, they let each array element exert minimal local agency and implement sorting policies from the bottom up. The key finding is what happens under perturbation: when elements are “damaged” and cannot execute perfectly, the decentralized approach outperforms traditional implementations. Arrays with defective elements sort themselves more reliably than top-down implementations facing the same errors. The system exhibits unexpected competencies never explicitly programmed, including the ability to temporarily reduce local progress in order to navigate around a defect.</p>
+<p>This is the template for our intervention protocol. We block one tactic or tactic family from a known solution path and rerun. The question is the same one Zhang et al. ask of their self-sorting arrays: does the system reroute around the lesion and still reach the goal, or does it collapse? And if it reroutes, is the resulting structure the same or different?</p>
+<h3 id="pattern-level-invariants-under-perturbation">Pattern-level invariants under perturbation</h3>
+<p><a href="https://arxiv.org/abs/2201.10346">Levin (2022)</a> introduces the TAME framework for understanding cognition across radically different substrates. The core insight is a deep symmetry between problem-solving in anatomical, physiological, transcriptional, and behavioral spaces: the same patterns of multi-scale competency appear regardless of whether the substrate is a cell colony, a regenerating planarian, or a neural network. TAME argues that what matters is not whether a particular mechanism is present, but whether a behavioral structure persists under perturbation across scales.</p>
+<p>We adopt this as our primary object of study. In the same veing, we ask whether the proof-search trajectory belongs to the same structural family as the wild-type run. Basin analysis, GED families, and attractor clustering are all ways of asking the TAME question in a formal-methods setting: is the pattern invariant, or did the perturbation push the system into a genuinely different attractor?</p>
+<h3 id="mapping-to-proof-search">Mapping to proof search</h3>
+<p>In proof search, we try and have these three threads converge: block parts of tactic space, rerun under controlled budgets, and measure how structure changes. We then have:</p>
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> quantifies efficiency relative to blind.</li>
+<li>GED quantifies structural distance from wild-type.</li>
+<li>Basin analysis quantifies whether the system has one stable attractor or many.</li>
+</ul>
+<p>Together, they let us ask whether a proof-search process exhibits the kind of robust, multi-path competency that Levin and collaborators study in biological systems, or whether it is brittle and path-dependent.</p>
+<h2 id="harness-and-corpus-design">3. Harness and Corpus Design</h2>
+<p>Corpus management is incredibly important for us, both to have the necessary data to run these experiments, but also to make sure they are easily reproducible and stretch what our solver setup is capable of.</p>
+<p><code>wonton-soup</code> treats corpus and run configuration as first-class artifacts. Corpus builds are manifest-backed and run configs are snapshot-pinned. All downstream analysis reads those artifacts directly, which keeps the baseline fixed while we perturb one axis of behavior.</p>
+<p>We also separate validity from capability. Gate A checks that an item is structurally processable for the chosen backend and schema contract. Gate B checks whether the provider and search policy can do meaningful work on that valid slice under the configured budget. Intervention studies run on slices that pass both gates, so failure modes are easier to interpret.</p>
+<p>Deterministic selection (<code>--sample</code> with <code>--seed</code>) is how we ensure replayability. If you rerun later with the same corpus ref and selector inputs, you should recover the same theorem slice and comparable outputs.</p>
+<p>Run-level schemas complete the provenance contract with <code>run_config.json</code>, <code>run_status.json</code>, and <code>summary.json.gz</code> being responsible for postprocess, lake extraction, and cross-run audits.</p>
+<h3 id="what-is-fixed-per-comparison-run">What is fixed per comparison run</h3>
+<ul>
+<li>Corpus reference plus build provenance (<code>manifest.json</code>, item ordering, hash identity).</li>
+<li>Selection procedure (<code>--sample</code>, <code>--seed</code>, <code>--offset</code>, <code>--limit</code>) and resulting theorem slice.</li>
+<li>Search budget and core execution knobs (mode, iteration budget, intervention declaration).</li>
+<li>Analysis-facing artifact contract (<code>run_config.json</code>, <code>run_status.json</code>, <code>summary.json.gz</code>, theorem subartifacts).</li>
+</ul>
+<h2 id="search-core-centralized-and-distributed-mcts">4. Search Core: Centralized and Distributed MCTS</h2>
+<p>The search core is one algorithmic family with two execution modes, not two unrelated systems. Both modes walk a tactic-conditioned state graph and use compatible logging contracts, so a mode switch changes execution dynamics without changing what downstream analysis reads.</p>
+<p>In centralized mode, a single global selection loop owns frontier choice and expansion order. This gives one policy view over one queue, which is useful when you want minimal coordination effects and a clean single-agent baseline.</p>
+<p>In distributed mode, multiple local agents operate over a shared frontier. Inflight reservations are used to reduce duplicate expansion pressure, and scheduling controls let us perturb coordination directly: block, delay, reroute, virtual loss, and depth/path bias interventions change who explores what and when.</p>
+<p>Those scheduling interventions are deliberate lesions on search dynamics and let us ask whether solve behavior depends on one narrow expansion regime or remains robust under controlled changes in local-global coordination.</p>
+<p>Both modes emit compatible tree and trace artifacts, so comparisons can stay within the same analysis contract (<code>*_mcts_tree.json</code>, traces, run summaries) instead of requiring mode-specific postprocess logic.</p>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig9-distributed-frontier.png" alt="Distributed Frontier" />
+<figcaption aria-hidden="true">Distributed Frontier</figcaption>
+</figure>
+<p>How to read the figure: each worker lane represents local agent activity against a shared frontier; reservations and scheduler policy shape contention and handoff. Dense synchronized bands suggest strong coupling, while staggered bands indicate looser parallel exploration.</p>
+<h2 id="multi-backend-surface">5. Multi-Backend Surface</h2>
+<p>We use a multi-backend harness to measure if behavioral patterns appear across different backends or could be only implementation artifiacts.If it recurs across backend families with different proof objects and trace surfaces, the pattern is a stronger candidate invariant.</p>
+<p><code>wonton-soup</code> currently supports five execution backends:</p>
+<ul>
+<li><code>lean</code></li>
+<li><code>coq</code></li>
+<li><code>e</code></li>
+<li><code>vampire</code></li>
+<li><code>z3</code></li>
+</ul>
+<p>Run-level schemas are shared (<code>run_config.json</code>, <code>run_status.json</code>, <code>summary.json.gz</code>), and backend-specific capabilities are explicit via <code>run_status.json</code> flags plus file-presence checks. That means a downstream consumer can fail loud on unavailable artifact families instead of guessing.</p>
+<p>This contract matters for mixed analyses. For example, <code>ged_search_graph</code> is meaningful only when a true search graph exists; external solver traces may map to <code>ged_trace_graph</code> or proof-object families instead. Capability flags and validity metadata keep those distinctions visible.</p>
+<h3 id="backend-artifact-families-typical">Backend Artifact Families (Typical)</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Backend</th>
+<th>Search-graph family</th>
+<th>Proof family</th>
+<th>Trace family</th>
+<th>Practical note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lean</code></td>
+<td><code>ged_search_graph</code></td>
+<td>proof-term artifacts when enabled</td>
+<td>MCTS traces</td>
+<td>Full search-graph comparisons are strongest here.</td>
+</tr>
+<tr class="even">
+<td><code>coq</code></td>
+<td>usually unavailable</td>
+<td>proof object family (integration dependent)</td>
+<td>backend trace varies</td>
+<td>Treat proof/trace availability as capability-gated.</td>
+</tr>
+<tr class="odd">
+<td><code>e</code></td>
+<td>unavailable</td>
+<td>proof object family</td>
+<td><code>ged_trace_graph</code> from TSTP-style traces</td>
+<td>Mark trace completeness explicitly.</td>
+</tr>
+<tr class="even">
+<td><code>vampire</code></td>
+<td>unavailable</td>
+<td>proof object family</td>
+<td>optional trace family</td>
+<td>Proof-centric comparison is typical.</td>
+</tr>
+<tr class="odd">
+<td><code>z3</code></td>
+<td>unavailable</td>
+<td>proof object family</td>
+<td>optional trace family</td>
+<td>Search-graph GED is not the primary signal.</td>
+</tr>
+</tbody>
+</table>
+<p>Cross-backend comparisons are safest on shared run-level outcomes and explicitly labeled metric families. Structure-level comparisons should be grouped by compatible artifact families, not collapsed into one undifferentiated score.</p>
+<h3 id="showcase">Showcase</h3>
+<p>We pin two high-signal views used repeatedly in analysis: attractor separation and blind-relative efficiency.</p>
+<div class="ws-focus-grid">
+<figure>
+<img src="../../assets/blog/wonton-soup/fig4-attractors.png" alt="Attractor analysis figure: GED matrix, clustering cut, and basin mass panels." />
+<figcaption>
+Attractor view: structural families and basin mass concentration.
+</figcaption>
+</figure>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig7-k-metric.png" alt="K metric visualization: blind-relative search efficiency calibration." />
+<figcaption>
+K view: efficiency over blind baseline for intervention comparisons.
+</figcaption>
+</figure>
+</div>
+<h2 id="metrics-surface">6. Metrics Surface</h2>
+<p>We use a metric stack, not a single score:</p>
+<ul>
+<li>K-style search efficiency (<code>k_search_efficiency</code>) from trace-derived blind nulls.</li>
+<li>Paper-style paired blind baseline (<code>paper_k</code>) from basin runs with <code>--basin-blind</code>.</li>
+<li>GED families (<code>ged_search_graph</code>, <code>ged_search_graph_soft</code>, <code>ged_proof_graph</code>, <code>ged_trace_graph</code>) with explicit validity metadata.</li>
+<li>Trajectory comparison (divergence, reconvergence, recovery iterations).</li>
+<li>Basin analysis (solve rate, structure hash diversity, dominant basin frequency).</li>
+<li>Sheaf analyses (equivalence consistency and tactic-transform residuals).</li>
+<li>Cross-run lake exports for reproducible, cross-experiment aggregation.</li>
+</ul>
+<h3 id="quick-metric-interpretation">Quick Metric Interpretation</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>What changed in the intervention run</th>
+<th>How to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>k_search_efficiency</code> / <code>paper_k</code></td>
+<td>Attempted edge count before first solve (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>a</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{agent}</annotation></semantics></math>) vs blind baseline (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>b</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{blind}</annotation></semantics></math>)</td>
+<td>Higher is better; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K &gt; 0</annotation></semantics></math> means fewer attempts than blind</td>
+</tr>
+<tr class="even">
+<td><code>normalized GED_search</code></td>
+<td>Search-graph structure relative to wild-type</td>
+<td>Near <code>0</code> means structurally similar search; larger values mean stronger reroute</td>
+</tr>
+<tr class="odd">
+<td>shared prefix</td>
+<td>Number of early wild-type steps replayed before divergence</td>
+<td>High prefix means late divergence; low prefix means early policy/path change</td>
+</tr>
+<tr class="even">
+<td>divergence iteration/depth</td>
+<td>First step where intervention path differs</td>
+<td>Lower means early structural perturbation; higher means late perturbation</td>
+</tr>
+<tr class="odd">
+<td>solve status under block</td>
+<td>Whether constrained run still reaches terminal proof</td>
+<td>Distinguishes robust reroute from true tactic dependency</td>
+</tr>
+<tr class="even">
+<td>basin mass + attractor ID</td>
+<td>Fraction of seeds ending in each clustered trajectory family</td>
+<td>Concentrated mass indicates stable basin; split mass indicates multimodal behavior</td>
+</tr>
+</tbody>
+</table>
+<p>K is reported as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><msub><mo>log</mo><mn>10</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>τ</mi><mrow><mi>b</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>d</mi></mrow></msub><msub><mi>τ</mi><mrow><mi>a</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">K = \log_{10}\left( \frac{\tau_{blind}}{\tau_{agent}} \right)</annotation></semantics></math></p>
+<p>Example calibration: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><msub><mo>log</mo><mn>10</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>120</mn><mi>/</mi><mn>9</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1.12</mn></mrow><annotation encoding="application/x-tex">K=\log_{10}(120/9)=1.12</annotation></semantics></math> (about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">13\times</annotation></semantics></math> fewer attempts than blind).</p>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig7-k-metric.png" alt="K-Metric Visualization" />
+<figcaption aria-hidden="true">K-Metric Visualization</figcaption>
+</figure>
+<ul>
+<li><strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>a</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{agent}</annotation></semantics></math></strong>: attempted tactic edges until first terminal solve in the observed search graph.</li>
+<li><strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>b</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{blind}</annotation></semantics></math></strong>: expected attempted edges for a matched blind null policy over the same action surface.</li>
+<li><strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></strong>: orders-of-magnitude efficiency over blind (<code>K &gt; 0</code> is better than blind).</li>
+</ul>
+<p>Two related outputs:</p>
+<ul>
+<li><code>k_search_efficiency</code>: trace-derived null model from postprocess.</li>
+<li><code>paper_k</code>: paired blind baseline from basin runs with <code>--basin-blind</code>.</li>
+</ul>
+<h2 id="intervention-protocol">7. Intervention Protocol</h2>
+<p>For each theorem, we first solve a wild-type run and extract the solution path <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>τ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>τ</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\pi = \{\tau_1, \dots, \tau_n\}</annotation></semantics></math>. We then run controlled lesions by blocking one tactic (or tactic family) from that path and rerun under the same budget and configuration.</p>
+<p>This gives a clean comparison: same theorem, same search budget, one constrained action channel, repeated across all path tactics.</p>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig6-canonical-loop.png" alt="Canonical Loop" />
+<figcaption aria-hidden="true">Canonical Loop</figcaption>
+</figure>
+<h3 id="how-to-read-attractor-analysis">How to Read Attractor Analysis</h3>
+<figure>
+<img src="../../assets/blog/wonton-soup/fig4-attractors.png" alt="Attractor Analysis" />
+<figcaption aria-hidden="true">Attractor Analysis</figcaption>
+</figure>
+<ul>
+<li>Panel A (GED matrix): pairwise structural distance between runs.</li>
+<li>Panel B (clustering + cut): where we place the cut determines attractor families.</li>
+<li>Panel C (basins): seed mass captured by each attractor family.</li>
+</ul>
+<p>Interpretation: low GED + large shared basin mass implies robust proof structure; high GED with split mass implies genuine rerouting under intervention.</p>
+<h2 id="log-derived-vignettes">8. Log-Derived Vignettes</h2>
+<h3 id="vignette-gallery-player">Vignette Gallery Player</h3>
+<div class="ws-stepper ws-vignette-stepper" data-title="Log-derived vignette gallery" data-slides="[
+  {
+    &quot;label&quot;:&quot;contrapositive / block contrapose!&quot;,
+    &quot;metrics&quot;:&quot;Solved | normalized GED_search 0.67 | structural reroute&quot;,
+    &quot;ged&quot;:0.6666666666666666,
+    &quot;attempts&quot;:{&quot;blocked&quot;:1,&quot;failure&quot;:1,&quot;success&quot;:1},
+    &quot;attempt_graph&quot;:{
+      &quot;wild&quot;:{
+        &quot;root&quot;:&quot;¬P&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;exact hnq&quot;,&quot;outcome&quot;:&quot;failure&quot;},
+          {&quot;tactic&quot;:&quot;contrapose! hnq&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;exact h hnq&quot;
+      },
+      &quot;intervention&quot;:{
+        &quot;root&quot;:&quot;¬P&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;contrapose! hnq&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;exact hnq&quot;,&quot;outcome&quot;:&quot;failure&quot;},
+          {&quot;tactic&quot;:&quot;intro hP&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;exact hnq (h hP)&quot;
+      }
+    },
+    &quot;wild_path&quot;:[&quot;contrapose! hnq&quot;,&quot;exact h hnq&quot;],
+    &quot;intervention_path&quot;:[&quot;intro hP&quot;,&quot;exact hnq (h hP)&quot;],
+    &quot;caption&quot;:&quot;Blocking contrapose! forces a forward route (intro + exact), producing a clear structural shift.&quot;,
+    &quot;lightbox&quot;:false
+  },
+  {
+    &quot;label&quot;:&quot;nat_succ_pred / block positivity&quot;,
+    &quot;metrics&quot;:&quot;Solved | normalized GED_search 0.00 | local tactic swap&quot;,
+    &quot;ged&quot;:0.0,
+    &quot;attempts&quot;:{&quot;blocked&quot;:0,&quot;failure&quot;:0,&quot;success&quot;:1},
+    &quot;attempt_graph&quot;:{
+      &quot;wild&quot;:{
+        &quot;root&quot;:&quot;n.pred.succ = n&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;simp [Nat.succ_pred_eq_of_pos h]&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;simp [Nat.succ_eq_add_one]&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;rw [succ_pred]&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;positivity&quot;
+      },
+      &quot;intervention&quot;:{
+        &quot;root&quot;:&quot;n.pred.succ = n&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;rw [succ_pred]&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;exact Nat.ne_of_gt h&quot;
+      }
+    },
+    &quot;wild_path&quot;:[&quot;rw [succ_pred]&quot;,&quot;positivity&quot;],
+    &quot;intervention_path&quot;:[&quot;rw [succ_pred]&quot;,&quot;exact Nat.ne_of_gt h&quot;],
+    &quot;caption&quot;:&quot;Blocking positivity preserves structure and swaps in an explicit Nat.ne_of_gt proof step.&quot;,
+    &quot;lightbox&quot;:false
+  },
+  {
+    &quot;label&quot;:&quot;iff_intro / block exact&quot;,
+    &quot;metrics&quot;:&quot;Solved | normalized GED_search 0.00 | terminal discharge swap&quot;,
+    &quot;ged&quot;:0.0,
+    &quot;attempts&quot;:{&quot;blocked&quot;:3,&quot;failure&quot;:0,&quot;success&quot;:1},
+    &quot;attempt_graph&quot;:{
+      &quot;wild&quot;:{
+        &quot;root&quot;:&quot;P ↔ Q&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;constructor&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;exact hpq&quot;
+      },
+      &quot;intervention&quot;:{
+        &quot;root&quot;:&quot;P ↔ Q&quot;,
+        &quot;attempts&quot;:[
+          {&quot;tactic&quot;:&quot;exact ⟨hpq, hqp⟩&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;exact ⟨fun hp =&gt; hqp hp, ...⟩&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;exact ⟨fun hp =&gt; hqp hp, fun hp =&gt; hqp hp⟩&quot;,&quot;outcome&quot;:&quot;blocked&quot;},
+          {&quot;tactic&quot;:&quot;constructor&quot;,&quot;outcome&quot;:&quot;success&quot;}
+        ],
+        &quot;continuation&quot;:&quot;assumption&quot;
+      }
+    },
+    &quot;wild_path&quot;:[&quot;constructor&quot;,&quot;exact hpq&quot;],
+    &quot;intervention_path&quot;:[&quot;constructor&quot;,&quot;assumption&quot;],
+    &quot;caption&quot;:&quot;The terminal tactic changes from exact to assumption while the trajectory remains in-family.&quot;,
+    &quot;lightbox&quot;:false
+  }
+]">
+<div class="ws-stepper-fallback">
+<p>
+Interactive graph gallery requires JavaScript.
+</p>
+</div>
+</div>
+<h3 id="a.-alternate-tactic-at-same-structure">A. Alternate Tactic at Same Structure</h3>
+<p>From a recent February corpus sweep:</p>
+<ul>
+<li><code>control_null</code>: solved, normalized GED <code>0.00</code>.</li>
+<li><code>block_intros</code>: solved, normalized GED <code>0.45</code>.</li>
+<li><code>block_split_ifs</code>: unsolved, normalized GED <code>0.57</code>.</li>
+</ul>
+<p>Interpretation: one theorem shows both outcomes we care about. Some lesions reroute and recover, while others collapse. The split between <code>GED=0</code> replicate and <code>GED&gt;0</code> reroute/collapse appears inside a single local intervention family.</p>
+<h3 id="b.-different-theorems-different-intervention-patterns">B. Different Theorems, Different Intervention Patterns</h3>
+<p>From <strong>2026-02-04</strong>:</p>
+<ul>
+<li><code>contrapositive</code>: block <code>contrapose!</code> solved, normalized GED <code>0.67</code>.</li>
+<li><code>nat_succ_pred</code>: block <code>positivity</code> solved, normalized GED <code>0.00</code>.</li>
+<li><code>iff_intro</code>: block <code>exact</code> solved, normalized GED <code>0.00</code>.</li>
+</ul>
+<p>Interpretation: blocking <code>contrapose!</code> forces a forward proof via <code>intro</code>, flipping the intermediate goal from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝖥</mi><mi>𝖺</mi><mi>𝗅</mi><mi>𝗌</mi><mi>𝖾</mi></mrow><annotation encoding="application/x-tex">\mathsf{False}</annotation></semantics></math> before discharge.</p>
+<p>Interpretation: this is a local tactic swap: the proof keeps the same goal sequence but replaces an automated step with a direct lemma.</p>
+<p>Interpretation: this is a shallow reroute; the structure is intact but the terminal discharge uses a different tactic.</p>
+<h2 id="speculative-reach">9. Speculative Reach</h2>
+<p>This is an early slice from one primary provider and one MCTS policy family. The statements below are working hypotheses: grounded in current runs, intended to be pressure-tested as corpus and backend coverage expands.</p>
+<h3 id="a.-proof-space-appears-multistable">A. Proof space appears multistable</h3>
+<p>Under fixed prover, encoding, and budget, a nontrivial subset of theorems admits multiple recurrent proof families: trajectory clusters that different seeds and interventions converge to. We treat these as empirical basins: GED-clustered families with meaningful mass under a fixed perturbation protocol. In several cases, families are clearly separated in structure, not just notation.</p>
+<p>This mirrors a pattern seen in morphospace: a planarian genome does not encode one anatomy, but a landscape of stable anatomies selected by conditions and perturbations. In our setting, basins look like stable features under the tested protocol, not artifacts of single trajectories.</p>
+<h3 id="b.-constraint-can-generate-competency">B. Constraint can generate competency</h3>
+<p>In multiple cases, tactic-block intervention solves a theorem that matched wild-type search does not solve under the same budget and seed settings. <code>set_inter_self</code> remains a clear example: blocking common high-prior tactics can redirect search into basins the unconstrained policy does not visit within budget.</p>
+<p><a href="https://arxiv.org/abs/2401.05375">Zhang et al.</a> report an analogous effect in sorting: targeted local damage can improve global outcomes in decentralized dynamics. In both settings, constraint can increase solve probability on a meaningful subset of problems by forcing alternate structure.</p>
+<h3 id="c.-search-efficiency-is-cognitive-content-not-metaphor">C. Search efficiency is cognitive content, not metaphor</h3>
+<p>When <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K &gt; 0</annotation></semantics></math>, search is more efficient than blind tactic enumeration; larger positive <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> indicates stronger savings over blind baselines. This follows the same functional form used by <a href="https://link.springer.com/article/10.1007/s11229-025-05319-6">Chis-Ciure and Levin (2025)</a>: blind cost over observed cost, on a log scale.</p>
+<p>Cross-substrate comparability depends on null-model calibration to each action surface. That calibration is active work. If calibration holds, proof search and biological systems can be compared on a shared efficiency axis.</p>
+<h3 id="d.-proof-structures-may-be-discovered-rather-than-constructed">D. Proof structures may be discovered rather than constructed</h3>
+<p>When wild-type runs, tactic blocks, and seed variation repeatedly converge to the same proof family (low internal GED within a basin), that pattern is less plausibly solver-specific. A practical interpretation is that search acts as an interface to an underlying structural family.</p>
+<p>This is aligned with the <a href="https://arxiv.org/abs/2201.10346">TAME thesis</a>: persistence under perturbation is the key signal. If the same family recurs across controlled perturbations, that family behaves like an invariant of the tested policy space.</p>
+<h3 id="e.-substrates-may-function-as-pointers">E. Substrates may function as pointers</h3>
+<p>Multistability, lesion robustness, and measurable efficiency over blind search appear in regenerating planaria, self-sorting arrays, and MCTS proof search under interventions. The microphysics differ; the operational signatures are notably similar.</p>
+<p>Our current hypothesis is that pattern-level structure is primary and substrates are interfaces through which that structure is expressed. Whether this reflects a deep principle or a measurement coincidence remains open, and testable.</p>
+<p>Next steps: cross-backend basin agreement tests, calibrated <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> estimation with matched null models, and wider corpus and provider coverage.</p>
+<hr />
+<p><em>This is a technical draft for the Specter Labs research blog. For a compiled dashboard of selected runs, visit the <a href="/dashboards/wonton-soup/">Wonton Soup Dashboard</a>.</em></p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                                                <div>wonton-soup</div>
+                                            </div>
+                </footer>
+            </div>
+        </div>
+        <script src="../blog.js"></script>
+    </body>
+</html>

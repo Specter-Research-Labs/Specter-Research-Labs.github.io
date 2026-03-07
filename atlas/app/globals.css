@@ -1,0 +1,709 @@
+:root {
+  --atlas-paper: #f0ece3;
+  --atlas-paper-strong: #ebe4d5;
+  --atlas-ink: #11120f;
+  --atlas-muted: rgba(17, 18, 15, 0.62);
+  --atlas-border: rgba(17, 18, 15, 0.1);
+  --atlas-stage: #0b0611;
+  --atlas-stage-soft: #12091d;
+  --atlas-cyan: #63f2ff;
+  --atlas-blue: #4e77ff;
+  --atlas-violet: #bc39ff;
+  --atlas-amber: #ffcb53;
+  --atlas-shadow:
+    0 28px 80px rgba(15, 10, 12, 0.12),
+    0 2px 0 rgba(15, 10, 12, 0.06);
+  --atlas-display:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia,
+    serif;
+  --atlas-sans:
+    "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --atlas-mono:
+    "Berkeley Mono", "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas,
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--atlas-paper);
+  color: var(--atlas-ink);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--atlas-sans);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.65), transparent 32rem),
+    linear-gradient(180deg, #f7f3eb 0%, var(--atlas-paper) 45%, #ebe4d5 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.atlas-page-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 1.4rem 1.4rem 3rem;
+}
+
+.atlas-ambient {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.atlas-ambient-a {
+  width: 18rem;
+  height: 18rem;
+  background: rgba(255, 231, 157, 0.45);
+  top: -6rem;
+  right: -3rem;
+}
+
+.atlas-ambient-b {
+  width: 24rem;
+  height: 24rem;
+  background: rgba(116, 118, 255, 0.16);
+  bottom: -9rem;
+  left: -6rem;
+}
+
+.atlas-nav,
+.atlas-main {
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  max-width: 88rem;
+}
+
+.atlas-wordmark {
+  font-family: var(--atlas-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.atlas-pill-row,
+.child-pill-row,
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.atlas-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  padding: 0.65rem 1.05rem;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 -1px 0 rgba(17, 18, 15, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.atlas-pill-strong {
+  color: #fff;
+  background: var(--atlas-ink);
+  border-color: var(--atlas-ink);
+}
+
+.atlas-pill-passive {
+  color: var(--atlas-muted);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(17, 18, 15, 0.08);
+}
+
+.atlas-text-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(17, 18, 15, 0.18);
+  text-underline-offset: 0.25rem;
+}
+
+.atlas-main {
+  margin: 0 auto;
+  max-width: 88rem;
+}
+
+.atlas-stack {
+  display: grid;
+  gap: 2.4rem;
+}
+
+.landing-hero,
+.detail-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  align-items: start;
+}
+
+.landing-copy,
+.detail-copy {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.detail-kicker,
+.section-kicker,
+.creature-card-kicker {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--atlas-muted);
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: var(--atlas-display);
+  font-weight: 500;
+  line-height: 0.93;
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 10vw, 7.6rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+.detail-lead,
+.taxon-card p,
+.creature-card-copy p,
+.empty-state p {
+  max-width: 40rem;
+  color: var(--atlas-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.hero-wall,
+.specimen-grid,
+.specimen-grid-wide,
+.taxon-showcase {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-wall,
+.taxon-showcase {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.specimen-grid {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.specimen-grid-wide {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.creature-card,
+.taxon-card,
+.summary-band,
+.anatomy-panel,
+.ecology-map,
+.detail-stage-column,
+.empty-state {
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: var(--atlas-shadow);
+  backdrop-filter: blur(20px);
+}
+
+.creature-card,
+.taxon-card,
+.detail-stage-column,
+.empty-state {
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.creature-card {
+  display: grid;
+}
+
+.creature-card-copy,
+.taxon-card,
+.detail-stage-column,
+.empty-state {
+  padding: 1rem;
+}
+
+.creature-card-copy {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.creature-card-copy strong {
+  font-family: var(--atlas-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.summary-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.15rem 1.35rem;
+  border-radius: 999px;
+}
+
+.summary-band div {
+  display: grid;
+  gap: 0.24rem;
+  text-align: center;
+}
+
+.browse-panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: var(--atlas-shadow);
+  backdrop-filter: blur(20px);
+}
+
+.browse-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) auto;
+  gap: 0.85rem;
+  align-items: end;
+}
+
+.browse-field {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--atlas-muted);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.browse-field-wide {
+  grid-column: span 1;
+}
+
+.browse-field input,
+.browse-field select {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(17, 18, 15, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--atlas-ink);
+  font: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.browse-field input::placeholder {
+  color: rgba(17, 18, 15, 0.38);
+}
+
+.browse-field input:focus,
+.browse-field select:focus {
+  outline: 2px solid rgba(79, 131, 255, 0.18);
+  outline-offset: 0;
+  border-color: rgba(79, 131, 255, 0.46);
+}
+
+.browse-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.browse-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.browse-summary div {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.browse-summary span {
+  color: var(--atlas-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+.browse-summary strong {
+  font-family: var(--atlas-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.summary-band span {
+  color: var(--atlas-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+}
+
+.summary-band strong {
+  font-family: var(--atlas-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.detail-stage-column {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.specimen-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 1.4rem;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 188, 96, 0.08), transparent 8rem),
+    radial-gradient(circle at 70% 68%, rgba(114, 95, 255, 0.08), transparent 10rem),
+    linear-gradient(160deg, var(--atlas-stage) 0%, var(--atlas-stage-soft) 100%);
+}
+
+.specimen-stage-compact {
+  border-radius: 0;
+  aspect-ratio: 1 / 1.05;
+}
+
+.specimen-stage-glow,
+.specimen-stage-core,
+.specimen-centroid,
+.specimen-trail-dot,
+.specimen-glyph {
+  position: absolute;
+}
+
+.specimen-stage-replay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.specimen-stage-replay.is-ready {
+  opacity: 1;
+}
+
+.specimen-stage-replay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(9, 5, 17, 0.08), rgba(9, 5, 17, 0.34)),
+    radial-gradient(circle at 28% 24%, rgba(255, 196, 112, 0.1), transparent 30%),
+    radial-gradient(circle at 72% 72%, rgba(120, 102, 255, 0.12), transparent 32%);
+  pointer-events: none;
+}
+
+.specimen-stage-replay canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.specimen-stage-live .specimen-stage-glow {
+  opacity: 0.4;
+}
+
+.specimen-stage-live .specimen-stage-core {
+  opacity: 0.16;
+}
+
+.specimen-stage-glow {
+  border-radius: 999px;
+  filter: blur(16px);
+}
+
+.specimen-glow-a {
+  width: 72%;
+  height: 48%;
+  left: 12%;
+  top: 18%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--atlas-amber) 75%, transparent) 0%, transparent 68%);
+  transform: rotate(-26deg);
+}
+
+.specimen-glow-b {
+  width: 78%;
+  height: 56%;
+  right: 8%;
+  bottom: 10%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--atlas-violet) 76%, transparent) 0%, transparent 72%);
+  transform: rotate(18deg);
+}
+
+.specimen-stage-core {
+  inset: 20% 14%;
+  border-radius: 48% 52% 34% 66% / 38% 42% 58% 62%;
+  background:
+    radial-gradient(circle at 46% 42%, color-mix(in srgb, var(--atlas-amber) 88%, #fff) 0%, var(--atlas-amber) 14%, transparent 16%),
+    radial-gradient(circle at 54% 34%, var(--atlas-cyan) 0%, var(--atlas-blue) 34%, var(--atlas-violet) 72%, transparent 85%),
+    radial-gradient(circle at 38% 66%, rgba(255, 255, 255, 0.7) 0%, transparent 10%);
+  filter: saturate(1.25) blur(1px);
+  transform: rotate(-24deg);
+}
+
+.specimen-centroid {
+  width: 0.7rem;
+  height: 0.7rem;
+  left: calc(var(--atlas-centroid-x) - 0.35rem);
+  top: calc(var(--atlas-centroid-y) - 0.35rem);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14);
+}
+
+.specimen-trail-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  left: calc(var(--atlas-trail-x) - 0.225rem);
+  top: calc(var(--atlas-trail-y) - 0.225rem);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, var(--atlas-trail-opacity));
+}
+
+.specimen-glyph {
+  right: 0.8rem;
+  top: 0.8rem;
+}
+
+.metric-rail {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.metric-bar {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.metric-bar-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--atlas-mono);
+  font-size: 0.84rem;
+}
+
+.metric-bar-track {
+  overflow: hidden;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: rgba(17, 18, 15, 0.08);
+}
+
+.metric-bar-fill {
+  height: 100%;
+  width: var(--metric-value);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--metric-fill), color-mix(in srgb, var(--metric-fill) 68%, white));
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.metadata-grid div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.metadata-grid dt {
+  color: var(--atlas-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.metadata-grid dd {
+  margin: 0;
+  font-family: var(--atlas-mono);
+  font-size: 0.9rem;
+}
+
+.anatomy-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.section-heading {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.anatomy-grid-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.anatomy-panel {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 1.2rem;
+}
+
+.anatomy-panel-stage {
+  position: relative;
+  aspect-ratio: 1.35 / 1;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: linear-gradient(160deg, var(--atlas-stage) 0%, var(--atlas-stage-soft) 100%);
+}
+
+.anatomy-panel-image,
+.anatomy-panel-image-veil {
+  position: absolute;
+  inset: 0;
+}
+
+.anatomy-panel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.03);
+}
+
+.anatomy-panel-image-veil {
+  background:
+    linear-gradient(180deg, rgba(9, 5, 17, 0.08), rgba(9, 5, 17, 0.56)),
+    radial-gradient(circle at 28% 24%, rgba(255, 196, 112, 0.18), transparent 34%),
+    radial-gradient(circle at 72% 72%, rgba(120, 102, 255, 0.16), transparent 36%);
+}
+
+.anatomy-panel-copy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.anatomy-panel-copy span {
+  font-family: var(--atlas-display);
+  font-size: 1.4rem;
+}
+
+.anatomy-panel-copy p {
+  margin: 0;
+  color: var(--atlas-muted);
+}
+
+.ecology-map {
+  position: relative;
+  min-height: 32rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.ecology-map-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(17, 18, 15, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 18, 15, 0.08) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.9));
+}
+
+.ecology-node {
+  position: absolute;
+  left: var(--node-x);
+  top: var(--node-y);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: rgba(11, 6, 17, 0.9);
+  color: #fff;
+  box-shadow: 0 20px 42px rgba(15, 10, 12, 0.18);
+}
+
+.ecology-node::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--node-color);
+  box-shadow: 0 0 18px var(--node-color);
+}
+
+.empty-state {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+  margin: 12vh auto 0;
+}
+
+@media (max-width: 960px) {
+  .atlas-page-shell {
+    padding-inline: 1rem;
+  }
+
+  .atlas-nav,
+  .landing-hero,
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .browse-toolbar,
+  .hero-wall,
+  .taxon-showcase,
+  .anatomy-grid-panels,
+  .metadata-grid,
+  .summary-band,
+  .browse-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .browse-actions {
+    justify-content: flex-start;
+  }
+}

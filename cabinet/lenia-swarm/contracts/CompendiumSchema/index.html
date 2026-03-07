@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Compendium SQLite Schema | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-003</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">contracts/CompendiumSchema</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/contracts/CompendiumSchema.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#compendium-sqlite-schema" id="toc-compendium-sqlite-schema">Compendium SQLite Schema</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#producer-and-consumers" id="toc-producer-and-consumers">Producer and Consumers</a></li>
+                            <li><a href="#schema-version" id="toc-schema-version">Schema Version</a></li>
+                            <li><a href="#tables" id="toc-tables">Tables</a></li>
+                            <li><a href="#migration-history" id="toc-migration-history">Migration History</a></li>
+                            <li><a href="#static-publish-contract" id="toc-static-publish-contract">Static Publish Contract</a></li>
+                            <li><a href="#morphometrics-contract" id="toc-morphometrics-contract">Morphometrics Contract</a></li>
+                            <li><a href="#taxonomy-status" id="toc-taxonomy-status">Taxonomy Status</a></li>
+                            <li><a href="#indexing-semantics" id="toc-indexing-semantics">Indexing Semantics</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="compendium-sqlite-schema">Compendium SQLite Schema</h1>
+<h2 id="purpose">Purpose</h2>
+<p>The compendium is the indexed artifact database produced by <code>LeniaCLI index</code>.</p>
+<h2 id="producer-and-consumers">Producer and Consumers</h2>
+<p>Producer:</p>
+<ul>
+<li><code>LeniaCLI index</code> ingests run artifacts and updates <code>compendium.sqlite</code>.</li>
+</ul>
+<p>Consumers:</p>
+<ul>
+<li><code>LeniaStudio</code> compendium views.</li>
+<li><code>LeniaCLI thresholds</code> and <code>LeniaCLI ecology</code>.</li>
+<li><code>LeniaCLI compendium-publish</code>, which materializes static site releases from indexed rows.</li>
+<li>ad hoc SQL analysis.</li>
+</ul>
+<h2 id="schema-version">Schema Version</h2>
+<p>Current schema version is <code>6</code> (see <code>Sources/LeniaCLI/CompendiumSchema.swift</code>).</p>
+<p>The indexer enforces an exact match for read commands that depend on schema shape (<code>ecology</code>, <code>thresholds</code>, <code>compendium-sanity</code>).</p>
+<h2 id="tables">Tables</h2>
+<p>Core tables:</p>
+<ul>
+<li><code>compendium_meta</code>: single-row schema metadata (<code>schema_version</code>).</li>
+<li><code>runs</code>: indexed run roots and provenance (<code>run_id</code>, <code>run_dir</code>, host/output metadata, <code>config_hash</code>).</li>
+<li><code>campaigns</code>: run-scoped campaign IDs linked to runs.</li>
+<li><code>creatures</code>: library entries plus denormalized metrics, taxonomy slots, and morphometrics.</li>
+<li><code>exports</code>: records for exported configs tied to creatures, keyed independently from the user-facing <code>export_dir</code>.</li>
+<li><code>results</code>: optional per-seed records when indexing includes results.</li>
+<li><code>ingest_state</code>: incremental ingestion cursor by source file (<code>offset</code>, <code>size</code>, <code>mtime</code>).</li>
+</ul>
+<h2 id="migration-history">Migration History</h2>
+<p><code>v1 -&gt; v2</code>:</p>
+<ul>
+<li>expands <code>runs</code> metadata (<code>run_name</code>, <code>host_id</code>, <code>output_root</code>, <code>indexed_at</code>),</li>
+<li>normalizes historical run IDs and run-dir metadata.</li>
+</ul>
+<p><code>v2 -&gt; v3</code>:</p>
+<ul>
+<li>adds taxonomy fields on <code>creatures</code>:
+<ul>
+<li><code>taxonomy_family_id</code>, <code>taxonomy_genus_id</code>, <code>taxonomy_species_id</code>,</li>
+<li><code>taxonomy_confidence</code>, <code>taxonomy_method</code>, <code>taxonomy_version</code>.</li>
+</ul></li>
+<li>adds morphometrics fields on <code>creatures</code>:
+<ul>
+<li><code>morphometrics_json</code>, <code>morphometrics_method</code>, <code>morphometrics_version</code>.</li>
+</ul></li>
+</ul>
+<p><code>v3 -&gt; v4</code>:</p>
+<ul>
+<li>adds <code>config_hash</code> to <code>creatures</code> and <code>runs</code>.</li>
+</ul>
+<p><code>v4 -&gt; v5</code>:</p>
+<ul>
+<li>makes <code>campaigns</code> run-scoped via a composite <code>(run_id, campaign_id)</code> key,</li>
+<li>gives <code>exports</code> a stable synthetic primary key so identical relative export paths from different runs do not collide.</li>
+</ul>
+<p><code>v5 -&gt; v6</code>:</p>
+<ul>
+<li>adds <code>velocity_x</code>, <code>velocity_y</code>, and <code>heading_rad</code> columns on <code>creatures</code>,</li>
+<li>backfills them to <code>0.0</code> for older indexed rows.</li>
+</ul>
+<h2 id="static-publish-contract">Static Publish Contract</h2>
+<p><code>LeniaCLI compendium-publish</code> reads the indexed SQLite database and emits a manifest-backed site release under <code>site/dossiers/lenia-swarm/compendium/data/</code>.</p>
+<p>Publish semantics:</p>
+<ul>
+<li>creature detail payloads come from the indexed compendium row, not from atlas summaries,</li>
+<li>per-creature replay configs are computed from the indexed genotype, phenotype, sweep overrides, and the run’s recorded search config,</li>
+<li>stage media can also be materialized during publish:
+<ul>
+<li><code>poster.png</code>,</li>
+<li><code>field.png</code>,</li>
+<li><code>delta.png</code>,</li>
+<li><code>neighbor.png</code>,</li>
+<li><code>kernel.png</code>,</li>
+<li>optional <code>replay.json</code> plus <code>frames.bin</code>,</li>
+</ul></li>
+<li>published detail and index payloads may carry <code>media</code> and <code>telemetry</code> objects when stage media is rendered,</li>
+<li>publish is fail-loud if the run snapshots needed to compute those replay configs are missing.</li>
+</ul>
+<h2 id="morphometrics-contract">Morphometrics Contract</h2>
+<p><code>creatures.morphometrics_json</code> is computed during indexing.</p>
+<p>Current method metadata:</p>
+<ul>
+<li><code>morphometrics_method = "lenia-swarm:morphometrics"</code></li>
+<li><code>morphometrics_version = 1</code></li>
+</ul>
+<p>Inputs:</p>
+<ul>
+<li>always: <code>metrics_json</code> (<code>SimulationMetrics</code>),</li>
+<li>optional enrichment: activity summaries from <code>overall/activity.jsonl</code> or <code>campaigns/*/activity.jsonl</code>.</li>
+</ul>
+<p>If activity summaries are absent, activity-derived morphometric fields remain <code>null</code>.</p>
+<h2 id="taxonomy-status">Taxonomy Status</h2>
+<p>Taxonomy columns are present in schema but taxonomy assignment is not currently performed by the indexer. New rows are written with <code>NULL</code> taxonomy IDs/method/version until a taxonomy pass is implemented.</p>
+<h2 id="indexing-semantics">Indexing Semantics</h2>
+<ul>
+<li>Ingestion is incremental per file via <code>ingest_state</code>.</li>
+<li>Re-indexing upserts rows by primary key.</li>
+<li>Indexing is explicit and fail-loud on schema mismatch.</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

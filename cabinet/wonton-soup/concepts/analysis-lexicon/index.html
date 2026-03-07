@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Analysis Lexicon (Wonton-Soup) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-002</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/analysis-lexicon</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/analysis-lexicon.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#analysis-lexicon-wonton-soup" id="toc-analysis-lexicon-wonton-soup">Analysis Lexicon (Wonton-Soup)</a>
+                            <ul>
+                            <li><a href="#scope" id="toc-scope">Scope</a></li>
+                            <li><a href="#canonical-references" id="toc-canonical-references">Canonical References</a></li>
+                            <li><a href="#artifact-lexicon-wherewhat" id="toc-artifact-lexicon-wherewhat">Artifact Lexicon (Where/What)</a></li>
+                            <li><a href="#metric-lexicon-meaningvalidity" id="toc-metric-lexicon-meaningvalidity">Metric Lexicon (Meaning/Validity)</a></li>
+                            <li><a href="#naming-and-comparison-invariants" id="toc-naming-and-comparison-invariants">Naming and Comparison Invariants</a></li>
+                            <li><a href="#postprocess-ownership" id="toc-postprocess-ownership">Postprocess Ownership</a></li>
+                            <li><a href="#related-design-records" id="toc-related-design-records">Related Design Records</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../analysis-metrics/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-003</span><span class="doc-backlinks-title">Analysis Metrics Reference</span><span class="doc-backlinks-category">concepts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="analysis-lexicon-wonton-soup">Analysis Lexicon (Wonton-Soup)</h1>
+<p>Canonical index for analysis terminology, artifact semantics, and metric families.</p>
+<h2 id="scope">Scope</h2>
+<p>Use this page to find the canonical definition source for a term. Detailed definitions live in:</p>
+<ul>
+<li><a href="../../contracts/analysis/analysis-artifacts/">Analysis Artifacts Reference</a></li>
+<li><a href="../analysis-metrics/">Analysis Metrics Reference</a></li>
+<li><a href="../../contracts/logs/log-file-schemas/">Log File Schemas</a></li>
+</ul>
+<h2 id="canonical-references">Canonical References</h2>
+<ul>
+<li>Log schemas: <a href="../../contracts/logs/log-file-schemas/">Log File Schemas</a></li>
+<li>Run inspection workflows: <a href="../../ops/log-query-cookbook/">Log Query Cookbook</a></li>
+<li>Cross-run lake operations: <a href="../../ops/run-lake/">Run Lake (Cross-Run DuckDB)</a></li>
+<li>Lake job materialization and references: <a href="../../ops/lake-jobs/">Lake Jobs (Materialized Datasets)</a></li>
+</ul>
+<h2 id="artifact-lexicon-wherewhat">Artifact Lexicon (Where/What)</h2>
+<p>Canonical artifact definitions and implementation pointers:</p>
+<ul>
+<li><code>ExplorationHistory</code>, <code>MCTSTree</code>, search/proof/trace graph artifacts</li>
+<li><code>ExprDAG</code> proof-term payloads and assembly traces</li>
+<li><code>GoalCache</code> and signature mapping artifacts</li>
+<li>aggregate outputs (<code>summary.json.gz</code>, <code>analysis_report.json</code>, <code>failure_analysis.json</code>, etc.)</li>
+</ul>
+<p>See: <a href="../../contracts/analysis/analysis-artifacts/">Analysis Artifacts Reference</a>.</p>
+<h2 id="metric-lexicon-meaningvalidity">Metric Lexicon (Meaning/Validity)</h2>
+<p>Canonical metric families and validity boundaries:</p>
+<ul>
+<li>GED families (<code>ged_search_graph</code>, <code>ged_search_graph_soft</code>, <code>ged_proof_graph</code>, <code>ged_trace_graph</code>)</li>
+<li>goal-AST TED and soft distance metrics</li>
+<li>trajectory/detour/recovery metrics</li>
+<li>basin and K-style efficiency metrics</li>
+<li>novelty/sheaf/tactic-goal aggregate metrics</li>
+</ul>
+<p>See: <a href="../analysis-metrics/">Analysis Metrics Reference</a>.</p>
+<h2 id="naming-and-comparison-invariants">Naming and Comparison Invariants</h2>
+<ul>
+<li>Do not compare metric families without explicit normalization and rationale.</li>
+<li>Treat <code>ged_trace_graph</code> as proxy-only unless a backend exposes true search state transitions.</li>
+<li>Treat <code>k_search_efficiency</code> as run-configuration dependent, not theorem-intrinsic.</li>
+<li>Keep goal-ID scheme and goal-signature scheme explicit in reports.</li>
+</ul>
+<h2 id="postprocess-ownership">Postprocess Ownership</h2>
+<p>Heavy metrics that are not computed in-run are owned by <code>wonton.py postprocess</code> and written into <code>summary.json.gz</code> and per-variant <code>*_comparison.json</code> payloads.</p>
+<p>Current postprocess-heavy fields include:</p>
+<ul>
+<li><code>ged_search_graph_soft</code></li>
+<li><code>goal_novelty</code></li>
+<li><code>solution_path_soft_distance</code></li>
+<li><code>k_search_efficiency</code></li>
+</ul>
+<h2 id="related-design-records">Related Design Records</h2>
+<ul>
+<li>Reference leakage guardrail: <a href="../../decisions/adr-lake-reference-selection/">ADR: Explicit Reference Selection for Lake Jobs</a></li>
+<li>Goal-ID scheme decision: <a href="../../decisions/adr-checkpoint-goal-ids/">ADR: Checkpoint-Scoped Goal IDs</a></li>
+<li>Backend trace/search feasibility: <a href="../../decisions/adr-search-graph-feasibility-by-backend/">ADR: Search-Graph Feasibility by Backend</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Analysis Metrics Reference | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-003</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/analysis-metrics</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/analysis-metrics.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#analysis-metrics-reference" id="toc-analysis-metrics-reference">Analysis Metrics Reference</a>
+                            <ul>
+                            <li><a href="#structural-metrics" id="toc-structural-metrics">Structural Metrics</a>
+                            <ul>
+                            <li><a href="#ged-families" id="toc-ged-families">GED Families</a></li>
+                            <li><a href="#goal-ast-ordered-ted" id="toc-goal-ast-ordered-ted">Goal-AST Ordered TED</a></li>
+                            <li><a href="#structure-hash-wl" id="toc-structure-hash-wl">Structure Hash (WL)</a></li>
+                            </ul></li>
+                            <li><a href="#search-dynamics-metrics" id="toc-search-dynamics-metrics">Search-Dynamics Metrics</a>
+                            <ul>
+                            <li><a href="#trajectory-metrics" id="toc-trajectory-metrics">Trajectory Metrics</a></li>
+                            <li><a href="#detour-metrics" id="toc-detour-metrics">Detour Metrics</a></li>
+                            <li><a href="#trajectory-comparison-recovery" id="toc-trajectory-comparison-recovery">Trajectory Comparison (Recovery)</a></li>
+                            <li><a href="#solution-path-soft-distance" id="toc-solution-path-soft-distance">Solution-Path Soft Distance</a></li>
+                            </ul></li>
+                            <li><a href="#basin-and-efficiency-metrics" id="toc-basin-and-efficiency-metrics">Basin and Efficiency Metrics</a>
+                            <ul>
+                            <li><a href="#basin-analysis-multi-seed" id="toc-basin-analysis-multi-seed">Basin Analysis (Multi-Seed)</a></li>
+                            <li><a href="#k-style-search-efficiency" id="toc-k-style-search-efficiency">K-Style Search Efficiency</a></li>
+                            </ul></li>
+                            <li><a href="#tacticgoal-behavior-metrics" id="toc-tacticgoal-behavior-metrics">Tactic/Goal Behavior Metrics</a>
+                            <ul>
+                            <li><a href="#goal-type-tactic-matrix" id="toc-goal-type-tactic-matrix">Goal-Type / Tactic Matrix</a></li>
+                            <li><a href="#tactic-fingerprint" id="toc-tactic-fingerprint">Tactic Fingerprint</a></li>
+                            <li><a href="#goal-novelty" id="toc-goal-novelty">Goal Novelty</a></li>
+                            <li><a href="#sheaf-metrics" id="toc-sheaf-metrics">Sheaf Metrics</a></li>
+                            </ul></li>
+                            <li><a href="#cross-metric-comparability-rules" id="toc-cross-metric-comparability-rules">Cross-Metric Comparability Rules</a></li>
+                            <li><a href="#computation-ownership" id="toc-computation-ownership">Computation Ownership</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/providers/deepseek-provider-settings/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-015</span><span class="doc-backlinks-title">DeepSeek Provider Settings</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/providers/tactic-provider-options/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-016</span><span class="doc-backlinks-title">Tactic Provider Options for Tactic Suggestion</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../decisions/adr-search-graph-feasibility-by-backend/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-020</span><span class="doc-backlinks-title">ADR: Search-Graph Feasibility by Backend</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="analysis-metrics-reference">Analysis Metrics Reference</h1>
+<p>Canonical semantics for metric families used in wonton-soup.</p>
+<h2 id="structural-metrics">Structural Metrics</h2>
+<h3 id="ged-families">GED Families</h3>
+<ul>
+<li><code>ged_search_graph</code>: hard matching on goal signature + tactic family (Lean search graphs)</li>
+<li><code>ged_search_graph_soft</code>: soft node substitution cost via normalized goal-AST TED</li>
+<li><code>ged_proof_graph</code>: proof-object graph distance (external backends)</li>
+<li><code>ged_trace_graph</code>: trace-derived proxy graph distance</li>
+</ul>
+<p>Family-specific validity metadata:</p>
+<ul>
+<li><code>valid</code></li>
+<li><code>validity_notes</code></li>
+<li><code>trace_source</code></li>
+<li><code>trace_completeness</code></li>
+</ul>
+<h3 id="goal-ast-ordered-ted">Goal-AST Ordered TED</h3>
+<p>Normalized ordered tree edit distance over goal ASTs.</p>
+<p>Used by:</p>
+<ul>
+<li><code>ged_search_graph_soft</code></li>
+<li><code>goal_novelty</code></li>
+<li><code>solution_path_soft_distance</code></li>
+<li><code>root_goal_similarity</code></li>
+</ul>
+<h3 id="structure-hash-wl">Structure Hash (WL)</h3>
+<p>Fast labeled-graph structural hash used in basin-style convergence summaries.</p>
+<h2 id="search-dynamics-metrics">Search-Dynamics Metrics</h2>
+<h3 id="trajectory-metrics">Trajectory Metrics</h3>
+<p>Depth/backtrack/uniqueness summaries from exploration history.</p>
+<h3 id="detour-metrics">Detour Metrics</h3>
+<p>Attempt/success/failure summaries for search effort off the final solved path.</p>
+<h3 id="trajectory-comparison-recovery">Trajectory Comparison (Recovery)</h3>
+<p>Divergence/reconvergence timing against wild-type solution-path signatures.</p>
+<h3 id="solution-path-soft-distance">Solution-Path Soft Distance</h3>
+<p>Soft sequence distance between wild/intervention solved-path goal signatures.</p>
+<h2 id="basin-and-efficiency-metrics">Basin and Efficiency Metrics</h2>
+<h3 id="basin-analysis-multi-seed">Basin Analysis (Multi-Seed)</h3>
+<p>Repeated seeded runs measuring stability of solved structure distribution.</p>
+<p>Core outputs:</p>
+<ul>
+<li><code>solve_rate</code></li>
+<li><code>unique_structures</code></li>
+<li><code>dominant_structure_frequency</code></li>
+<li><code>structure_distribution</code></li>
+</ul>
+<h3 id="k-style-search-efficiency">K-Style Search Efficiency</h3>
+<p><code>K = log10(tau_blind / tau_agent)</code> with trace-derived blind baseline estimates.</p>
+<p>Interpretation guardrail:</p>
+<ul>
+<li>configuration-dependent efficiency score</li>
+<li>not an intrinsic theorem property</li>
+</ul>
+<p>For paired blind baseline experiments, use basin mode with explicit blind runs (<code>paper_k</code>).</p>
+<h2 id="tacticgoal-behavior-metrics">Tactic/Goal Behavior Metrics</h2>
+<h3 id="goal-type-tactic-matrix">Goal-Type / Tactic Matrix</h3>
+<p>Aggregate outcome counts by goal surface and normalized tactic.</p>
+<h3 id="tactic-fingerprint">Tactic Fingerprint</h3>
+<p>Attempted/successful/solution-path tactic profile.</p>
+<h3 id="goal-novelty">Goal Novelty</h3>
+<p>Novel and dropped goal-signature sets under intervention, with min-distance summaries.</p>
+<h3 id="sheaf-metrics">Sheaf Metrics</h3>
+<p>Sheaf-inspired consistency/residual summaries over signature/tactic behavior.</p>
+<h2 id="cross-metric-comparability-rules">Cross-Metric Comparability Rules</h2>
+<ul>
+<li>Do not compare GED values across families without explicit normalization rationale.</li>
+<li><code>ged_trace_graph</code> is proxy-level evidence and must be labeled as such in reporting.</li>
+<li>Compare metrics only within consistent goal-signature and goal-ID schemes.</li>
+<li>Explicitly report missing or partial metrics via validity fields.</li>
+</ul>
+<h2 id="computation-ownership">Computation Ownership</h2>
+<p>In-run metrics are generated by core orchestration. Heavy metrics are filled by postprocess.</p>
+<ul>
+<li>In-run: trajectory/detour, many base per-variant metrics</li>
+<li>Postprocess: soft GED, goal novelty, solution-path soft distance, K-style efficiency</li>
+</ul>
+<p>See <a href="../analysis-lexicon/">Analysis Lexicon (Wonton-Soup)</a> and <a href="../../contracts/logs/log-file-schemas/">Log File Schemas</a> for ownership and schema details.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

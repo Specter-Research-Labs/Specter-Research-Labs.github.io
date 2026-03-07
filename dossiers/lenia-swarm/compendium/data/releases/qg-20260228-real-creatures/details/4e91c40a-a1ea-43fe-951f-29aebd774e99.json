@@ -1,0 +1,182 @@
+{
+  "artifact_source" : "rendered_stage_media_with_replay",
+  "creature" : {
+    "config_hash" : "ccf08353ea32",
+    "genotype" : {
+      "R" : 6.011014,
+      "a" : [
+        [
+          0.1305514,
+          0.41761148,
+          0.32454216
+        ],
+        [
+          0.52285683,
+          0.17629975,
+          0.6386823
+        ],
+        [
+          0.54456687,
+          0.9902948,
+          0.19594753
+        ]
+      ],
+      "b" : [
+        [
+          0.21445906,
+          0.61703306,
+          0.76713157
+        ],
+        [
+          0.5061637,
+          0.8533726,
+          0.45231146
+        ],
+        [
+          0.62224555,
+          0.89227295,
+          0.28297305
+        ]
+      ],
+      "h" : [
+        0.6114282,
+        0.36345237,
+        0.522175
+      ],
+      "m" : [
+        0.07122979,
+        0.25059658,
+        0.22312097
+      ],
+      "r" : [
+        0.6857864,
+        0.6731504,
+        0.8820337
+      ],
+      "s" : [
+        0.16866471,
+        0.13689286,
+        0.16137008
+      ],
+      "w" : [
+        [
+          0.14897563,
+          0.095238194,
+          0.04337641
+        ],
+        [
+          0.16825792,
+          0.2934718,
+          0.38632345
+        ],
+        [
+          0.44066164,
+          0.35041317,
+          0.23600349
+        ]
+      ]
+    },
+    "id" : "4E91C40A-A1EA-43FE-951F-29AEBD774E99",
+    "metrics" : {
+      "activity_diversity_mean" : 0.08062833,
+      "activity_eac_mean" : 2345.105,
+      "activity_ean_mean" : 211.25452,
+      "activity_species_mean" : 14.444445,
+      "center_velocity" : 0.00022712952,
+      "displacement" : 0.09653005,
+      "energy_mean" : 306.42468,
+      "gyration" : 2510.4282,
+      "heading_rad" : 0,
+      "is_stable" : true,
+      "mass_max" : 565.6988,
+      "mass_mean" : 565.69244,
+      "mass_min" : 565.68604,
+      "mass_std" : 0,
+      "occupancy_mean" : 0.14905803,
+      "path_length" : 0.41441265,
+      "sample_count" : 18,
+      "speed_count" : 0,
+      "speed_mean" : 0.00022712952,
+      "variance_mean" : 0.017510558,
+      "velocity_x" : 0,
+      "velocity_y" : 0
+    },
+    "name" : "vibrant-walker-4478",
+    "owner_id" : "local-node",
+    "phenotype" : {
+      "a_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "p_uniform" : {
+        "high" : 1,
+        "low" : 0
+      },
+      "patches" : [
+        {
+          "center" : [
+            32,
+            32
+          ],
+          "size" : 24
+        },
+        {
+          "center" : [
+            96,
+            96
+          ],
+          "size" : 24
+        }
+      ],
+      "seed" : 300022
+    },
+    "score" : 120.232956,
+    "score_weights" : {
+      "activity_diversity_mean" : 2,
+      "activity_ean_mean" : 0.5,
+      "activity_species_mean" : 1
+    },
+    "timestamp" : "2026-02-28T17:09:59.387Z"
+  },
+  "media" : {
+    "anatomy" : {
+      "deltaPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/delta.png",
+      "fieldPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/field.png",
+      "kernelPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/kernel.png",
+      "neighborPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/neighbor.png"
+    },
+    "height" : 128,
+    "posterPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/poster.png",
+    "replayPath" : "releases\/qg-20260228-real-creatures\/runs\/qg-nnea-s300000\/4e91c40a-a1ea-43fe-951f-29aebd774e99\/replay.json",
+    "width" : 128
+  },
+  "published_at" : "2026-03-06T18:48:16.691Z",
+  "recorded_at" : "2026-02-28T17:09:59.387Z",
+  "run_id" : "qg-nnea-s300000",
+  "run_name" : "qg-nnea-s300000",
+  "source_db" : "\/Users\/ludwig\/dev\/specter-labs\/dossiers\/lenia-swarm\/artifacts\/qg-20260228\/compendium.sqlite",
+  "telemetry" : {
+    "centroid" : {
+      "x" : 0.48940402,
+      "y" : 0.4883542
+    },
+    "headingRad" : -0.71866214,
+    "speed" : 0.0044089337,
+    "trail" : [
+      {
+        "x" : 0.48947796,
+        "y" : 0.48924506
+      },
+      {
+        "x" : 0.48657164,
+        "y" : 0.48681965
+      },
+      {
+        "x" : 0.48608547,
+        "y" : 0.48545146
+      }
+    ],
+    "vx" : 0.0033185482,
+    "vy" : -0.0029027462
+  }
+}

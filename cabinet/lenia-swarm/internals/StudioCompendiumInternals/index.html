@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Studio Compendium Internals | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">internals</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-012</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">internals/StudioCompendiumInternals</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                internals
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/internals/StudioCompendiumInternals.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#studio-compendium-internals" id="toc-studio-compendium-internals">Studio Compendium Internals</a>
+                            <ul>
+                            <li><a href="#scope" id="toc-scope">Scope</a></li>
+                            <li><a href="#source-surfaces" id="toc-source-surfaces">Source Surfaces</a></li>
+                            <li><a href="#contract-dependencies" id="toc-contract-dependencies">Contract Dependencies</a></li>
+                            <li><a href="#practical-implications" id="toc-practical-implications">Practical Implications</a></li>
+                            <li><a href="#change-discipline" id="toc-change-discipline">Change Discipline</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="studio-compendium-internals">Studio Compendium Internals</h1>
+<h2 id="scope">Scope</h2>
+<p>How LeniaStudio consumes compendium data surfaces and what assumptions matter for compatibility.</p>
+<h2 id="source-surfaces">Source Surfaces</h2>
+<ul>
+<li>Studio views consume indexed creature rows and metadata exposed from compendium schema.</li>
+<li>CLI indexing remains the writer of record for compendium content.</li>
+</ul>
+<h2 id="contract-dependencies">Contract Dependencies</h2>
+<p>Studio compendium behavior depends on:</p>
+<ul>
+<li>exact schema version matching current CLI expectation,</li>
+<li>presence of core tables (<code>compendium_meta</code>, <code>runs</code>, <code>campaigns</code>, <code>creatures</code>, <code>exports</code>, <code>results</code>),</li>
+<li>stable column names for taxonomy and morphometrics fields.</li>
+</ul>
+<h2 id="practical-implications">Practical Implications</h2>
+<ul>
+<li>Schema additions must be migration-backed and version-gated before Studio consumes them.</li>
+<li>New derived fields should carry method/version tags so UI logic can branch explicitly.</li>
+<li>Null taxonomy fields are valid current-state data and must not be treated as ingest corruption.</li>
+</ul>
+<h2 id="change-discipline">Change Discipline</h2>
+<p>When changing compendium-facing columns:</p>
+<ol type="1">
+<li>update schema + migration path,</li>
+<li>update CLI validations,</li>
+<li>update Studio readers and views,</li>
+<li>update docs in <code>contracts/CompendiumSchema.md</code> and this file.</li>
+</ol></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

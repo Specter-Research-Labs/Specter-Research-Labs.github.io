@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Experiment Matrix | SPECTER Labs</title>
+        <link rel="icon" href="../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../">
+                            <img
+                                src="../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">JMM-001</div>
+                                                        <div class="doc-stamp-title">Jolt Material Memory</div>
+                                                        <div class="doc-stamp-sub">experiment-matrix</div>
+                                                                                                                <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/jolt-material-memory/docs/experiment-matrix.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#experiment-matrix" id="toc-experiment-matrix">Experiment Matrix</a>
+                            <ul>
+                            <li><a href="#factors" id="toc-factors">Factors</a></li>
+                            <li><a href="#total-runs" id="toc-total-runs">Total Runs</a></li>
+                            <li><a href="#provenance" id="toc-provenance">Provenance</a></li>
+                            <li><a href="#related-docs" id="toc-related-docs">Related Docs</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../metric-spec/" class="doc-backlinks-link"><span class="doc-backlinks-id">JMM-002</span><span class="doc-backlinks-title">Metric Spec</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="experiment-matrix">Experiment Matrix</h1>
+<p>Campaign config: <code>configs/paper_track_v1.json</code></p>
+<h2 id="factors">Factors</h2>
+<ul>
+<li>Scenarios: <code>imprint</code>, <code>hysteresis</code>, <code>damage</code></li>
+<li>Backends: <code>cpu</code>, <code>metal</code></li>
+<li>Policies:
+<ul>
+<li><code>blind</code> with <code>memory=off</code> (baseline)</li>
+<li><code>directed</code> with <code>memory=off</code> (control)</li>
+<li><code>directed</code> with <code>memory=on</code> (treatment)</li>
+<li><code>directed</code> with <code>memory=inertial_control</code> (damping-only control; no memory state)</li>
+</ul></li>
+<li>Seeds: contiguous range from <code>seed_start</code> for <code>seed_count</code></li>
+</ul>
+<h2 id="total-runs">Total Runs</h2>
+<p><code>num_runs = seed_count * 3 scenarios * 2 backends * 4 policy/memory conditions</code></p>
+<p>For default config (<code>seed_count=40</code>):</p>
+<ul>
+<li><code>40 * 3 * 2 * 4 = 960</code> runs</li>
+</ul>
+<h2 id="provenance">Provenance</h2>
+<p>Each campaign records:</p>
+<ul>
+<li>config path</li>
+<li>timestamp</li>
+<li>JJ change/commit IDs</li>
+<li>Jolt revision tag</li>
+<li>full command line per run</li>
+<li>stdout/stderr log paths</li>
+<li>return code per run</li>
+</ul>
+<h2 id="related-docs">Related Docs</h2>
+<ul>
+<li><a href="../metric-spec/">Metric Spec</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Jolt Material Memory</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

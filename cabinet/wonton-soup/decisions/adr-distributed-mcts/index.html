@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Distributed (Cell-View) MCTS Runner | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">decisions</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-018</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">decisions/adr-distributed-mcts</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                decisions
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/decisions/adr-distributed-mcts.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-distributed-cell-view-mcts-runner" id="toc-adr-distributed-cell-view-mcts-runner">ADR: Distributed (Cell-View) MCTS Runner</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#rationale" id="toc-rationale">Rationale</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#implementation-resources-used" id="toc-implementation-resources-used">Implementation Resources Used</a></li>
+                            <li><a href="#non-goals" id="toc-non-goals">Non-Goals</a></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../concepts/distributed-mcts/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-005</span><span class="doc-backlinks-title">Distributed MCTS Semantics</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/logs/distributed-mcts-trace-events/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-010</span><span class="doc-backlinks-title">Distributed MCTS Trace Event Dictionary</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/providers/tactic-provider-options/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-016</span><span class="doc-backlinks-title">Tactic Provider Options for Tactic Suggestion</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-027</span><span class="doc-backlinks-title">ADR Index</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="adr-distributed-cell-view-mcts-runner">ADR: Distributed (Cell-View) MCTS Runner</h1>
+<h2 id="context">Context</h2>
+<p>We need a distributed-control search mode (cell-view inspired) without destabilizing the canonical centralized MCTS path.</p>
+<p>Research requirements:</p>
+<ul>
+<li>multiple local controllers (agents) over one shared tree</li>
+<li>scheduling interventions (block, delay, reroute)</li>
+<li>reproducible traces and run metadata</li>
+<li>no hidden fallback to centralized behavior</li>
+</ul>
+<h2 id="decision">Decision</h2>
+<p>Implement distributed MCTS as a separate runner (<code>experiments/distributed_mcts/core.py</code>) selected by <code>--mcts-mode distributed</code>.</p>
+<p>Keep core centralized engine (<code>prover/mcts.py</code>) unchanged.</p>
+<h2 id="rationale">Rationale</h2>
+<p>This isolates experimental control logic from the production baseline path. Distributed scheduling can evolve without mutating centralized semantics, centralized trace contracts, or core tree/node structures.</p>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li>Extend centralized <code>prover/mcts.py</code> with distributed branches.</li>
+<li>Add a separate distributed runner and keep centralized path unchanged (chosen).</li>
+<li>Build full concurrent adapter execution across agents.</li>
+</ol>
+<p>Option 1 creates one mixed control path that is harder to reason about and test for regression.</p>
+<p>Option 3 requires concurrency guarantees in Lean adapter state handling that we do not currently claim.</p>
+<h2 id="implementation-resources-used">Implementation Resources Used</h2>
+<p>Primary code surfaces used to realize this decision:</p>
+<ul>
+<li>distributed runner: <code>dossiers/wonton-soup/experiments/distributed_mcts/core.py</code></li>
+<li>mode wiring and CLI validation: <code>dossiers/wonton-soup/orchestrator/lean.py</code></li>
+<li>centralized baseline kept stable: <code>dossiers/wonton-soup/prover/mcts.py</code></li>
+</ul>
+<p>Primary documentation surfaces:</p>
+<ul>
+<li>distributed semantics: <a href="../../concepts/distributed-mcts/">Distributed MCTS Semantics</a></li>
+<li>distributed trace field dictionary: <a href="../../contracts/logs/distributed-mcts-trace-events/">Distributed MCTS Trace Event Dictionary</a></li>
+</ul>
+<h2 id="non-goals">Non-Goals</h2>
+<ul>
+<li>no mutation of centralized <code>prover/mcts.py</code> semantics</li>
+<li>no concurrent Lean adapter execution</li>
+<li>no hidden fallback between modes</li>
+</ul>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>Distributed iteration order diverges from centralized order by design.</li>
+<li>Intervention effects are expressed through scheduling and reservation, not core tree schema changes.</li>
+<li>The repo keeps one stable baseline path plus one isolated experimental path.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="../../concepts/distributed-mcts/">Distributed MCTS Semantics</a></li>
+<li><code>dossiers/wonton-soup/experiments/distributed_mcts/core.py</code></li>
+<li><code>dossiers/wonton-soup/orchestrator/lean.py</code></li>
+<li><code>dossiers/wonton-soup/prover/mcts.py</code></li>
+<li><a href="../../contracts/logs/distributed-mcts-trace-events/">Distributed MCTS Trace Event Dictionary</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

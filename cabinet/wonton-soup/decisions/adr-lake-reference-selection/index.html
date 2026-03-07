@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ADR: Explicit Reference Selection for Lake Jobs | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">decisions</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-019</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">decisions/adr-lake-reference-selection</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                decisions
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/decisions/adr-lake-reference-selection.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#adr-explicit-reference-selection-for-lake-jobs" id="toc-adr-explicit-reference-selection-for-lake-jobs">ADR: Explicit Reference Selection for Lake Jobs</a>
+                            <ul>
+                            <li><a href="#context" id="toc-context">Context</a></li>
+                            <li><a href="#decision" id="toc-decision">Decision</a></li>
+                            <li><a href="#problem-statement" id="toc-problem-statement">Problem Statement</a></li>
+                            <li><a href="#options-considered" id="toc-options-considered">Options Considered</a></li>
+                            <li><a href="#examples" id="toc-examples">Examples</a>
+                            <ul>
+                            <li><a href="#invalid-rejected" id="toc-invalid-rejected">Invalid (rejected)</a></li>
+                            <li><a href="#valid-explicit-in-sample" id="toc-valid-explicit-in-sample">Valid (explicit in-sample)</a></li>
+                            <li><a href="#valid-explicit-out-of-sample" id="toc-valid-explicit-out-of-sample">Valid (explicit out-of-sample)</a></li>
+                            </ul></li>
+                            <li><a href="#consequences" id="toc-consequences">Consequences</a></li>
+                            <li><a href="#reporting-checklist" id="toc-reporting-checklist">Reporting Checklist</a></li>
+                            <li><a href="#references" id="toc-references">References</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../concepts/analysis-lexicon/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-002</span><span class="doc-backlinks-title">Analysis Lexicon (Wonton-Soup)</span><span class="doc-backlinks-category">concepts</span></a></li><li class="doc-backlinks-item"><a href="../../ops/lake-jobs/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-022</span><span class="doc-backlinks-title">Lake Jobs (Materialized Datasets)</span><span class="doc-backlinks-category">ops</span></a></li><li class="doc-backlinks-item"><a href="../../ops/run-lake/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-025</span><span class="doc-backlinks-title">Run Lake (Cross-Run DuckDB)</span><span class="doc-backlinks-category">ops</span></a></li><li class="doc-backlinks-item"><a href="../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-027</span><span class="doc-backlinks-title">ADR Index</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="adr-explicit-reference-selection-for-lake-jobs">ADR: Explicit Reference Selection for Lake Jobs</h1>
+<h2 id="context">Context</h2>
+<p>Reference-based scoring (notably K-style goal-outcome scoring) can leak in-sample information when reference populations are implicitly derived from evaluation populations.</p>
+<p>If a job evaluates runs and also builds reference outcomes from those same runs by default, comparison looks cleaner than justified.</p>
+<h2 id="decision">Decision</h2>
+<p>When <code>reference.build_outcomes</code> is set in a lake job config, <code>reference.selection</code> must be a non-empty object.</p>
+<p>Enforced in <code>analysis.lake.job.load_job_config()</code>.</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Lake jobs need to support:</p>
+<ul>
+<li>selecting evaluation runs (<code>job.selection</code>)</li>
+<li>selecting reference-member runs (<code>reference.selection</code>)</li>
+<li>optionally scoring against the built/attached reference</li>
+</ul>
+<p>Implicitly reusing <code>job.selection</code> for reference membership is too error-prone.</p>
+<h2 id="options-considered">Options Considered</h2>
+<ol type="1">
+<li>Implicit reference selection from <code>job.selection</code></li>
+<li>Explicit reference selection (chosen)</li>
+<li>Disallow reference building inside jobs</li>
+</ol>
+<h2 id="examples">Examples</h2>
+<h3 id="invalid-rejected">Invalid (rejected)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">},</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reference&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;build_outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;alpha&quot;</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">},</span> <span class="dt">&quot;score_k&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">},</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;datasets&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Reason: <code>reference.selection</code> missing.</p>
+<h3 id="valid-explicit-in-sample">Valid (explicit in-sample)</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">},</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;build_outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;alpha&quot;</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">},</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">},</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;score_k&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;datasets&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="valid-explicit-out-of-sample">Valid (explicit out-of-sample)</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schema_version&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;deepseek&quot;</span><span class="fu">},</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reference&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;build_outcomes&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;alpha&quot;</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">},</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;selection&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;reprover&quot;</span><span class="fu">},</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;score_k&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;datasets&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>provenance is explicit in <code>manifest.json</code></li>
+<li>leakage-prone defaults are blocked at config-load time</li>
+<li>in-sample references remain available, but only by explicit declaration</li>
+</ul>
+<h2 id="reporting-checklist">Reporting Checklist</h2>
+<p>When publishing K-style results from lake jobs, report:</p>
+<ul>
+<li>evaluation selection filters</li>
+<li>reference selection filters</li>
+<li>whether reference is in-sample or out-of-sample</li>
+<li>reference <code>ref_id</code></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><code>analysis/lake/job.py</code></li>
+<li><a href="../../ops/lake-jobs/">Lake Jobs (Materialized Datasets)</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

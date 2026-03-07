@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>TacticActionIR | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-029</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/tactic-action-ir</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/tactic-action-ir.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#tacticactionir" id="toc-tacticactionir">TacticActionIR</a>
+                            <ul>
+                            <li><a href="#why-it-exists" id="toc-why-it-exists">Why It Exists</a></li>
+                            <li><a href="#schema" id="toc-schema">Schema</a></li>
+                            <li><a href="#stance" id="toc-stance">Stance</a></li>
+                            <li><a href="#visual-cases" id="toc-visual-cases">Visual Cases</a></li>
+                            <li><a href="#semantics" id="toc-semantics">Semantics</a></li>
+                            <li><a href="#ontology-v1" id="toc-ontology-v1">Ontology v1</a></li>
+                            <li><a href="#example-search-trace-action" id="toc-example-search-trace-action">Example Search-Trace Action</a></li>
+                            <li><a href="#artifact-boundary" id="toc-artifact-boundary">Artifact Boundary</a></li>
+                            <li><a href="#scoring-contract" id="toc-scoring-contract">Scoring Contract</a></li>
+                            <li><a href="#producer-data-sources" id="toc-producer-data-sources">Producer Data Sources</a></li>
+                            <li><a href="#inspection" id="toc-inspection">Inspection</a></li>
+                            <li><a href="#boundary" id="toc-boundary">Boundary</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../proof-graph-ir/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-028</span><span class="doc-backlinks-title">ProofGraphIR</span><span class="doc-backlinks-category">concepts</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="tacticactionir">TacticActionIR</h1>
+<p><code>TacticActionIR</code> is a <code>wonton-soup</code> typed step-summary between raw tactic strings and downstream proof analysis.</p>
+<figure>
+<img src="../figures/tactic-action-ir-stack.svg" alt="TacticActionIR stack" />
+<figcaption aria-hidden="true">TacticActionIR stack</figcaption>
+</figure>
+<h2 id="why-it-exists">Why It Exists</h2>
+<p><code>ProofGraphIR</code> was already normalizing graph families and role profiles, but it still treated tactic semantics as something inferred from edge labels after the fact. <code>TacticActionIR</code> exists so the search and assembly artifacts retain a typed account of what one proof step did.</p>
+<h2 id="schema">Schema</h2>
+<p>Each action records:</p>
+<ul>
+<li><code>action_kind</code>: what produced the step (<code>tactic_step</code>, <code>term_constructor</code>, <code>proof_rule</code>, <code>other</code>)</li>
+<li><code>operator_kind</code>: assistant-agnostic operator family (<code>apply</code>, <code>bind</code>, <code>branch</code>, <code>rewrite</code>, …)</li>
+<li><code>motif_kind</code>: higher-level structural motif (<code>motif:bind_open</code>, <code>motif:term_apply</code>, …)</li>
+<li><code>effect_flags</code>: small explicit effect vocabulary such as <code>opens_binder</code>, <code>branches_goals</code>, <code>rewrites_target</code>, <code>discharges_goal</code></li>
+<li><code>branch_arity</code>: how many child goals or structural children the action yields</li>
+<li><code>continuation_kind</code>: <code>solve</code>, <code>chain</code>, <code>branch</code>, <code>structural</code>, or <code>refine</code></li>
+<li><code>goal_coupling</code>: <code>none</code>, <code>independent</code>, <code>coupled</code>, or <code>unknown</code></li>
+<li><code>tactic_depends_on</code> / <code>depends_on_count</code>: explicit proof-hypothesis dependency summary when the producer can expose it</li>
+<li><code>proof_step_count</code>: how many underlying Lean proof-tree steps were summarized into the action</li>
+</ul>
+<p><code>ProofGraphIR</code> now derives these action-level aggregate profiles:</p>
+<ul>
+<li><code>action_kind_profile</code></li>
+<li><code>effect_profile</code></li>
+<li><code>continuation_profile</code></li>
+<li><code>coupling_profile</code></li>
+</ul>
+<p>These are intrinsic graph summaries. Run-relative rank features remain outside the IR.</p>
+<h2 id="stance">Stance</h2>
+<ul>
+<li><code>TacticActionIR</code> is a producer-side observational contract.</li>
+<li>It is meant to preserve step semantics that would otherwise be lost in tactic strings or bare graph edges.</li>
+<li>It does not claim lawful composition, round-trippable execution, or a full tactic language.</li>
+<li>Stronger algebraic or compositional claims belong to the separate research agenda in <a href="/addenda/#lean-tactic-representation">Lean Tactic Representation</a>, not to this dossier doc.</li>
+</ul>
+<h2 id="visual-cases">Visual Cases</h2>
+<figure>
+<img src="../figures/tactic-action-ir-coupling.svg" alt="Coupling and continuation cases" />
+<figcaption aria-hidden="true">Coupling and continuation cases</figcaption>
+</figure>
+<h2 id="semantics">Semantics</h2>
+<ul>
+<li>Search traces group outgoing edges by expansion order so one tactic application becomes one action, not one action per child goal.</li>
+<li>Terminal search steps become explicit <code>solve</code> actions via <code>terminal_tactic</code>.</li>
+<li>Proof-term DAGs and external proof graphs currently map one edge to one action.</li>
+<li>Goal coupling now uses explicit branch partitioning from Lean preview traces when available.</li>
+<li>Lean step summaries now also expose lightweight proof-tree dependency data (<code>tacticDependsOn</code>, <code>spawnedGoals</code>, <code>proofStepCount</code>) without waiting for offline parsing.</li>
+<li>Multi-branch search steps still fall back to <code>unknown</code> only when the source trace does not expose enough structure.</li>
+</ul>
+<h2 id="ontology-v1">Ontology v1</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>source role</th>
+<th>operator_kind</th>
+<th>motif_kind</th>
+<th>default effect flags</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>fam:intro</code></td>
+<td><code>bind</code></td>
+<td><code>motif:bind_open</code></td>
+<td><code>opens_binder</code></td>
+</tr>
+<tr class="even">
+<td><code>fam:apply</code></td>
+<td><code>apply</code></td>
+<td><code>motif:apply_step</code></td>
+<td><code>instantiates_goal</code></td>
+</tr>
+<tr class="odd">
+<td><code>fam:split</code> / <code>fam:cases</code></td>
+<td><code>branch</code></td>
+<td><code>motif:branch_split</code></td>
+<td><code>branches_goals</code></td>
+</tr>
+<tr class="even">
+<td><code>fam:rewrite</code> / <code>fam:simplify</code></td>
+<td><code>rewrite</code></td>
+<td><code>motif:rewrite_step</code></td>
+<td><code>rewrites_target</code>, <code>normalizes_goal</code></td>
+</tr>
+<tr class="odd">
+<td><code>fam:closer</code> / <code>fam:contradiction</code></td>
+<td><code>close</code></td>
+<td><code>motif:close_goal</code></td>
+<td><code>discharges_goal</code></td>
+</tr>
+<tr class="even">
+<td><code>fn</code> / <code>arg</code></td>
+<td><code>apply</code></td>
+<td><code>motif:term_apply</code></td>
+<td><code>builds_term</code></td>
+</tr>
+<tr class="odd">
+<td><code>binder_type</code> / <code>body</code></td>
+<td><code>bind</code></td>
+<td><code>motif:term_bind</code></td>
+<td><code>builds_term</code></td>
+</tr>
+<tr class="even">
+<td><code>value</code></td>
+<td><code>value</code></td>
+<td><code>motif:term_value</code></td>
+<td><code>builds_term</code></td>
+</tr>
+</tbody>
+</table>
+<p>Preview-derived metadata can add explicit flags on top of this table:</p>
+<ul>
+<li><code>branches_goals</code></li>
+<li><code>closes_goals</code></li>
+<li><code>opens_goals</code></li>
+<li><code>refines_term</code></li>
+<li><code>completes_term</code></li>
+<li><code>couples_goals</code></li>
+<li><code>splits_independent_goals</code></li>
+<li><code>spawns_goals</code></li>
+<li><code>uses_hypotheses</code></li>
+</ul>
+<h2 id="example-search-trace-action">Example Search-Trace Action</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tactic&quot;</span><span class="fu">:</span> <span class="st">&quot;constructor&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;edge_role&quot;</span><span class="fu">:</span> <span class="st">&quot;fam:split&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;action_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;tactic_step&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;branch_arity&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;branch_count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;branch_goal_counts&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">1</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal_coupling&quot;</span><span class="fu">:</span> <span class="st">&quot;independent&quot;</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;shared_mvar_count&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tactic_depends_on&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;hp&quot;</span><span class="ot">,</span> <span class="st">&quot;hq&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;depends_on_count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;proof_step_count&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;continuation_kind&quot;</span><span class="fu">:</span> <span class="st">&quot;branch&quot;</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;effect_flags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;branches_goals&quot;</span><span class="ot">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;closes_goals&quot;</span><span class="ot">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;opens_goals&quot;</span><span class="ot">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;splits_independent_goals&quot;</span><span class="ot">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;uses_hypotheses&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="artifact-boundary">Artifact Boundary</h2>
+<p>The typed action summary now lands in two places:</p>
+<ul>
+<li>search-graph edge and terminal-node metadata, so search artifacts retain the step structure</li>
+<li>assembly-trace <code>actionMetadata</code>, so the same action survives after solution extraction</li>
+</ul>
+<p>The shared vocabulary now lives in <code>dossiers/wonton-soup/prover/tactic_ir.py</code>, with graph-level aggregation in <code>dossiers/wonton-soup/analysis/proof_graph_ir.py</code>.</p>
+<h2 id="scoring-contract">Scoring Contract</h2>
+<p>These action-layer profiles are now part of graph comparison, not just documentation:</p>
+<ul>
+<li><code>action_kind_profile</code></li>
+<li><code>effect_profile</code></li>
+<li><code>continuation_profile</code></li>
+<li><code>coupling_profile</code></li>
+</ul>
+<p>Same-kind alignment uses them alongside edge-role, operator, motif, and shape channels. Cross-kind alignment uses them alongside rank-normalized structure so the comparison has a typed proof-process signal even when raw graph families differ.</p>
+<h2 id="producer-data-sources">Producer Data Sources</h2>
+<p>The main upstream sources in the repo are:</p>
+<ul>
+<li><code>dossiers/wonton-soup/prover/adapters/lean.py</code> <code>TacticPreview</code> carries <code>branches</code>, <code>partial_term_before</code>, <code>partial_term_after</code>, <code>completed_proof_term</code>, <code>goals_before</code>, and <code>goals_after</code>.</li>
+<li><code>dossiers/wonton-soup/prover/assembly.py</code> <code>AssemblyStep</code> records partial-term transitions plus <code>goals_closed</code> and <code>goals_opened</code>.</li>
+<li><code>dossiers/wonton-soup/libs/leantree/leantree/repl_adapter/data.py</code> exposes <code>spawned_goals</code>, <code>mctx_before</code>, <code>mctx_after</code>, and <code>tactic_depends_on</code>.</li>
+</ul>
+<p>Those artifacts are the right source of truth for replacing heuristic <code>unknown</code> coupling and coarse continuation buckets with explicit proof-process structure.</p>
+<h2 id="inspection">Inspection</h2>
+<p>For theorem-level debugging, use:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py inspect-proof-ir <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-dir</span> <span class="op">&lt;</span>run_dir<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--theorem</span> <span class="op">&lt;</span>theorem_name<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--graph-source</span> wild_type_graph</span></code></pre></div>
+<p>Add <code>--compare-theorem</code> and <code>--compare-run-dir</code> to get a direct pair-distance breakdown, or <code>--lexical-ablation graph_only</code> to inspect the graph/action signal without lexical channels.</p>
+<h2 id="boundary">Boundary</h2>
+<p><code>TacticActionIR</code> and <code>ProofGraphIR</code> are related, but they are not the same layer. A simple test is:</p>
+<ul>
+<li>if the concept describes one proof step or a family of steps, it belongs here</li>
+<li>if the concept describes how whole graphs are normalized and compared across assistants, it belongs with <code>ProofGraphIR</code></li>
+</ul>
+<p>The addendum remains the home of the research question about richer tactic representation, but this step-level representation belongs with the dossier that consumes it.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

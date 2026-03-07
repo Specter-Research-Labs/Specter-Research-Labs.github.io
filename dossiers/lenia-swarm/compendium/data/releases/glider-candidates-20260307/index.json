@@ -1,0 +1,482 @@
+[
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/82d7dcae-f7c7-4e93-8674-72d882b4f77e.json",
+    "id" : "82D7DCAE-F7C7-4E93-8674-72D882B4F77E",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0046910373,
+      "displacement" : 1.993691,
+      "gyration" : 705.72504,
+      "heading_rad" : -2.8302906,
+      "occupancy_mean" : 0.13405354,
+      "path_length" : 2.1207008,
+      "translation_ratio" : 0.9401095,
+      "velocity_x" : -0.0044655656,
+      "velocity_y" : -0.0014368574
+    },
+    "name" : "pulsing-cell-3978",
+    "recorded_at" : "2026-03-06T18:46:13.621Z",
+    "run_id" : "nnea-fast-c000-s0",
+    "run_name" : "nnea-fast-c000-s0",
+    "score" : 399.25275,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c000-s0\/82d7dcae-f7c7-4e93-8674-72d882b4f77e\/search.json",
+    "seed" : 29,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4890058,
+        "y" : 0.48066944
+      },
+      "headingRad" : -0.6377099,
+      "speed" : 0.00044050955,
+      "trail" : [
+        {
+          "x" : 0.4886102,
+          "y" : 0.48131645
+        },
+        {
+          "x" : 0.4877456,
+          "y" : 0.47963175
+        },
+        {
+          "x" : 0.48865187,
+          "y" : 0.48040718
+        }
+      ],
+      "vx" : 0.00035393238,
+      "vy" : -0.00026226044
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b.json",
+    "id" : "BC72CDDC-3D6B-4EE8-A2F0-EBEDCACDAA8B",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0010301189,
+      "displacement" : 0.43780053,
+      "gyration" : 671.26337,
+      "heading_rad" : 0.7672461,
+      "occupancy_mean" : 0.14885797,
+      "path_length" : 0.47729322,
+      "translation_ratio" : 0.91725695,
+      "velocity_x" : 0.00074150536,
+      "velocity_y" : 0.0007150628
+    },
+    "name" : "luminous-pulse-2847",
+    "recorded_at" : "2026-03-06T19:19:01.083Z",
+    "run_id" : "nnea-fast-c001-s32",
+    "run_name" : "nnea-fast-c001-s32",
+    "score" : 388.95413,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/bc72cddc-3d6b-4ee8-a2f0-ebedcacdaa8b\/search.json",
+    "seed" : 53,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50690055,
+        "y" : 0.5093494
+      },
+      "headingRad" : 0.74837804,
+      "speed" : 0.0005818988,
+      "trail" : [
+        {
+          "x" : 0.50627303,
+          "y" : 0.50972044
+        },
+        {
+          "x" : 0.50669247,
+          "y" : 0.50867206
+        },
+        {
+          "x" : 0.50647414,
+          "y" : 0.50974536
+        }
+      ],
+      "vx" : 0.00042641163,
+      "vy" : 0.00039595366
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab.json",
+    "id" : "6AE760FB-E241-4E8B-813B-7EC88F6E1FAB",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017720251,
+      "displacement" : 0.7531107,
+      "gyration" : 1103.1963,
+      "heading_rad" : 0.8481724,
+      "occupancy_mean" : 0.11176215,
+      "path_length" : 0.91039526,
+      "translation_ratio" : 0.82723486,
+      "velocity_x" : 0.0011719378,
+      "velocity_y" : 0.0013291482
+    },
+    "name" : "serene-form-2983",
+    "recorded_at" : "2026-03-06T19:19:01.082Z",
+    "run_id" : "nnea-fast-c001-s32",
+    "run_name" : "nnea-fast-c001-s32",
+    "score" : 303.1936,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/6ae760fb-e241-4e8b-813b-7ec88f6e1fab\/search.json",
+    "seed" : 33,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5020261,
+        "y" : 0.50088406
+      },
+      "headingRad" : -1.2857634,
+      "speed" : 0.0008718474,
+      "trail" : [
+        {
+          "x" : 0.5014666,
+          "y" : 0.4989173
+        },
+        {
+          "x" : 0.5024336,
+          "y" : 0.49882376
+        },
+        {
+          "x" : 0.5017809,
+          "y" : 0.5000474
+        }
+      ],
+      "vx" : 0.0002451539,
+      "vy" : -0.0008366704
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/90575e47-f6e7-400a-ae20-aafeb06d2124.json",
+    "id" : "90575E47-F6E7-400A-AE20-AAFEB06D2124",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0012039747,
+      "displacement" : 0.51168925,
+      "gyration" : 988.5138,
+      "heading_rad" : -2.4283297,
+      "occupancy_mean" : 0.12336561,
+      "path_length" : 0.6663978,
+      "translation_ratio" : 0.76784354,
+      "velocity_x" : -0.00091048295,
+      "velocity_y" : -0.0007877664
+    },
+    "name" : "radiant-amoeba-3637",
+    "recorded_at" : "2026-03-06T19:19:01.083Z",
+    "run_id" : "nnea-fast-c001-s32",
+    "run_name" : "nnea-fast-c001-s32",
+    "score" : 284.60162,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/nnea-fast-c001-s32\/90575e47-f6e7-400a-ae20-aafeb06d2124\/search.json",
+    "seed" : 55,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.49036756,
+        "y" : 0.49172923
+      },
+      "headingRad" : -2.4519322,
+      "speed" : 0.0014893779,
+      "trail" : [
+        {
+          "x" : 0.4921362,
+          "y" : 0.49046707
+        },
+        {
+          "x" : 0.49269944,
+          "y" : 0.48944345
+        },
+        {
+          "x" : 0.49151656,
+          "y" : 0.49078158
+        }
+      ],
+      "vx" : -0.0011489987,
+      "vy" : -0.00094765425
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/c46624f5-a290-49df-a4a9-523ed56ca8a6.json",
+    "id" : "C46624F5-A290-49DF-A4A9-523ED56CA8A6",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0017392659,
+      "displacement" : 1.0000778,
+      "gyration" : 1111.5144,
+      "heading_rad" : 0.8255269,
+      "occupancy_mean" : 0.1087265,
+      "path_length" : 1.0470545,
+      "translation_ratio" : 0.95513445,
+      "velocity_x" : 0.0011795177,
+      "velocity_y" : 0.0012781956
+    },
+    "name" : "luminous-spiral-4134",
+    "recorded_at" : "2026-03-07T00:43:41.902Z",
+    "run_id" : "paper-glider-strict-c002-s48",
+    "run_name" : "paper-glider-strict-c002-s48",
+    "score" : 7.446716,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/paper-glider-strict-c002-s48\/c46624f5-a290-49df-a4a9-523ed56ca8a6\/search.json",
+    "seed" : 53,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.5067648,
+        "y" : 0.5085152
+      },
+      "headingRad" : -1.7700187,
+      "speed" : 0.00044152228,
+      "trail" : [
+        {
+          "x" : 0.5068424,
+          "y" : 0.50742966
+        },
+        {
+          "x" : 0.50675595,
+          "y" : 0.5080721
+        },
+        {
+          "x" : 0.5068522,
+          "y" : 0.5080824
+        }
+      ],
+      "vx" : -8.738041e-05,
+      "vy" : -0.00043278933
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/648de089-fa4a-4139-b408-9f19d8c57ab9.json",
+    "id" : "648DE089-FA4A-4139-B408-9F19D8C57AB9",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0046985443,
+      "displacement" : 1.7619542,
+      "gyration" : 705.72504,
+      "heading_rad" : -2.8024514,
+      "occupancy_mean" : 0.13790512,
+      "path_length" : 1.8827081,
+      "translation_ratio" : 0.9358616,
+      "velocity_x" : -0.0044309185,
+      "velocity_y" : -0.0015631001
+    },
+    "name" : "ancient-form-9567",
+    "recorded_at" : "2026-03-06T21:48:07.758Z",
+    "run_id" : "open-glider-c000-s0",
+    "run_name" : "open-glider-c000-s0",
+    "score" : 5.7848454,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c000-s0\/648de089-fa4a-4139-b408-9f19d8c57ab9\/search.json",
+    "seed" : 29,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4886362,
+        "y" : 0.4797374
+      },
+      "headingRad" : 1.9807216,
+      "speed" : 0.0017469027,
+      "trail" : [
+        {
+          "x" : 0.48842597,
+          "y" : 0.48090836
+        },
+        {
+          "x" : 0.48857564,
+          "y" : 0.4808943
+        },
+        {
+          "x" : 0.4893324,
+          "y" : 0.48133957
+        }
+      ],
+      "vx" : -0.00069621205,
+      "vy" : 0.0016021729
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/8c927711-c590-48d0-872c-06acab2bf6d8.json",
+    "id" : "8C927711-C590-48D0-872C-06ACAB2BF6D8",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0020213616,
+      "displacement" : 0.7580106,
+      "gyration" : 1103.1963,
+      "heading_rad" : 0.7948106,
+      "occupancy_mean" : 0.11539078,
+      "path_length" : 0.86384916,
+      "translation_ratio" : 0.8774803,
+      "velocity_x" : 0.001415802,
+      "velocity_y" : 0.0014427083
+    },
+    "name" : "serene-entity-6510",
+    "recorded_at" : "2026-03-06T22:02:56.127Z",
+    "run_id" : "open-glider-c001-s32",
+    "run_name" : "open-glider-c001-s32",
+    "score" : 2.8081443,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8c927711-c590-48d0-872c-06acab2bf6d8\/search.json",
+    "seed" : 33,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.50252795,
+        "y" : 0.5006637
+      },
+      "headingRad" : -0.6383067,
+      "speed" : 0.0008238904,
+      "trail" : [
+        {
+          "x" : 0.5019493,
+          "y" : 0.49893618
+        },
+        {
+          "x" : 0.5026708,
+          "y" : 0.49866715
+        },
+        {
+          "x" : 0.5018663,
+          "y" : 0.5001728
+        }
+      ],
+      "vx" : 0.00066167116,
+      "vy" : -0.00049090385
+    }
+  },
+  {
+    "base_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/base.json",
+    "detail" : "releases\/glider-candidates-20260307\/details\/8710e6f6-e2fd-4c0b-a647-99e723a8f494.json",
+    "id" : "8710E6F6-E2FD-4C0B-A647-99E723A8F494",
+    "is_stable" : true,
+    "media" : {
+      "anatomy" : {
+        "deltaPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/delta.png",
+        "fieldPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/field.png",
+        "kernelPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/kernel.png",
+        "neighborPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/neighbor.png"
+      },
+      "height" : 128,
+      "posterPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/poster.png",
+      "replayPath" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/replay.json",
+      "width" : 128
+    },
+    "metrics" : {
+      "center_velocity" : 0.0012635929,
+      "displacement" : 0.47384733,
+      "gyration" : 988.5138,
+      "heading_rad" : -2.3906527,
+      "occupancy_mean" : 0.12719727,
+      "path_length" : 0.6194104,
+      "translation_ratio" : 0.76499736,
+      "velocity_x" : -0.00092374673,
+      "velocity_y" : -0.00086218264
+    },
+    "name" : "mystic-pattern-1736",
+    "recorded_at" : "2026-03-06T22:02:56.128Z",
+    "run_id" : "open-glider-c001-s32",
+    "run_name" : "open-glider-c001-s32",
+    "score" : 1.9367424,
+    "search_config" : "releases\/glider-candidates-20260307\/runs\/open-glider-c001-s32\/8710e6f6-e2fd-4c0b-a647-99e723a8f494\/search.json",
+    "seed" : 55,
+    "telemetry" : {
+      "centroid" : {
+        "x" : 0.4913887,
+        "y" : 0.4904556
+      },
+      "headingRad" : 2.94261,
+      "speed" : 0.0004051095,
+      "trail" : [
+        {
+          "x" : 0.49144,
+          "y" : 0.4911339
+        },
+        {
+          "x" : 0.49276674,
+          "y" : 0.4893636
+        },
+        {
+          "x" : 0.49178582,
+          "y" : 0.49053568
+        }
+      ],
+      "vx" : -0.00039711595,
+      "vy" : 8.007884e-05
+    }
+  }
+]

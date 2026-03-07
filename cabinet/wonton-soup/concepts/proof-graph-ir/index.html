@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>ProofGraphIR | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-028</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/proof-graph-ir</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/proof-graph-ir.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#proofgraphir" id="toc-proofgraphir">ProofGraphIR</a>
+                            <ul>
+                            <li><a href="#why-it-exists" id="toc-why-it-exists">Why It Exists</a></li>
+                            <li><a href="#ir-fields" id="toc-ir-fields">IR Fields</a></li>
+                            <li><a href="#kind-inference" id="toc-kind-inference">Kind Inference</a></li>
+                            <li><a href="#distance-contract" id="toc-distance-contract">Distance Contract</a></li>
+                            <li><a href="#what-this-enables" id="toc-what-this-enables">What This Enables</a></li>
+                            <li><a href="#current-limits" id="toc-current-limits">Current Limits</a></li>
+                            <li><a href="#next-steps" id="toc-next-steps">Next Steps</a></li>
+                            <li><a href="#external-research-anchors" id="toc-external-research-anchors">External Research Anchors</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="proofgraphir">ProofGraphIR</h1>
+<p><code>ProofGraphIR</code> is the cross-assistant graph abstraction used by <code>analysis/cross_assistant_alignment.py</code>.</p>
+<h2 id="why-it-exists">Why It Exists</h2>
+<p>Raw graph artifacts from different assistants are not directly comparable:</p>
+<ul>
+<li>Lean wild-type graphs are small tactic-search traces.</li>
+<li>Coq extraction graphs are proof-term DAGs with structural edges (<code>fn</code>, <code>arg</code>, …).</li>
+</ul>
+<p>Without an IR layer, distance is dominated by raw scale mismatch (node/edge counts), which can collapse nearest-neighbor retrieval.</p>
+<h2 id="ir-fields">IR Fields</h2>
+<p>Per theorem graph, <code>ProofGraphIR</code> records:</p>
+<ul>
+<li><code>graph_family</code>: <code>search_trace</code> | <code>proof_term_dag</code> | <code>external_proof</code> | <code>unknown</code></li>
+<li>structural size: node/edge counts, max depth, root count</li>
+<li>topology ratios: leaf ratio, branching ratio, mean branch factor</li>
+<li>edge-role profile:
+<ul>
+<li>search traces: <code>fam:&lt;tactic_family&gt;</code></li>
+<li>term DAGs: structural roles (<code>fn</code>, <code>arg</code>, <code>binder_type</code>, <code>body</code>, <code>value</code>)</li>
+</ul></li>
+<li>assistant-agnostic operator profile (shared ontology), for example:
+<ul>
+<li><code>apply</code>, <code>bind</code>, <code>branch</code>, <code>rewrite</code>, <code>normalize</code>, <code>close</code>, <code>automation</code>, <code>value</code>, <code>other</code></li>
+</ul></li>
+<li>assistant-agnostic motif profile (action motifs), for example:
+<ul>
+<li><code>motif:term_apply</code>, <code>motif:term_bind</code>, <code>motif:bind_open</code>, <code>motif:branch_split</code>, <code>motif:rewrite_step</code>, <code>motif:close_goal</code></li>
+</ul></li>
+<li>action-layer summaries derived from <code>TacticActionIR</code>:
+<ul>
+<li><code>action_kind_profile</code></li>
+<li><code>effect_profile</code></li>
+<li><code>continuation_profile</code></li>
+<li><code>coupling_profile</code></li>
+</ul></li>
+<li>Lean search traces can also carry explicit step dependencies and spawned-goal summaries through edge metadata and assembly-trace <code>actionMetadata</code></li>
+<li>shape hash: WL hash over canonicalized graph</li>
+</ul>
+<p>Run-relative rank features are derived separately at comparison time:</p>
+<ul>
+<li><code>node_rank</code>, <code>edge_rank</code>, <code>depth_rank</code>, <code>leaf_rank</code>, <code>branching_rank</code></li>
+</ul>
+<p>These are computed per graph family within a run and are not intrinsic IR fields.</p>
+<h2 id="kind-inference">Kind Inference</h2>
+<p>Inference combines:</p>
+<ul>
+<li>edge-role composition (term-edge fraction)</li>
+<li>ordered expansion edges (<code>order</code>) as a search-trace signal</li>
+<li>node <code>goal_type</code> hints for proof-term DAGs (<code>app</code>, <code>const</code>, <code>lam</code>, …)</li>
+<li>backend hint from run config when available</li>
+</ul>
+<p>Legacy Coq <code>proof_graph</code> artifacts are also repaired here when they are actually term-structural: if an unversioned graph is dominated by structural term edges and node hints, the IR upgrades it to <code>proof_term_dag</code> semantics instead of treating it as a generic external-proof trace.</p>
+<p>When <code>proof_term_graph</code> is available, the Coq side can carry richer node metadata than <code>wild_type_graph</code>, including constructor names and binder metadata. That metadata feeds the current term-action enrichment for constructors such as <code>Case</code>, <code>Prod</code>, and <code>Cast</code>.</p>
+<h2 id="distance-contract">Distance Contract</h2>
+<p>Graph distance is kind-aware:</p>
+<ul>
+<li>Same-kind:
+<ul>
+<li>rank-distance + operator-profile L1 + motif-profile L1 + edge-role L1</li>
+<li>plus <code>action_kind</code>, <code>effect</code>, <code>continuation</code>, and <code>coupling</code> profile deltas</li>
+<li>plus shape mismatch</li>
+</ul></li>
+<li>Cross-kind:
+<ul>
+<li>rank-distance + operator-profile L1 + motif-profile L1</li>
+<li>plus action/effect/continuation/coupling profile deltas</li>
+<li>plus a small fixed mismatch penalty</li>
+<li>role/shape channels are still suppressed because their semantics are incompatible</li>
+</ul></li>
+</ul>
+<p>Full pair distance then combines graph, lexical token Jaccard, and connective-profile distance, with higher lexical/connective weight in cross-kind mode.</p>
+<p>The aligner can now ablate lexical channels explicitly:</p>
+<ul>
+<li><code>--lexical-ablation drop_tokens</code>: remove theorem/display/constant token overlap while keeping connective profiles</li>
+<li><code>--lexical-ablation graph_only</code>: remove both lexical tokens and connective profiles</li>
+</ul>
+<h2 id="what-this-enables">What This Enables</h2>
+<ul>
+<li>Explicit comparability semantics instead of implicit assumptions</li>
+<li>Diagnostics that separate structural mismatch from lexical mismatch</li>
+<li>Reduced retrieval collapse caused by absolute size bias</li>
+<li>Theorem-level inspection via <code>wonton.py inspect-proof-ir</code>, including action traces and pair-distance component breakdowns</li>
+</ul>
+<h2 id="current-limits">Current Limits</h2>
+<ul>
+<li>Cross-kind matching still relies heavily on lexical/statement signals.</li>
+<li>Coq <code>proof_term_graph</code> is the richer surface for cross-kind diagnostics; older <code>wild_type_graph</code> logs can preserve the right topology while still dropping constructor metadata.</li>
+<li>Goal coupling is only as good as the producer path; some legacy or imported graphs still lack explicit coupling data.</li>
+<li>Current motif ontology is lightweight and requires expansion for richer proof-process semantics.</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Expand <code>TacticActionIR</code> so Lean search traces can distinguish explicit continuation builders and real goal coupling.</li>
+<li>Add proof-state transition motifs (for search traces) and beta/eta-normalized motifs (for terms).</li>
+<li>Evaluate with translated theorem pairs where statements are intentionally obfuscated, so graph channels are stress-tested independently of theorem names. The new lexical ablation modes provide the first local benchmark lever for that stress test.</li>
+<li>Treat <a href="../tactic-action-ir/">TacticActionIR</a> as the current step-level contract feeding this graph IR, while the addendum stays focused on the longer-term research question about richer tactic representation.</li>
+</ul>
+<h2 id="external-research-anchors">External Research Anchors</h2>
+<ul>
+<li>Lean expression-graph representation and retrieval context: <a href="https://arxiv.org/abs/2403.11339" class="uri">https://arxiv.org/abs/2403.11339</a></li>
+<li>Graph-structured Coq tactic prediction: <a href="https://arxiv.org/abs/2412.11099" class="uri">https://arxiv.org/abs/2412.11099</a></li>
+<li>Proof-format interoperability layer (Dedukti): <a href="https://arxiv.org/abs/1409.1023" class="uri">https://arxiv.org/abs/1409.1023</a></li>
+<li>Multi-assistant formal-math translation setting (Logipedia direction): <a href="https://arxiv.org/abs/2404.16100" class="uri">https://arxiv.org/abs/2404.16100</a></li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

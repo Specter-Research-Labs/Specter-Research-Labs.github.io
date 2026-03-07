@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Cross-Assistant Paired Benchmark (Primary Gate) | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">ops</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-032</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">ops/cross-assistant-paired-benchmark</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                ops
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/ops/cross-assistant-paired-benchmark.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#cross-assistant-paired-benchmark-primary-gate" id="toc-cross-assistant-paired-benchmark-primary-gate">Cross-Assistant Paired Benchmark (Primary Gate)</a>
+                            <ul>
+                            <li><a href="#benchmark-asset" id="toc-benchmark-asset">Benchmark Asset</a></li>
+                            <li><a href="#end-to-end-runbook" id="toc-end-to-end-runbook">End-to-End Runbook</a>
+                            <ul>
+                            <li><a href="#same-kind-term-dag-vs-term-dag-diagnostic" id="toc-same-kind-term-dag-vs-term-dag-diagnostic">Same-Kind (Term-DAG vs Term-DAG) Diagnostic</a></li>
+                            <li><a href="#multi-proof-theorem-matching" id="toc-multi-proof-theorem-matching">Multi-Proof Theorem Matching</a></li>
+                            <li><a href="#name-obfuscated-stress-run" id="toc-name-obfuscated-stress-run">Name-Obfuscated Stress Run</a></li>
+                            <li><a href="#lexically-ablated-stress-runs" id="toc-lexically-ablated-stress-runs">Lexically Ablated Stress Runs</a></li>
+                            <li><a href="#coverage-vs-quality-gate-axes" id="toc-coverage-vs-quality-gate-axes">Coverage vs Quality Gate Axes</a></li>
+                            </ul></li>
+                            <li><a href="#diagnostic-companion" id="toc-diagnostic-companion">Diagnostic Companion</a></li>
+                            <li><a href="#theorem-level-inspection" id="toc-theorem-level-inspection">Theorem-Level Inspection</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../decisions/adr-proof-graph-ir-cross-assistant/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-030</span><span class="doc-backlinks-title">ADR: ProofGraphIR for Cross-Assistant Alignment</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="cross-assistant-paired-benchmark-primary-gate">Cross-Assistant Paired Benchmark (Primary Gate)</h1>
+<p><code>wonton.py benchmark-cross-assistant</code> is the primary cross-assistant quality gate.</p>
+<p>Unlike unpaired nearest-neighbor alignment, this benchmark evaluates against an explicit Lean↔︎Coq pair set and reports retrieval metrics (<code>Recall@k</code>, <code>MRR</code>, rank stats) globally and by kind (<code>same_kind</code>, <code>cross_kind</code>).</p>
+<p>Graph source is configurable per side:</p>
+<ul>
+<li><code>wild_type_graph</code> (default): search/proof graph artifact</li>
+<li><code>search_trace_graph</code>: derived from replayed <code>*_search_trace_graph.json</code></li>
+<li><code>proof_term_graph</code>: derived from <code>wild_type_proof_term.json(.gz)</code> term DAG</li>
+<li>theorem-level proof aggregation: <code>--proof-aggregation single|best_of|consensus</code></li>
+<li>optional proof cap: <code>--max-proofs-per-theorem N</code> (used when aggregation is not <code>single</code>)</li>
+<li>gate claim selector: <code>--gate-claim all|global|cross_kind|same_kind</code></li>
+<li>gate axis selector: <code>--gate-axis all|coverage|quality</code></li>
+</ul>
+<p>Run Coq-backed extraction and paired benchmarks from <code>nix develop .#wonton-soup</code> so the toolchain is pinned and <code>coqc</code>, <code>coqtop</code>, <code>sertop</code>, and <code>coq-lsp</code> are all present.</p>
+<h2 id="benchmark-asset">Benchmark Asset</h2>
+<ul>
+<li>Pair spec: <code>analysis/benchmarks/lean_coq_logic_micro_v1.json</code></li>
+<li>Pair count: <code>84</code></li>
+<li>Gate thresholds (in-file):
+<ul>
+<li><code>min_recall_at_1 = 0.02</code></li>
+<li><code>min_recall_at_10 = 0.30</code></li>
+<li><code>min_mrr = 0.12</code></li>
+<li><code>gate.by_kind.cross_kind</code>: separate thresholds for cross-kind claims</li>
+<li><code>gate.by_kind.same_kind</code>: optional minimum support threshold</li>
+</ul></li>
+</ul>
+<h2 id="end-to-end-runbook">End-to-End Runbook</h2>
+<ol type="1">
+<li>Build the Lean paired corpus from the pair spec.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py corpus build-lean-coq-paired-micro <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--corpus-id</span> coq-paired-micro-v1 <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs-path</span> analysis/benchmarks/lean_coq_logic_micro_v1.json</span></code></pre></div>
+<ol start="2" type="1">
+<li>Run Lean on that corpus (wild-type only, deterministic run id recommended).</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py lean run <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> dev <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> heuristic <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-c</span> lean:coq-paired-micro-v1 <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> 84 <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--wild-only</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-id</span> 2026-03-02-coq-paired-lean-heuristic</span></code></pre></div>
+<ol start="3" type="1">
+<li>Build Coq theorem list from the same pair spec and run Coq extraction.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="at">-r</span> <span class="st">&#39;.pairs[].coq_theorem&#39;</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> /tmp/wonton_coq_pairs_theorems.txt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span>/tmp/wonton_coq_pairs_imports.v <span class="op">&lt;&lt;&#39;EOF&#39;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">Require Import Coq.Init.Logic.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">Require Import Coq.Init.Datatypes.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">Require Import Coq.Bool.Bool.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">Import Bool.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py run <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--backend</span> coq <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--coq-mode</span> file <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> /tmp/wonton_coq_pairs_imports.v <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--theorem-file</span> /tmp/wonton_coq_pairs_theorems.txt <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--serapi-binary</span> sertop <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--log-dir</span> logs/2026-03-02-coq-paired-coq-logic-v3</span></code></pre></div>
+<ol start="4" type="1">
+<li>Run the paired benchmark gate.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--proof-aggregation</span> single <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gate-claim</span> all <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gate-axis</span> all <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark.json</span></code></pre></div>
+<p>If any threshold fails and <code>--fail-on-gate</code> is enabled (default), command exit code is non-zero.</p>
+<h3 id="same-kind-term-dag-vs-term-dag-diagnostic">Same-Kind (Term-DAG vs Term-DAG) Diagnostic</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--graph-source-lean</span> proof_term_graph <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--graph-source-coq</span> proof_term_graph <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--solved-only</span> <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gate-claim</span> same_kind <span class="dt">\</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark_same_kind_term_dag.json <span class="dt">\</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-fail-on-gate</span></span></code></pre></div>
+<p>Use this to inspect <code>summary.by_kind.same_kind</code> directly.</p>
+<h3 id="multi-proof-theorem-matching">Multi-Proof Theorem Matching</h3>
+<p>When a run includes solved intervention variants (<code>&lt;name&gt;_graph.json</code> / <code>&lt;name&gt;_proof_term.json</code>), you can evaluate theorem pairs with pooled proof artifacts:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--proof-aggregation</span> best_of <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--max-proofs-per-theorem</span> 4 <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark_best_of.json</span></code></pre></div>
+<p>Aggregation modes:</p>
+<ul>
+<li><code>single</code>: use wild-type entries only (provider pools may still contribute multiple proofs/theorem)</li>
+<li><code>best_of</code>: theorem distance is the minimum proof-to-proof distance</li>
+<li><code>consensus</code>: theorem distance is median nearest-neighbor distance across both proof pools</li>
+</ul>
+<h3 id="name-obfuscated-stress-run">Name-Obfuscated Stress Run</h3>
+<p>To reduce theorem-name leakage and force stronger graph contribution:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name-obfuscation</span> names <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name-obfuscation-salt</span> wonton-obf-v1 <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark_obfuscated.json</span></code></pre></div>
+<p>This obfuscates theorem/display/constant names in lexical channels while preserving pair identity.</p>
+<h3 id="lexically-ablated-stress-runs">Lexically Ablated Stress Runs</h3>
+<p>To test whether the proof/tactic IRs still carry signal after removing lexical overlap:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--lexical-ablation</span> drop_tokens <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark_drop_tokens.json</span></code></pre></div>
+<p>For a graph-only stress run, remove both lexical tokens and connective profiles:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py benchmark-cross-assistant <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-lean</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-coq</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pairs</span> analysis/benchmarks/lean_coq_logic_micro_v1.json <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--lexical-ablation</span> graph_only <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_paired_benchmark_graph_only.json</span></code></pre></div>
+<p>The report records the chosen mode under <code>lexical_ablation.mode</code>.</p>
+<p>For replayed Coq extraction runs, prefer <code>--graph-source-coq search_trace_graph</code> when you want the closest available proxy to Lean proof-process structure. Use <code>proof_term_graph</code> when you want a term-structure diagnostic instead.</p>
+<h3 id="coverage-vs-quality-gate-axes">Coverage vs Quality Gate Axes</h3>
+<p>Use <code>--gate-axis coverage</code> to enforce only support/coverage thresholds (for example <code>min_pairs_evaluated</code>, <code>min_eval_rate</code>) and <code>--gate-axis quality</code> to enforce only ranking metrics. <code>--gate-axis all</code> enforces both.</p>
+<p>The report includes:</p>
+<ul>
+<li><code>summary.cohorts.global</code> with denominator = all benchmark pairs</li>
+<li><code>summary.cohorts.same_kind</code> / <code>summary.cohorts.cross_kind</code> with denominators restricted to rows where both theorems are present and the representative aggregated pair falls in that kind</li>
+</ul>
+<h2 id="diagnostic-companion">Diagnostic Companion</h2>
+<p>Keep unpaired alignment as a diagnostic only:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py compare-cross-assistant <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-a</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-b</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--top-k</span> 84 <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--one-to-one</span> <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> generated/cross_assistant_alignment_diagnostic.json</span></code></pre></div>
+<p>Use this report to inspect collapse/coverage behavior, not as the release gate.</p>
+<h2 id="theorem-level-inspection">Theorem-Level Inspection</h2>
+<p>When one benchmark pair looks surprising, inspect the theorem directly:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run python wonton.py inspect-proof-ir <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--run-dir</span> /abs/path/to/lean/run <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--theorem</span> <span class="op">&lt;</span>lean_theorem<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--compare-run-dir</span> /abs/path/to/coq/run <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--compare-theorem</span> <span class="op">&lt;</span>coq_theorem<span class="op">&gt;</span></span></code></pre></div>
+<p>This prints the typed action trace, graph-IR profiles, and pair-distance components for that specific theorem pair.</p></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

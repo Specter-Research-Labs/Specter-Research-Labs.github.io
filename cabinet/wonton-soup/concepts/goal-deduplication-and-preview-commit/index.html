@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Goal Identity, Deduplication, and Preview/Commit | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">concepts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">WS-006</div>
+                                                        <div class="doc-stamp-title">Wonton Soup</div>
+                                                        <div class="doc-stamp-sub">concepts/goal-deduplication-and-preview-commit</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                concepts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/wonton-soup/docs/concepts/goal-deduplication-and-preview-commit.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#goal-identity-deduplication-and-previewcommit" id="toc-goal-identity-deduplication-and-previewcommit">Goal Identity, Deduplication, and Preview/Commit</a>
+                            <ul>
+                            <li><a href="#goal-identity-in-this-repo" id="toc-goal-identity-in-this-repo">Goal Identity in This Repo</a></li>
+                            <li><a href="#why-identity-alone-is-not-enough" id="toc-why-identity-alone-is-not-enough">Why Identity Alone Is Not Enough</a></li>
+                            <li><a href="#goal-signatures-for-cycle-breaking" id="toc-goal-signatures-for-cycle-breaking">Goal Signatures for Cycle Breaking</a></li>
+                            <li><a href="#previewcommit-tactic-application" id="toc-previewcommit-tactic-application">Preview/Commit Tactic Application</a></li>
+                            <li><a href="#mcts-expansion-contract" id="toc-mcts-expansion-contract">MCTS Expansion Contract</a></li>
+                            <li><a href="#dead-node-cascading" id="toc-dead-node-cascading">Dead-Node Cascading</a></li>
+                            <li><a href="#behavioral-impact" id="toc-behavioral-impact">Behavioral Impact</a></li>
+                            <li><a href="#why-not-full-state-graph-merging" id="toc-why-not-full-state-graph-merging">Why Not Full State-Graph Merging?</a></li>
+                            <li><a href="#relation-to-proof-artifacts" id="toc-relation-to-proof-artifacts">Relation to Proof Artifacts</a></li>
+                            <li><a href="#implementation-surface" id="toc-implementation-surface">Implementation Surface</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-001</span><span class="doc-backlinks-title">Wonton Soup Docs</span></a></li><li class="doc-backlinks-item"><a href="../../contracts/backends/partial-proof-terms/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-009</span><span class="doc-backlinks-title">Partial Proof Terms, Assembly Tracking, and Sequential Replay</span><span class="doc-backlinks-category">contracts</span></a></li><li class="doc-backlinks-item"><a href="../../decisions/adr-checkpoint-goal-ids/" class="doc-backlinks-link"><span class="doc-backlinks-id">WS-017</span><span class="doc-backlinks-title">ADR: Checkpoint-Scoped Goal IDs</span><span class="doc-backlinks-category">decisions</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="goal-identity-deduplication-and-previewcommit">Goal Identity, Deduplication, and Preview/Commit</h1>
+<p>Canonical reference for:</p>
+<ul>
+<li>checkpoint-scoped goal identity in logs and MCTS</li>
+<li>semantic cycle-breaking via goal signatures</li>
+<li>preview/commit tactic application in the Lean adapter</li>
+</ul>
+<h2 id="goal-identity-in-this-repo">Goal Identity in This Repo</h2>
+<p>Lean metavariable IDs (<code>mvar_id</code>) are stable only within a given proof state. With checkpoint rollback, raw IDs can be reused.</p>
+<p>To prevent collisions, wonton-soup logs and tree nodes use checkpoint-scoped IDs:</p>
+<pre><code>cp&lt;checkpoint_id&gt;:&lt;lean_mvar_id&gt;</code></pre>
+<p>Example:</p>
+<pre><code>cp12:_uniq.100099.72</code></pre>
+<p>Implications:</p>
+<ul>
+<li><code>MCTSTree.nodes_by_mvar</code> keys by checkpoint-scoped goal ID.</li>
+<li>adapter state maps (<code>LeanAdapter.states</code>) key by checkpoint-scoped goal ID.</li>
+<li>history/graph/assembly artifacts record checkpoint-scoped IDs in <code>mvar_id</code> fields.</li>
+</ul>
+<h2 id="why-identity-alone-is-not-enough">Why Identity Alone Is Not Enough</h2>
+<p>Checkpoint-scoped IDs prevent collisions, but they do not merge semantically equivalent goals. Equivalent goals reached by different rewrites still produce distinct IDs.</p>
+<p>That caused an observed failure mode: repeated rewrites cycling equivalent goals indefinitely (e.g., <code>mul_add_distrib</code> repeatedly rewriting commutative forms).</p>
+<h2 id="goal-signatures-for-cycle-breaking">Goal Signatures for Cycle Breaking</h2>
+<p>Search uses an AST-based coarse goal signature for branch-local cycle breaking.</p>
+<p>Input surface:</p>
+<ul>
+<li>goal type AST</li>
+<li>hypothesis ASTs</li>
+</ul>
+<p>Normalization intentionally removes distinctions that are noisy for cycle detection:</p>
+<ul>
+<li>binder/fvar/mvar identity</li>
+<li>hypothesis ordering</li>
+<li>commutative surface forms for selected connectives</li>
+</ul>
+<p>Tradeoff:</p>
+<ul>
+<li>prevents infinite equivalent-goal cycles</li>
+<li>may occasionally over-merge distinct states</li>
+</ul>
+<p>A strict signature variant is also recorded for analysis payloads (<code>goal_sig_strict</code>) to preserve full structural distinctions for diagnostics.</p>
+<h2 id="previewcommit-tactic-application">Preview/Commit Tactic Application</h2>
+<p>The adapter API (<code>prover/adapters/lean.py</code>) separates speculative execution from state mutation.</p>
+<ul>
+<li><code>preview_tactic(mvar_id, tactic) -&gt; TacticPreview | None</code>
+<ul>
+<li>rolls back to the parent checkpoint</li>
+<li>applies tactic</li>
+<li>returns child goals/terms/checkpoint info without mutating adapter maps</li>
+</ul></li>
+<li><code>commit_tactic(preview) -&gt; list[str]</code>
+<ul>
+<li>mutates adapter bookkeeping (state map, partial term, assembly trace)</li>
+<li>creates child states and returns child checkpoint-scoped IDs</li>
+</ul></li>
+</ul>
+<p>This split allows MCTS to test multiple tactics before committing to one.</p>
+<h2 id="mcts-expansion-contract">MCTS Expansion Contract</h2>
+<p>At expansion time (<code>prover/mcts.py</code>), tactics are evaluated in order:</p>
+<ol type="1">
+<li>preview tactic</li>
+<li>compute goal signatures for child goals</li>
+<li>discard children whose signatures already appear on the current root-to-node path or earlier siblings from the same preview</li>
+<li>commit only the first tactic that yields novel children</li>
+<li>mark node dead only when all tactics are exhausted</li>
+</ol>
+<p>This avoids the earlier failure where the first duplicate-producing tactic prematurely killed a node, while also avoiding global pruning based on a deliberately lossy equivalence class.</p>
+<h2 id="dead-node-cascading">Dead-Node Cascading</h2>
+<p>When no tactic can yield novel children on the current branch:</p>
+<ol type="1">
+<li>node is marked dead</li>
+<li>dead children are skipped by selection</li>
+<li>parents become dead when all descendants are dead</li>
+<li>search stops when root is dead</li>
+</ol>
+<p>This ensures iteration budget is not spent on branch-local cycles. Coarse signatures are not used to prove that the same semantic shape is globally dead across unrelated branches.</p>
+<h2 id="behavioral-impact">Behavioral Impact</h2>
+<ul>
+<li>Search distribution: tree semantics preserved (no state-graph merge).</li>
+<li>Stability: collisions from rollback reuse are eliminated.</li>
+<li>Metrics/logging: node counts may shift upward because reused raw IDs no longer collapse.</li>
+<li>Comparability: goal-ID scheme is explicit (<code>checkpoint</code>) in run metadata.</li>
+</ul>
+<h2 id="why-not-full-state-graph-merging">Why Not Full State-Graph Merging?</h2>
+<p>Alternatives considered:</p>
+<ul>
+<li>path-specific opaque IDs only</li>
+<li>full state-graph merge by goal signature</li>
+<li>hybrid shared statistics by signature</li>
+</ul>
+<p>Current design keeps tree semantics while adding bounded semantic deduplication for cycle safety on the active branch. This minimizes search-policy drift while fixing concrete failure modes without making the search incomplete through global coarse-signature pruning.</p>
+<h2 id="relation-to-proof-artifacts">Relation to Proof Artifacts</h2>
+<p>Goal identity and dedup semantics directly influence:</p>
+<ul>
+<li><code>*_history.json</code> selected paths and attempts</li>
+<li><code>*_graph.json</code> node identity</li>
+<li><code>*_assembly.json.gz</code> step target IDs</li>
+<li>GED and trajectory-derived analyses that consume those artifacts</li>
+</ul>
+<h2 id="implementation-surface">Implementation Surface</h2>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prover/adapters/lean.py</code></td>
+<td>checkpoint-scoped state IDs, preview/commit, reconstruction</td>
+</tr>
+<tr class="even">
+<td><code>prover/mcts.py</code></td>
+<td>signature-aware expansion, dead-node handling, tree bookkeeping</td>
+</tr>
+<tr class="odd">
+<td><code>prover/goal_signature.py</code></td>
+<td>goal signature computation schemes</td>
+</tr>
+<tr class="even">
+<td><code>prover/goal_cache.py</code></td>
+<td>signature mapping and per-signature outcome aggregation</td>
+</tr>
+<tr class="odd">
+<td><a href="../../contracts/logs/log-file-schemas/">Log File Schemas</a></td>
+<td>artifact fields affected by goal-ID scheme</td>
+</tr>
+<tr class="even">
+<td><a href="../../decisions/adr-checkpoint-goal-ids/">ADR: Checkpoint-Scoped Goal IDs</a></td>
+<td>design decision record</td>
+</tr>
+</tbody>
+</table></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Wonton Soup</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <title>Artifact Layout Contract | SPECTER Labs</title>
+        <link rel="icon" href="../../../../assets/logo-black.svg" type="image/svg+xml" />
+        <link rel="icon" href="../../../../assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="../../../../style.css" />
+        <link rel="stylesheet" href="../../../../cabinet/cabinet.css" />
+    </head>
+    <body class="cabinet-page">
+        <div class="doc-shell">
+            <div class="doc-paper">
+                <div class="doc-top">
+                    <header class="doc-masthead">
+                        <a class="doc-brand" href="../../../../">
+                            <img
+                                src="../../../../assets/logo-black.svg"
+                                alt="SPECTER Labs logo"
+                                class="logo"
+                            />
+                            <span class="doc-brand-name">SPECTER Labs</span>
+                        </a>
+                        <div class="doc-markings">
+                            <span class="doc-marking">Technical Docs</span>
+                                                        <span class="doc-marking category">contracts</span>
+                                                    </div>
+                    </header>
+                    <div class="doc-rules" aria-hidden="true">
+                        <div class="doc-rule strong"></div>
+                        <div class="doc-rule"></div>
+                    </div>
+                </div>
+
+                <main class="doc-layout">
+                    <aside class="doc-aside">
+                        <a class="doc-nav-back" href="../../../../cabinet/">
+                            &larr; Cabinet
+                        </a>
+
+                        <div class="doc-stamp">
+                                                        <div class="doc-stamp-id">LS-002</div>
+                                                        <div class="doc-stamp-title">Lenia Swarm</div>
+                                                        <div class="doc-stamp-sub">contracts/ArtifactLayout</div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Category</strong>
+                                contracts
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Source</strong>
+                                <code>dossiers/lenia-swarm/docs/contracts/ArtifactLayout.md</code>
+                            </div>
+                                                                                    <div class="doc-stamp-field">
+                                <strong>Built</strong>
+                                2026-03-07T22:43:29Z
+                            </div>
+                                                    </div>
+
+                                                <nav class="toc" aria-label="Table of contents">
+                            <div class="toc-title">Contents</div>
+                            <ul>
+                            <li><a href="#artifact-layout-contract" id="toc-artifact-layout-contract">Artifact Layout Contract</a>
+                            <ul>
+                            <li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+                            <li><a href="#local-run-root" id="toc-local-run-root">Local Run Root</a></li>
+                            <li><a href="#logs-and-metrics" id="toc-logs-and-metrics">Logs and Metrics</a></li>
+                            <li><a href="#indexing-inputs" id="toc-indexing-inputs">Indexing Inputs</a></li>
+                            <li><a href="#invariants" id="toc-invariants">Invariants</a></li>
+                            </ul></li>
+                            </ul>
+                        </nav>
+                        
+                        <section class="doc-backlinks" aria-label="Backlinks"><div class="toc-title">Backlinks</div><ul class="doc-backlinks-list"><li class="doc-backlinks-item"><a href="../../README/" class="doc-backlinks-link"><span class="doc-backlinks-id">LS-001</span><span class="doc-backlinks-title">lenia-swarm docs</span></a></li></ul></section>
+                    </aside>
+
+                    <article class="doc-content"><h1 id="artifact-layout-contract">Artifact Layout Contract</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Defines canonical on-disk outputs for local runs and indexing inputs.</p>
+<h2 id="local-run-root">Local Run Root</h2>
+<p><code>LeniaCLI local --output &lt;root&gt;</code> creates:</p>
+<ul>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/config.json</code></li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/search.json</code></li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/results.jsonl</code></li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/summary.json</code></li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/top.json</code> (only when at least one passing result exists)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/frames/</code> (optional)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/frames_color/</code> (optional)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/render/rank_XXX_seed_YYY/creature.gif</code> (optional render command output)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/render/rank_XXX_seed_YYY/video.mp4</code> (optional render command output)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/render/rank_XXX_seed_YYY/frames/frame_XXXXXX.png</code> (optional per-frame render output)</li>
+<li><code>&lt;root&gt;/&lt;run_id&gt;/library/index.jsonl</code> (optional when collection enabled)</li>
+</ul>
+<h2 id="logs-and-metrics">Logs and Metrics</h2>
+<p>Log base resolution:</p>
+<ol type="1">
+<li>explicit <code>--log-dir</code> when provided,</li>
+<li>otherwise <code>&lt;output&gt;/logs</code> when <code>--output</code> is set,</li>
+<li>otherwise local <code>./logs</code>.</li>
+</ol>
+<p>Run logs then live under <code>&lt;log_base&gt;/&lt;run_id&gt;/</code>.</p>
+<h2 id="indexing-inputs">Indexing Inputs</h2>
+<p>Indexer ingests run artifacts and may also ingest activity summaries when present.</p>
+<p>Expected ingestable sources include:</p>
+<ul>
+<li>run-level <code>results.jsonl</code>,</li>
+<li>library index entries,</li>
+<li>export index entries,</li>
+<li>activity summary JSONL files.</li>
+</ul>
+<h2 id="invariants">Invariants</h2>
+<ul>
+<li>Every run has a unique <code>run_id</code> namespace in artifact paths.</li>
+<li>Copied config/search files inside run dir are the provenance snapshot used for reruns.</li>
+<li>Reindexing the same artifact set must be idempotent at row level (upsert semantics).</li>
+</ul></article>
+                </main>
+
+                <footer class="doc-footer">
+                    <div class="doc-footer-inner">
+                        <div>Specter Labs</div>
+                        <div>Lenia Swarm</div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
